@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 const AuthLayout = () => {
   return <>
 
-<Box component ="div">
+<Box>
 <Outlet/>
 </Box>
 
