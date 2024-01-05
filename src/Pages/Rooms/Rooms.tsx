@@ -1,6 +1,19 @@
 /** @format */
 
+import { NoImage5, deleteImg } from "@/Assets/Images";
+import { TableHeader } from "@/Components";
+import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   ListItemIcon,
   ListItemText,
   MenuList,
@@ -11,24 +24,34 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
-import { NoImage5 } from "@/Assets/Images";
-import "./Rooms.module.scss";
-import { TableHeader } from "@/Components";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import Slide from "@mui/material/Slide";
 import { indigo } from "@mui/material/colors";
+import { TransitionProps } from "@mui/material/transitions";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import "./Rooms.module.scss";
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const Rooms = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState(null);
+  {
+    /*Modal  */
+  }
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => setOpenDialog(true);
+  const handleCloseDialog = () => setOpenDialog(false);
 
   useEffect(() => {
     getData();
@@ -40,7 +63,7 @@ const Rooms = () => {
     // @ts-ignore
     setTableData(element.payload.data.rooms);
   };
-  const options = ["View,Edit,Delete"];
+  // const options = ["View,Edit,Delete"];
 
   const ITEM_HEIGHT = 48;
 
@@ -77,7 +100,7 @@ const Rooms = () => {
           </TableHead>
           <TableBody>
             {tableData?.map((room) => (
-              <TableRow>
+              <TableRow key={room?.id}>
                 <TableCell>{room.roomNumber}</TableCell>
                 <TableCell>
                   {room.images[0] === "" ? (
@@ -147,12 +170,18 @@ const Rooms = () => {
                         </MenuItem>
                         <MenuItem
                           // selected={option === "Pyxis"}
+
                           onClick={() => handleClose(room?._id)}
                         >
-                          <ListItemIcon style={{ color: indigo[500] }}>
+                          <ListItemIcon
+                            style={{ color: indigo[500] }}
+                            onClick={handleOpenDialog}
+                          >
                             <DeleteOutlineIcon />
                           </ListItemIcon>
-                          <ListItemText>Delete</ListItemText>
+                          <ListItemText onClick={handleOpenDialog}>
+                            Delete
+                          </ListItemText>
                         </MenuItem>
                       </Menu>
                     </MenuList>
@@ -163,6 +192,41 @@ const Rooms = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Dialog
+        open={openDialog}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseDialog}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle style={{ textAlign: "end" }} sx={{ borderRadius: "50%" }}>
+          <Button
+            color="error"
+            sx={{ borderRadius: "70%", minWidth: "2.5rem" }}
+            onClick={handleCloseDialog}
+            variant="outlined"
+          >
+            x
+          </Button>
+        </DialogTitle>
+        <DialogContent dividers style={{ textAlign: "center" }}>
+          <DialogContentText id="alert-dialog-slide-description">
+            <img src={deleteImg} alt="Delete Modal Image" />
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-slide-description">
+            Delete This Room ?
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-slide-description">
+            are you sure you want to delete this item ? if you are sure just
+            click on delete it
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="error" onClick={handleCloseDialog} variant="outlined">
+            Delete this item
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
