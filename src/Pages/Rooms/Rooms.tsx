@@ -30,7 +30,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Slide from "@mui/material/Slide";
 import { indigo } from "@mui/material/colors";
 import { TransitionProps } from "@mui/material/transitions";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Rooms.module.scss";
 
@@ -46,6 +46,10 @@ const Transition = React.forwardRef(function Transition(
 const Rooms = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState(null);
+  {
+    /*Handle delete slice */
+  }
+  const deleteRecord = useCallback((el) => dispatch(el?.id));
   {
     /*Modal  */
   }
@@ -79,6 +83,7 @@ const Rooms = () => {
   const handleDelete = (id: number) => {
     console.log(id);
   };
+
   return (
     <>
       <TableHeader

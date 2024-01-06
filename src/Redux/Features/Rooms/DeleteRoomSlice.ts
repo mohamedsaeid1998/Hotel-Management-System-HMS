@@ -1,7 +1,6 @@
 /** @format */
 
-import baseUrl from "../../../utils/Custom/Custom";
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface Props {
   data: any[];
@@ -10,7 +9,7 @@ export interface Props {
 }
 
 export const deleteRoom = createAsyncThunk<any, void>(
-  "DeleteRoomSlice/deleteRoom",
+  "deleteRoomSlice/deleteRoom",
   async (id, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -33,24 +32,25 @@ const initialState: Props = {
   error: null,
 };
 
-export const DeleteRoomSlice = createSlice({
+export const deleteRoomSlice = createSlice({
   name: "deleteRoom",
   initialState,
   reducers: {},
-  extraReducers: {
-    [deleteRoom.pending]: (state, action) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [deleteRoom.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.records = state.records.fliter((el) => el.id !== action.payload);
-    },
-    [deleteRoom.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(deleteRoom.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteRoom.fulfilled, (state, action) => {
+        state.loading = false;
+        state.records = state.records.fliter((el) => el.id !== action.payload);
+      })
+      .addCase(deleteRoom.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export default DeleteRoomSlice.reducer;
+export default deleteRoomSlice.reducer;

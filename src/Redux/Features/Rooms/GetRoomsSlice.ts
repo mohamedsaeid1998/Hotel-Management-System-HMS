@@ -32,7 +32,6 @@ export const GetRoomsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    console.log(builder);
     builder.addCase(RoomsData.pending, (state) => {
       state.loading = true;
     });

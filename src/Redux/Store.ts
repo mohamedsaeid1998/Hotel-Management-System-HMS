@@ -2,12 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import RoomsData from "./Features/Rooms/GetRoomsSlice";
-import DeleteRoomSlice from "./Features/Rooms/DeleteRoomSlice";
+import deleteRoomSlice from "./Features/Rooms/DeleteRoomSlice";
 
 export const store = configureStore({
   reducer: {
     RoomsData,
-    DeleteRoomSlice,
+    deleteRoomSlice,
   },
 });
 
