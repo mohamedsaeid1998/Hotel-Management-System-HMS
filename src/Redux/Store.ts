@@ -2,12 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import RoomsData from "./Features/Rooms/GetRoomsSlice";
-import PutDeleteModalSlice from "./Features/Rooms/PutDeleteModal";
+import DeleteRoomSlice from "./Features/Rooms/DeleteRoomSlice";
 
 export const store = configureStore({
   reducer: {
     RoomsData,
-    PutDeleteModalSlice,
+    DeleteRoomSlice,
   },
 });
 
