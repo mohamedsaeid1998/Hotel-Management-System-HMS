@@ -1,10 +1,12 @@
-import React from 'react'
-import './Home.module.scss'
+import "./Home.module.scss";
 
 const Home = () => {
-  return <>
-    <div>Home</div>
-  </>
-}
+  console.log(localStorage.getItem("authToken"));
+  return (
+    <>
+      <div>Home</div>
+    </>
+  );
+};
 
-export default Home
+export default Home;

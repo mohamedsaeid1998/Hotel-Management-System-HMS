@@ -1,7 +1,23 @@
-@import './variables.scss';
-@import './responsive.scss';
+@import "./variables.scss";
+@import "./responsive.scss";
 
-
-.here{
-  display: flex !important;
+.authLayout {
+  display: grid;
+  width: 95%;
+  margin: auto;
+  border-radius: 10px;
+  height: 100vh;
+}
+.auth {
+  background-size: cover;
+  height: 100%;
+}
+.auth-background {
+  background-image: url("../Assets/Images/bg1.png");
+}
+.auth-background2 {
+  background-image: url("../Assets/Images/bg2.png");
+}
+.auth-background3 {
+  background-image: url("../Assets/Images/bg3.png");
 }
