@@ -33,6 +33,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Rooms.module.scss";
+import { deleteRoom } from "@/Redux/Features/Rooms/DeleteRoomSlice";
+import { FormControl } from "@mui/base/FormControl";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -44,12 +46,16 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const Rooms = () => {
+  const [itemId, setItemId] = useState();
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState(null);
   {
     /*Handle delete slice */
   }
-  const deleteRecord = useCallback((el) => dispatch(el?.id));
+  const deleteRecord = useCallback(
+    (el) => dispatch(deleteRoom(el.id)),
+    [dispatch]
+  );
   {
     /*Modal  */
   }
@@ -62,9 +68,7 @@ const Rooms = () => {
   }, []);
 
   const getData = async () => {
-    // @ts-ignore
-    let element = await dispatch(RoomsData());
-    // @ts-ignore
+    const element = await dispatch(RoomsData());
     setTableData(element.payload.data.rooms);
   };
   // const options = ["View,Edit,Delete"];
@@ -73,16 +77,16 @@ const Rooms = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>, data) => {
     setAnchorEl(event.currentTarget);
+    setItemId(data);
   };
-  const handleClose = (id: number) => {
+  const handleClose = () => {
     setAnchorEl(null);
-    console.log(id);
   };
-  const handleDelete = (id: number) => {
-    console.log(id);
-  };
+  // const handleDelete = (id: number) => {
+  //   console.log(id);
+  // };
 
   return (
     <>
@@ -100,6 +104,7 @@ const Rooms = () => {
               <TableCell>Price</TableCell>
               <TableCell>Discount</TableCell>
               <TableCell>Capacity</TableCell>
+              <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -131,7 +136,8 @@ const Rooms = () => {
                       aria-controls={open ? "long-menu" : undefined}
                       aria-expanded={open ? "true" : undefined}
                       aria-haspopup="true"
-                      onClick={handleClick}
+                      // onClick={handleClick}
+                      onClick={(e) => handleClick(e, room?._id)}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -154,9 +160,9 @@ const Rooms = () => {
                         {" "}
                         {/* <span onClick={() => handleDelete(room?._id)}>Delete</span> */}
                         <MenuItem
-                          // key={option}
-                          // selected={option === "Pyxis"}
-                          onClick={() => handleClose(room?._id)}
+                        // key={option}
+                        // selected={option === "Pyxis"}
+                        // onClick={() => handleClose(room)}
                         >
                           <ListItemIcon style={{ color: indigo[500] }}>
                             <VisibilityIcon />
@@ -164,9 +170,9 @@ const Rooms = () => {
                           <ListItemText>view</ListItemText>
                         </MenuItem>
                         <MenuItem
-                          // key={option}
-                          // selected={option === "Pyxis"}
-                          onClick={() => handleClose(room?._id)}
+                        // key={option}
+                        // selected={option === "Pyxis"}
+                        // onClick={() => handleClose(room)}
                         >
                           <ListItemIcon style={{ color: indigo[500] }}>
                             <EditIcon />
@@ -174,13 +180,13 @@ const Rooms = () => {
                           <ListItemText>Edit</ListItemText>
                         </MenuItem>
                         <MenuItem
-                          // selected={option === "Pyxis"}
+                        // selected={option === "Pyxis"}
 
-                          onClick={() => handleClose(room?._id)}
+                        // onClick={() => handleClose(room)}
                         >
                           <ListItemIcon
                             style={{ color: indigo[500] }}
-                            onClick={handleOpenDialog}
+                            onClick={() => deleteRecord(itemId)}
                           >
                             <DeleteOutlineIcon />
                           </ListItemIcon>
@@ -194,6 +200,7 @@ const Rooms = () => {
                 </TableCell>
               </TableRow>
             ))}
+            <TableRow></TableRow>
           </TableBody>
         </Table>
       </TableContainer>
@@ -214,23 +221,29 @@ const Rooms = () => {
             x
           </Button>
         </DialogTitle>
-        <DialogContent dividers style={{ textAlign: "center" }}>
-          <DialogContentText id="alert-dialog-slide-description">
-            <img src={deleteImg} alt="Delete Modal Image" />
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-slide-description">
-            Delete This Room ?
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-slide-description">
-            are you sure you want to delete this item ? if you are sure just
-            click on delete it
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="error" onClick={handleCloseDialog} variant="outlined">
-            Delete this item
-          </Button>
-        </DialogActions>
+        <FormControl>
+          <DialogContent dividers style={{ textAlign: "center" }}>
+            <DialogContentText id="alert-dialog-slide-description">
+              <img src={deleteImg} alt="Delete Modal Image" />
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-slide-description">
+              Delete This Room ?
+            </DialogContentText>
+            <DialogContentText id="alert-dialog-slide-description">
+              are you sure you want to delete this item ? if you are sure just
+              click on delete it
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="error"
+              onClick={handleCloseDialog}
+              variant="outlined"
+            >
+              Delete this item
+            </Button>
+          </DialogActions>
+        </FormControl>
       </Dialog>
     </>
   );

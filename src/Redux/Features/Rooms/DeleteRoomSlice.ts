@@ -44,7 +44,10 @@ export const deleteRoomSlice = createSlice({
       })
       .addCase(deleteRoom.fulfilled, (state, action) => {
         state.loading = false;
-        state.records = state.records.fliter((el) => el.id !== action.payload);
+        state.records = console.log(state.records);
+        // state.records = state.records.filter(
+        //   (el: any) => el.id !== action.payload
+        // );
       })
       .addCase(deleteRoom.rejected, (state, action) => {
         state.loading = false;
