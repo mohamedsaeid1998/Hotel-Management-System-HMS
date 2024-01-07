@@ -14,6 +14,7 @@ import {
   ResetPassword,
   Rooms,
   Users,
+  ViewRoomDetails,
 } from "./Pages";
 import { store } from "./Redux/Store";
 
@@ -28,6 +29,7 @@ function App() {
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
         { path: "addNewRoom", element: <AddNewRoom /> },
+        { path: "rooms/viewRoomDetails/:id", element: <ViewRoomDetails /> },
 
         { path: "ads", element: <Ads /> },
         { path: "bookings", element: <Bookings /> },

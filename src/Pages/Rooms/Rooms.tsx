@@ -1,19 +1,16 @@
 /** @format */
 
-import { NoImage5, deleteImg } from "@/Assets/Images";
+import { NoImage5 } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
+import { deleteRoom } from "@/Redux/Features/Rooms/DeleteRoomSlice";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   MenuList,
@@ -27,18 +24,19 @@ import {
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Slide from "@mui/material/Slide";
 import { indigo } from "@mui/material/colors";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import "./Rooms.module.scss";
-import { deleteRoom } from "@/Redux/Features/Rooms/DeleteRoomSlice";
+import { Link, useNavigate } from "react-router-dom";
 
-import axios from "axios";
-import { useForm } from "react-hook-form";
+import "./Rooms.module.scss";
+
 import DeleteModal from "@/Components/DeleteModal/DeleteModal";
+import { useForm } from "react-hook-form";
+import { ViewRoomDetails } from "..";
 
 const Rooms = () => {
+  const navigate = useNavigate();
   const [itemId, setItemId] = useState();
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState(null);
@@ -88,14 +86,15 @@ const Rooms = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const viewDetailsHandler = (id: number) => {
+    // alert(id);
+    navigate("viewRoomDetails");
+  };
+  const data = { name: "John", age: 30 };
 
   return (
     <>
-      <TableHeader
-        title={"Rooms"}
-        subTitle={"Room"}
-        path={"/dashboard/addNewRoom"}
-      />
+      <TableHeader title={"Rooms"} subTitle={"Room"} path={"/addNewRoom"} />
       <TableContainer className="table">
         <Table>
           <TableHead>
@@ -111,7 +110,7 @@ const Rooms = () => {
           </TableHead>
           <TableBody>
             {tableData?.map((room) => (
-              <TableRow key={room?.id}>
+              <TableRow key={room?._id}>
                 <TableCell>{room.roomNumber}</TableCell>
                 <TableCell>
                   {room.images[0] === "" ? (
@@ -159,15 +158,27 @@ const Rooms = () => {
                       >
                         {" "}
                         {/* <span onClick={() => handleDelete(room?._id)}>Delete</span> */}
-                        <MenuItem
-                        // key={option}
-                        // selected={option === "Pyxis"}
-                        // onClick={() => handleClose(room)}
-                        >
+                        <MenuItem>
+                          {/* <ListItem disablePadding>
+                            <ListItemButton
+                              onClick={() => {
+                                navigate("viewRoomDetails");
+                              }}
+                            >
+                              <ListItemIcon>
+                                <VisibilityIcon />
+                              </ListItemIcon>
+                              <ListItemText primary={"View"}></ListItemText>
+                            </ListItemButton>
+                          </ListItem> */}
                           <ListItemIcon style={{ color: indigo[500] }}>
                             <VisibilityIcon />
                           </ListItemIcon>
-                          <ListItemText>view</ListItemText>
+                          <ListItemText>
+                            <Link to={`viewRoomDetails/${room?._id}`}>
+                              view
+                            </Link>
+                          </ListItemText>
                         </MenuItem>
                         <MenuItem
                         // key={option}
