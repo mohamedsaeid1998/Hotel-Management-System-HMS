@@ -1,48 +1,60 @@
-import { Provider } from 'react-redux'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { AuthLayout, MasterLayout, NotFound } from './Components'
-import { AddNewRoom, Ads, Bookings, ForgetPassword, Home, Login, Register, ResetPassword, Rooms, Users } from './Pages'
-import { store } from './Redux/Store'
+/** @format */
 
-
+import { Provider } from "react-redux";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthLayout, MasterLayout, NotFound } from "./Components";
+import {
+  AddNewRoom,
+  Ads,
+  Bookings,
+  ForgetPassword,
+  Home,
+  Login,
+  Register,
+  ResetPassword,
+  Rooms,
+  Users,
+} from "./Pages";
+import { store } from "./Redux/Store";
 
 function App() {
-
   const routes = createBrowserRouter([
-
     {
-      path: "dashboard", element: <MasterLayout />, errorElement: <NotFound />, children: [
+      path: "dashboard",
+      element: <MasterLayout />,
+      errorElement: <NotFound />,
+      children: [
         { index: true, element: <Home /> },
-        { path: 'users', element: <Users /> },
-        { path: 'rooms', element: <Rooms /> },
-        { path: 'addNewRoom', element: <AddNewRoom /> },
-        { path: 'ads', element: <Ads /> },
-        { path: 'bookings', element: <Bookings /> },
-      ]
+        { path: "users", element: <Users /> },
+        { path: "rooms", element: <Rooms /> },
+        { path: "addNewRoom", element: <AddNewRoom /> },
+
+        { path: "ads", element: <Ads /> },
+        { path: "bookings", element: <Bookings /> },
+      ],
     },
 
-
     {
-      path: '/', element: <AuthLayout />, errorElement: <NotFound />, children: [
+      path: "/",
+      element: <AuthLayout />,
+      errorElement: <NotFound />,
+      children: [
         { index: true, element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "forgetPassword", element: <ForgetPassword /> },
         { path: "resetPassword", element: <ResetPassword /> },
-      ]
-    }
+      ],
+    },
+  ]);
 
-
-  ])
-
-  return <>
-    <Provider store={store}>
-      <RouterProvider router={routes} />
-    </Provider>
-  </>
-
-
-
+  return (
+    <>
+      <Provider store={store}>
+        <RouterProvider router={routes} />
+      </Provider>
+    </>
+  );
 }
 
-export default App
+export default App;

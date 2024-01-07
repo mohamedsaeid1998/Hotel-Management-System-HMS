@@ -29,26 +29,27 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Slide from "@mui/material/Slide";
 import { indigo } from "@mui/material/colors";
-import { TransitionProps } from "@mui/material/transitions";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Rooms.module.scss";
 import { deleteRoom } from "@/Redux/Features/Rooms/DeleteRoomSlice";
-import { FormControl } from "@mui/base/FormControl";
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import DeleteModal from "@/Components/DeleteModal/DeleteModal";
 
 const Rooms = () => {
   const [itemId, setItemId] = useState();
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   {
     /*Handle delete slice */
   }
@@ -59,10 +60,6 @@ const Rooms = () => {
   {
     /*Modal  */
   }
-  const [openDialog, setOpenDialog] = useState(false);
-  const handleOpenDialog = () => setOpenDialog(true);
-  const handleCloseDialog = () => setOpenDialog(false);
-
   useEffect(() => {
     getData();
   }, []);
@@ -72,21 +69,25 @@ const Rooms = () => {
     setTableData(element.payload.data.rooms);
   };
   // const options = ["View,Edit,Delete"];
+  {
+    /*Delete Modal */
+  }
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const handleCloseDialog = () => setOpenDialog(false);
 
   const ITEM_HEIGHT = 48;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>, data) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>, id: number) => {
     setAnchorEl(event.currentTarget);
-    setItemId(data);
+    setItemId(id);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const handleDelete = (id: number) => {
-  //   console.log(id);
-  // };
 
   return (
     <>
@@ -136,7 +137,6 @@ const Rooms = () => {
                       aria-controls={open ? "long-menu" : undefined}
                       aria-expanded={open ? "true" : undefined}
                       aria-haspopup="true"
-                      // onClick={handleClick}
                       onClick={(e) => handleClick(e, room?._id)}
                     >
                       <MoreVertIcon />
@@ -180,19 +180,18 @@ const Rooms = () => {
                           <ListItemText>Edit</ListItemText>
                         </MenuItem>
                         <MenuItem
+
                         // selected={option === "Pyxis"}
 
                         // onClick={() => handleClose(room)}
                         >
                           <ListItemIcon
                             style={{ color: indigo[500] }}
-                            onClick={() => deleteRecord(itemId)}
+                            onClick={handleOpenDialog}
                           >
                             <DeleteOutlineIcon />
                           </ListItemIcon>
-                          <ListItemText onClick={handleOpenDialog}>
-                            Delete
-                          </ListItemText>
+                          <ListItemText>Delete</ListItemText>
                         </MenuItem>
                       </Menu>
                     </MenuList>
@@ -204,47 +203,13 @@ const Rooms = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog
-        open={openDialog}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleCloseDialog}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle style={{ textAlign: "end" }} sx={{ borderRadius: "50%" }}>
-          <Button
-            color="error"
-            sx={{ borderRadius: "70%", minWidth: "2.5rem" }}
-            onClick={handleCloseDialog}
-            variant="outlined"
-          >
-            x
-          </Button>
-        </DialogTitle>
-        <FormControl>
-          <DialogContent dividers style={{ textAlign: "center" }}>
-            <DialogContentText id="alert-dialog-slide-description">
-              <img src={deleteImg} alt="Delete Modal Image" />
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-slide-description">
-              Delete This Room ?
-            </DialogContentText>
-            <DialogContentText id="alert-dialog-slide-description">
-              are you sure you want to delete this item ? if you are sure just
-              click on delete it
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="error"
-              onClick={handleCloseDialog}
-              variant="outlined"
-            >
-              Delete this item
-            </Button>
-          </DialogActions>
-        </FormControl>
-      </Dialog>
+      <DeleteModal
+        itemId={itemId}
+        getData={getData}
+        handleSubmit={handleSubmit}
+        handleCloseDialog={handleCloseDialog}
+        openDialog={openDialog}
+      />
     </>
   );
 };
