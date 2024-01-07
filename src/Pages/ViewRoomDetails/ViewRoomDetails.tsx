@@ -1,25 +1,27 @@
 /** @format */
 
-import { Box, Container } from "@mui/system";
-import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import imgView1 from "../../Assets/Images/imgView1.png";
+import { Box, Container } from "@mui/system";
+import * as React from "react";
 import imgView2 from "../../Assets/Images/imgView.png";
+import imgView1 from "../../Assets/Images/imgView1.png";
 import imgView3 from "../../Assets/Images/imgView3.png";
 
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import baseUrl from "@/utils/Custom/Custom";
 
-const ViewRoomDetails = () => {
-  const [selectedImage, setSelectedImage] = React.useState(imgView1);
-  const [secondaryImage, setSecondaryImage] = React.useState();
-  const prevCountRef = React.useRef(selectedImage);
-  const handleImageClick = (newImage) => {
-    setSelectedImage(newImage.target.src);
-  };
+const ViewRoomDetails = ({ roomDetailsData }) => {
   const { id } = useParams();
-  console.log(id);
+  const [detailsId, setDetailsId] = React.useState(id);
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const images = [imgView1, imgView2, imgView3];
+  console.log(roomDetailsData);
+  const handleImageClick = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
   return (
     <>
@@ -29,28 +31,22 @@ const ViewRoomDetails = () => {
             <img
               style={{ width: "100%" }}
               // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={selectedImage}
+              src={images[currentImageIndex]}
               // alt={item.title}
               loading="lazy"
             />
           </ImageListItem>
           <ImageListItem style={{}}>
-            <img
-              style={{ width: "50%" }}
-              // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={prevCountRef !== imgView2 ? imgView2 : selectedImage}
-              onClick={(e) => handleImageClick(e)}
-              // alt={item.title}
-              loading="lazy"
-            />
-            <img
-              style={{ width: "50%" }}
-              // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={prevCountRef !== imgView3 ? imgView3 : selectedImage}
-              onClick={(e) => handleImageClick(e)}
-              // alt={item.title}
-              loading="lazy"
-            />
+            {images.map((image, index) => (
+              <img
+                key={index}
+                style={{ width: `${100 / images.length}%` }}
+                src={image}
+                onClick={handleImageClick}
+                loading="lazy"
+                // alt={`Image ${index + 1} for ${room}`}
+              />
+            ))}
           </ImageListItem>
         </ImageList>
         <Box>

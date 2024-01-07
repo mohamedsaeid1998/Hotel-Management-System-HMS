@@ -34,14 +34,17 @@ import "./Rooms.module.scss";
 import DeleteModal from "@/Components/DeleteModal/DeleteModal";
 import { useForm } from "react-hook-form";
 import { ViewRoomDetails } from "..";
+import { Box } from "@mui/system";
+import axios from "axios";
 
 const Rooms = () => {
   const navigate = useNavigate();
+  const [tableData, setTableData] = useState(null);
+  const [viewRoom, setViewRoom] = useState(false);
+  const [roomDetailsData, setRoomDetailsData] = useState([]);
   const [itemId, setItemId] = useState();
   const dispatch = useDispatch();
-  const [tableData, setTableData] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -90,76 +93,103 @@ const Rooms = () => {
     // alert(id);
     navigate("viewRoomDetails");
   };
-  const data = { name: "John", age: 30 };
+  const viewDetails = async (id) => {
+    setViewRoom(false);
+    try {
+      const response = await axios.get(
+        `http://154.41.228.234:3000/api/v0/admin/rooms/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDYzODYzOSwiZXhwIjoxNzA1ODQ4MjM5fQ.dixSKzJg0GUeBzRrHxsbSqqYiv1ley3p3cXRmjGDr1Y`,
+          },
+        }
+      );
+      setRoomDetailsData(response.data.data.room);
+      setViewRoom(true);
+      // navigate(`viewRoomDetails/${id}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
+    viewDetails();
+  }, []);
   return (
     <>
-      <TableHeader title={"Rooms"} subTitle={"Room"} path={"/addNewRoom"} />
-      <TableContainer className="table">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>RoomNumber</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Discount</TableCell>
-              <TableCell>Capacity</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tableData?.map((room) => (
-              <TableRow key={room?._id}>
-                <TableCell>{room.roomNumber}</TableCell>
-                <TableCell>
-                  {room.images[0] === "" ? (
-                    <img className="img-table" src={NoImage5} alt="images" />
-                  ) : (
-                    <img
-                      className="img-table"
-                      src={
-                        `http://upskilling-egypt.com:3000/` + room?.images[0]
-                      }
-                      alt="image"
-                    />
-                  )}
-                </TableCell>
-                <TableCell>{room.price}</TableCell>
-                <TableCell>{room.discount}</TableCell>
-                <TableCell>{room.capacity}</TableCell>
-                <TableCell>
-                  <div>
-                    <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      aria-controls={open ? "long-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
-                      aria-haspopup="true"
-                      onClick={(e) => handleClick(e, room?._id)}
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
-                    <MenuList>
-                      <Menu
-                        id="long-menu"
-                        MenuListProps={{
-                          "aria-labelledby": "long-button",
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        PaperProps={{
-                          style: {
-                            maxHeight: ITEM_HEIGHT * 4.5,
-                            width: "20ch",
-                          },
-                        }}
-                      >
-                        {" "}
-                        {/* <span onClick={() => handleDelete(room?._id)}>Delete</span> */}
-                        <MenuItem>
-                          {/* <ListItem disablePadding>
+      {!viewRoom ? (
+        <>
+          <TableHeader title={"Rooms"} subTitle={"Room"} path={"/addNewRoom"} />
+          <TableContainer className="table">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>RoomNumber</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Discount</TableCell>
+                  <TableCell>Capacity</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {tableData?.map((room) => (
+                  <TableRow key={room?._id}>
+                    <TableCell>{room.roomNumber}</TableCell>
+                    <TableCell>
+                      {room.images[0] === "" ? (
+                        <img
+                          className="img-table"
+                          src={NoImage5}
+                          alt="images"
+                        />
+                      ) : (
+                        <img
+                          className="img-table"
+                          src={
+                            `http://upskilling-egypt.com:3000/` +
+                            room?.images[0]
+                          }
+                          alt="image"
+                        />
+                      )}
+                    </TableCell>
+                    <TableCell>{room.price}</TableCell>
+                    <TableCell>{room.discount}</TableCell>
+                    <TableCell>{room.capacity}</TableCell>
+                    <TableCell>
+                      <div>
+                        <IconButton
+                          aria-label="more"
+                          id="long-button"
+                          aria-controls={open ? "long-menu" : undefined}
+                          aria-expanded={open ? "true" : undefined}
+                          aria-haspopup="true"
+                          onClick={(e) => handleClick(e, room?._id)}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                        <MenuList>
+                          <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                              "aria-labelledby": "long-button",
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                              style: {
+                                maxHeight: ITEM_HEIGHT * 4.5,
+                                width: "20ch",
+                              },
+                            }}
+                          >
+                            {" "}
+                            {/* <span onClick={() => handleDelete(room?._id)}>Delete</span> */}
+                            <MenuItem>
+                              {/* <ListItem disablePadding>
                             <ListItemButton
                               onClick={() => {
                                 navigate("viewRoomDetails");
@@ -171,49 +201,49 @@ const Rooms = () => {
                               <ListItemText primary={"View"}></ListItemText>
                             </ListItemButton>
                           </ListItem> */}
-                          <ListItemIcon style={{ color: indigo[500] }}>
-                            <VisibilityIcon />
-                          </ListItemIcon>
-                          <ListItemText>
-                            <Link to={`viewRoomDetails/${room?._id}`}>
+                              <ListItemIcon
+                                style={{ color: indigo[500] }}
+                                onClick={() => viewDetails(itemId)}
+                              >
+                                <VisibilityIcon />
+                              </ListItemIcon>
                               view
-                            </Link>
-                          </ListItemText>
-                        </MenuItem>
-                        <MenuItem
-                        // key={option}
-                        // selected={option === "Pyxis"}
-                        // onClick={() => handleClose(room)}
-                        >
-                          <ListItemIcon style={{ color: indigo[500] }}>
-                            <EditIcon />
-                          </ListItemIcon>
-                          <ListItemText>Edit</ListItemText>
-                        </MenuItem>
-                        <MenuItem
+                              {/* <Link to={`viewRoomDetails/${itemId}`}>view</Link> */}
+                            </MenuItem>
+                            <MenuItem>
+                              <ListItemIcon style={{ color: indigo[500] }}>
+                                <EditIcon />
+                              </ListItemIcon>
+                              <ListItemText>Edit</ListItemText>
+                            </MenuItem>
+                            <MenuItem
 
-                        // selected={option === "Pyxis"}
+                            // selected={option === "Pyxis"}
 
-                        // onClick={() => handleClose(room)}
-                        >
-                          <ListItemIcon
-                            style={{ color: indigo[500] }}
-                            onClick={handleOpenDialog}
-                          >
-                            <DeleteOutlineIcon />
-                          </ListItemIcon>
-                          <ListItemText>Delete</ListItemText>
-                        </MenuItem>
-                      </Menu>
-                    </MenuList>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-            <TableRow></TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+                            // onClick={() => handleClose(room)}
+                            >
+                              <ListItemIcon
+                                style={{ color: indigo[500] }}
+                                onClick={handleOpenDialog}
+                              >
+                                <DeleteOutlineIcon />
+                              </ListItemIcon>
+                              <ListItemText>Delete</ListItemText>
+                            </MenuItem>
+                          </Menu>
+                        </MenuList>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                <TableRow></TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        <ViewRoomDetails roomDetailsData={roomDetailsData} />
+      )}
       <DeleteModal
         itemId={itemId}
         getData={getData}
