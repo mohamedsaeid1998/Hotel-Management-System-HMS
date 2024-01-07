@@ -1,10 +1,17 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
 import { NoImage5 } from '@/Assets/Images';
 import './Rooms.module.scss';
 import { TableHeader } from '@/Components';
+// import TableContainer from '@mui/material/TableContainer';
+// import TableHead from '@mui/material/TableHead';
+// import TableRow from '@mui/material/TableRow';
+// import TableCell from '@mui/material/TableCell';
+// import Table from '@mui/material/Table';
+// import TableBody from '@mui/material/TableBody';
 
 
 const Rooms = () => {
@@ -20,6 +27,8 @@ const Rooms = () => {
     // @ts-ignore
     let element = await dispatch(RoomsData())
     // @ts-ignore
+    console.log(element);
+    
     setTableData(element.payload.data.rooms)
   }
 

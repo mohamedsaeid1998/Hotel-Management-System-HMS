@@ -1,5 +1,6 @@
-import React from 'react'
+
 import './Ads.module.scss'
+
 
 const Ads = () => {
   return <>
