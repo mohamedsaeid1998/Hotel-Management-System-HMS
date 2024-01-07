@@ -7,27 +7,28 @@ import * as React from "react";
 import imgView2 from "../../Assets/Images/imgView.png";
 import imgView1 from "../../Assets/Images/imgView1.png";
 import imgView3 from "../../Assets/Images/imgView3.png";
-
+import Grid from "@mui/material/Unstable_Grid2";
 import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import baseUrl from "@/utils/Custom/Custom";
+const baseUrl = `http://154.41.228.234:3000/`;
 
 const ViewRoomDetails = ({ roomDetailsData }) => {
-  const { id } = useParams();
-  const [detailsId, setDetailsId] = React.useState(id);
+  // const [detailsId, setDetailsId] = React.useState(id);
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const { id } = useParams();
   const images = [imgView1, imgView2, imgView3];
-  console.log(roomDetailsData);
+
   const handleImageClick = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
-
   return (
     <>
-      <Container maxWidth="lg" style={{ height: "80vh" }}>
-        <ImageList>
-          <ImageListItem style={{ textAlign: "center" }} className="mainImage">
+      <Grid container spacing={2} style={{ height: "80vh" }}>
+        <Grid md={8}>
+          <ImageListItem
+            style={{ textAlign: "center", height: "25rem", marginTop: "1em" }}
+            className="mainImage"
+          >
             <img
               style={{ width: "100%" }}
               // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -36,11 +37,13 @@ const ViewRoomDetails = ({ roomDetailsData }) => {
               loading="lazy"
             />
           </ImageListItem>
+        </Grid>
+        <Grid md={4}>
           <ImageListItem style={{}}>
             {images.map((image, index) => (
               <img
                 key={index}
-                style={{ width: `${100 / images.length}%` }}
+                style={{ width: `${100 / 2}%`, marginTop: "1em" }}
                 src={image}
                 onClick={handleImageClick}
                 loading="lazy"
@@ -48,20 +51,25 @@ const ViewRoomDetails = ({ roomDetailsData }) => {
               />
             ))}
           </ImageListItem>
-        </ImageList>
-        <Box>
-          <Typography variant="h5" gutterBottom>
-            About the place
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Minimal techno is a minimalist subgenre of techno music. It is
-            characterized by a stripped-down aesthetic that exploits the use of
-            repetition and understated development. Minimal techno is thought to
-            have been originally developed in the early 1990s by Detroit-based
-            producers Robert Hood and Daniel Bell.
-          </Typography>
-        </Box>
-      </Container>
+        </Grid>
+        <Grid md={8}>
+          <>
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                About the place
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                Minimal techno is a minimalist subgenre of techno music. It is
+                characterized by a stripped-down aesthetic that exploits the use
+                of repetition and understated development. Minimal techno is
+                thought to have been originally developed in the early 1990s by
+                Detroit-based producers Robert Hood and Daniel Bell.
+              </Typography>
+            </Box>
+          </>
+        </Grid>
+        <Grid md={4}></Grid>
+      </Grid>
     </>
   );
 };

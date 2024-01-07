@@ -89,11 +89,8 @@ const Rooms = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const viewDetailsHandler = (id: number) => {
-    // alert(id);
-    navigate("viewRoomDetails");
-  };
-  const viewDetails = async (id) => {
+
+  const viewDetailsHandler = async (id: number) => {
     setViewRoom(false);
     try {
       const response = await axios.get(
@@ -106,14 +103,14 @@ const Rooms = () => {
       );
       setRoomDetailsData(response.data.data.room);
       setViewRoom(true);
-      // navigate(`viewRoomDetails/${id}`);
+      navigate(`viewRoomDetails/${id}`);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    viewDetails();
+    viewDetailsHandler();
   }, []);
   return (
     <>
@@ -203,7 +200,7 @@ const Rooms = () => {
                           </ListItem> */}
                               <ListItemIcon
                                 style={{ color: indigo[500] }}
-                                onClick={() => viewDetails(itemId)}
+                                onClick={() => viewDetailsHandler(itemId)}
                               >
                                 <VisibilityIcon />
                               </ListItemIcon>
