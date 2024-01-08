@@ -51,13 +51,11 @@ const Rooms = () => {
   {
     /*Handle delete slice */
   }
-  const deleteRecord = useCallback(
-    (el) => dispatch(deleteRoom(el.id)),
-    [dispatch]
-  );
-  {
-    /*Modal  */
-  }
+
+  const deleteItem = (id) => {
+    console.log(id);
+    return dispatch(deleteRoom(id));
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -66,10 +64,7 @@ const Rooms = () => {
     const element = await dispatch(RoomsData());
     setTableData(element.payload.data.rooms);
   };
-  // const options = ["View,Edit,Delete"];
-  {
-    /*Delete Modal */
-  }
+
   const handleOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -178,21 +173,7 @@ const Rooms = () => {
                               },
                             }}
                           >
-                            {" "}
-                            {/* <span onClick={() => handleDelete(room?._id)}>Delete</span> */}
                             <MenuItem>
-                              {/* <ListItem disablePadding>
-                            <ListItemButton
-                              onClick={() => {
-                                navigate("viewRoomDetails");
-                              }}
-                            >
-                              <ListItemIcon>
-                                <VisibilityIcon />
-                              </ListItemIcon>
-                              <ListItemText primary={"View"}></ListItemText>
-                            </ListItemButton>
-                          </ListItem> */}
                               <ListItemIcon
                                 style={{ color: indigo[500] }}
                                 onClick={() => viewDetailsHandler(itemId)}
@@ -200,7 +181,6 @@ const Rooms = () => {
                                 <VisibilityIcon />
                               </ListItemIcon>
                               view
-                              {/* <Link to={`viewRoomDetails/${itemId}`}>view</Link> */}
                             </MenuItem>
                             <MenuItem>
                               <ListItemIcon style={{ color: indigo[500] }}>
@@ -208,12 +188,7 @@ const Rooms = () => {
                               </ListItemIcon>
                               <ListItemText>Edit</ListItemText>
                             </MenuItem>
-                            <MenuItem
-
-                            // selected={option === "Pyxis"}
-
-                            // onClick={() => handleClose(room)}
-                            >
+                            <MenuItem>
                               <ListItemIcon
                                 style={{ color: indigo[500] }}
                                 onClick={handleOpenDialog}
@@ -224,6 +199,12 @@ const Rooms = () => {
                             </MenuItem>
                           </Menu>
                         </MenuList>
+                        <button
+                          type="submit"
+                          onClick={() => deleteItem(room?._id)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </TableCell>
                   </TableRow>

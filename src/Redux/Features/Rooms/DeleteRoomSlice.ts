@@ -1,5 +1,6 @@
 /** @format */
 
+import baseUrl from "@/utils/Custom/Custom";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface Props {
@@ -7,21 +8,21 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-
+// async()=>{
+//   const data =await baseUrl.delete(q)
+// }
 export const deleteRoom = createAsyncThunk<any, void>(
   "deleteRoomSlice/deleteRoom",
-  async (id, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+  async (id) => {
     try {
-      await fetch(`/api/v0/admin/${id}`, {
+      await baseUrl.delete(`/api/v0/admin/${id}`, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDU1MzUxNSwiZXhwIjoxNzA1NzYzMTE1fQ.8YscMRj6Q4dJuLCWKlvl6O5zwUhZuseHeSP-P1F2n08`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDcyMTE0OCwiZXhwIjoxNzA1OTMwNzQ4fQ.aSmJBNCztf09cMAmhqjq1vHD6KswyFFX1aJ8B6BvBDI`,
         },
-        method: "DELETE",
       });
       return id;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      console.log(error);
     }
   }
 );
@@ -44,14 +45,13 @@ export const deleteRoomSlice = createSlice({
       })
       .addCase(deleteRoom.fulfilled, (state, action) => {
         state.loading = false;
-        state.records = console.log(state.records);
-        // state.records = state.records.filter(
-        //   (el: any) => el.id !== action.payload
-        // );
+        state.data = state.data.filter((el) => el.id !== action.payload);
       })
       .addCase(deleteRoom.rejected, (state, action) => {
+        console.log(state);
+
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.error.message;
       });
   },
 });
