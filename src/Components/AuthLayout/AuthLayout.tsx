@@ -1,17 +1,20 @@
-import React from 'react'
-import './AuthLayout.module.scss'
-import { Box } from '@mui/material'
-import { Outlet } from 'react-router-dom'
-
+import { Grid } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import "./AuthLayout.module.scss";
+import AuthBackground from "../AuthBackground/AuthBackground";
 const AuthLayout = () => {
-  return <>
+  return (
+    <>
+      <Grid className="authLayout" container spacing={2}>
+        <Grid item md={6} sm={12}>
+          <Outlet />
+        </Grid>
+        <Grid item md={6} sm={12}>
+          <AuthBackground />
+        </Grid>
+      </Grid>
+    </>
+  );
+};
 
-<Box component ="div">
-<Outlet/>
-</Box>
-
-
-  </>
-}
-
-export default AuthLayout
+export default AuthLayout;
