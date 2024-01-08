@@ -9,8 +9,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
-  ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   MenuList,
@@ -27,15 +25,14 @@ import MenuItem from "@mui/material/MenuItem";
 import { indigo } from "@mui/material/colors";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "./Rooms.module.scss";
 
 import DeleteModal from "@/Components/DeleteModal/DeleteModal";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ViewRoomDetails } from "..";
-import { Box } from "@mui/system";
-import axios from "axios";
 
 const Rooms = () => {
   const navigate = useNavigate();
@@ -101,14 +98,12 @@ const Rooms = () => {
           },
         }
       );
-      setRoomDetailsData(response.data.data.room);
+      setRoomDetailsData(response.data.data?.room);
       setViewRoom(true);
-      navigate(`viewRoomDetails/${id}`);
     } catch (error) {
       console.error(error);
     }
   };
-
   useEffect(() => {
     viewDetailsHandler();
   }, []);
