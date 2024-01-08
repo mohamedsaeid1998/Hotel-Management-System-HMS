@@ -23,13 +23,11 @@ const ForgetPassword = () => {
     axios
       .post(`${baseUrl}/api/v0/portal/users/forgot-password`, data)
       .then((res) => {
-        console.log("data", data);
         toast.success("send successfully");
         navigate("/resetPassword");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
   };
   return (

@@ -24,7 +24,6 @@ const ResetPassword = () => {
     axios
       .post(`${baseUrl}/api/v0/portal/users/reset-password`, data)
       .then((res) => {
-        console.log("data", data);
         toast.success("send successfully");
         navigate("/login");
       })

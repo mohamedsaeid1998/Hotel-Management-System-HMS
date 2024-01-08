@@ -37,9 +37,8 @@ const Login = () => {
         navigate("/dashboard");
       })
       .catch((err) => {
-        console.log(err);
         dispatch(setError(err.message || "An error occurred"));
-        toast.error(err.message || "An error occurred");
+        toast.error(err.response.data.message || "An error occurred");
       });
   };
   return (
@@ -67,7 +66,7 @@ const Login = () => {
           <FormControl sx={{ width: "100%", margin: "20px 0" }}>
             <OutlinedInput
               type="email"
-              placeholder="Please type here ..."
+              placeholder="Enter Your Email"
               {...register("email", {
                 required: true,
                 pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,

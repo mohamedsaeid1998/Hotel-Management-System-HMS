@@ -22,6 +22,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
   const onSubmit = (data) => {
     data.role = "user";
@@ -38,13 +39,11 @@ const Register = () => {
     axios
       .post(`${baseUrl}/api/v0/portal/users`, addFormData)
       .then((res) => {
-        console.log("data", data);
         toast.success("created successfully");
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
   };
   return (
@@ -85,12 +84,13 @@ const Register = () => {
               </Box>
             )}
           </FormControl>
+
           <Grid container spacing={2}>
             <Grid item md={6} sm={12}>
               <InputLabel sx={{ marginTop: "5px" }}>Phone Number</InputLabel>
               <FormControl sx={{ width: "100%" }}>
                 <OutlinedInput
-                  type="number"
+                  type="tel"
                   placeholder="Enter Your phone Number"
                   {...register("phoneNumber", {
                     required: true,
@@ -125,8 +125,8 @@ const Register = () => {
           <InputLabel>Email Address</InputLabel>
           <FormControl sx={{ width: "100%" }}>
             <OutlinedInput
-              type="text"
-              placeholder="Please type here ..."
+              type="email"
+              placeholder="Please enter your email "
               {...register("email", {
                 required: true,
                 pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
@@ -148,7 +148,7 @@ const Register = () => {
                 required: true,
               })}
             />
-            {errors.email && errors.email.type === "required" && (
+            {errors.password && errors.password.type === "required" && (
               <Box className="text-danger" sx={{ color: "red" }}>
                 password is required
               </Box>
@@ -159,17 +159,16 @@ const Register = () => {
           <FormControl sx={{ width: "100%" }}>
             <OutlinedInput
               type="password"
-              placeholder="Please type here ..."
+              placeholder="Please Enter Confirm password ..."
               {...register("confirmPassword", {
-                required: true,
+                required: "confirm Password is required",
+                validate: (value) =>
+                  value === getValues("password") || "password is don't match",
               })}
             />
-            {errors.confirmPassword &&
-              errors.confirmPassword.type === "required" && (
-                <Box className="text-danger" sx={{ color: "red" }}>
-                  confirm Password is required
-                </Box>
-              )}
+            {errors?.confirmPassword ? (
+              <span>{errors?.confirmPassword?.message}</span>
+            ) : null}
           </FormControl>
           <InputLabel sx={{ marginTop: "5px" }}>Profile Image</InputLabel>
           <FormControl sx={{ width: "100%" }}>

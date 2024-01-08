@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
 
 interface AuthState {
   authToken: string | null;
@@ -41,7 +40,6 @@ const authSlice = createSlice({
 export const saveUserData = () => {
   const encodedToken: any = localStorage.getItem("authToken");
   const decodedToken: any = jwtDecode(encodedToken);
-  console.log(decodedToken);
   setUserRole(decodedToken);
 };
 
@@ -49,7 +47,7 @@ export const { setAuthToken, setUserRole, setError, clearError, logout } =
   authSlice.actions;
 
 export const requestHeaders = {
-  Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  Authorization: `${localStorage.getItem("authToken")}`,
 };
 
 export const selectAuthToken = (state: { auth: AuthState }) =>
