@@ -63,8 +63,8 @@ const Navbar = () => {
           </Box>
 
           <Box className="navInfo">
-          <Typography variant="subtitle1" color="initial">Mohamed Saied</Typography>
-          <Typography variant="subtitle2" color="initial">msmma19998@gmail.com</Typography>
+          <Typography variant='caption' color="initial">Mohamed Saeid</Typography>
+          <Typography variant='caption' color="initial">msmma19998@gmail.com</Typography>
           </Box>
         </Toolbar>
       </Container>

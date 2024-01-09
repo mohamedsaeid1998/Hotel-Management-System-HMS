@@ -1,18 +1,11 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-
+import { defaultImage } from '@/Assets/Images';
+import { TableHeader } from '@/Components';
+import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
-import { NoImage5, defaultImage } from '@/Assets/Images';
 import './Rooms.module.scss';
-import { TableHeader } from '@/Components';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow';
-// import TableCell from '@mui/material/TableCell';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
+
 
 
 const Rooms = () => {
@@ -28,17 +21,10 @@ const Rooms = () => {
     // @ts-ignore
     let element = await dispatch(RoomsData())
     // @ts-ignore
-    // console.log(element);
-    
     setTableData(element.payload.data.rooms)
   }
   console.log(tableData);
 
-  // <TableCell>RoomNumber</TableCell>
-  // <TableCell>Image</TableCell>
-  // <TableCell>Price</TableCell>
-  // <TableCell>Discount</TableCell>
-  // <TableCell>Capacity</TableCell>
 
 
 const tableBody: GridColDef[] = [
@@ -103,11 +89,11 @@ there          </div>
 
 
   return <>
-<TableHeader title={"Rooms"} subTitle={"Room"} path={'/dashboard/addNewRoom'}/>
+<TableHeader title={"Rooms"} subTitle={"Room"} path={'/dashboard/add-New-Room'}/>
 
 
 
-   <DataGrid
+<DataGrid
     className='dataGrid'
     rows={tableData}
     columns={tableBody}
@@ -128,11 +114,10 @@ there          </div>
     }}
     pageSizeOptions={[5,10]}
     checkboxSelection
-    disableRowSelectionOnClick
-    disableColumnFilter
-    disableDensitySelector
-    disableColumnSelector
-
+    // disableRowSelectionOnClick
+    // disableColumnFilter
+    // disableDensitySelector
+    // disableColumnSelector
   />
 
 

@@ -15,7 +15,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: 'users', element: <Users /> },
         { path: 'rooms', element: <Rooms /> },
-        { path: 'addNewRoom', element: <AddNewRoom /> },
+        { path: 'add-New-Room', element: <AddNewRoom /> },
         { path: 'ads', element: <Ads /> },
         { path: 'bookings', element: <Bookings /> },
       ]
