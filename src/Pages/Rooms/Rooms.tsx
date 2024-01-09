@@ -53,7 +53,6 @@ const Rooms = () => {
   }
 
   const deleteItem = (id) => {
-    console.log(id);
     return dispatch(deleteRoom(id));
   };
   useEffect(() => {

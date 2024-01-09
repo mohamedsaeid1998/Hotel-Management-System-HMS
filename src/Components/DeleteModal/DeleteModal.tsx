@@ -15,6 +15,8 @@ import {
 import { TransitionProps } from "@mui/material/transitions";
 import axios from "axios";
 import { FormControl } from "@mui/base/FormControl";
+import { deleteRoom } from "@/Redux/Features/Rooms/DeleteRoomSlice";
+import { useDispatch } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -32,21 +34,13 @@ const DeleteModal = ({
   handleCloseDialog,
   openDialog,
 }) => {
-  const deleteHandler = () => {
-    axios
-      .delete(`http://154.41.228.234:3000/api/v0/admin/rooms/${itemId}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDU2OTYyMywiZXhwIjoxNzA1Nzc5MjIzfQ.noHrXaGYeIqjYk4A3GhBcLS3CWTawveLCf7Iqr691AQ`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        getData();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const id = itemId;
+  const dispatch = useDispatch();
+  const deleteItem = () => {
+    dispatch(deleteRoom(id));
+    getData();
   };
+
   return (
     <Dialog
       open={openDialog}
@@ -78,7 +72,7 @@ const DeleteModal = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <form onSubmit={handleSubmit(deleteHandler)}>
+        <form onSubmit={handleSubmit(deleteItem)}>
           <Button
             color="error"
             onClick={handleCloseDialog}
