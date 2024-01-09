@@ -3,9 +3,10 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
-import { NoImage5 } from '@/Assets/Images';
+import { NoImage5, defaultImage } from '@/Assets/Images';
 import './Rooms.module.scss';
 import { TableHeader } from '@/Components';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 // import TableContainer from '@mui/material/TableContainer';
 // import TableHead from '@mui/material/TableHead';
 // import TableRow from '@mui/material/TableRow';
@@ -17,7 +18,7 @@ import { TableHeader } from '@/Components';
 const Rooms = () => {
 
   const dispatch = useDispatch();
-  const [tableData, setTableData] = useState(null)
+  const [tableData, setTableData] = useState([])
 
   useEffect(() => {
     getData()
@@ -27,27 +28,166 @@ const Rooms = () => {
     // @ts-ignore
     let element = await dispatch(RoomsData())
     // @ts-ignore
-    console.log(element);
+    // console.log(element);
     
     setTableData(element.payload.data.rooms)
   }
-
-
   console.log(tableData);
+
+  // <TableCell>RoomNumber</TableCell>
+  // <TableCell>Image</TableCell>
+  // <TableCell>Price</TableCell>
+  // <TableCell>Discount</TableCell>
+  // <TableCell>Capacity</TableCell>
+
+
+const tableBody: GridColDef[] = [
+  {
+    field: 'roomNumber',
+    headerName: 'RoomNumber',
+    width: 150,
+    editable: false,
+    
+  },
+  {
+    field: 'price',
+    headerName: 'Price',
+    width: 150,
+    editable: false,
+  },
+  {
+    field: 'images',
+    headerName: 'Image',
+    width: 150,
+    editable: false,
+    renderCell: (params) => {
+      return (params.formattedValue === "" || params?.row?.images[0] == undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={`http://upskilling-egypt.com:3000/` + params?.row?.images[0]} alt="image" />)
+    },
+  },
+  {
+    field: 'discount',
+    headerName: 'Discount',
+    width: 150,
+    editable: false,
+  },
+  {
+    field: 'capacity',
+    headerName: 'Capacity',
+    width: 150,
+    editable: false,
+  },
+
+  {
+    field: "action",
+    headerName: "Action",
+    width: 100,
+    renderCell: (params) => {
+      const { id, name } = params.row;
+
+
+      return (<>
+        <div className="action d-flex align-items-center gap-3 ">
+          <div className="edit text-info pointer">
+here
+          </div>
+          <div className="delete text-danger pointer" >
+there          </div>
+        </div>
+
+      </>
+      );
+    },
+  },
+];
+
 
 
   return <>
 <TableHeader title={"Rooms"} subTitle={"Room"} path={'/dashboard/addNewRoom'}/>
-    <TableContainer className='table'>
+
+
+
+   <DataGrid
+    className='dataGrid'
+    rows={tableData}
+    columns={tableBody}
+    getRowId={(row) => row._id}
+    initialState={{
+      pagination: {
+        paginationModel: {
+          pageSize:5,
+        },
+      },
+    }}
+    slots={{ toolbar: GridToolbar }}
+    slotProps={{
+      toolbar: {
+        showQuickFilter: true,
+        quickFilterProps: { debounceMs: 500 },
+      }
+    }}
+    pageSizeOptions={[5,10]}
+    checkboxSelection
+    disableRowSelectionOnClick
+    disableColumnFilter
+    disableDensitySelector
+    disableColumnSelector
+
+  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {/* <TableContainer className='table'>
       <Table>
 
         <TableHead>
           <TableRow>
-            <TableCell>RoomNumber</TableCell>
-            <TableCell>Image</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Discount</TableCell>
-            <TableCell>Capacity</TableCell>
+
           </TableRow>
         </TableHead>
 
@@ -67,8 +207,10 @@ const Rooms = () => {
 
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer> */}
   </>
 }
 
 export default Rooms
+
+

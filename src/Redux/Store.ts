@@ -2,13 +2,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import RoomsData from "./Features/Rooms/GetRoomsSlice"
 import FacilitiesData from "./Features/Facilities/FacilitiesSlice"
-export const store  = configureStore({
+const Store  = configureStore({
   reducer:{
     RoomsData,
     FacilitiesData
   }
 })
 
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export default Store;
+export type RootState = ReturnType<typeof Store.getState>
+export type AppDispatch = typeof Store.dispatch

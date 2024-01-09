@@ -9,18 +9,18 @@ export interface Props {
 }
 
 
-export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async ({roomNumber,price,capacity,discount,facilities,imgs}) => {
-  let facilitiess =["65995a88638848bce6efdf91","6598a985638848bce6efcb13"]
-console.log(imgs);
+export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async ({roomNumber,price,capacity,discount,facilities,images}:any) => {
 
-   
+console.log(images);
+console.log(facilities);
+
   let data = await baseUrl.post(`/api/v0/admin/rooms`,{
     roomNumber,
     price,
     capacity,
     discount,
-    facilities:facilitiess,
-    imgs
+    facilities,
+    imgs:images
   },{
     headers:{
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTk2ZjliYjYzODg0OGJjZTZlZmIwMjIiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDM5MzE4NiwiZXhwIjoxNzA1NjAyNzg2fQ.I5XHfgYureXgFkNQgqGt_xIyzP2Q0Ven8TRy_WRTb4c`,
@@ -28,6 +28,7 @@ console.log(imgs);
     }
 
   })
+  
   return data.data
 })
 

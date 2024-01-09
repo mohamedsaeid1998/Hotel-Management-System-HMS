@@ -2,7 +2,7 @@ import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { AuthLayout, MasterLayout, NotFound } from './Components'
 import { AddNewRoom, Ads, Bookings, ForgetPassword, Home, Login, Register, ResetPassword, Rooms, Users } from './Pages'
-import { store } from './Redux/Store'
+import Store from './Redux/Store'
 
 
 
@@ -36,7 +36,7 @@ function App() {
   ])
 
   return <>
-    <Provider store={store}>
+    <Provider store={Store}>
       <RouterProvider router={routes} />
     </Provider>
   </>
