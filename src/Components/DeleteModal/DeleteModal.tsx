@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { deleteImg } from "@/Assets/Images";
 
 import {
@@ -36,10 +36,10 @@ const DeleteModal = ({
 }) => {
   const id = itemId;
   const dispatch = useDispatch();
-  const deleteItem = () => {
+  const deleteItem = useCallback(() => {
     dispatch(deleteRoom(id));
     getData();
-  };
+  }, [dispatch, getData, id]);
 
   return (
     <Dialog
