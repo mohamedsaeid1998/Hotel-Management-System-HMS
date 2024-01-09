@@ -8,8 +8,8 @@ import { FacilitiesData } from '@/Redux/Features/Facilities/FacilitiesSlice';
 import { useForm } from 'react-hook-form';
 import { ChevronRight } from '@mui/icons-material';
 import { CreateRooms } from '@/Redux/Features/Rooms/CreateRoomsSlice';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 const AddNewRoom = () => {
   const {
     register,
@@ -18,6 +18,7 @@ const AddNewRoom = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate()
 
   const required = "This Field is required"
 
@@ -53,10 +54,21 @@ const AddNewRoom = () => {
   }
   //? ***************Send Data***************
 
-  const sendData = (data: any) => {
-
-    dispatch(CreateRooms({ ...data, facilities, images }))
-
+  const sendData =async (data: any) => {
+  const roomsData = await dispatch(CreateRooms({ ...data, facilities, images }))
+    if(roomsData?.payload?.message === "Room created successfully"){
+      toast.success(" Room created successfully", {
+        autoClose: 2000,
+        theme: "colored",
+      })
+      navigate('/dashboard/rooms')
+    }else{
+      toast.error(" Room was not created successfully", {
+        autoClose: 2000,
+        theme: "colored",
+      })
+    }
+    
   }
 
 
@@ -66,8 +78,8 @@ const AddNewRoom = () => {
       <TextField variant="filled" type="number" className='roomNumber' label="Room Number"
         {...register("roomNumber", {
           required,
-          minLength: { value: 3, message: "minlength is 3 " }
-
+          minLength: { value: 3, message: "minlength is 3 " },
+          validate: value => (value !== undefined && +value > 0) || "Please enter a positive number"
         })}
         error={Boolean(errors.roomNumber)}
         helperText={Boolean(errors.roomNumber) ? errors?.roomNumber?.message?.toString() : null
@@ -80,6 +92,7 @@ const AddNewRoom = () => {
         <TextField variant="filled" type="number" className='price' label="Price"
           {...register("price", {
             required,
+            validate: value => (value !== undefined && +value > 0) || "Please enter a positive number"
           })}
           error={!!errors.price}
           helperText={!!errors.price ? errors?.price?.message?.toString() : null
@@ -87,9 +100,11 @@ const AddNewRoom = () => {
 
 
 
+
         <TextField variant="filled" type="number" className='capacity' label="Capacity"
           {...register("capacity", {
             required,
+            validate: value => (value !== undefined && +value > 0) || "Please enter a positive number"
           })}
           error={Boolean(errors.capacity)}
           helperText={Boolean(errors.capacity) ? errors?.capacity?.message?.toString() : null
@@ -106,6 +121,7 @@ const AddNewRoom = () => {
         <TextField variant="filled" type="number" className='discount' label="Discount"
           {...register("discount", {
             required,
+            validate: value => (value !== undefined && +value >= 0) || "Please enter a positive number"
           })}
           error={Boolean(errors.discount)}
           helperText={Boolean(errors.discount) ? errors?.discount?.message?.toString() : null

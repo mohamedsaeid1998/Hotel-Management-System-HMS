@@ -1,7 +1,9 @@
-import { AutoStories, Discount, Home, LockOpen, Logout, MeetingRoom, PeopleAlt } from '@mui/icons-material';
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
+import { AutoStories, Discount, Grade, Home, LockOpen, Logout, MeetingRoom, PeopleAlt } from '@mui/icons-material';
+import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './Sidebar.module.scss';
+
+
 // import Drawer from '@mui/material/Drawer';
 // import Toolbar from '@mui/material/Toolbar';
 // import ListItem from '@mui/material/ListItem';
@@ -17,6 +19,7 @@ const Sidebar = () => {
     { text: "Home", icon: <Home />, path: "/dashboard" },
     { text: "Users", icon: <PeopleAlt />, path: "/dashboard/users" },
     { text: "Rooms", icon: <MeetingRoom />, path: "/dashboard/rooms" },
+    { text: "Facilities", icon: <Grade />, path: "/dashboard/rooms" },
     { text: "Ads", icon: <Discount />, path: "/dashboard/ads" },
     { text: "Bookings", icon: <AutoStories />, path: "/dashboard/bookings" },
   ]

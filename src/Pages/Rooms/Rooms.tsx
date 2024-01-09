@@ -23,7 +23,6 @@ const Rooms = () => {
     // @ts-ignore
     setTableData(element.payload.data.rooms)
   }
-  console.log(tableData);
 
 
 
@@ -31,20 +30,20 @@ const tableBody: GridColDef[] = [
   {
     field: 'roomNumber',
     headerName: 'RoomNumber',
-    width: 150,
+    width: 180,
     editable: false,
     
   },
   {
     field: 'price',
     headerName: 'Price',
-    width: 150,
+    width: 180,
     editable: false,
   },
   {
     field: 'images',
     headerName: 'Image',
-    width: 150,
+    width: 180,
     editable: false,
     renderCell: (params) => {
       return (params.formattedValue === "" || params?.row?.images[0] == undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={`http://upskilling-egypt.com:3000/` + params?.row?.images[0]} alt="image" />)
@@ -53,20 +52,20 @@ const tableBody: GridColDef[] = [
   {
     field: 'discount',
     headerName: 'Discount',
-    width: 150,
+    width: 180,
     editable: false,
   },
   {
     field: 'capacity',
     headerName: 'Capacity',
-    width: 150,
+    width: 180,
     editable: false,
   },
 
   {
     field: "action",
     headerName: "Action",
-    width: 300,
+    width: 180,
     renderCell: (params) => {
       const { id, name } = params.row;
 

@@ -1,5 +1,5 @@
-import baseUrl from "../../../utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import baseUrl from "../../../utils/Custom/Custom";
 
 
 export interface Props {
@@ -7,12 +7,11 @@ export interface Props {
   loading:boolean
   error:null|string
 }
-
+const token = localStorage.getItem("authToken")
 
 export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async ({roomNumber,price,capacity,discount,facilities,images}:any) => {
 
-console.log(images);
-console.log(facilities);
+
 
   let data = await baseUrl.post(`/api/v0/admin/rooms`,{
     roomNumber,
@@ -23,7 +22,7 @@ console.log(facilities);
     imgs:images[0]
   },{
     headers:{
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTk2ZjliYjYzODg0OGJjZTZlZmIwMjIiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDM5MzE4NiwiZXhwIjoxNzA1NjAyNzg2fQ.I5XHfgYureXgFkNQgqGt_xIyzP2Q0Ven8TRy_WRTb4c`,
+      Authorization: `${token}`,
       "Content-Type": "multipart/form-data"
     }
 

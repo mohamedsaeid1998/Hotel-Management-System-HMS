@@ -30,6 +30,7 @@ const Login = () => {
       .post(`/api/v0/admin/users/login`, data)
       .then((res) => {
         dispatch(setAuthToken(res.data.data.token));
+        localStorage.setItem("authToken",res.data.data.token)
         toast.success("Welcome");
         navigate("/dashboard");
       })

@@ -28,7 +28,6 @@ const ResetPassword = () => {
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         toast.error(err.message);
       });
   };

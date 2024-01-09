@@ -1,7 +1,6 @@
-import React from 'react'
-import './TableHeader.module.scss'
 import { Box, Button, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import './TableHeader.module.scss'
 
 interface IProps {
   title: string
@@ -11,6 +10,7 @@ interface IProps {
 
 
 const TableHeader = ({ title, subTitle, path }: IProps) => {
+  const {pathname} = useLocation()
   return <>
     <Box component="header" className='header'>
 
@@ -21,11 +21,13 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
           <Typography variant='body2' className='smallerSize' >You can check all details</Typography>
         </Box>
 
+        {pathname === "/dashboard/users"?"":
         <Button color='primary' variant="contained" >
-          <Link to={path} className='linkStyle'>
-            Add New {subTitle}
-          </Link>
-        </Button>
+        <Link to={path} className='linkStyle'>
+          Add New {subTitle}
+        </Link>
+      </Button>
+        }
       </Box>
 
     </Box>
