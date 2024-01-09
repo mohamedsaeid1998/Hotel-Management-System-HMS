@@ -9,13 +9,11 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-// async()=>{
-//   const data =await baseUrl.delete(q)
-// }
+
 export const deleteRoom = createAsyncThunk<any, void>(
   "room/deleteRoom",
   async (id) => {
-    const response = axios.delete(
+    const response = baseUrl.delete(
       `http://154.41.228.234:3000/api/v0/admin/rooms/${id}`,
       {
         headers: {

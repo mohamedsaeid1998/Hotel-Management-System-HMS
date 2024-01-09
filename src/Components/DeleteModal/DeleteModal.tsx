@@ -35,6 +35,7 @@ const DeleteModal = ({
   openDialog,
 }) => {
   const id = roomId;
+  console.log(roomId);
   const dispatch = useDispatch();
   const deleteItem = useCallback(() => {
     dispatch(deleteRoom(id));
