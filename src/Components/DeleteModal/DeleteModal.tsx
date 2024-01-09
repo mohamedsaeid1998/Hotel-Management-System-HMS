@@ -28,13 +28,13 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const DeleteModal = ({
-  itemId,
+  roomId,
   getData,
   handleSubmit,
   handleCloseDialog,
   openDialog,
 }) => {
-  const id = itemId;
+  const id = roomId;
   const dispatch = useDispatch();
   const deleteItem = useCallback(() => {
     dispatch(deleteRoom(id));
@@ -61,7 +61,7 @@ const DeleteModal = ({
       </DialogTitle>
       <DialogContent dividers style={{ textAlign: "center" }}>
         <DialogContentText id="alert-dialog-slide-description">
-          <img src={deleteImg} alt="Delete Modal Image" />
+          <img src={deleteImg} alt="Delete Room Modal" />
         </DialogContentText>
         <DialogContentText id="alert-dialog-slide-description">
           Delete This Room ?

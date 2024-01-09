@@ -66,6 +66,7 @@ const Rooms = () => {
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
+    setAnchorEl(null);
   };
   const handleCloseDialog = () => setOpenDialog(false);
 
@@ -145,66 +146,58 @@ const Rooms = () => {
                     <TableCell>{room.discount}</TableCell>
                     <TableCell>{room.capacity}</TableCell>
                     <TableCell>
-                      <div>
-                        <IconButton
-                          aria-label="more"
-                          id="long-button"
-                          aria-controls={open ? "long-menu" : undefined}
-                          aria-expanded={open ? "true" : undefined}
-                          aria-haspopup="true"
-                          onClick={(e) => handleClick(e, room?._id)}
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        aria-controls={open ? "long-menu" : undefined}
+                        aria-expanded={open ? "true" : undefined}
+                        aria-haspopup="true"
+                        onClick={(e) => handleClick(e, room?._id)}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                      <MenuList>
+                        <Menu
+                          id="long-menu"
+                          MenuListProps={{
+                            "aria-labelledby": "long-button",
+                          }}
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          PaperProps={{
+                            style: {
+                              maxHeight: ITEM_HEIGHT * 4.5,
+                              width: "20ch",
+                            },
+                          }}
                         >
-                          <MoreVertIcon />
-                        </IconButton>
-                        <MenuList>
-                          <Menu
-                            id="long-menu"
-                            MenuListProps={{
-                              "aria-labelledby": "long-button",
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            PaperProps={{
-                              style: {
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: "20ch",
-                              },
-                            }}
-                          >
-                            <MenuItem>
-                              <ListItemIcon
-                                style={{ color: indigo[500] }}
-                                onClick={() => viewDetailsHandler(itemId)}
-                              >
-                                <VisibilityIcon />
-                              </ListItemIcon>
-                              view
-                            </MenuItem>
-                            <MenuItem>
-                              <ListItemIcon style={{ color: indigo[500] }}>
-                                <EditIcon />
-                              </ListItemIcon>
-                              <ListItemText>Edit</ListItemText>
-                            </MenuItem>
-                            <MenuItem>
-                              <ListItemIcon
-                                style={{ color: indigo[500] }}
-                                onClick={handleOpenDialog}
-                              >
-                                <DeleteOutlineIcon />
-                              </ListItemIcon>
-                              <ListItemText>Delete</ListItemText>
-                            </MenuItem>
-                          </Menu>
-                        </MenuList>
-                        <button
-                          type="submit"
-                          onClick={() => deleteItem(room?._id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+                          <MenuItem>
+                            <ListItemIcon
+                              style={{ color: indigo[500] }}
+                              onClick={() => viewDetailsHandler(itemId)}
+                            >
+                              <VisibilityIcon />
+                            </ListItemIcon>
+                            view
+                          </MenuItem>
+                          <MenuItem>
+                            <ListItemIcon style={{ color: indigo[500] }}>
+                              <EditIcon />
+                            </ListItemIcon>
+                            <ListItemText>Edit</ListItemText>
+                          </MenuItem>
+                          <MenuItem onClick={handleOpenDialog}>
+                            <ListItemIcon
+                              style={{ color: indigo[500] }}
+                              // onClick={handleOpenDialog}
+                            >
+                              <DeleteOutlineIcon />
+                            </ListItemIcon>
+                            <ListItemText>Delete</ListItemText>
+                          </MenuItem>
+                        </Menu>
+                      </MenuList>
                     </TableCell>
                   </TableRow>
                 ))}
