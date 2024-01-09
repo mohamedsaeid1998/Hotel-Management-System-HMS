@@ -66,7 +66,7 @@ const tableBody: GridColDef[] = [
   {
     field: "action",
     headerName: "Action",
-    width: 100,
+    width: 300,
     renderCell: (params) => {
       const { id, name } = params.row;
 

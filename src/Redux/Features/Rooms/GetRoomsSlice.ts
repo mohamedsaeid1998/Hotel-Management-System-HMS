@@ -10,7 +10,7 @@ export interface Props {
 
 
 export const RoomsData = createAsyncThunk<any, void>("GetRoomsSlice/RoomsData", async () => {
-  let data = await baseUrl.get(`/api/v0/admin/rooms?page=1&size=10`,{
+  let data = await baseUrl.get(`/api/v0/admin/rooms?page=1&size=100`,{
     headers:{
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTk2ZjliYjYzODg0OGJjZTZlZmIwMjIiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDM5MzE4NiwiZXhwIjoxNzA1NjAyNzg2fQ.I5XHfgYureXgFkNQgqGt_xIyzP2Q0Ven8TRy_WRTb4c`
     }

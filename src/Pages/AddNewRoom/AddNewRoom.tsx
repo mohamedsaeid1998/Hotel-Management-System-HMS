@@ -25,9 +25,6 @@ const AddNewRoom = () => {
   const dispatch = useDispatch();
   const [selectData, setSelectData] = useState(null)
 
-  useEffect(() => {
-    getFacilitiesData()
-  }, []);
 
   const getFacilitiesData = async () => {
     // @ts-ignore
@@ -36,24 +33,29 @@ const AddNewRoom = () => {
     setSelectData(element.payload.data.facilities)
   }
 
+  useEffect(() => {
+    getFacilitiesData()
+  }, []);
+
 
   //! ***************Selected Input ***************
+
   const [Facilities, setFacilities] = useState<string[]>([])
-  const selectedFacilities = getValues("facilities")
+  const facilities = getValues("facilities")
 
 
   //! ***************Selected Images ***************
-  const [images, setImgs] = useState([]);
+  const [images, setImages] = useState([]);
 
   const handleImageChange = (event: any) => {
     const files = Array.from(event.target.files)
-    setImgs(files);
+    setImages(files);
   }
   //? ***************Send Data***************
 
   const sendData = (data: any) => {
 
-    dispatch(CreateRooms({ ...data, selectedFacilities, images }))
+    dispatch(CreateRooms({ ...data, facilities, images }))
 
   }
 
@@ -79,8 +81,8 @@ const AddNewRoom = () => {
           {...register("price", {
             required,
           })}
-          error={Boolean(errors.price)}
-          helperText={Boolean(errors.price) ? errors?.price?.message?.toString() : null
+          error={!!errors.price}
+          helperText={!!errors.price ? errors?.price?.message?.toString() : null
           } />
 
 
@@ -116,8 +118,8 @@ const AddNewRoom = () => {
           {...register("facilities", {
             required,
           })}
-          error={Boolean(errors.facilities)}
-          helperText={Boolean(errors.facilities) ? errors?.facilities?.message?.toString() : null
+          error={!!errors.facilities}
+          helperText={!!errors.facilities ? errors?.facilities?.message?.toString() : null
           } >
 
           {selectData?.map(({ _id, name }: any) => <MenuItem key={_id} value={_id}>{name}</MenuItem>)}
