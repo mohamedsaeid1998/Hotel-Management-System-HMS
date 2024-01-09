@@ -7,7 +7,6 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from 'react-redux';
 import { FacilitiesData } from '@/Redux/Features/Facilities/FacilitiesSlice';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from '@mui/icons-material';
 import { CreateRooms } from '@/Redux/Features/Rooms/CreateRoomsSlice';
 
@@ -20,7 +19,7 @@ const AddNewRoom = () => {
     setValue,
     formState: { errors },
   } = useForm();
- const facilities= getValues("facilities")
+  const facilities = getValues("facilities")
 
   const required = "This Field is required"
 
@@ -41,11 +40,11 @@ const AddNewRoom = () => {
 
 
   //! ***************Selected Input ***************
-  const [Facilities, setFacilities] = useState<string[]>(["65995a88638848bce6efdf91","6598a985638848bce6efcb13"])
+  const [Facilities, setFacilities] = useState<string[]>(["65995a88638848bce6efdf91", "6598a985638848bce6efcb13"])
 
   // const handleChange = (event: any) => {
   //   setFacilities(event.target.value)
-    
+
   // }
 
 
@@ -55,8 +54,8 @@ const AddNewRoom = () => {
   const [imageFile, setImageFile] = useState([]);
 
   const handleImageChange = (event: any) => {
-      const files = Array.from(event.target.files)
-      setImageFile(files);
+    const files = Array.from(event.target.files)
+    setImageFile(files);
   }
 
   //? ***************Send Data***************
@@ -67,8 +66,8 @@ const AddNewRoom = () => {
 
 
 
-   dispatch(CreateRooms({...data,facilities }))
-  
+    dispatch(CreateRooms({ ...data, facilities }))
+
     // await dispatch(postStudentsData({ studentName, classYear, teacher, age, phone }))
   }
 
@@ -102,9 +101,9 @@ const AddNewRoom = () => {
 
 
         <TextField variant="filled" type="number" className='capacity' label="Capacity"
-        {...register("capacity", {
-          required,
-        })}
+          {...register("capacity", {
+            required,
+          })}
           error={Boolean(errors.capacity)}
           helperText={Boolean(errors.capacity) ? errors?.capacity?.message?.toString() : null
           } />
@@ -118,25 +117,25 @@ const AddNewRoom = () => {
       <Box className="middleInputs">
 
         <TextField variant="filled" type="number" className='discount' label="Discount"
-        {...register("discount", {
-          required,
-        })}
+          {...register("discount", {
+            required,
+          })}
           error={Boolean(errors.discount)}
           helperText={Boolean(errors.discount) ? errors?.discount?.message?.toString() : null
-          }  />
+          } />
 
 
 
 
-        <TextField label="select facilities"  className='facilities' color="secondary"  value={Facilities} select SelectProps={{multiple: true}}
-        {...register("facilities", {
-          required,
-        })}
+        <TextField label="select facilities" className='facilities' color="secondary" value={Facilities} select SelectProps={{ multiple: true }}
+          {...register("facilities", {
+            required,
+          })}
           error={Boolean(errors.facilities)}
           helperText={Boolean(errors.facilities) ? errors?.facilities?.message?.toString() : null
           } >
 
-          {selectData?.map(({_id,name}:any) => <MenuItem key={_id} value={_id}>{name}</MenuItem>)}
+          {selectData?.map(({ _id, name }: any) => <MenuItem key={_id} value={_id}>{name}</MenuItem>)}
 
         </TextField>
 
