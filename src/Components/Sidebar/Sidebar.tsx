@@ -1,6 +1,6 @@
 import { AutoStories, Discount, Grade, Home, LockOpen, Logout, MeetingRoom, PeopleAlt } from '@mui/icons-material';
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Sidebar.module.scss';
 
 
@@ -14,12 +14,12 @@ import './Sidebar.module.scss';
 
 const Sidebar = () => {
 
-
+const {pathname} =  useLocation()
   const DrawerItems = [
     { text: "Home", icon: <Home />, path: "/dashboard" },
     { text: "Users", icon: <PeopleAlt />, path: "/dashboard/users" },
     { text: "Rooms", icon: <MeetingRoom />, path: "/dashboard/rooms" },
-    { text: "Facilities", icon: <Grade />, path: "/dashboard/rooms" },
+    { text: "Facilities", icon: <Grade />, path: "/dashboard/facilities" },
     { text: "Ads", icon: <Discount />, path: "/dashboard/ads" },
     { text: "Bookings", icon: <AutoStories />, path: "/dashboard/bookings" },
   ]
@@ -41,7 +41,7 @@ const Sidebar = () => {
       <Toolbar />
       <List>
         {DrawerItems.map(({ text, icon, path }) =>
-          <ListItem key={text} disablePadding>
+          <ListItem key={text} disablePadding className={pathname === path ? 'active' : null}>
             <ListItemButton onClick={() => { navigate(path) }} >
               <ListItemIcon >
                 {icon}

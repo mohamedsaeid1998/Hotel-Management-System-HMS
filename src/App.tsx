@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { AuthLayout, MasterLayout, NotFound } from './Components'
-import { AddNewRoom, Ads, Bookings, ForgetPassword, Home, Login, Register, ResetPassword, Rooms, Users } from './Pages'
+import { AddNewRoom, Ads, Bookings, Facilities, ForgetPassword, Home, Login, Register, ResetPassword, Rooms, Users } from './Pages'
 import Store from './Redux/Store'
 
 
@@ -16,6 +16,7 @@ function App() {
         { path: 'users', element: <Users /> },
         { path: 'rooms', element: <Rooms /> },
         { path: 'add-New-Room', element: <AddNewRoom /> },
+        { path: 'facilities', element: <Facilities /> },
         { path: 'ads', element: <Ads /> },
         { path: 'bookings', element: <Bookings /> },
       ]
