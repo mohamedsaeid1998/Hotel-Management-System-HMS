@@ -74,7 +74,7 @@ const tableBody: GridColDef[] = [
 
 
   return <>
-<TableHeader title={"Users"} subTitle={"User"} path={'/dashboard/add-New-Room'}/>
+<TableHeader title={"Users"} subTitle={"User"} path={'/dashboard/add-new-room'}/>
 
 
 

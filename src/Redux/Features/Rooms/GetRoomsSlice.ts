@@ -12,7 +12,7 @@ const token = localStorage.getItem("authToken")
 export const RoomsData = createAsyncThunk<any, void>("GetRoomsSlice/RoomsData", async () => {
   let data = await baseUrl.get(`/api/v0/admin/rooms?page=1&size=100`,{
     headers:{
-      Authorization: `${token}`
+      Authorization: token
     }
 
   })

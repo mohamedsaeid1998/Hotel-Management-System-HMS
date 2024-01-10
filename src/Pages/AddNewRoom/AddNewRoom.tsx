@@ -75,7 +75,7 @@ const AddNewRoom = () => {
   return <>
     <Box className='formContainer' component="form" onSubmit={handleSubmit(sendData)}>
 
-      <TextField variant="filled" type="number" className='roomNumber' label="Room Number"
+      <TextField variant="filled" type="text" className='roomNumber' label="Room Number"
         {...register("roomNumber", {
           required,
           minLength: { value: 3, message: "minlength is 3 " },

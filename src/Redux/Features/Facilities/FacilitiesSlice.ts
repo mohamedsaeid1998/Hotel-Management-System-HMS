@@ -7,12 +7,13 @@ export interface Props {
   loading:boolean
   error:null|string
 }
+const token = localStorage.getItem("authToken")
 
 
 export const FacilitiesData = createAsyncThunk<any, void>("GetFacilitiesSlice/FacilitiesData", async () => {
   let data = await baseUrl.get(`/api/v0/admin/room-facilities`,{
     headers:{
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTk2ZjliYjYzODg0OGJjZTZlZmIwMjIiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDM5MzE4NiwiZXhwIjoxNzA1NjAyNzg2fQ.I5XHfgYureXgFkNQgqGt_xIyzP2Q0Ven8TRy_WRTb4c`
+      Authorization: token
     }
 
   })
