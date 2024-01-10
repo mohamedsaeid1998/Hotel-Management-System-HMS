@@ -8,7 +8,6 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -24,7 +23,7 @@ const Register = () => {
     formState: { errors },
     getValues,
   } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (data:any) => {
     data.role = "user";
     const addFormData = new FormData();
     addFormData.append("userName", data["userName"]);
@@ -36,9 +35,9 @@ const Register = () => {
     addFormData.append("role", data["role"]);
     addFormData.append("profileImage", data["profileImage"][0]);
 
-    axios
-      .post(`${baseUrl}/api/v0/portal/users`, addFormData)
-      .then((res) => {
+    baseUrl
+      .post(`$/api/v0/portal/users`, addFormData)
+      .then(() => {
         toast.success("created successfully");
         navigate("/login");
       })

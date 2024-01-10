@@ -5,16 +5,13 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
-  selectAuthToken,
-  selectError,
   setAuthToken,
-  setError,
+  setError
 } from "../../Redux/Features/Auth/LoginSlice.ts";
 import baseUrl from "../../utils/Custom/Custom";
 import "./Login.module.scss";
@@ -29,10 +26,11 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data: { email: string; password: string }) => {
-    axios
-      .post(`${baseUrl}/api/v0/admin/users/login`, data)
+    baseUrl
+      .post(`/api/v0/admin/users/login`, data)
       .then((res) => {
         dispatch(setAuthToken(res.data.data.token));
+        localStorage.setItem("authToken",res.data.data.token)
         toast.success("Welcome");
         navigate("/dashboard");
       })
@@ -99,7 +97,7 @@ const Login = () => {
             )}
           </FormControl>
           <Box sx={{ textAlign: "end" }}>
-            <Link to="/forgetPassword" style={{ textDecoration: "none" }}>
+            <Link to="/forget-password" style={{ textDecoration: "none" }}>
               Forget Password
             </Link>
           </Box>
