@@ -1,5 +1,3 @@
-/** @format */
-
 import {
   Box,
   Button,
@@ -25,7 +23,7 @@ const Register = () => {
     formState: { errors },
     getValues,
   } = useForm();
-  const onSubmit = (data: any) => {
+  const onSubmit = (data:any) => {
     data.role = "user";
     const addFormData = new FormData();
     addFormData.append("userName", data["userName"]);
@@ -50,6 +48,7 @@ const Register = () => {
   return (
     <>
       <Box component="div">
+        {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>
             Stay
