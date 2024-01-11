@@ -15,6 +15,8 @@ import { deleteImg } from "@/Assets/Images";
 import { useDispatch } from "react-redux";
 import { deleteDialog } from "@/Redux/Features/DeleteDialogSlice/DeleteDialogSlice";
 import { getDataGridUtilityClass } from "@mui/x-data-grid";
+import CloseIcon from "@mui/icons-material/Close";
+import { pink } from "@mui/material/colors";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -50,11 +52,11 @@ const DeleteDialog = ({
       <DialogTitle style={{ textAlign: "end" }} sx={{ borderRadius: "50%" }}>
         <Button
           color="error"
-          sx={{ borderRadius: "70%", minWidth: "2.5rem" }}
+          sx={{ borderRadius: "50% 50%", minWidth: "2.5rem" }}
           onClick={handleCloseDialog}
           variant="outlined"
         >
-          <CloseIcon />
+          <CloseIcon sx={{ color: pink[500] }} />
         </Button>
       </DialogTitle>
       <DialogContent
