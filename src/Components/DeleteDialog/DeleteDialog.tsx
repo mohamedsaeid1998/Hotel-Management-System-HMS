@@ -33,7 +33,6 @@ const DeleteDialog = ({
   itemId,
 }) => {
   const id = itemId;
-  console.log(id);
   const dispatch = useDispatch();
   const deleteItem = useCallback(() => {
     dispatch(deleteDialog(id));
@@ -55,7 +54,7 @@ const DeleteDialog = ({
           onClick={handleCloseDialog}
           variant="outlined"
         >
-          x
+          <CloseIcon />
         </Button>
       </DialogTitle>
       <DialogContent

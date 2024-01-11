@@ -15,11 +15,15 @@ import {
   MenuItem,
   MenuList,
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { indigo } from "@mui/material/colors";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import { useForm } from "react-hook-form";
+import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
 
 const Rooms = () => {
   const dispatch = useDispatch();
@@ -27,6 +31,7 @@ const Rooms = () => {
   const [roomId, setRoomId] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialog, setOpenDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
 
   const { handleSubmit } = useForm();
 
@@ -47,14 +52,24 @@ const Rooms = () => {
     setAnchorEl(null);
   };
   {
-    /*Handle  Dialog Modal  */
+    /*************popUp************** */
+  }
+  {
+    /* Dialog Modal  */
   }
   const handleOpenDialog = () => {
     setOpenDialog(true);
     setAnchorEl(null);
   };
   const handleCloseDialog = () => setOpenDialog(false);
-
+  {
+    /*view dialog */
+  }
+  const handleViewDialog = () => {
+    setOpenViewDialog(true);
+    setAnchorEl(null);
+  };
+  const handleCloseViewDialog = () => setOpenViewDialog(false);
   {
     /*get Room */
   }
@@ -129,6 +144,11 @@ const Rooms = () => {
               handleSubmit={handleSubmit}
               itemId={roomId}
             />
+            <ViewDialogModal
+              itemId={roomId}
+              handleClose={handleCloseViewDialog}
+              open={openViewDialog}
+            />
             <IconButton
               aria-label="more"
               id="long-button"
@@ -155,12 +175,20 @@ const Rooms = () => {
                   },
                 }}
               >
+                <MenuItem onClick={handleViewDialog}>
+                  <ListItemIcon style={{ color: indigo[500] }}>
+                    <VisibilityIcon />
+                  </ListItemIcon>
+                  view
+                </MenuItem>
                 <MenuItem>
-                  {/* onClick={handleOpenDialog} */}
-                  <ListItemIcon
-                    style={{ color: indigo[500] }}
-                    onClick={handleOpenDialog}
-                  >
+                  <ListItemIcon style={{ color: indigo[500] }}>
+                    <EditIcon />
+                  </ListItemIcon>
+                  <ListItemText>Edit</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={handleOpenDialog}>
+                  <ListItemIcon style={{ color: indigo[500] }}>
                     <DeleteOutlineIcon />
                   </ListItemIcon>
                   <ListItemText>Delete</ListItemText>
