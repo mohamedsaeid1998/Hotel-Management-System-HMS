@@ -8,16 +8,18 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import baseUrl from "../../utils/Custom/Custom";
 import "./Register.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../../Redux/Features/Auth/RegisterSlice";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const { isRegister } = useSelector((state) => state.register);
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -25,27 +27,14 @@ const Register = () => {
     getValues,
   } = useForm();
   const onSubmit = (data) => {
-    data.role = "user";
-    const addFormData = new FormData();
-    addFormData.append("userName", data["userName"]);
-    addFormData.append("email", data["email"]);
-    addFormData.append("password", data["password"]);
-    addFormData.append("confirmPassword", data["confirmPassword"]);
-    addFormData.append("phoneNumber", data["phoneNumber"]);
-    addFormData.append("country", data["country"]);
-    addFormData.append("role", data["role"]);
-    addFormData.append("profileImage", data["profileImage"][0]);
-
-    axios
-      .post(`${baseUrl}/api/v0/portal/users`, addFormData)
-      .then((res) => {
-        toast.success("created successfully");
-        navigate("/login");
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+    dispatch(fetchData(data));
   };
+  useEffect(() => {
+    if (isRegister) {
+      navigate("/login");
+      toast.success("register successfully");
+    }
+  }, [isRegister, navigate]);
   return (
     <>
       <Box component="div">

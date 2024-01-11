@@ -1,10 +1,11 @@
-import React from 'react'
-import './Sidebar.module.scss'
+import "./Sidebar.module.scss";
 
 const Sidebar = () => {
-  return <>
-    <div>Sidebar</div>
-  </>
-}
+  return (
+    <>
+      <div>Sidebar</div>
+    </>
+  );
+};
 
-export default Sidebar
+export default Sidebar;

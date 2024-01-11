@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 export default function ProtectedRoute({ children }) {
-  if (userData == null && localStorage.getItem("adminToken") == null) {
+  const { role } = useSelector((state) => state);
+  console.log(role);
+  if (role == null && localStorage.getItem("userRole") == null) {
     return <Navigate to="/login" />;
   } else {
     return children;

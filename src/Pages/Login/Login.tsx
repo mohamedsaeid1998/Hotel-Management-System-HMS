@@ -5,42 +5,30 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  selectAuthToken,
-  selectError,
-  setAuthToken,
-  setError,
-} from "../../Redux/Features/Auth/LoginSlice.ts";
-import baseUrl from "../../utils/Custom/Custom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Login.module.scss";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../../Redux/Features/Auth/LoginSlice";
+import { useEffect } from "react";
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLogin } = useSelector((state) => state.login);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const dispatch = useDispatch();
 
   const onSubmit = (data: { email: string; password: string }) => {
-    axios
-      .post(`${baseUrl}/api/v0/admin/users/login`, data)
-      .then((res) => {
-        dispatch(setAuthToken(res.data.data.token));
-        toast.success("Welcome");
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        dispatch(setError(err.message || "An error occurred"));
-        toast.error(err.response.data.message || "An error occurred");
-      });
+    dispatch(fetchData(data));
   };
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/dashboard");
+    }
+  }, [isLogin, navigate]);
   return (
     <>
       <Box component="div">
