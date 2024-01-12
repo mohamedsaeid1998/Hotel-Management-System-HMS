@@ -12,32 +12,11 @@ import "./Users.module.scss";
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getData();
   }, []);
-  {
-    /*Handle popup menu */
-  }
-
-  const handleClickMenu = (
-    event: React.MouseEvent<HTMLElement>,
-    id: number
-  ) => {
-    setRoomId(id);
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-  {
-    /* Dialog Modal  */
-  }
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-    setAnchorEl(null);
-  };
-  const handleCloseDialog = () => setOpenDialog(false);
 
   const getData = useCallback(async () => {
     setLoading(true);

@@ -1,3 +1,4 @@
+/** @format */
 
 import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
@@ -23,7 +24,7 @@ const Rooms = () => {
 
   const { handleSubmit } = useForm();
 
-    /*Handle popup menu */
+  /*Handle popup menu */
 
   const handleClickMenu = (
     event: React.MouseEvent<HTMLElement>,
@@ -64,12 +65,7 @@ const Rooms = () => {
   useEffect(() => {
     getData();
   }, []);
-  // const getData = async () => {
-  //   // @ts-ignore
-  //   let element = await dispatch(RoomsData());
-  //   // @ts-ignore
-  //   setTableData(element.payload.data.rooms);
-  // };
+
   const getData = useCallback(async () => {
     setLoading(true);
     try {
@@ -199,7 +195,6 @@ const Rooms = () => {
         // disableDensitySelector
         // disableColumnSelector
       />
-
     </>
   );
 };
