@@ -21,7 +21,7 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
           <Typography variant='body2' className='smallerSize' >You can check all details</Typography>
         </Box>
 
-        {pathname === "/dashboard/users"?"":
+        {pathname === "/dashboard/users"||pathname === "/dashboard/bookings"?"":
         <Button color='primary' variant="contained" >
         <Link to={path} className='linkStyle'>
           Add New {subTitle}
