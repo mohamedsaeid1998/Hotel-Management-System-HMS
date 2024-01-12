@@ -4,25 +4,15 @@ import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Rooms.module.scss";
-import {
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  MenuList,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-
-import { indigo } from "@mui/material/colors";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
-import { useForm } from "react-hook-form";
-import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
-import { Link, useNavigate } from "react-router-dom";
 import PopupList from "@/Components/PopupList/PopupList";
+import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { debounce } from "@mui/material";
 
 const Rooms = () => {
   const navigate = useNavigate();
@@ -33,6 +23,7 @@ const Rooms = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { handleSubmit } = useForm();
 
@@ -82,12 +73,17 @@ const Rooms = () => {
     getData();
   }, []);
 
-  const getData = async () => {
-    // @ts-ignore
-    let element = await dispatch(RoomsData());
-    // @ts-ignore
-    setTableData(element.payload.data.rooms);
-  };
+  const getData = useCallback(async () => {
+    setLoading(true);
+    try {
+      // @ts-ignore
+      const element = await dispatch(RoomsData());
+      // @ts-ignore
+      setTableData(element.payload.data.rooms);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch]);
 
   const tableBody: GridColDef[] = [
     {
@@ -168,7 +164,10 @@ const Rooms = () => {
       },
     },
   ];
-
+  const debouncedHandleFetchRows = React.useMemo(
+    () => debounce(getData, 200),
+    [getData]
+  );
   return (
     <>
       <TableHeader
@@ -177,10 +176,14 @@ const Rooms = () => {
         path={"/dashboard/add-new-room"}
       />
       <DataGrid
+        style={{ height: "27rem" }}
         className="dataGrid"
         rows={tableData}
         columns={tableBody}
         getRowId={(row) => row._id}
+        rowSelectionModel={"server"}
+        loading={loading}
+        rowCount={2}
         initialState={{
           pagination: {
             paginationModel: {

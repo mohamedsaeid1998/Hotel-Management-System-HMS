@@ -17,6 +17,7 @@ import { deleteDialog } from "@/Redux/Features/DeleteDialogSlice/DeleteDialogSli
 import { getDataGridUtilityClass } from "@mui/x-data-grid";
 import CloseIcon from "@mui/icons-material/Close";
 import { pink } from "@mui/material/colors";
+import { useLocation } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -34,10 +35,13 @@ const DeleteDialog = ({
   handleSubmit,
   itemId,
 }) => {
+  const { pathname } = useLocation();
+  const currentUrl = pathname.split("/").pop();
+
   const id = itemId;
   const dispatch = useDispatch();
   const deleteItem = useCallback(() => {
-    dispatch(deleteDialog(id));
+    dispatch(deleteDialog({ id, currentUrl }));
   }, [dispatch, getData, id]);
 
   return (
