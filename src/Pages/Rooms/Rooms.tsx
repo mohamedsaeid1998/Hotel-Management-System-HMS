@@ -15,16 +15,14 @@ import {
   MenuItem,
   MenuList,
 } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { indigo } from "@mui/material/colors";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import { useForm } from "react-hook-form";
 import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
 import { Link, useNavigate } from "react-router-dom";
+import PopupList from "@/Components/PopupList/PopupList";
 
 const Rooms = () => {
   const navigate = useNavigate();
@@ -42,8 +40,6 @@ const Rooms = () => {
     /*Handle popup menu */
   }
 
-  const ITEM_HEIGHT = 48;
-  const open = Boolean(anchorEl);
   const handleClickMenu = (
     event: React.MouseEvent<HTMLElement>,
     id: number
@@ -76,7 +72,7 @@ const Rooms = () => {
   {
     /*Edit */
   }
-  const handleEdit = () => {
+  const moveToEdit = () => {
     navigate(`/dashboard/add-new-room/${roomId}`, { state: { isEdit: true } });
   };
   {
@@ -158,52 +154,15 @@ const Rooms = () => {
               handleClose={handleCloseViewDialog}
               open={openViewDialog}
             />
-            <IconButton
-              aria-label="more"
-              id="long-button"
-              aria-controls={open ? "long-menu" : undefined}
-              aria-expanded={open ? "true" : undefined}
-              aria-haspopup="true"
-              onClick={(e) => handleClickMenu(e, _id)}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <MenuList>
-              <Menu
-                id="long-menu"
-                MenuListProps={{
-                  "aria-labelledby": "long-button",
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleCloseMenu}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: "20ch",
-                  },
-                }}
-              >
-                <MenuItem onClick={handleViewDialog}>
-                  <ListItemIcon style={{ color: indigo[500] }}>
-                    <VisibilityIcon />
-                  </ListItemIcon>
-                  View
-                </MenuItem>
-                <MenuItem onClick={handleEdit}>
-                  <ListItemIcon style={{ color: indigo[500] }}>
-                    <EditIcon />
-                  </ListItemIcon>
-                  <ListItemText>Edit</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleOpenDialog}>
-                  <ListItemIcon style={{ color: indigo[500] }}>
-                    <DeleteOutlineIcon />
-                  </ListItemIcon>
-                  <ListItemText>Delete</ListItemText>
-                </MenuItem>
-              </Menu>
-            </MenuList>
+            <PopupList
+              handleClickMenu={handleClickMenu}
+              handleCloseMenu={handleCloseMenu}
+              anchorEl={anchorEl}
+              moveToEdit={moveToEdit}
+              handleViewDialog={handleViewDialog}
+              handleOpenDialog={handleOpenDialog}
+              id={_id}
+            />
           </>
         );
       },
