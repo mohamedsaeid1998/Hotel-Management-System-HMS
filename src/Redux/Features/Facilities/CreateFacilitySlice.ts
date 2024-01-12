@@ -9,18 +9,21 @@ export interface Props {
 }
 const token = localStorage.getItem("authToken")
 
-export const RoomsData = createAsyncThunk<any, void>("GetRoomsSlice/RoomsData", async () => {
-  let data = await baseUrl.get(`/api/v0/admin/rooms?page=1&size=100`,{
+export const CreateFacility = createAsyncThunk<any, void>("CreateFacilitySlice/CreateFacility", async ({name}:string) => {
+
+
+
+  const data = await baseUrl.post(`/api/v0/admin/room-facilities`,{
+name
+  },{
     headers:{
-      Authorization: token
+      Authorization: token,
     }
 
   })
+  
   return data.data
 })
-
-
-
 
 
 let initialState:Props = {
@@ -30,19 +33,19 @@ let initialState:Props = {
 }
 
 
-export const GetRoomsSlice = createSlice({
-  name: 'RoomsData',
+export const CreateFacilitySlice = createSlice({
+  name: 'CreateFacility',
   initialState,
   reducers:{},
   extraReducers: (builder) => {
-    builder.addCase(RoomsData.pending, (state) => {
+    builder.addCase(CreateFacility.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(RoomsData.fulfilled, (state, action: PayloadAction<any>) => {
+    builder.addCase(CreateFacility.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.data = action.payload;
     });
-    builder.addCase(RoomsData.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(CreateFacility.rejected, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = action.payload.message;
     });
@@ -50,4 +53,4 @@ export const GetRoomsSlice = createSlice({
 
 })
 
-export default GetRoomsSlice.reducer
+export default CreateFacilitySlice.reducer

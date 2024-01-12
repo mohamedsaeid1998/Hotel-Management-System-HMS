@@ -2,6 +2,7 @@ import { AutoStories, Discount, Grade, Home, LockOpen, Logout, MeetingRoom, Peop
 import { Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Sidebar.module.scss';
+import React from 'react';
 
 
 // import Drawer from '@mui/material/Drawer';
@@ -14,17 +15,19 @@ import './Sidebar.module.scss';
 
 const Sidebar = () => {
 
-const {pathname} =  useLocation()
+  const { pathname } = useLocation()
   const DrawerItems = [
-    { text: "Home", icon: <Home />, path: "/dashboard" },
-    { text: "Users", icon: <PeopleAlt />, path: "/dashboard/users" },
-    { text: "Rooms", icon: <MeetingRoom />, path: "/dashboard/rooms" },
-    { text: "Facilities", icon: <Grade />, path: "/dashboard/facilities" },
-    { text: "Ads", icon: <Discount />, path: "/dashboard/ads" },
-    { text: "Bookings", icon: <AutoStories />, path: "/dashboard/bookings" },
+    { id: 1, text: "Home", icon: <Home />, path: "/dashboard", time: "300", shape: "fade-right" },
+    { id: 2, text: "Users", icon: <PeopleAlt />, path: "/dashboard/users", time: "400", shape: "fade-right" },
+    { id: 3, text: "Rooms", icon: <MeetingRoom />, path: "/dashboard/rooms", subPath: 'room', time: "500", shape: "fade-right" },
+    { id: 4, text: "Facilities", icon: <Grade />, path: "/dashboard/facilities", subPath: 'facility', time: "600", shape: "fade-right" },
+    { id: 5, text: "Ads", icon: <Discount />, path: "/dashboard/ads", subPath: 'ads', time: "700", shape: "fade-right" },
+    { id: 6, text: "Bookings", icon: <AutoStories />, path: "/dashboard/bookings", subPath: 'booking', time: "800", shape: "fade-right" },
   ]
   const navigate = useNavigate()
+
   return <>
+
     <Drawer
       sx={{
         width: "230px",
@@ -40,36 +43,32 @@ const {pathname} =  useLocation()
 
       <Toolbar />
       <List>
-        {DrawerItems.map(({ text, icon, path }) =>
-          <ListItem key={text} disablePadding className={pathname === path ? 'active' : null}>
+        {DrawerItems.map(({ id, text, icon, path, subPath, time, shape }) =>
+          <ListItem key={id} disablePadding  className={` ${pathname === path || pathname?.includes(subPath) ? 'active' : null}`}>
             <ListItemButton onClick={() => { navigate(path) }} >
-              <ListItemIcon >
+              <ListItemIcon data-aos-delay={time} data-aos={shape} >
                 {icon}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText data-aos-delay={time} data-aos={shape} primary={text} />
             </ListItemButton>
 
           </ListItem>
         )}
 
-        <ListItem  disablePadding>
+        <ListItem disablePadding data-aos-delay="900" data-aos="fade-right" >
           <ListItemButton  >
             <ListItemIcon >
-            <LockOpen />
+              <LockOpen />
             </ListItemIcon>
             <ListItemText primary={"ChangePassword"} />
           </ListItemButton>
 
 
-
-
-
-
         </ListItem>
-        <ListItem  disablePadding>
+        <ListItem disablePadding data-aos-delay="1000" data-aos="fade-right">
           <ListItemButton  >
             <ListItemIcon >
-              <Logout/>
+              <Logout />
             </ListItemIcon>
             <ListItemText primary={"Logout"} />
           </ListItemButton>
@@ -79,6 +78,7 @@ const {pathname} =  useLocation()
 
       </List>
     </Drawer>
+
   </>
 }
 

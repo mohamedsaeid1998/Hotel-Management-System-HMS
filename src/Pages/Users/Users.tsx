@@ -136,13 +136,10 @@ const Users = () => {
 
   // PopupList
 
-  return (
-    <>
-      <TableHeader
-        title={"Users"}
-        subTitle={"User"}
-        path={"/dashboard/add-New-Room"}
-      />
+  return <>
+<TableHeader title={"Users"} subTitle={"User"} path={'/dashboard/add-new-room'}/>
+
+
 
       <DataGrid
         className="dataGrid"
@@ -167,7 +164,6 @@ const Users = () => {
         checkboxSelection
       />
     </>
-  );
 };
 
 export default Users;

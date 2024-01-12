@@ -10,19 +10,21 @@ export interface Props {
 }
 const token = localStorage.getItem("authToken");
 
-export const UsersData = createAsyncThunk<any, void>(
-  "GetUsersSlice/UsersData",
-  async () => {
-    let data = await baseUrl.get(`/api/v0/admin/users?page=1&size=100`, {
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
-    return data.data;
-  }
-);
+export const UsersData = createAsyncThunk<any, void>("GetUsersSlice/UsersData", async () => {
+  let data = await baseUrl.get(`/api/v0/admin/users?page=1&size=100`,{
+    headers:{
+      Authorization: token
+    }
 
-let initialState: Props = {
+  })
+  return data.data
+})
+
+
+
+
+
+let initialState:Props = {
   data: [],
   loading: false,
   error: null,

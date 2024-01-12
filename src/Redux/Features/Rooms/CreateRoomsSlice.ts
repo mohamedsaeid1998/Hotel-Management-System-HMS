@@ -22,7 +22,7 @@ export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateR
     imgs:images[0]
   },{
     headers:{
-      Authorization: `${token}`,
+      Authorization: token,
       "Content-Type": "multipart/form-data"
     }
 

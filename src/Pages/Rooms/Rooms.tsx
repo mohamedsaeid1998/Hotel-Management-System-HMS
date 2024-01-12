@@ -1,4 +1,3 @@
-/** @format */
 
 import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
@@ -24,9 +23,7 @@ const Rooms = () => {
 
   const { handleSubmit } = useForm();
 
-  {
     /*Handle popup menu */
-  }
 
   const handleClickMenu = (
     event: React.MouseEvent<HTMLElement>,
@@ -201,33 +198,8 @@ const Rooms = () => {
         // disableColumnFilter
         // disableDensitySelector
         // disableColumnSelector
-      />{" "}
-      {/* <TableContainer className='table'>
-      <Table>
+      />
 
-        <TableHead>
-          <TableRow>
-
-          </TableRow>
-        </TableHead>
-
-
-
-
-
-        <TableBody >
-          {tableData?.map((room)=><TableRow>
-        <TableCell>{room.roomNumber}</TableCell>
-        <TableCell>{room.images[0] === ""? <img className='img-table' src={NoImage5} alt="images" /> : <img className='img-table' src={`http://upskilling-egypt.com:3000/` + room?.images[0]} alt="image" />}</TableCell>
-        <TableCell>{room.price}</TableCell>
-        <TableCell>{room.discount}</TableCell>
-        <TableCell>{room.capacity}</TableCell>
-      </TableRow>
-          )}
-
-        </TableBody>
-      </Table>
-    </TableContainer> */}
     </>
   );
 };

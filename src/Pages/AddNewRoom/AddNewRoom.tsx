@@ -70,7 +70,7 @@ const AddNewRoom = () => {
   //? ***************Send Data***************
 
   const sendData = async (data: any) => {
-    if (!checkPage) {
+    if (!roomId) {
       const roomsData = await dispatch(
         CreateRooms({ ...data, facilities, images })
       );
@@ -115,7 +115,7 @@ const AddNewRoom = () => {
       >
         <TextField
           variant="filled"
-          type="number"
+          type="text"
           className="roomNumber"
           label="Room Number"
           {...register("roomNumber", {

@@ -142,7 +142,7 @@
     }
   }
 }
-
+ 
 .authLayout {
   display: grid;
   width: 95%;
@@ -173,4 +173,14 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+
+
+.loadingButton{
+  background-color: #1976d2 !important;
+
+  span{
+    color: white !important;
+  }
 }

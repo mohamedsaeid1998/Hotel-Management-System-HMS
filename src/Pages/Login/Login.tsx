@@ -97,7 +97,7 @@ const Login = () => {
             )}
           </FormControl>
           <Box sx={{ textAlign: "end" }}>
-            <Link to="/forgetPassword" style={{ textDecoration: "none" }}>
+            <Link to="/forget-password" style={{ textDecoration: "none" }}>
               Forget Password
             </Link>
           </Box>

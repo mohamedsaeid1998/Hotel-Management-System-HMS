@@ -1,7 +1,6 @@
-/** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl, { requestHeaders } from "../../../utils/Custom/Custom";
+import baseUrl from "../../../utils/Custom/Custom";
 
 export interface Props {
   data: any[];
@@ -13,7 +12,7 @@ const token = localStorage.getItem("authToken");
 export const updateRoomData = createAsyncThunk<any, void>(
   "updateRooms/updateRoomData",
   async (
-    { roomNumber, price, capacity, discount, facilities, images, id },
+    { roomNumber, price, capacity, discount, facilities, images, id }:any,
     thunkAPI
   ) => {
     const { rejectWithValue } = thunkAPI;
@@ -30,7 +29,7 @@ export const updateRoomData = createAsyncThunk<any, void>(
         },
         {
           headers: {
-            Authorization: requestHeaders,
+            Authorization: token,
             "Content-Type": "multipart/form-data",
           },
         }

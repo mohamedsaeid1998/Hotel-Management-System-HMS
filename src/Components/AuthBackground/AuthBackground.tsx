@@ -8,9 +8,9 @@ const AuthBackground = () => {
       ? "auth-background"
       : pathname === "/register"
       ? "auth-background2"
-      : pathname === "/forgetPassword"
+      : pathname === "/forget-password"
       ? "auth-background3"
-      : pathname === "resetPassword"
+      : pathname === "reset-password"
       ? "auth-background3"
       : "auth-background";
 
