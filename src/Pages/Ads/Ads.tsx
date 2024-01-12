@@ -1,12 +1,11 @@
 import { TableHeader } from '@/Components';
-import { FacilitiesData } from '@/Redux/Features/Facilities/FacilitiesSlice';
+import { AdsData } from '@/Redux/Features/Ads/AdsSlice';
+import { Chip, Stack } from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import './Ads.module.scss'
-import { AdsData } from '@/Redux/Features/Ads/AdsSlice';
-import { Badge, Chip, Stack } from '@mui/material';
+import './Ads.module.scss';
 
 
 const Ads = () => {
@@ -34,7 +33,7 @@ const Ads = () => {
       width: 235,
       editable: false,
       renderCell: (params) => {
-        return params.row.room.roomNumber
+        return params?.row?.room?.roomNumber
       },
     },
     // {

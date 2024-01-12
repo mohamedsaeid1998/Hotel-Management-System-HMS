@@ -9,12 +9,14 @@ export interface Props {
 }
 const token = localStorage.getItem("authToken")
 
-export const CreateAds = createAsyncThunk<any, void>("CreateAdsSlice/CreateAds", async (details:any) => {
+export const CreateAds = createAsyncThunk<any, void>("CreateAdsSlice/CreateAds", async ({room,discount,isActive}:any) => {
 
 
 
-  const data = await baseUrl.post(`/api/v0/admin/ads`,{
-    details
+  const response = await baseUrl.post(`/api/v0/admin/ads`,{
+    room,
+    discount,
+    isActive
   },{
     headers:{
       Authorization: token,
@@ -22,7 +24,7 @@ export const CreateAds = createAsyncThunk<any, void>("CreateAdsSlice/CreateAds",
 
   })
   
-  return data.data
+  return response.data
 })
 
 

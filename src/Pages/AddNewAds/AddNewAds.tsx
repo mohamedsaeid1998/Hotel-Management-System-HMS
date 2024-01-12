@@ -1,4 +1,5 @@
-import { CreateFacility } from '@/Redux/Features/Facilities/CreateFacilitySlice';
+import { CreateAds } from '@/Redux/Features/Ads/CreateAdsSlice';
+import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
 import { ChevronRight } from '@mui/icons-material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Button, MenuItem, TextField } from '@mui/material';
@@ -8,15 +9,13 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
-import './AddNewAds.module.scss'
-import { CreateAds } from '@/Redux/Features/Ads/CreateAdsSlice';
-import { RoomsData } from '@/Redux/Features/Rooms/GetRoomsSlice';
+import './AddNewAds.module.scss';
 
 const AddNewAds = () => {
 
 
 
-  
+
   const {
     register,
     handleSubmit,
@@ -38,7 +37,7 @@ const AddNewAds = () => {
   //? ***************Get Rooms Id ***************
   const [roomsData, setRoomsData] = useState([])
 
- 
+
 
   const getData = async () => {
     // @ts-ignore
@@ -53,7 +52,7 @@ const AddNewAds = () => {
 
 
 
-console.log(roomsData);
+  console.log(roomsData);
 
 
 
@@ -62,9 +61,9 @@ console.log(roomsData);
   const sendData = async (data: any) => {
     setLoading(true)
     // @ts-ignore
-    const FacilityData = await dispatch(CreateAds(data))
+    const FacilityData = await dispatch(CreateAds({...data}))
     // @ts-ignore
-    if (FacilityData?.payload?.message === "Ads created Successfully") {
+    if (FacilityData?.payload?.message === "Ads created successfully") {
       setLoading(false)
       toast.success("Ads Created Successfully", {
         autoClose: 2000,
@@ -84,57 +83,73 @@ console.log(roomsData);
 
 
 
-// {
-//   "room": "6586d2cf226912e0754061c9",
-//   "discount": 100,
-//   "isActive": false
-// }
+  // {
+  //   "room": "6586d2cf226912e0754061c9",
+  //   "discount": 100,
+  //   "isActive": false
+  // }
 
   return <>
     <Box className='formContainer' component="form" onSubmit={handleSubmit(sendData)}>
 
-    <TextField label="select room" className='roomNumber' color="secondary"  select
-          {...register("room", {
-            required,
-          })}
-          error={!!errors.room}
-          helperText={!!errors.room ? errors?.room?.message?.toString() : null
-          } >
+      <TextField label="select Room" className='roomNumber' color="secondary" select
+        {...register("room", {
+          required,
+        })}
+        error={!!errors.room}
+        helperText={!!errors.room ? errors?.room?.message?.toString() : null
+        } >
 
-          {roomsData?.map(({ _id,roomNumber }: any) => <MenuItem key={_id} value={_id}>{roomNumber}</MenuItem>)}
+        {roomsData?.map(({ _id, roomNumber }: any) => <MenuItem key={_id} value={_id}>{roomNumber}</MenuItem>)}
 
-        </TextField>
+      </TextField>
 
+      <Box className="middleInputs">
+      <TextField variant="filled" type="number" className='discount' label="discount" color='secondary'
+        {...register("discount", {
+          required,
+          valueAsNumber:true,
+          validate: (value) =>
+            (value !== undefined && +value >= 0) ||
+            "Please enter a positive number"
+        })}
+        error={!!errors.discount}
+        helperText={!!errors.discount ? errors?.discount?.message?.toString() : null
+        } />
 
-{/* <TextField variant="filled" type="text" className='roomNumber' label="Facility Name" color='secondary'
-  {...register("room", {
-    required,
-    minLength: { value: 3, message: "minlength is 3" },
-  })}
-  error={!!errors.name}
-  helperText={!!errors.name ? errors?.name?.message?.toString() : null
-  } /> */}
+<TextField label="select Room" className='discount' color="secondary" select
+        {...register("isActive", {
+          required,
+        })}
+        error={!!errors.isActive}
+        helperText={!!errors.isActive ? errors?.isActive?.message?.toString() : null
+        } >
 
-<Box className='btnContainer'>
+        <MenuItem value={"true"} >Active</MenuItem>
+        <MenuItem value={"false"}>Not Active</MenuItem>
 
-  <Link to={'/dashboard/facilities'}>
-    <Button variant="outlined" size="large" >
-      Cancel
-    </Button>
-  </Link>
-
-
-  {loading ?
-    <LoadingButton className='loadingButton' loading variant="outlined" >
-      Submit
-    </LoadingButton> : <Button variant="contained" type='submit' size="large"  >
-      Submit <ChevronRight />
-    </Button>}
-
+      </TextField>
 </Box>
+      <Box className='btnContainer'>
+
+        <Link to={'/dashboard/ads'}>
+          <Button variant="outlined" size="large" >
+            Cancel
+          </Button>
+        </Link>
 
 
-</Box>  </>
+        {loading ?
+          <LoadingButton className='loadingButton' loading variant="outlined" >
+            Submit
+          </LoadingButton> : <Button variant="contained" type='submit' size="large"  >
+            Submit <ChevronRight />
+          </Button>}
+
+      </Box>
+
+
+    </Box>  </>
 }
 
 export default AddNewAds
