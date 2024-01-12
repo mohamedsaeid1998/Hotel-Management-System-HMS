@@ -34,6 +34,8 @@ function App() {
         { path: "add-new-room/:id", element: <AddNewRoom /> },
         { path: "room-facilities", element: <Facilities /> },
         { path: "add-new-facility", element: <AddNewFacility /> },
+
+        { path: "add-new-facility/:id", element: <AddNewFacility /> },
         { path: "ads", element: <Ads /> },
         { path: "add-new-ads", element: <AddNewAds /> },
         { path: "bookings", element: <Bookings /> },

@@ -10,9 +10,11 @@ import "./Facilities.module.scss";
 import "../../Styles/global.scss";
 import PopupList from "@/Components/PopupList/PopupList";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import { useNavigate } from "react-router-dom";
 
 const Facilities = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -55,7 +57,14 @@ const Facilities = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
+  {
+    /*moveToEdit screen */
+  }
+  const moveToEdit = () => {
+    navigate(`/dashboard/add-new-facility/${roomId}`, {
+      state: { isEdit: true },
+    });
+  };
   const getFacilitiesData = useCallback(async () => {
     setLoading(true);
     try {
@@ -132,6 +141,7 @@ const Facilities = () => {
               handleCloseMenu={handleCloseMenu}
               anchorEl={anchorEl}
               handleViewDialog={handleViewDialog}
+              moveToEdit={moveToEdit}
               handleOpenDialog={handleOpenDialog}
               id={_id}
             />

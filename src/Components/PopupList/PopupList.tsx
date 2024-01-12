@@ -22,6 +22,7 @@ const PopupList = ({
   handleCloseMenu,
   handleViewDialog,
   handleOpenDialog,
+  moveToEdit,
   id,
 }) => {
   const { pathname } = useLocation();
@@ -31,9 +32,7 @@ const PopupList = ({
 
   const ITEM_HEIGHT = 48;
   const open = Boolean(anchorEl);
-  const moveToEdit = () => {
-    navigate(`/dashboard/add-new-room/${id}`, { state: { isEdit: true } });
-  };
+
   return (
     <>
       <IconButton

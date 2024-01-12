@@ -11,10 +11,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "../../Styles/global.scss";
 import "./Rooms.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const Rooms = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -53,7 +54,12 @@ const Rooms = () => {
     setAnchorEl(null);
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
-
+  {
+    /* move to edit  */
+  }
+  const moveToEdit = () => {
+    navigate(`/dashboard/add-new-room/${roomId}`, { state: { isEdit: true } });
+  };
   {
     /*get Room */
   }
@@ -143,6 +149,7 @@ const Rooms = () => {
               anchorEl={anchorEl}
               handleViewDialog={handleViewDialog}
               handleOpenDialog={handleOpenDialog}
+              moveToEdit={moveToEdit}
               id={_id}
             />
           </>
