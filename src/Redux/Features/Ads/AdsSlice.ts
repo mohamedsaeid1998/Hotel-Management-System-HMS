@@ -10,8 +10,8 @@ export interface Props {
 const token = localStorage.getItem("authToken")
 
 
-export const FacilitiesData = createAsyncThunk<any, void>("GetFacilitiesSlice/FacilitiesData", async () => {
-  let data = await baseUrl.get(`/api/v0/admin/room-facilities?page=1&size=100`,{
+export const AdsData = createAsyncThunk<any, void>("GetAdsSlice/AdsData", async () => {
+  let data = await baseUrl.get(`/api/v0/admin/ads?page=1&size=100`,{
     headers:{
       Authorization: token
     }
@@ -28,19 +28,19 @@ let initialState:Props = {
 }
 
 
-export const GetFacilitiesSlice = createSlice({
-  name: 'FacilitiesData',
+export const GetAdsSlice = createSlice({
+  name: 'AdsData',
   initialState,
   reducers:{},
   extraReducers: (builder) => {
-    builder.addCase(FacilitiesData.pending, (state) => {
+    builder.addCase(AdsData.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(FacilitiesData.fulfilled, (state, action: PayloadAction<any>) => {
+    builder.addCase(AdsData.fulfilled, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.data = action.payload;
     });
-    builder.addCase(FacilitiesData.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(AdsData.rejected, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = action.payload.message;
     });
@@ -48,4 +48,4 @@ export const GetFacilitiesSlice = createSlice({
 
 })
 
-export default GetFacilitiesSlice.reducer
+export default GetAdsSlice.reducer

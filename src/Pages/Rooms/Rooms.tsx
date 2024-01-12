@@ -24,6 +24,7 @@ const Rooms = () => {
     setTableData(element.payload.data.rooms)
   }
 
+console.log(tableData);
 
 
 const tableBody: GridColDef[] = [
@@ -92,9 +93,10 @@ there          </div>
 
 
 
-<DataGrid
+{tableData.length>0 &&<DataGrid
     className='dataGrid'
     rows={tableData}
+    
     columns={tableBody}
     getRowId={(row) => row._id}
     initialState={{
@@ -118,6 +120,7 @@ there          </div>
     // disableDensitySelector
     // disableColumnSelector
   />
+  }
 
 
 

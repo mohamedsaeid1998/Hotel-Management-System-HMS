@@ -63,7 +63,7 @@ const AddNewRoom = () => {
       })
       navigate('/dashboard/rooms')
     }else{
-      toast.error(" Room was not created successfully", {
+      toast.error("Room was not created successfully", {
         autoClose: 2000,
         theme: "colored",
       })
@@ -89,7 +89,7 @@ const AddNewRoom = () => {
 
       <Box className="middleInputs">
 
-        <TextField variant="filled" type="number" className='price' label="Price"
+        <TextField variant="filled" type="number" color='error' className='price' label="Price" 
           {...register("price", {
             required,
             validate: value => (value !== undefined && +value > 0) || "Please enter a positive number"
