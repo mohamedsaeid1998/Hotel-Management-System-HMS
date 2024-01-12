@@ -32,10 +32,11 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const viewItem = async () => {
+  const viewItem = React.useCallback(async () => {
     const viewDetails = await dispatch(viewRoomDetails(itemId));
     setRoomDetailsData(viewDetails.payload.data.room);
-  };
+  }, [dispatch, itemId]);
+
   React.useEffect(() => {
     if (open) {
       viewItem();
