@@ -20,7 +20,7 @@ import { viewRoomDetails } from "@/Redux/Features/ViewDetails/viewDetailsSlice";
 // import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
 const ViewDialogModal = ({ handleClose, open, itemId }) => {
@@ -100,7 +100,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                   src={image}
                   onClick={handleImageClick}
                   loading="lazy"
-                  // alt={`Image ${index + 1} for ${room}`}
+                  alt={`room image`}
                 />
               ))}
             </ImageListItem>
@@ -114,10 +114,9 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
             >
               <img
                 style={{ width: "100%", borderRadius: ".5rem" }}
-                // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 src={images[currentImageIndex]}
-                // alt={item.title}
                 loading="lazy"
+                alt={`room image`}
               />
             </ImageListItem>
           </Grid>
@@ -141,12 +140,6 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
             </Box>
           </Grid>
         </Grid>
-        {/* <Grid container spacing={2}>
-          <Grid item md={4}>
-            AAA
-           
-          </Grid>
-        </Grid> */}
       </Dialog>
     </>
   );

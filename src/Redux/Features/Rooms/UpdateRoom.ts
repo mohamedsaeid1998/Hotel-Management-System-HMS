@@ -1,7 +1,7 @@
 /** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/Custom/Custom";
+import baseUrl, { requestHeaders } from "../../../utils/Custom/Custom";
 
 export interface Props {
   data: any[];
@@ -30,7 +30,7 @@ export const updateRoomData = createAsyncThunk<any, void>(
         },
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNTAyMzM4MCwiZXhwIjoxNzA2MjMyOTgwfQ.LHYpgolymLf-6wSm_FeruZN-IQxSyM7WCw3smi37DeE`,
+            Authorization: requestHeaders,
             "Content-Type": "multipart/form-data",
           },
         }
