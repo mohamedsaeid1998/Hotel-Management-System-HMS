@@ -11,6 +11,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import "./Rooms.module.scss";
+import "../../Styles/global.scss";
 
 const Rooms = () => {
   const dispatch = useDispatch();
@@ -73,7 +74,6 @@ const Rooms = () => {
       const element = await dispatch(RoomsData());
       // @ts-ignore
       setTableData(element.payload.data.rooms);
-      console.log(element);
     } finally {
       setLoading(false);
     }
@@ -166,8 +166,8 @@ const Rooms = () => {
         path={"/dashboard/add-new-room"}
       />
       <DataGrid
-        style={{ height: "27rem" }}
-        className="dataGrid"
+        // style={{ height: "27rem" }}
+        className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}
         getRowId={(row) => row._id}

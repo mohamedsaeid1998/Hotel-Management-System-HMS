@@ -1,3 +1,5 @@
+/** @format */
+
 @import "./variables.scss";
 @import "./responsive.scss";
 
@@ -142,7 +144,7 @@
     }
   }
 }
- 
+
 .authLayout {
   display: grid;
   width: 95%;
@@ -175,12 +177,13 @@
   justify-content: space-between;
 }
 
-
-
-.loadingButton{
+.loadingButton {
   background-color: #1976d2 !important;
 
-  span{
+  span {
     color: white !important;
   }
+}
+.tableStyle {
+  height: 27rem !important;
 }
