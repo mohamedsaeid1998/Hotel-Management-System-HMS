@@ -72,7 +72,12 @@ const Rooms = () => {
   useEffect(() => {
     getData();
   }, []);
-
+  // const getData = async () => {
+  //   // @ts-ignore
+  //   let element = await dispatch(RoomsData());
+  //   // @ts-ignore
+  //   setTableData(element.payload.data.rooms);
+  // };
   const getData = useCallback(async () => {
     setLoading(true);
     try {
@@ -80,6 +85,7 @@ const Rooms = () => {
       const element = await dispatch(RoomsData());
       // @ts-ignore
       setTableData(element.payload.data.rooms);
+      console.log(element);
     } finally {
       setLoading(false);
     }
@@ -164,10 +170,7 @@ const Rooms = () => {
       },
     },
   ];
-  const debouncedHandleFetchRows = React.useMemo(
-    () => debounce(getData, 200),
-    [getData]
-  );
+
   return (
     <>
       <TableHeader
@@ -182,8 +185,8 @@ const Rooms = () => {
         columns={tableBody}
         getRowId={(row) => row._id}
         rowSelectionModel={"server"}
-        loading={loading}
         rowCount={2}
+        loading={loading}
         initialState={{
           pagination: {
             paginationModel: {

@@ -91,7 +91,6 @@ const AddNewRoom = () => {
       const updateData = await dispatch(
         updateRoomData({ ...data, facilities, images, id })
       );
-      console.log(updateData);
       if (updateData?.payload?.success) {
         toast.success(" Room updated successfully", {
           autoClose: 2000,
