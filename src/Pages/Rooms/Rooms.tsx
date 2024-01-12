@@ -2,20 +2,17 @@
 
 import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
-import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import "./Rooms.module.scss";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import PopupList from "@/Components/PopupList/PopupList";
 import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
+import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { debounce } from "@mui/material";
+import { useDispatch } from "react-redux";
+import "./Rooms.module.scss";
 
 const Rooms = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [tableData, setTableData] = useState([]);
@@ -63,9 +60,7 @@ const Rooms = () => {
   {
     /*Edit */
   }
-  const moveToEdit = () => {
-    navigate(`/dashboard/add-new-room/${roomId}`, { state: { isEdit: true } });
-  };
+
   {
     /*get Room */
   }
@@ -160,7 +155,6 @@ const Rooms = () => {
               handleClickMenu={handleClickMenu}
               handleCloseMenu={handleCloseMenu}
               anchorEl={anchorEl}
-              moveToEdit={moveToEdit}
               handleViewDialog={handleViewDialog}
               handleOpenDialog={handleOpenDialog}
               id={_id}

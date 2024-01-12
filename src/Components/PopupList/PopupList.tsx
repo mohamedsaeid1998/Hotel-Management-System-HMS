@@ -14,19 +14,23 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { indigo } from "@mui/material/colors";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useNavigate } from "react-router-dom";
 
 const PopupList = ({
   handleClickMenu,
   anchorEl,
   handleCloseMenu,
-  handleEdit,
   handleViewDialog,
   handleOpenDialog,
   id,
 }) => {
+  const navigate = useNavigate();
+
   const ITEM_HEIGHT = 48;
   const open = Boolean(anchorEl);
-
+  const moveToEdit = () => {
+    navigate(`/dashboard/add-new-room/${id}`, { state: { isEdit: true } });
+  };
   return (
     <>
       {" "}
@@ -62,7 +66,7 @@ const PopupList = ({
             </ListItemIcon>
             View
           </MenuItem>
-          <MenuItem onClick={handleEdit}>
+          <MenuItem onClick={moveToEdit}>
             <ListItemIcon style={{ color: indigo[500] }}>
               <EditIcon />
             </ListItemIcon>
