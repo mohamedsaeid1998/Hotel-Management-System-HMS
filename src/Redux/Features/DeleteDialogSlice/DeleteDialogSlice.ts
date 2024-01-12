@@ -12,7 +12,7 @@ export const deleteDialog = createAsyncThunk(
         `/api/v0/admin/${currentUrl}/${id}`,
         {
           headers: {
-            AuthOrization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhMTgyYjQ3ZWUyYjE0Zjk1NDY5OTAiLCJyb2xlIjoiYWRtaW4iLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTcwNDkzNzg3NSwiZXhwIjoxNzA2MTQ3NDc1fQ.EtLEaTRf26ZMtuJILVUeRGIYyRgwGv9NN0rUo6Dj4uY`,
+            AuthOrization: requestHeaders,
           },
         }
       );
