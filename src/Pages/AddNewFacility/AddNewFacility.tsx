@@ -5,13 +5,22 @@ import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewFacility.module.scss";
+import { updateFacilityData } from "@/Redux/Features/Facilities/updateFacilitySlice";
+interface propState {
+  isEdit: boolean;
+}
 const AddNewFacility = () => {
+  const [facilityID, setFacilityID] = useState(null);
+  const paramId = useParams();
+  const location = useLocation();
+  const { isEdit } = location.state as propState;
+
   const {
     register,
     handleSubmit,
@@ -29,27 +38,51 @@ const AddNewFacility = () => {
 
   const sendData = async (data: any) => {
     setLoading(true);
-    // @ts-ignore
-    const FacilityData = await dispatch(CreateFacility(data));
-    // @ts-ignore
-    if (
-      FacilityData?.payload?.message === "Room Facility created successfully"
-    ) {
-      setLoading(false);
-      toast.success("Room Facility Created Successfully", {
-        autoClose: 2000,
-        theme: "colored",
-      });
-      navigate("/dashboard/room-facilities");
+    if (!isEdit) {
+      // @ts-ignore
+      const FacilityData = await dispatch(CreateFacility(data));
+      // @ts-ignore
+      if (
+        FacilityData?.payload?.message === "Room Facility created successfully"
+      ) {
+        setLoading(false);
+        toast.success("Room Facility Created Successfully", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+        navigate("/dashboard/room-facilities");
+      } else {
+        setLoading(false);
+        toast.error("Room Facility Was Not Created Successfully", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      }
     } else {
-      setLoading(false);
-      toast.error("Room Facility Was Not Created Successfully", {
-        autoClose: 2000,
-        theme: "colored",
-      });
+      const id = facilityID;
+      console.log(id);
+      const updateData = await dispatch(updateFacilityData({ data, id }));
+      if (updateData?.payload?.success) {
+        setLoading(false);
+        toast.success("Room Facility Created Successfully", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+        navigate("/dashboard/room-facilities");
+      } else {
+        setLoading(false);
+        toast.error("Room Facility Was Not Created Successfully", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      }
     }
   };
-
+  useEffect(() => {
+    if (isEdit) {
+      setFacilityID(paramId.id);
+    }
+  }, [facilityID]);
   return (
     <>
       <Box
@@ -92,5 +125,4 @@ const AddNewFacility = () => {
     </>
   );
 };
-
 export default AddNewFacility;

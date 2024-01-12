@@ -30,7 +30,7 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
             ""
           ) : (
             <Button color="primary" variant="contained">
-              <Link to={path} state={{ isEdit: true }} className="linkStyle">
+              <Link to={path} state={{ isEdit: false }} className="linkStyle">
                 Add New {subTitle}
               </Link>
             </Button>

@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import UpdateRoom, { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
 interface propState {
-  email: boolean;
+  isEdit: boolean;
 }
 const AddNewRoom = () => {
   const [roomId, setRoomId] = useState(null);
@@ -43,16 +43,13 @@ const AddNewRoom = () => {
     // @ts-ignore
     setSelectData(element.payload.data.facilities);
   };
-  const handleEdit = () => {
-    // alert("Edit");
-  };
+
   useEffect(() => {
     if (isEdit) {
       setCheckPage(isEdit);
       setRoomId(paramId.id);
-      handleEdit();
-      getFacilitiesData();
     }
+    getFacilitiesData();
   }, [roomId]);
 
   //! ***************Selected Input ***************
