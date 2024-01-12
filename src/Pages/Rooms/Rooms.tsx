@@ -8,10 +8,9 @@ import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React, { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import "./Rooms.module.scss";
 import "../../Styles/global.scss";
+import "./Rooms.module.scss";
 
 const Rooms = () => {
   const dispatch = useDispatch();
@@ -22,8 +21,6 @@ const Rooms = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const { handleSubmit } = useForm();
 
   /*Handle popup menu */
 
@@ -56,9 +53,6 @@ const Rooms = () => {
     setAnchorEl(null);
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
-  {
-    /*Edit */
-  }
 
   {
     /*get Room */
@@ -136,7 +130,6 @@ const Rooms = () => {
               getData={getData}
               handleCloseDialog={handleCloseDialog}
               openDialog={openDialog}
-              handleSubmit={handleSubmit}
               itemId={roomId}
             />
             <ViewDialogModal
@@ -172,7 +165,7 @@ const Rooms = () => {
         columns={tableBody}
         getRowId={(row) => row._id}
         rowSelectionModel={"server"}
-        rowCount={2}
+        rowCount={5}
         loading={loading}
         initialState={{
           pagination: {

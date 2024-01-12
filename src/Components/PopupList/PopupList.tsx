@@ -14,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { indigo } from "@mui/material/colors";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PopupList = ({
   handleClickMenu,
@@ -24,6 +24,9 @@ const PopupList = ({
   handleOpenDialog,
   id,
 }) => {
+  const { pathname } = useLocation();
+  const currentUrl = pathname.split("/").pop();
+
   const navigate = useNavigate();
 
   const ITEM_HEIGHT = 48;
@@ -59,12 +62,17 @@ const PopupList = ({
             },
           }}
         >
-          <MenuItem onClick={handleViewDialog}>
-            <ListItemIcon style={{ color: indigo[500] }}>
-              <VisibilityIcon />
-            </ListItemIcon>
-            View
-          </MenuItem>
+          {currentUrl === "rooms" ? (
+            <MenuItem onClick={handleViewDialog}>
+              <ListItemIcon style={{ color: indigo[500] }}>
+                <VisibilityIcon />
+              </ListItemIcon>
+              View
+            </MenuItem>
+          ) : (
+            ""
+          )}
+
           <MenuItem onClick={moveToEdit}>
             <ListItemIcon style={{ color: indigo[500] }}>
               <EditIcon />

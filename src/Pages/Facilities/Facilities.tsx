@@ -8,11 +8,53 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Facilities.module.scss";
 import "../../Styles/global.scss";
+import PopupList from "@/Components/PopupList/PopupList";
+import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 
 const Facilities = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
+  const [roomId, setRoomId] = useState("");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openViewDialog, setOpenViewDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  {
+    /*check current page  */
+  }
+
+  {
+    /*************popUp************** */
+  }
+  {
+    /* Dialog Modal  */
+  }
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+    setAnchorEl(null);
+  };
+  const handleCloseDialog = () => setOpenDialog(false);
+  {
+    /*view dialog */
+  }
+  const handleViewDialog = () => {
+    setOpenViewDialog(true);
+    setAnchorEl(null);
+  };
+  const handleCloseViewDialog = () => setOpenViewDialog(false);
+
+  /*Handle popup menu */
+
+  const handleClickMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    id: number
+  ) => {
+    setRoomId(id);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   const getFacilitiesData = useCallback(async () => {
     setLoading(true);
@@ -75,14 +117,24 @@ const Facilities = () => {
       headerName: "Action",
       width: 290,
       renderCell: (params) => {
-        // const { id, name } = params.row;
+        const { _id } = params.row;
 
         return (
           <>
-            <div className="action d-flex align-items-center gap-3 ">
-              <div className="edit text-info pointer">here</div>
-              <div className="delete text-danger pointer">there </div>
-            </div>
+            <DeleteDialog
+              getData={getFacilitiesData}
+              handleCloseDialog={handleCloseDialog}
+              openDialog={openDialog}
+              itemId={roomId}
+            />
+            <PopupList
+              handleClickMenu={handleClickMenu}
+              handleCloseMenu={handleCloseMenu}
+              anchorEl={anchorEl}
+              handleViewDialog={handleViewDialog}
+              handleOpenDialog={handleOpenDialog}
+              id={_id}
+            />
           </>
         );
       },

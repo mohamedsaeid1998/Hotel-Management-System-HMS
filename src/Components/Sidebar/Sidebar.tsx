@@ -20,7 +20,7 @@ const Sidebar = () => {
     { id: 1, text: "Home", icon: <Home />, path: "/dashboard", time: "300", shape: "fade-right" },
     { id: 2, text: "Users", icon: <PeopleAlt />, path: "/dashboard/users", time: "400", shape: "fade-right" },
     { id: 3, text: "Rooms", icon: <MeetingRoom />, path: "/dashboard/rooms", subPath: 'room', time: "500", shape: "fade-right" },
-    { id: 4, text: "Facilities", icon: <Grade />, path: "/dashboard/facilities", subPath: 'facility', time: "600", shape: "fade-right" },
+    { id: 4, text: "Facilities", icon: <Grade />, path: "/dashboard/room-facilities", subPath: 'facility', time: "600", shape: "fade-right" },
     { id: 5, text: "Ads", icon: <Discount />, path: "/dashboard/ads", subPath: 'ads', time: "700", shape: "fade-right" },
     { id: 6, text: "Bookings", icon: <AutoStories />, path: "/dashboard/bookings", subPath: 'booking', time: "800", shape: "fade-right" },
   ]

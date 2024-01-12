@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   Dialog,
@@ -18,6 +18,7 @@ import { getDataGridUtilityClass } from "@mui/x-data-grid";
 import CloseIcon from "@mui/icons-material/Close";
 import { pink } from "@mui/material/colors";
 import { useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,21 +29,25 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const DeleteDialog = ({
-  getData,
-  openDialog,
-  handleCloseDialog,
-  handleSubmit,
-  itemId,
-}) => {
+const DeleteDialog = ({ getData, openDialog, handleCloseDialog, itemId }) => {
+  const [loading, setLoading] = useState(false);
   const { pathname } = useLocation();
   const currentUrl = pathname.split("/").pop();
-
+  const { handleSubmit } = useForm();
   const id = itemId;
   const dispatch = useDispatch();
-  const deleteItem = useCallback(() => {
-    dispatch(deleteDialog({ id, currentUrl }));
-  }, [dispatch, getData, id]);
+
+  const deleteItem = useCallback(async () => {
+    setLoading(true);
+    try {
+      await dispatch(deleteDialog({ id, currentUrl }));
+      if (getData) {
+        await getData();
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch, getData, id, currentUrl]);
 
   return (
     <Dialog

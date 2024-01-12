@@ -1,10 +1,24 @@
-import { Provider } from 'react-redux'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { AuthLayout, MasterLayout, NotFound } from './Components'
-import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Facilities, ForgetPassword, Home, Login, Register, ResetPassword, Rooms, Users } from './Pages'
-import Store from './Redux/Store'
+/** @format */
 
-
+import { Provider } from "react-redux";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthLayout, MasterLayout, NotFound } from "./Components";
+import {
+  AddNewAds,
+  AddNewFacility,
+  AddNewRoom,
+  Ads,
+  Bookings,
+  Facilities,
+  ForgetPassword,
+  Home,
+  Login,
+  Register,
+  ResetPassword,
+  Rooms,
+  Users,
+} from "./Pages";
+import Store from "./Redux/Store";
 
 function App() {
   const routes = createBrowserRouter([
@@ -14,17 +28,16 @@ function App() {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
-        { path: 'users', element: <Users /> },
-        { path: 'rooms', element: <Rooms /> },
-        { path: 'add-new-room', element: <AddNewRoom /> },
+        { path: "users", element: <Users /> },
+        { path: "rooms", element: <Rooms /> },
+        { path: "add-new-room", element: <AddNewRoom /> },
         { path: "add-new-room/:id", element: <AddNewRoom /> },
-        { path: 'facilities', element: <Facilities /> },
-        { path: 'add-new-facility', element: <AddNewFacility /> },
-        { path: 'ads', element: <Ads /> },
-        { path: 'add-new-ads', element: <AddNewAds /> },
-        { path: 'bookings', element: <Bookings /> },
-        
-      ]
+        { path: "room-facilities", element: <Facilities /> },
+        { path: "add-new-facility", element: <AddNewFacility /> },
+        { path: "ads", element: <Ads /> },
+        { path: "add-new-ads", element: <AddNewAds /> },
+        { path: "bookings", element: <Bookings /> },
+      ],
     },
 
     {
@@ -37,11 +50,9 @@ function App() {
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
-      ]
-    }
-
-
-  ])
+      ],
+    },
+  ]);
 
   return (
     <>
