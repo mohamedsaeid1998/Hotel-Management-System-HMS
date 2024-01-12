@@ -24,9 +24,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import { useForm } from "react-hook-form";
 import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
+import { Link, useNavigate } from "react-router-dom";
 
 const Rooms = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [tableData, setTableData] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -70,6 +73,12 @@ const Rooms = () => {
     setAnchorEl(null);
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
+  {
+    /*Edit */
+  }
+  const handleEdit = () => {
+    navigate(`/dashboard/add-new-room/${roomId}`, { state: { isEdit: true } });
+  };
   {
     /*get Room */
   }
@@ -179,9 +188,9 @@ const Rooms = () => {
                   <ListItemIcon style={{ color: indigo[500] }}>
                     <VisibilityIcon />
                   </ListItemIcon>
-                  view
+                  View
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={handleEdit}>
                   <ListItemIcon style={{ color: indigo[500] }}>
                     <EditIcon />
                   </ListItemIcon>
@@ -206,7 +215,7 @@ const Rooms = () => {
       <TableHeader
         title={"Rooms"}
         subTitle={"Room"}
-        path={"/dashboard/add-New-Room"}
+        path={"/dashboard/add-new-room"}
       />
       <DataGrid
         className="dataGrid"

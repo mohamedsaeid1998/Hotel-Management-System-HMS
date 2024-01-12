@@ -1,43 +1,49 @@
-import { Box, Button, Typography } from '@mui/material'
-import { Link, useLocation } from 'react-router-dom'
-import './TableHeader.module.scss'
+/** @format */
+
+import { Box, Button, Typography } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
+import "./TableHeader.module.scss";
 
 interface IProps {
-  title: string
-  subTitle: string
-  path:string
+  title: string;
+  subTitle: string;
+  path: string;
 }
-
 
 const TableHeader = ({ title, subTitle, path }: IProps) => {
-  const {pathname} = useLocation()
-  return <>
-    <Box component="header" className='header'>
+  const { pathname } = useLocation();
+  return (
+    <>
+      <Box component="header" className="header">
+        <Box className="headerContainer">
+          <Box className="leftSec">
+            <Typography variant="subtitle2" className="biggerSize">
+              {title} Table Details
+            </Typography>
+            <Typography variant="body2" className="smallerSize">
+              You can check all details
+            </Typography>
+          </Box>
 
-      <Box className='headerContainer'>
-
-        <Box className='leftSec'>
-          <Typography variant='subtitle2' className='biggerSize'>{title} Table Details</Typography>
-          <Typography variant='body2' className='smallerSize' >You can check all details</Typography>
+          {pathname === "/dashboard/users" ? (
+            ""
+          ) : (
+            <Button color="primary" variant="contained">
+              <Link to={path} state={{ isEdit: true }} className="linkStyle">
+                Add New {subTitle}
+              </Link>
+            </Button>
+          )}
         </Box>
-
-        {pathname === "/dashboard/users"?"":
-        <Button color='primary' variant="contained" >
-        <Link to={path} className='linkStyle'>
-          Add New {subTitle}
-        </Link>
-      </Button>
-        }
       </Box>
+    </>
+  );
+};
 
-    </Box>
-  </>
-}
+export default TableHeader;
 
-export default TableHeader
-
-
-{/* <header className=" header-container rounded-3 ">
+{
+  /* <header className=" header-container rounded-3 ">
 <div className="row py-3 pe-5 mt-3 align-items-center px-1 g-0  ">
 
   <div className="col-sm-10">
@@ -58,4 +64,5 @@ export default TableHeader
   </div>
 
 </div>
-</header> */}
+</header> */
+}
