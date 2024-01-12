@@ -1,27 +1,17 @@
 /** @format */
 
-import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import "./Users.module.scss";
 import { UsersData } from "@/Redux/Features/Users/GetUsersSlice";
 import moment from "moment";
-import PopupList from "@/Components/PopupList/PopupList";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
-import { useForm } from "react-hook-form";
+import "./Users.module.scss";
 
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
-  const [roomId, setRoomId] = useState("");
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [loading, setLoading] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const { handleSubmit } = useForm();
 
   useEffect(() => {
     getData();
@@ -104,42 +94,17 @@ const Users = () => {
         );
       },
     },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 180,
-      renderCell: (params) => {
-        const { _id } = params.row;
-        return (
-          <>
-            <DeleteDialog
-              getData={getData}
-              handleCloseDialog={handleCloseDialog}
-              openDialog={openDialog}
-              handleSubmit={handleSubmit}
-              itemId={roomId}
-            />
-            <PopupList
-              handleClickMenu={handleClickMenu}
-              handleCloseMenu={handleCloseMenu}
-              anchorEl={anchorEl}
-              handleOpenDialog={handleOpenDialog}
-              // handleViewDialog={handleViewDialog}
-              // moveToEdit={moveToEdit}
-              id={_id}
-            />
-          </>
-        );
-      },
-    },
   ];
 
   // PopupList
 
-  return <>
-<TableHeader title={"Users"} subTitle={"User"} path={'/dashboard/add-new-room'}/>
-
-
+  return (
+    <>
+      <TableHeader
+        title={"Users"}
+        subTitle={"User"}
+        path={"/dashboard/add-new-room"}
+      />
 
       <DataGrid
         className="dataGrid"
@@ -164,6 +129,7 @@ const Users = () => {
         checkboxSelection
       />
     </>
+  );
 };
 
 export default Users;

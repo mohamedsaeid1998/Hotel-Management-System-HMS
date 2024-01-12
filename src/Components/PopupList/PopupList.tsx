@@ -33,7 +33,6 @@ const PopupList = ({
   };
   return (
     <>
-      {" "}
       <IconButton
         aria-label="more"
         id="long-button"
