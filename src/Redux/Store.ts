@@ -7,6 +7,8 @@ import deleteDialog from "./Features/DeleteDialogSlice/DeleteDialogSlice";
 import viewDetailsSlice from "./Features/ViewDetails/viewDetailsSlice";
 import updateRoomsSlice from "./Features/Rooms/UpdateRoom";
 import updateFacilitySlice from "./Features/Facilities/updateFacilitySlice";
+import UpdateAdsSlice from "./Features/Ads/UpdateAdsSlice";
+
 const Store = configureStore({
   reducer: {
     RoomsData,
@@ -15,6 +17,7 @@ const Store = configureStore({
     viewDetailsSlice,
     updateRoomsSlice,
     updateFacilitySlice,
+    UpdateAdsSlice,
   },
 });
 

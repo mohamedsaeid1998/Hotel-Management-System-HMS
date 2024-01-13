@@ -9,9 +9,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Ads.module.scss";
 import PopupList from "@/Components/PopupList/PopupList";
+import { useNavigate } from "react-router-dom";
 
 const Ads = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
   const [roomId, setRoomId] = useState("");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,7 +36,7 @@ const Ads = () => {
     /*moveToEdit screen */
   }
   const moveToEdit = () => {
-    navigate(`/dashboard/add-new-facility/${roomId}`, {
+    navigate(`/dashboard/add-new-ads/${roomId}`, {
       state: { isEdit: true },
     });
   };
