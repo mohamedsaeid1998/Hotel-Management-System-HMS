@@ -165,7 +165,7 @@ const Facilities = () => {
         columns={tableBody}
         getRowId={(row) => row._id}
         rowSelectionModel={"server"}
-        rowCount={2}
+        rowCount={5}
         loading={loading}
         initialState={{
           pagination: {
