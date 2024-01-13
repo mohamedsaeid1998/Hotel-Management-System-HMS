@@ -8,18 +8,18 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import "./Register.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../../Redux/Features/Auth/RegisterSlice";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchData } from "../../Redux/Features/Auth/RegisterSlice";
+import "./Register.module.scss";
 
 const Register = () => {
   const dispatch = useDispatch();
   const { isRegister } = useSelector((state) => state.register);
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,10 +31,9 @@ const Register = () => {
   };
   useEffect(() => {
     if (isRegister) {
-      navigate("/login");
-      toast.success("register successfully");
+      navigate("/");
     }
-  }, [isRegister, navigate]);
+  }, [isRegister]);
   return (
     <>
       <Box component="div">
@@ -54,7 +53,17 @@ const Register = () => {
           <Typography>
             If you already have an account register
             <br /> You can
-            <Link to="/login"> Login here !</Link>
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
+              Login here !
+            </Link>
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>

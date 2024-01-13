@@ -1,36 +1,35 @@
-import baseUrl from "../../../utils/Custom/Custom";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { toast } from "react-toastify";
+import baseUrl from "../../../utils/Custom/Custom";
 interface LoginState {
-  role: any;
-  data: any[];
-  isLogin: boolean;
+  role: null;
+  data: [];
   loading: boolean;
   errors: string | null;
 }
 const initialState: LoginState = {
   role: null,
   data: [],
-  isLogin: false,
   loading: false,
   errors: null,
 };
 
 const fetchData = createAsyncThunk("login/fetchData", async (userData) => {
   try {
-    const response = await axios.post(
-      `${baseUrl}/api/v0/admin/users/login`,
-      userData
-    );
-
+    const response = await baseUrl.post(`/api/v0/admin/users/login`, userData);
     localStorage.setItem("userRole", response.data.data.user.role);
-    localStorage.setItem("token", response.data.data.token);
-    console.log(response.data.message);
-    toast.success(response.data.message);
+    localStorage.setItem("authToken", response.data.data.token);
+    console.log("login");
+    toast.success(response.data.message, {
+      autoClose: 2000,
+      theme: "colored",
+    });
     return response.data.data.user.role;
   } catch (error) {
-    console.log(error);
+    toast.error(error.response.data.message, {
+      autoClose: 2000,
+      theme: "colored",
+    });
     throw error;
   }
 });
@@ -46,10 +45,9 @@ const loginSlice = createSlice({
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.role = action.payload;
       state.loading = false;
-      state.isLogin = true;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
-      state.loading = true;
+      state.loading = false;
       state.errors = action.payload;
     });
   },

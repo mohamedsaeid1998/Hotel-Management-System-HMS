@@ -6,7 +6,6 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,15 +19,14 @@ const ResetPassword = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    axios
-      .post(`${baseUrl}/api/v0/portal/users/reset-password`, data)
-      .then((res) => {
+  const onSubmit = (data:any) => {
+    baseUrl
+      .post(`/api/v0/portal/users/reset-password`, data)
+      .then(() => {
         toast.success("send successfully");
         navigate("/login");
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         toast.error(err.message);
       });
   };

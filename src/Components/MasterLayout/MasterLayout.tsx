@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import { Navbar, Sidebar } from '..'
 import './MasterLayout.module.scss'
@@ -6,22 +6,22 @@ import './MasterLayout.module.scss'
 const MasterLayout = () => {
 
 
+
+
   return <>
 
 
+  <Box className='containerBox'>
 
-
-
-
-
-        <Box component={"div"} >
+        <Box>
           <Sidebar />
         </Box>
 
-        <Box component={"div"} >
+        <Box className="mainContainer">
           <Navbar />
           <Outlet />
         </Box>
+  </Box>
 
 
 
@@ -33,15 +33,3 @@ const MasterLayout = () => {
 export default MasterLayout
 
 
-{/* <Navbar {...{logOut}}/>
-<div className="container-fluid d-flex ps-0 pe-0 ">
-
-<div className={`sidebar-container `}>
-<SideBar {...{ logOut ,setSidebarOpen ,isSidebarOpen}} />
-</div>
-<div className={`container-fluid main ${isSidebarOpen ? 'main-sidebar-open' : 'main-sidebar-closed'} `}>
-
-<Outlet />
-</div>
-
-</div>  */}

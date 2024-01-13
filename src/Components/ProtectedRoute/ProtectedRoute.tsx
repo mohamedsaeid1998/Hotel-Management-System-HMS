@@ -1,12 +1,16 @@
-import { useSelector } from "react-redux";
+import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ children }) {
-  const { role } = useSelector((state) => state);
-  console.log(role);
-  if (role == null && localStorage.getItem("userRole") == null) {
-    return <Navigate to="/login" />;
-  } else {
-    return children;
-  }
+interface Props {
+  children: ReactNode;
 }
+
+const ProtectedRoute = ({ children }: Props) => {
+  if (localStorage.getItem("authToken")) {
+    return children;
+  } else {
+    return <Navigate to={"/"} />;
+  }
+};
+
+export default ProtectedRoute;

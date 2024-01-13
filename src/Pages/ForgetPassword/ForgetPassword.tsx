@@ -1,3 +1,5 @@
+import { ChevronRight } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -5,31 +7,34 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import baseUrl from "../../utils/Custom/Custom";
+import { fetchData } from "../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
+import { useEffect } from "react";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isForgetPassword, loading } = useSelector(
+    (state) => state.ForgetPassword
+  );
+  console.log(isForgetPassword);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    axios
-      .post(`${baseUrl}/api/v0/portal/users/forgot-password`, data)
-      .then((res) => {
-        toast.success("send successfully");
-        navigate("/resetPassword");
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+  const onSubmit = (data: any) => {
+    dispatch(fetchData(data));
   };
+  if (isForgetPassword) {
+    console.log(loading);
+    console.log("isForgetPassword", isForgetPassword);
+    navigate("/reset-password");
+  }
+
   return (
     <>
       <Box component="div">
@@ -48,7 +53,16 @@ const ForgetPassword = () => {
           </Typography>
           <Typography>
             If you already have an account register <br /> You can
-            <Link to="/login">Login here !</Link>
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              Login here !
+            </Link>
           </Typography>
         </Box>
       </Box>
@@ -77,13 +91,25 @@ const ForgetPassword = () => {
           )}
         </FormControl>
 
-        <Button
-          type="submit"
-          sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-          variant="contained"
-        >
-          Send mail
-        </Button>
+        {loading ? (
+          <LoadingButton
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            className="loadingButton"
+            loading
+            variant="outlined"
+          >
+            Send mail
+          </LoadingButton>
+        ) : (
+          <Button
+            variant="contained"
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            type="submit"
+            size="large"
+          >
+            Send mail <ChevronRight />
+          </Button>
+        )}
       </form>
     </>
   );

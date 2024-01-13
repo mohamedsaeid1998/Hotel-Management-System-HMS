@@ -1,16 +1,165 @@
 @import "./variables.scss";
 @import "./responsive.scss";
 
+.mainContainer {
+  margin-left: 240px;
+  margin-right: 10px;
+}
+
+//? *************** Navbar ***************
+
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+  margin-top: 27px;
+  background-color: #f8f9fb !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+
+  .navAvatar {
+    margin-left: auto !important;
+  }
+
+  .navInfo {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+//! *************** Toolbar Drawer ***************
+
+.css-hyum1k-MuiToolbar-root {
+  min-height: 30px !important;
+}
+
+.MuiDrawer-paper {
+  background-color: #203fc7 !important;
+
+  .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
+    padding-left: 25px;
+    color: white !important;
+    opacity: 0.65;
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba(26, 27, 30, 0.17);
+    }
+  }
+
+  .css-cveggr-MuiListItemIcon-root {
+    color: white;
+    min-width: 40px !important;
+  }
+}
+
+.active {
+  background-color: rgba(26, 36, 63, 0.17);
+  border-left: 4px solid rgb(2, 2, 158);
+  color: white;
+  .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
+    color: white !important;
+    opacity: 1;
+  }
+  a {
+    color: white !important;
+    transition: all 0.4s;
+  }
+}
+
+//? *************** TableHeader ***************
+.header {
+  margin-top: 2em;
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+
+    .biggerSize {
+      font-size: 18px;
+      line-height: normal;
+    }
+
+    .smallerSize {
+      font-size: 14px;
+      letter-spacing: none;
+    }
+
+    .linkStyle {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+//! *************** Table ***************
+
+.dataGrid {
+  margin-top: 2em;
+  padding-inline: 20px;
+  padding-block: 10px;
+  background-color: white;
+
+  .MuiDataGrid-toolbarContainer {
+    flex-direction: row-reverse;
+  }
+}
+
+.img-table {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  transition: all 0.4s;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+}
+
+//! *************** Form ***************
+.formContainer {
+  margin-top: 50px !important;
+  width: 70%;
+  margin: auto;
+
+  .roomNumber {
+    display: flex;
+    width: 100%;
+    margin: auto;
+  }
+
+  // .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  //   border-radius: 8px;
+  //   background: #f7f7f7;
+  //   color: #333;
+  //   }
+
+  .middleInputs {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    .price,
+    .capacity,
+    .discount,
+    .facilities {
+      width: 48%;
+    }
+  }
+}
+
 .authLayout {
   display: grid;
   width: 95%;
   margin: auto;
   border-radius: 10px;
-  height: 100vh;
+  padding: 30px !important;
+  line-height: 0.1;
 }
 .auth {
   background-size: cover;
+  font-family: sans-serif;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  color: #fff;
+  height: 100vh;
 }
 .auth-background {
   background-image: url("../Assets/Images/bg1.png");
@@ -20,4 +169,39 @@
 }
 .auth-background3 {
   background-image: url("../Assets/Images/bg3.png");
+}
+
+.auth-desc h3 {
+  font-size: 30px;
+}
+
+.loadingButton {
+  background-color: #1976d2 !important;
+
+  span {
+    color: white !important;
+  }
+}
+.imagesBtn {
+  margin-top: 20px !important;
+}
+
+.btnContainer {
+  margin-top: 40px !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+//! *************** ChangePassword ***************
+.changePasswordBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #fff;
+  border: 2px solid #1976d2;
+  border-radius: 20px;
+  box-shadow: 24px;
+  padding: 30px;
 }

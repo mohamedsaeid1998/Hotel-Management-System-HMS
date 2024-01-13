@@ -1,3 +1,5 @@
+import { ChevronLeft } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -6,15 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import "./Login.module.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../Redux/Features/Auth/LoginSlice";
-import { useEffect } from "react";
+import "./Login.module.scss";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogin } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.login);
   const {
     register,
     handleSubmit,
@@ -24,11 +25,10 @@ const Login = () => {
   const onSubmit = (data: { email: string; password: string }) => {
     dispatch(fetchData(data));
   };
-  useEffect(() => {
-    if (isLogin) {
-      navigate("/dashboard");
-    }
-  }, [isLogin, navigate]);
+  if (localStorage.getItem("authToken") != null) {
+    navigate("/dashboard");
+  }
+
   return (
     <>
       <Box component="div">
@@ -47,7 +47,17 @@ const Login = () => {
           </Typography>
           <Typography>
             If you don’t have an account register <br /> You can
-            <Link to="/register"> Register here !</Link>
+            <Link
+              to="/register"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
+              Register here !
+            </Link>
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,7 +81,6 @@ const Login = () => {
               </Box>
             )}
           </FormControl>
-
           <FormControl sx={{ width: "100%", margin: "20px 0" }}>
             <OutlinedInput
               type="password"
@@ -87,17 +96,29 @@ const Login = () => {
             )}
           </FormControl>
           <Box sx={{ textAlign: "end" }}>
-            <Link to="/forgetPassword" style={{ textDecoration: "none" }}>
+            <Link to="/forget-password" style={{ textDecoration: "none" }}>
               Forget Password
             </Link>
           </Box>
-          <Button
-            type="submit"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-            variant="contained"
-          >
-            Login
-          </Button>
+          {loading ? (
+            <LoadingButton
+              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              className="loadingButton"
+              loading
+              variant="outlined"
+            >
+              Login
+            </LoadingButton>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              type="submit"
+              size="large"
+            >
+              <ChevronLeft /> Login
+            </Button>
+          )}
         </form>
       </Box>
     </>
