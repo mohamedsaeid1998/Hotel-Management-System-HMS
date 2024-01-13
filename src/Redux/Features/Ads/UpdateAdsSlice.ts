@@ -10,24 +10,30 @@ export interface Props {
 }
 const token = localStorage.getItem("authToken");
 
-export const CreateAds = createAsyncThunk<any, void>(
-  "CreateAdsSlice/CreateAds",
-  async ({ room, discount, isActive, id }: any) => {
-    const response = await baseUrl.put(
-      `/api/v0/admin/ads/${id}`,
-      {
-        room,
-        discount,
-        isActive,
-      },
-      {
-        headers: {
-          Authorization: token,
+export const updateAdsData = createAsyncThunk<any, void>(
+  "updateAds/updateAdsData",
+  async ({ room, discount, isActive, id }: any, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    console.log(room, discount, isActive, id);
+    try {
+      const response = await baseUrl.put(
+        `/api/v0/admin/ads/${id}`,
+        {
+          room,
+          discount,
+          isActive,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      rejectWithValue(error);
+    }
   }
 );
 
@@ -37,26 +43,29 @@ const initialState: Props = {
   error: null,
 };
 
-export const CreateAdsSlice = createSlice({
-  name: "CreateFacility",
+export const UpdateAdsSlice = createSlice({
+  name: "updateAds",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(CreateAds.pending, (state) => {
+    builder.addCase(updateAdsData.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(
-      CreateAds.fulfilled,
+      updateAdsData.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.data = action.payload;
       }
     );
-    builder.addCase(CreateAds.rejected, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload.message;
-    });
+    builder.addCase(
+      updateAdsData.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      }
+    );
   },
 });
 
-export default CreateAdsSlice.reducer;
+export default UpdateAdsSlice.reducer;

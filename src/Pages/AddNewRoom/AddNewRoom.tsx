@@ -39,7 +39,7 @@ const AddNewRoom = () => {
 
   const getFacilitiesData = async () => {
     // @ts-ignore
-    let element = await dispatch(FacilitiesData());
+    const element = await dispatch(FacilitiesData());
     // @ts-ignore
     setSelectData(element.payload.data.facilities);
   };
@@ -67,7 +67,7 @@ const AddNewRoom = () => {
   //? ***************Send Data***************
 
   const sendData = async (data: any) => {
-    if (!roomId) {
+    if (!checkPage) {
       const roomsData = await dispatch(
         CreateRooms({ ...data, facilities, images })
       );
@@ -89,7 +89,7 @@ const AddNewRoom = () => {
         updateRoomData({ ...data, facilities, images, id })
       );
       if (updateData?.payload?.success) {
-        toast.success(" Room updated successfully", {
+        toast.success(updateData?.payload?.message, {
           autoClose: 2000,
           theme: "colored",
         });

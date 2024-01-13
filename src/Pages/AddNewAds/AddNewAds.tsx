@@ -6,12 +6,13 @@ import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
+import { updateAdsData } from "@/Redux/Features/Ads/UpdateAdsSlice";
 
 const AddNewAds = () => {
   const [AdsID, setAdsID] = useState(null);
@@ -34,17 +35,20 @@ const AddNewAds = () => {
   //? ***************Get Rooms Id ***************
   const [roomsData, setRoomsData] = useState([]);
 
-  const getData = async () => {
-    // @ts-ignore
-    let element = await dispatch(RoomsData());
-    // @ts-ignore
-    setRoomsData(element.payload.data.rooms);
-  };
+  const getData = useCallback(async () => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(RoomsData());
+      // @ts-ignore
+      setRoomsData(element.payload.data.rooms);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }, [setRoomsData, dispatch]);
 
   useEffect(() => {
     if (isEdit) {
       setAdsID(id);
-
     }
 
     getData();
@@ -54,10 +58,29 @@ const AddNewAds = () => {
 
   const sendData = async (data: any) => {
     setLoading(true);
-    if(!isEdit){ // @ts-ignore
-      const FacilityData = await dispatch(CreateAds({ ...data }));
+    if (!isEdit) {
       // @ts-ignore
-      if (FacilityData?.payload?.message === "Ads created successfully") {
+      const createAdsData = await dispatch(CreateAds({ ...data }));
+      // @ts-ignore
+      if (createAdsData?.payload?.message === "Ads created successfully") {
+        setLoading(false);
+        toast.success("Ads Created Successfully", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+        navigate("/dashboard/ads");
+      } else {
+        setLoading(false);
+        toast.error(createAdsData?.payload?.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      }
+    } else {
+      const id = AdsID;
+      const updateAds = await dispatch(updateAdsData({ ...data, id }));
+      // @ts-ignore
+      if (updateAds?.payload?.success) {
         setLoading(false);
         toast.success("Ads Created Successfully", {
           autoClose: 2000,
@@ -70,25 +93,11 @@ const AddNewAds = () => {
           autoClose: 2000,
           theme: "colored",
         });
-      }}else{ const id = AdsID ;const updateFacilityData = await dispatch(updateAdsData({...data,AdsID}));
-      // @ts-ignore
-      if (updateFacilityData?.payload?.success) {
-        setLoading(false);
-        toast.success("Ads Created Successfully", {
-          autoClose: 2000,
-          theme: "colored",
-        });
-        navigate("/dashboard/ads");
-      } else {
-        setLoading(false);
-        toast.error("Ads Was Not Created Successfully", {
-          autoClose: 2000,
-          theme: "colored",
-        })}
-    
+      }
+    }
+
+    // AdsID
   };
-  
-  // AdsID
   return (
     <>
       <Box
@@ -96,23 +105,29 @@ const AddNewAds = () => {
         component="form"
         onSubmit={handleSubmit(sendData)}
       >
-        <TextField
-          label="select Room"
-          className="roomNumber"
-          color="secondary"
-          select
-          {...register("room", {
-            required,
-          })}
-          error={!!errors.room}
-          helperText={!!errors.room ? errors?.room?.message?.toString() : null}
-        >
-          {roomsData?.map(({ _id, roomNumber }: any) => (
-            <MenuItem key={_id} value={_id}>
-              {roomNumber}
-            </MenuItem>
-          ))}
-        </TextField>
+        {!isEdit ? (
+          <TextField
+            label="select Room"
+            className="roomNumber"
+            color="secondary"
+            select
+            {...register("room", {
+              required,
+            })}
+            error={!!errors.room}
+            helperText={
+              !!errors.room ? errors?.room?.message?.toString() : null
+            }
+          >
+            {roomsData?.map(({ _id, roomNumber }: any) => (
+              <MenuItem key={_id} value={_id}>
+                {roomNumber}
+              </MenuItem>
+            ))}
+          </TextField>
+        ) : (
+          ""
+        )}
 
         <Box className="middleInputs">
           <TextField
