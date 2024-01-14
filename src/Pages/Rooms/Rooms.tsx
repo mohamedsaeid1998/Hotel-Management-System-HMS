@@ -46,7 +46,7 @@ const tableBody: GridColDef[] = [
     width: 180,
     editable: false,
     renderCell: (params) => {
-      return (params.formattedValue === "" || params?.row?.images[0] === undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={`http://upskilling-egypt.com:3000/` + params?.row?.images[0]} alt="image" />)
+      return (params.formattedValue === "" || params?.row?.images[0] === undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={params?.row?.images[0]} alt="image" />)
     },
   },
   {

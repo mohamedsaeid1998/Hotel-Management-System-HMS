@@ -12,7 +12,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.login);
-  const { isRegister } = useSelector((state) => state.register);
   const required = "This Field is required";
   const {
     register,
@@ -32,7 +31,7 @@ const Login = () => {
 
   return (
     <>
-      <Box component="div">
+      <Box component="div" >
         {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>

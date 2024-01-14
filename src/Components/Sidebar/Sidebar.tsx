@@ -14,21 +14,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
+  Toolbar
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import "./Sidebar.module.scss";
 
-// import Drawer from '@mui/material/Drawer';
-// import Toolbar from '@mui/material/Toolbar';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import List from '@mui/material/List';
-// import ListItemText from '@mui/material/ListItemText';
-
-const Sidebar = () => {
+const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
   const { pathname } = useLocation();
   const DrawerItems = [
     {
@@ -92,10 +84,14 @@ const Sidebar = () => {
     navigate("/");
   };
 
+
+
   return (
     <>
-      <Drawer
+      <Drawer 
+
         sx={{
+          display:{xs:display,sm:"block"},
           width: "230px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -103,11 +99,15 @@ const Sidebar = () => {
             boxSizing: "border-box",
           },
         }}
-        variant="permanent"
+        variant={DrawerVariant}
         anchor="left"
+        open={true}
+        onClose={() => {
+          closeDrawer()
+        }
+      }
       >
         <Toolbar />
-
         <List>
           {DrawerItems.map(({ id, text, icon, path, subPath, time, shape }) => (
             <ListItem

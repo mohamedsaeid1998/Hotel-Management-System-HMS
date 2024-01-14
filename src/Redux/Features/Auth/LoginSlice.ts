@@ -19,7 +19,7 @@ const fetchData = createAsyncThunk("login/fetchData", async (userData) => {
     const response = await baseUrl.post(`/api/v0/admin/users/login`, userData);
     localStorage.setItem("userRole", response.data.data.user.role);
     localStorage.setItem("authToken", response.data.data.token);
-    console.log("login");
+    localStorage.setItem("userId", response.data.data.user._id);
     toast.success(response.data.message, {
       autoClose: 2000,
       theme: "colored",
