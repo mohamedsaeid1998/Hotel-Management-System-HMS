@@ -26,7 +26,7 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
             </Typography>
           </Box>
 
-          {/* {pathname === "/dashboard/users" ? (
+          {pathname === "/dashboard/users" ? (
             ""
           ) : (
             <Button color="primary" variant="contained">
@@ -34,19 +34,8 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
                 Add New {subTitle}
               </Link>
             </Button>
-          )} */}
+          )}
         </Box>
-
-        {pathname === "/dashboard/users" ||
-        pathname === "/dashboard/bookings" ? (
-          ""
-        ) : (
-          <Button color="primary" variant="contained">
-            <Link to={path} className="linkStyle">
-              Add New {subTitle}
-            </Link>
-          </Button>
-        )}
       </Box>
     </>
   );
