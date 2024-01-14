@@ -1,59 +1,56 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {jwtDecode} from "jwt-decode";
-
-interface AuthState {
-  authToken: string | null;
-  userRole: string | null; // Add userRole to AuthState
-  error: string | null;
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import baseUrl from "../../../utils/Custom/Custom";
+interface LoginState {
+  role: null;
+  data: [];
+  loading: boolean;
+  errors: string | null;
 }
-
-const initialState: AuthState = {
-  authToken: null,
-  userRole: null,
-  error: null,
+const initialState: LoginState = {
+  role: null,
+  data: [],
+  loading: false,
+  errors: null,
 };
 
-const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    setAuthToken: (state, action: PayloadAction<string>) => {
-      state.authToken = action.payload;
-    },
-    setUserRole: (state, action: PayloadAction<string>) => {
-      state.userRole = action.payload;
-    },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-    },
-    clearError: (state) => {
-      state.error = null;
-    },
-    logout: (state) => {
-      state.authToken = null;
-      state.userRole = null; // Clear userRole on logout
-    },
-  },
+const fetchData = createAsyncThunk("login/fetchData", async (userData) => {
+  try {
+    const response = await baseUrl.post(`/api/v0/admin/users/login`, userData);
+    localStorage.setItem("userRole", response.data.data.user.role);
+    localStorage.setItem("authToken", response.data.data.token);
+    localStorage.setItem("userId", response.data.data.user._id);
+    toast.success(response.data.message, {
+      autoClose: 2000,
+      theme: "colored",
+    });
+    return response.data.data.user.role;
+  } catch (error) {
+    toast.error(error.response.data.message, {
+      autoClose: 2000,
+      theme: "colored",
+    });
+    throw error;
+  }
 });
 
-// Function to save user data including the user role
-export const saveUserData = () => {
-  const encodedToken: any = localStorage.getItem("authToken");
-  const decodedToken: any = jwtDecode(encodedToken);
-  setUserRole(decodedToken);
-};
-
-export const { setAuthToken, setUserRole, setError, clearError, logout } =
-  authSlice.actions;
-
-export const requestHeaders = {
-  Authorization: `${localStorage.getItem("authToken")}`,
-};
-
-export const selectAuthToken = (state: { auth: AuthState }) =>
-  state.auth.authToken;
-export const selectUserRole = (state: { auth: AuthState }) =>
-  state.auth.userRole; // Select userRole from the state
-export const selectError = (state: { auth: AuthState }) => state.auth.error;
-
-export default authSlice.reducer;
+const loginSlice = createSlice({
+  name: "login",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchData.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchData.fulfilled, (state, action) => {
+      state.role = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(fetchData.rejected, (state, action) => {
+      state.loading = false;
+      state.errors = action.payload;
+    });
+  },
+});
+export { fetchData };
+export default loginSlice.reducer;

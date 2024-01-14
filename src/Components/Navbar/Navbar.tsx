@@ -9,18 +9,38 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import './Navbar.module.scss';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { UserDetails } from '@/Redux/Features/Users/GetUserDetailsSlice';
+import { defaultImage } from '@/Assets/Images';
 
-const Navbar = () => {
+const Navbar = ({ showDrawer }: any) => {
 
+  const dispatch = useDispatch();
+  const [userData, setUserData] = useState()
+  const userId = localStorage.getItem("userId")
+  useEffect(() => {
+    getData()
+  }, []);
+
+  const getData = async () => {
+    // @ts-ignore
+    let element = await dispatch(UserDetails(userId))
+    // @ts-ignore
+    setUserData(element.payload.data.user)
+  }
 
 
   return <>
-<AppBar position="static">
+    <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>          
+        <Toolbar disableGutters>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { sm: 'none' } ,color:"black" }}>
             <IconButton
+              onClick={() => {
+                showDrawer()
+              }}
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -31,18 +51,18 @@ const Navbar = () => {
             </IconButton>
           </Box>
 
-
+          src="/broken-image.jpg"
           <Box className="navAvatar">
             <Tooltip title="Open settings">
               <IconButton>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar src={userData?.profileImage == null ? defaultImage : `http://upskilling-egypt.com:3000/` + userData?.profileImage}  />
               </IconButton>
             </Tooltip>
           </Box>
 
           <Box className="navInfo">
-          <Typography variant='caption' color="initial">Mohamed Saeid</Typography>
-          <Typography variant='caption' color="initial">msmma19998@gmail.com</Typography>
+            <Typography variant='caption' color="initial">{userData?.userName}</Typography>
+            <Typography variant='caption' color="initial">{userData?.email}</Typography>
           </Box>
         </Toolbar>
       </Container>

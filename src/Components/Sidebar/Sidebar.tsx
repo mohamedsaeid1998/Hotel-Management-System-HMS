@@ -63,7 +63,7 @@ const Sidebar = () => {
       id: 4,
       text: "Facilities",
       icon: <Grade />,
-      path: "/dashboard/room-facilities",
+      path: "/dashboard/facilities",
       subPath: "facility",
       time: "600",
       shape: "fade-right",
@@ -81,7 +81,7 @@ const Sidebar = () => {
       id: 6,
       text: "Bookings",
       icon: <AutoStories />,
-      path: "/dashboard/booking",
+      path: "/dashboard/bookings",
       subPath: "booking",
       time: "800",
       shape: "fade-right",
@@ -89,10 +89,17 @@ const Sidebar = () => {
   ];
   const navigate = useNavigate();
 
+  const handelLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    navigate("/");
+  };
+
   return (
     <>
       <Drawer
         sx={{
+          display: { xs: display, sm: "block" },
           width: "230px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -100,8 +107,12 @@ const Sidebar = () => {
             boxSizing: "border-box",
           },
         }}
-        variant="permanent"
+        variant={DrawerVariant}
         anchor="left"
+        open={true}
+        onClose={() => {
+          closeDrawer();
+        }}
       >
         <Toolbar />
         <List>
@@ -133,19 +144,14 @@ const Sidebar = () => {
           ))}
 
           <ListItem disablePadding data-aos-delay="900" data-aos="fade-right">
-            <ListItemButton>
-              <ListItemIcon>
-                <LockOpen />
-              </ListItemIcon>
-              <ListItemText primary={"ChangePassword"} />
-            </ListItemButton>
+            <ChangePassword />
           </ListItem>
           <ListItem disablePadding data-aos-delay="1000" data-aos="fade-right">
             <ListItemButton>
               <ListItemIcon>
                 <Logout />
               </ListItemIcon>
-              <ListItemText primary={"Logout"} />
+              <ListItemText primary={"Logout"} onClick={handelLogout} />
             </ListItemButton>
           </ListItem>
         </List>

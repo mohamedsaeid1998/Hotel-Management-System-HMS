@@ -1,34 +1,33 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { ChevronRight } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import baseUrl from "../../utils/Custom/Custom";
+import { fetchData } from "../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const required = "This Field is required";
+
+  const { isForgetPassword, loading } = useSelector(
+    (state) => state.ForgetPassword
+  );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data:any) => {
-    baseUrl
-      .post(`/api/v0/portal/users/forgot-password`, data)
-      .then(() => {
-        toast.success("send successfully");
-        navigate("/reset-password");
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+  const onSubmit = (data: any) => {
+    dispatch(fetchData(data));
   };
+  if (isForgetPassword) {
+    navigate("/reset-password");
+  }
+
   return (
     <>
       <Box component="div">
@@ -47,7 +46,16 @@ const ForgetPassword = () => {
           </Typography>
           <Typography>
             If you already have an account register <br /> You can
-            <Link to="/login">Login here !</Link>
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              Login here !
+            </Link>
           </Typography>
         </Box>
       </Box>
@@ -55,34 +63,44 @@ const ForgetPassword = () => {
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="email"
-            placeholder="Please type here ..."
-            {...register("email", {
-              required: true,
-              pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
-            })}
-          />
-          {errors.email && errors.email.type === "required" && (
-            <Box className="text-danger" sx={{ color: "red" }}>
-              email is required
-            </Box>
-          )}
-          {errors.email && errors.email.type === "pattern" && (
-            <Box component="span" sx={{ color: "red" }}>
-              invalid email
-            </Box>
-          )}
-        </FormControl>
+        <TextField
+          variant="outlined"
+          type="email"
+          className="auth-input"
+          label="Email"
+          color="primary"
+          {...register("email", {
+            required,
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Email is InValid",
+            },
+          })}
+          error={!!errors.email}
+          helperText={
+            !!errors.email ? errors?.email?.message?.toString() : null
+          }
+        />
 
-        <Button
-          type="submit"
-          sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-          variant="contained"
-        >
-          Send mail
-        </Button>
+        {loading ? (
+          <LoadingButton
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            className="loadingButton"
+            loading
+            variant="outlined"
+          >
+            Send mail
+          </LoadingButton>
+        ) : (
+          <Button
+            variant="contained"
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            type="submit"
+            size="large"
+          >
+            Send mail <ChevronRight />
+          </Button>
+        )}
       </form>
     </>
   );

@@ -1,6 +1,11 @@
 /** @format */
-
 import { configureStore } from "@reduxjs/toolkit";
+import loginReducer from "./Features/Auth/LoginSlice";
+import registerReducer from "./Features/Auth/RegisterSlice";
+import RoomsData from "./Features/Rooms/GetRoomsSlice";
+import FacilitiesData from "./Features/Facilities/FacilitiesSlice";
+import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
+import changePassword from "./Features/Auth/ChangePasswordSlice";
 import RoomsData from "./Features/Rooms/GetRoomsSlice";
 import FacilitiesData from "./Features/Facilities/FacilitiesSlice";
 import deleteDialog from "./Features/DeleteDialogSlice/DeleteDialogSlice";
@@ -13,6 +18,10 @@ import roomsDetailsSlice from "./Features/Rooms/RoomDetailsSlice";
 import facilityDetailsSlice from "./Features/Facilities/FacilitiesDetailsSlice";
 const Store = configureStore({
   reducer: {
+    login: loginReducer,
+    register: registerReducer,
+    ForgetPassword,
+    changePassword,
     RoomsData,
     FacilitiesData,
     deleteDialog,

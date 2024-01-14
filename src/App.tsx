@@ -19,12 +19,16 @@ import {
   Users,
 } from "./Pages";
 import Store from "./Redux/Store";
-
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 function App() {
   const routes = createBrowserRouter([
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
@@ -64,5 +68,4 @@ function App() {
     </>
   );
 }
-
 export default App;

@@ -79,12 +79,29 @@ const Rooms = () => {
     }
   }, [dispatch]);
 
-  const tableBody: GridColDef[] = [
-    {
-      field: "roomNumber",
-      headerName: "RoomNumber",
-      width: 180,
-      editable: false,
+
+
+const tableBody: GridColDef[] = [
+  {
+    field: 'roomNumber',
+    headerName: 'RoomNumber',
+    width: 180,
+    editable: false,
+    
+  },
+  {
+    field: 'price',
+    headerName: 'Price',
+    width: 180,
+    editable: false,
+  },
+  {
+    field: 'images',
+    headerName: 'Image',
+    width: 180,
+    editable: false,
+    renderCell: (params) => {
+      return (params.formattedValue === "" || params?.row?.images[0] === undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={params?.row?.images[0]} alt="image" />)
     },
     {
       field: "price",
