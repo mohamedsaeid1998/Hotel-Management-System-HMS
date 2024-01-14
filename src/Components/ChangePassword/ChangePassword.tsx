@@ -57,8 +57,8 @@ export default function ChangePassword() {
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="changePassword model"
+          aria-describedby="that model you can change your password"
         >
           <Box className="changePasswordBox">
             <Typography variant="h6" component="h6">

@@ -51,11 +51,11 @@ const Navbar = ({ showDrawer }: any) => {
             </IconButton>
           </Box>
 
-
+          src="/broken-image.jpg"
           <Box className="navAvatar">
             <Tooltip title="Open settings">
               <IconButton>
-                <Avatar src={userData?.profileImage == null ? defaultImage : `http://upskilling-egypt.com:3000/` + userData?.profileImage} alt="Remy Sharp" />
+                <Avatar src={userData?.profileImage == null ? defaultImage : `http://upskilling-egypt.com:3000/` + userData?.profileImage}  />
               </IconButton>
             </Tooltip>
           </Box>
