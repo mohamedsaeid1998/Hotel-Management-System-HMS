@@ -35,7 +35,6 @@ const Register = () => {
       navigate("/");
     }
   }, [isRegister]);
-  console.log("isRegister", isRegister);
   return (
     <>
       <Box component="div">

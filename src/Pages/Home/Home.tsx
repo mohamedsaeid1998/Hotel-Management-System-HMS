@@ -1,7 +1,7 @@
 import "./Home.module.scss";
 
 const Home = () => {
-  console.log("Home");
+
 
   return (
     <>

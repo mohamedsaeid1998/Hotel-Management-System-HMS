@@ -35,7 +35,6 @@ export default function ChangePassword() {
   const { isConfirmPassword, loading } = useSelector(
     (state) => state.changePassword
   );
-  console.log("isConfirmPassword", isConfirmPassword);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
   useEffect(() => {

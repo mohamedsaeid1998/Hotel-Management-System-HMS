@@ -29,7 +29,6 @@ const Navbar = ({ showDrawer }: any) => {
     // @ts-ignore
     setUserData(element.payload.data.user)
   }
-  console.log(userData);
 
 
   return <>

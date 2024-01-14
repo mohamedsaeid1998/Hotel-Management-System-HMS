@@ -15,7 +15,7 @@ const ForgetPassword = () => {
   const { isForgetPassword, loading } = useSelector(
     (state) => state.ForgetPassword
   );
-  console.log(isForgetPassword);
+
   const {
     register,
     handleSubmit,
@@ -25,8 +25,6 @@ const ForgetPassword = () => {
     dispatch(fetchData(data));
   };
   if (isForgetPassword) {
-    console.log(loading);
-    console.log("isForgetPassword", isForgetPassword);
     navigate("/reset-password");
   }
 

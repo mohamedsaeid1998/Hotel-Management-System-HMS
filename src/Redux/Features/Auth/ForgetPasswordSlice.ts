@@ -23,7 +23,6 @@ const fetchData = createAsyncThunk(
           autoClose: 2000,
           theme: "colored",
         });
-        console.log("true");
         return response.data.data.user.role;
       })
       .catch((error) => {
