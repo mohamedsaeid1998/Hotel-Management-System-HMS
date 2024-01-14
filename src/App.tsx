@@ -38,7 +38,7 @@ function App() {
         { path: "ads", element: <Ads /> },
         { path: "add-new-ads", element: <AddNewAds /> },
         { path: "add-new-ads/:id", element: <AddNewAds /> },
-        { path: "bookings", element: <Bookings /> },
+        { path: "booking", element: <Bookings /> },
       ],
     },
 

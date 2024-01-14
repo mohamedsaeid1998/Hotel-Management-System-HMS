@@ -28,11 +28,8 @@ const PopupList = ({
   const { pathname } = useLocation();
   const currentUrl = pathname.split("/").pop();
 
-  const navigate = useNavigate();
-
   const ITEM_HEIGHT = 48;
   const open = Boolean(anchorEl);
-
   return (
     <>
       <IconButton
@@ -71,13 +68,17 @@ const PopupList = ({
           ) : (
             ""
           )}
+          {currentUrl !== "booking" ? (
+            <MenuItem onClick={moveToEdit}>
+              <ListItemIcon style={{ color: indigo[500] }}>
+                <EditIcon />
+              </ListItemIcon>
+              <ListItemText>Edit</ListItemText>
+            </MenuItem>
+          ) : (
+            ""
+          )}
 
-          <MenuItem onClick={moveToEdit}>
-            <ListItemIcon style={{ color: indigo[500] }}>
-              <EditIcon />
-            </ListItemIcon>
-            <ListItemText>Edit</ListItemText>
-          </MenuItem>
           <MenuItem onClick={handleOpenDialog}>
             <ListItemIcon style={{ color: indigo[500] }}>
               <DeleteOutlineIcon />
