@@ -1,22 +1,17 @@
 import { ChevronRight } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Button,
-  FormControl,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
-import { useEffect } from "react";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const required = "This Field is required";
+
   const { isForgetPassword, loading } = useSelector(
     (state) => state.ForgetPassword
   );
@@ -70,26 +65,24 @@ const ForgetPassword = () => {
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="email"
-            placeholder="Please type here ..."
-            {...register("email", {
-              required: true,
-              pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
-            })}
-          />
-          {errors.email && errors.email.type === "required" && (
-            <Box className="text-danger" sx={{ color: "red" }}>
-              email is required
-            </Box>
-          )}
-          {errors.email && errors.email.type === "pattern" && (
-            <Box component="span" sx={{ color: "red" }}>
-              invalid email
-            </Box>
-          )}
-        </FormControl>
+        <TextField
+          variant="outlined"
+          type="email"
+          className="auth-input"
+          label="Email"
+          color="primary"
+          {...register("email", {
+            required,
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Email is InValid",
+            },
+          })}
+          error={!!errors.email}
+          helperText={
+            !!errors.email ? errors?.email?.message?.toString() : null
+          }
+        />
 
         {loading ? (
           <LoadingButton

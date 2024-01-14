@@ -45,7 +45,11 @@ const fetchData = createAsyncThunk<string, UserData, { rejectValue: string }>(
 const RegisterSlice = createSlice({
   name: "register",
   initialState,
-  reducers: {},
+  reducers: {
+    fetchDataStart: (state) => {
+      state.isRegister = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state, action) => {
       state.loading = true;
@@ -61,5 +65,6 @@ const RegisterSlice = createSlice({
     });
   },
 });
+export const { fetchDataStart } = RegisterSlice.actions;
 export { fetchData };
 export default RegisterSlice.reducer;

@@ -1,12 +1,8 @@
+import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
 import { ChevronLeft } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Button,
-  FormControl,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,6 +12,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.login);
+  const { isRegister } = useSelector((state) => state.register);
+  const required = "This Field is required";
   const {
     register,
     handleSubmit,
@@ -28,6 +26,9 @@ const Login = () => {
   if (localStorage.getItem("authToken") != null) {
     navigate("/dashboard");
   }
+  useEffect(() => {
+    dispatch(fetchDataStart(false));
+  }, [dispatch]);
 
   return (
     <>
@@ -61,42 +62,49 @@ const Login = () => {
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-            <OutlinedInput
-              type="email"
-              placeholder="Enter Your Email"
-              {...register("email", {
-                required: true,
-                pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
-              })}
-            />
-            {errors.email && errors.email.type === "required" && (
-              <Box className="text-danger" sx={{ color: "red" }}>
-                email is required
-              </Box>
-            )}
-            {errors.email && errors.email.type === "pattern" && (
-              <Box component="span" sx={{ color: "red" }}>
-                invalid email
-              </Box>
-            )}
-          </FormControl>
-          <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-            <OutlinedInput
-              type="password"
-              placeholder="Please Enter Your Password"
-              {...register("password", {
-                required: true,
-              })}
-            />
-            {errors.email && errors.email.type === "required" && (
-              <Box className="text-danger" sx={{ color: "red" }}>
-                Password is required
-              </Box>
-            )}
-          </FormControl>
+          <TextField
+            variant="outlined"
+            type="email"
+            className="auth-input"
+            label="Email"
+            color="primary"
+            {...register("email", {
+              required,
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "Email is InValid",
+              },
+            })}
+            error={!!errors.email}
+            helperText={
+              !!errors.email ? errors?.email?.message?.toString() : null
+            }
+          />
+
+          <TextField
+            variant="outlined"
+            type="password"
+            className="auth-input"
+            label="Password"
+            color="primary"
+            {...register("password", {
+              required,
+            })}
+            error={!!errors.password}
+            helperText={
+              !!errors.password ? errors?.password?.message?.toString() : null
+            }
+          />
+
           <Box sx={{ textAlign: "end" }}>
-            <Link to="/forget-password" style={{ textDecoration: "none" }}>
+            <Link
+              to="/forget-password"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
               Forget Password
             </Link>
           </Box>

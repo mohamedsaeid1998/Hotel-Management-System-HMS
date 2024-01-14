@@ -3,7 +3,6 @@ import {
   Discount,
   Grade,
   Home,
-  LockOpen,
   Logout,
   MeetingRoom,
   PeopleAlt,
@@ -18,8 +17,8 @@ import {
   Toolbar,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./Sidebar.module.scss";
 import ChangePassword from "../ChangePassword/ChangePassword";
+import "./Sidebar.module.scss";
 
 // import Drawer from '@mui/material/Drawer';
 // import Toolbar from '@mui/material/Toolbar';
@@ -86,6 +85,7 @@ const Sidebar = () => {
     },
   ];
   const navigate = useNavigate();
+
   const handelLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");

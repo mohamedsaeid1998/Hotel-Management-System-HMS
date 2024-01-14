@@ -1,32 +1,32 @@
 import { fetchData } from "@/Redux/Features/Auth/ChangePasswordSlice";
-import { ChevronLeft, LockOpen } from "@mui/icons-material";
+import { LockOpen } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Button,
-  FormControl,
-  InputLabel,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
+  TextField,
+  Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 export default function ChangePassword() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const required = "This Field is required";
+
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
   const onSubmit = (data: { email: string; password: string }) => {
@@ -62,60 +62,61 @@ export default function ChangePassword() {
           aria-describedby="modal-modal-description"
         >
           <Box className="changePasswordBox">
+            <Typography variant="h6" component="h6">
+              Change Password
+            </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Change Password
-              </Typography>
-              <InputLabel sx={{ marginTop: "10px" }}>Old Password</InputLabel>
-              <FormControl sx={{ width: "100%", marginTop: "10px" }}>
-                <OutlinedInput
-                  type="password"
-                  placeholder="Old Password"
-                  {...register("oldPassword", {
-                    required: true,
-                  })}
-                />
-                {errors.oldPassword &&
-                  errors.oldPassword.type === "required" && (
-                    <Box className="text-danger" sx={{ color: "red" }}>
-                      Old Password is required
-                    </Box>
-                  )}
-              </FormControl>
-              <InputLabel sx={{ marginTop: "10px" }}>New password</InputLabel>
-              <FormControl sx={{ width: "100%" }}>
-                <OutlinedInput
-                  type="password"
-                  placeholder="new password"
-                  {...register("newPassword", {
-                    required: true,
-                  })}
-                />
-                {errors.newPassword &&
-                  errors.newPassword.type === "required" && (
-                    <Box className="text-danger" sx={{ color: "red" }}>
-                      New Password is required
-                    </Box>
-                  )}
-              </FormControl>
-              <InputLabel sx={{ marginTop: "10px" }}>
-                Confirm Password
-              </InputLabel>
-              <FormControl sx={{ width: "100%" }}>
-                <OutlinedInput
-                  type="password"
-                  placeholder="confirm Password"
-                  {...register("confirmPassword", {
-                    required: true,
-                  })}
-                />
-                {errors.confirmPassword &&
-                  errors.confirmPassword.type === "required" && (
-                    <Box className="text-danger" sx={{ color: "red" }}>
-                      confirm Password is required
-                    </Box>
-                  )}
-              </FormControl>
+              <TextField
+                variant="outlined"
+                type="password"
+                className="auth-input"
+                label="Old Password"
+                color="primary"
+                {...register("oldPassword", {
+                  required,
+                })}
+                error={!!errors.oldPassword}
+                helperText={
+                  !!errors.oldPassword
+                    ? errors?.oldPassword?.message?.toString()
+                    : null
+                }
+              />
+              <TextField
+                variant="outlined"
+                type="password"
+                className="auth-input"
+                label="New password"
+                color="primary"
+                {...register("newPassword", {
+                  required,
+                })}
+                error={!!errors.newPassword}
+                helperText={
+                  !!errors.newPassword
+                    ? errors?.newPassword?.message?.toString()
+                    : null
+                }
+              />
+              <TextField
+                variant="outlined"
+                type="password"
+                className="auth-input"
+                label="Confirm password"
+                color="primary"
+                {...register("confirmPassword", {
+                  required,
+                  validate: (value) =>
+                    value === getValues("newPassword") ||
+                    "password is don't match",
+                })}
+                error={!!errors.confirmPassword}
+                helperText={
+                  !!errors.confirmPassword
+                    ? errors?.confirmPassword?.message?.toString()
+                    : null
+                }
+              />
 
               {loading ? (
                 <LoadingButton
