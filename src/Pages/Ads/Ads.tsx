@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import "./Ads.module.scss";
 import PopupList from "@/Components/PopupList/PopupList";
 import { useNavigate } from "react-router-dom";
+import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 
 const Ads = () => {
   const dispatch = useDispatch();
@@ -137,6 +138,13 @@ const Ads = () => {
 
         return (
           <>
+            <DeleteDialog
+              getData={getAdsData}
+              handleCloseDialog={handleCloseDialog}
+              openDialog={openDialog}
+              itemId={roomId}
+            />
+
             <PopupList
               handleClickMenu={handleClickMenu}
               handleCloseMenu={handleCloseMenu}
