@@ -10,9 +10,10 @@ import { BookingData } from "@/Redux/Features/Booking/GetBookingSlice";
 import moment from "moment";
 import { Chip } from "@mui/material";
 
-import "./Bookings.module.scss";
 import PopupList from "@/Components/PopupList/PopupList";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import "./Bookings.module.scss";
+import "../../Styles/global.scss";
 const Bookings = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
@@ -154,7 +155,7 @@ const Bookings = () => {
       <TableHeader title={"Booking"} subTitle={"Booking"} path={""} />
 
       <DataGrid
-        className="dataGrid"
+        className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}
         rowSelectionModel={"server"}

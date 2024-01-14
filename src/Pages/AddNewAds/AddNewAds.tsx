@@ -9,19 +9,30 @@ import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useLinkClickHandler,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
 import { updateAdsData } from "@/Redux/Features/Ads/UpdateAdsSlice";
+import axios from "axios";
+import baseUrl from "@/utils/Custom/Custom";
+import { getAdsDetailsData } from "@/Redux/Features/Ads/getAdsDetalisSlice";
 
 const AddNewAds = () => {
-  const [AdsID, setAdsID] = useState(null);
+  const [adsID, setAdsID] = useState("");
+  const [roomDetails, setRoomDetails] = useState([]);
   const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location.state as propState;
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -49,11 +60,24 @@ const AddNewAds = () => {
   useEffect(() => {
     if (isEdit) {
       setAdsID(id);
+
+      getDetailsAds();
     }
 
     getData();
-  }, [AdsID]);
-
+  }, [adsID]);
+  //? ***************Get details Data***************
+  const getDetailsAds = useCallback(async () => {
+    try {
+      // @ts-ignore
+      const detailsAdsData = await dispatch(getAdsDetailsData(adsID));
+      setRoomDetails(detailsAdsData?.payload.data?.ads);
+      setValue("isActive", String(roomDetails?.isActive));
+      setValue("discount", roomDetails?.room?.discount);
+    } catch (error) {
+      toast.error("Error fetching existing data:", error);
+    }
+  }, [dispatch]);
   //? ***************Send Data***************
 
   const sendData = async (data: any) => {
@@ -77,7 +101,7 @@ const AddNewAds = () => {
         });
       }
     } else {
-      const id = AdsID;
+      const id = adsID;
       const updateAds = await dispatch(updateAdsData({ ...data, id }));
       // @ts-ignore
       if (updateAds?.payload?.success) {
