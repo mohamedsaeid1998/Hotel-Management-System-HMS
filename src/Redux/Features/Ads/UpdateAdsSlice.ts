@@ -12,14 +12,12 @@ const token = localStorage.getItem("authToken");
 
 export const updateAdsData = createAsyncThunk<any, void>(
   "updateAds/updateAdsData",
-  async ({ room, discount, isActive, id }: any, thunkAPI) => {
+  async ({ discount, isActive, id }: any, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log(room, discount, isActive, id);
     try {
       const response = await baseUrl.put(
         `/api/v0/admin/ads/${id}`,
         {
-          room,
           discount,
           isActive,
         },

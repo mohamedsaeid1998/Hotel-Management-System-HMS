@@ -7,10 +7,10 @@ import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import "./Ads.module.scss";
 import PopupList from "@/Components/PopupList/PopupList";
 import { useNavigate } from "react-router-dom";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import "./Ads.module.scss";
 
 const Ads = () => {
   const dispatch = useDispatch();

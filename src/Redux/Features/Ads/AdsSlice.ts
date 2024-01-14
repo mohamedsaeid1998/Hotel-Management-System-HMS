@@ -1,37 +1,42 @@
+/** @format */
+
 import baseUrl from "../../../utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
 export interface Props {
-  data: any[]
-  loading:boolean
-  error:null|string
+  data: any[];
+  loading: boolean;
+  error: null | string;
 }
-const token = localStorage.getItem("authToken")
+const token = localStorage.getItem("authToken");
 
-
-export const AdsData = createAsyncThunk<any, void>("GetAdsSlice/AdsData", async () => {
-  let data = await baseUrl.get(`/api/v0/admin/ads?page=1&size=100`,{
-    headers:{
-      Authorization: token
+export const AdsData = createAsyncThunk<any, void>(
+  "GetAdsSlice/AdsData",
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const data = await baseUrl.get(`/api/v0/admin/ads?page=1&size=100`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      return data.data;
+    } catch (error) {
+      rejectWithValue(error);
     }
+  }
+);
 
-  })
-  return data.data
-})
-
-
-let initialState:Props = {
+const initialState: Props = {
   data: [],
   loading: false,
-  error: null
-}
+  error: null,
+};
 
-
-export const GetAdsSlice = createSlice({
-  name: 'AdsData',
+const GetAdsSlice = createSlice({
+  name: "AdsData",
   initialState,
-  reducers:{},
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(AdsData.pending, (state) => {
       state.loading = true;
@@ -44,8 +49,7 @@ export const GetAdsSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message;
     });
-  }
+  },
+});
 
-})
-
-export default GetAdsSlice.reducer
+export default GetAdsSlice.reducer;
