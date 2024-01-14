@@ -1,9 +1,16 @@
+import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
-export default function ProtectedRoute({ children }) {
-  if (userData == null && localStorage.getItem("adminToken") == null) {
-    return <Navigate to="/login" />;
-  } else {
-    return children;
-  }
+interface Props {
+  children: ReactNode;
 }
+
+const ProtectedRoute = ({ children }: Props) => {
+  if (localStorage.getItem("authToken")) {
+    return children;
+  } else {
+    return <Navigate to={"/"} />;
+  }
+};
+
+export default ProtectedRoute;

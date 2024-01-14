@@ -4,6 +4,7 @@ import {
   FormControl,
   InputLabel,
   OutlinedInput,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -14,12 +15,15 @@ import "./ResetPassword.module.scss";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const required = "This Field is required";
+
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     baseUrl
       .post(`/api/v0/portal/users/reset-password`, data)
       .then(() => {
@@ -48,7 +52,17 @@ const ResetPassword = () => {
           </Typography>
           <Typography>
             If you already have an account register <br /> You can
-            <Link to="/login">Login here !</Link>
+            <Link
+              to="/login"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
+              Login here !
+            </Link>
           </Typography>
         </Box>
       </Box>
@@ -56,74 +70,70 @@ const ResetPassword = () => {
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
-        <InputLabel sx={{ marginTop: "5px" }}>Email</InputLabel>
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="email"
-            placeholder="Please type here ..."
-            {...register("email", {
-              required: true,
-              pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
-            })}
-          />
-          {errors.email && errors.email.type === "required" && (
-            <Box className="text-danger" sx={{ color: "red" }}>
-              email is required
-            </Box>
-          )}
-          {errors.email && errors.email.type === "pattern" && (
-            <Box component="span" sx={{ color: "red" }}>
-              invalid email
-            </Box>
-          )}
-        </FormControl>
-        <InputLabel sx={{ marginTop: "5px" }}>OTP</InputLabel>
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="text"
-            placeholder="Please type here ..."
-            {...register("seed", {
-              required: true,
-            })}
-          />
-          {errors.seed && errors.seed.type === "required" && (
-            <Box className="text-danger" sx={{ color: "red" }}>
-              OTP is required
-            </Box>
-          )}
-        </FormControl>
-        <InputLabel sx={{ marginTop: "5px" }}>Password</InputLabel>
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="password"
-            placeholder="Please type here ..."
-            {...register("password", {
-              required: true,
-            })}
-          />
-          {errors.password && errors.password.type === "required" && (
-            <Box className="text-danger" sx={{ color: "red" }}>
-              password is required
-            </Box>
-          )}
-        </FormControl>
-        <InputLabel sx={{ marginTop: "5px" }}>Confirm Password</InputLabel>
-        <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-          <OutlinedInput
-            type="password"
-            placeholder="Please type here ..."
-            {...register("confirmPassword", {
-              required: true,
-            })}
-          />
-          {errors.confirmPassword &&
-            errors.confirmPassword.type === "required" && (
-              <Box className="text-danger" sx={{ color: "red" }}>
-                confirm Password is required
-              </Box>
-            )}
-        </FormControl>
+        <TextField
+          variant="outlined"
+          type="email"
+          className="auth-input"
+          label="Email"
+          color="primary"
+          {...register("email", {
+            required,
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Email is InValid",
+            },
+          })}
+          error={!!errors.email}
+          helperText={
+            !!errors.email ? errors?.email?.message?.toString() : null
+          }
+        />
+        <TextField
+          variant="outlined"
+          type="text"
+          className="auth-input"
+          label="OTP"
+          color="primary"
+          {...register("seed", {
+            required,
+          })}
+          error={!!errors.seed}
+          helperText={!!errors.seed ? errors?.seed?.message?.toString() : null}
+        />
 
+        <TextField
+          variant="outlined"
+          type="password"
+          className="auth-input"
+          label="Password"
+          color="primary"
+          {...register("password", {
+            required,
+          })}
+          error={!!errors.password}
+          helperText={
+            !!errors.password ? errors?.password?.message?.toString() : null
+          }
+        />
+
+        <TextField
+          variant="outlined"
+          type="password"
+          className="auth-input"
+          label="Confirm password"
+          color="primary"
+          {...register("confirmPassword", {
+            required,
+            validate: (value) =>
+              value === getValues("password") || "password is don't match",
+          })}
+          error={!!errors.confirmPassword}
+          helperText={
+            !!errors.confirmPassword
+              ? errors?.confirmPassword?.message?.toString()
+              : null
+          }
+        />
         <Button
           type="submit"
           sx={{ width: "100%", padding: "10px", margin: "20px 0" }}

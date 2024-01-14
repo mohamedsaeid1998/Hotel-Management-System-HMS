@@ -2,10 +2,27 @@
 @import "./responsive.scss";
 
 .mainContainer {
-  margin-left: 240px;
-  margin-right: 10px;
+  margin-left: 240px !important;
+  margin-inline: 10px;
 }
 
+@media (max-width: 600px) {
+  .mainContainer {
+    margin-left: 0 !important;
+    margin-inline: 10px;
+  }
+  
+}
+
+
+.display-none{
+  display: none !important;
+}
+
+
+.display-block{
+  display: block !important;
+}
 //? *************** Navbar ***************
 
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
@@ -32,7 +49,6 @@
 
 .MuiDrawer-paper {
   background-color: #203fc7 !important;
-
   .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
     padding-left: 25px;
     color: white !important;
@@ -63,6 +79,66 @@
     transition: all 0.4s;
   }
 }
+
+
+//! *************** Authentication ***************
+
+.authLayout {
+  width: 95%;
+  margin: auto;
+  border-radius: 10px;
+  padding: 30px !important;
+  line-height: 0.1;
+}
+.auth {
+  background-size: cover;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: left;
+  padding: 20px 30px;
+  align-items: end;
+  color: #fff;
+}
+.auth-background {
+  background-image: url("../Assets/Images/bg1.png");
+  height: 80vh;
+}
+.auth-background2 {
+  background-image: url("../Assets/Images/bg2.png");
+  height: 95vh;
+}
+.auth-background3 {
+  background-image: url("../Assets/Images/bg3.png");
+  height: 70vh;
+}
+
+.auth-desc h3 {
+  font-size: 30px;
+}
+
+.auth-input {
+  width: 100%;
+  margin: 15px 0 !important;
+}
+
+.loadingButton {
+  background-color: #1976d2 !important;
+
+  span {
+    color: white !important;
+  }
+}
+.imagesBtn {
+  margin-top: 20px !important;
+}
+
+.btnContainer {
+  margin-top: 40px !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 
 //? *************** TableHeader ***************
 .header {
@@ -143,34 +219,17 @@
   }
 }
 
-.authLayout {
-  display: grid;
-  width: 95%;
-  margin: auto;
-  border-radius: 10px;
-  height: 100vh;
-}
-.auth {
-  background-size: cover;
-  height: 100%;
-}
-.auth-background {
-  background-image: url("../Assets/Images/bg1.png");
-}
-.auth-background2 {
-  background-image: url("../Assets/Images/bg2.png");
-}
-.auth-background3 {
-  background-image: url("../Assets/Images/bg3.png");
-}
 
-.imagesBtn {
-  margin-top: 20px !important;
-}
-
-.btnContainer {
-  margin-top: 40px !important;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+//! *************** ChangePassword ***************
+.changePasswordBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #fff;
+  border: 2px solid #1976d2;
+  border-radius: 20px;
+  box-shadow: 24px;
+  padding: 30px;
 }

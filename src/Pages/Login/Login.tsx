@@ -1,47 +1,37 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
+import { ChevronLeft } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  setAuthToken,
-  setError
-} from "../../Redux/Features/Auth/LoginSlice.ts";
-import baseUrl from "../../utils/Custom/Custom";
+import { fetchData } from "../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
-
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading } = useSelector((state) => state.login);
+  const required = "This Field is required";
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const dispatch = useDispatch();
 
   const onSubmit = (data: { email: string; password: string }) => {
-    baseUrl
-      .post(`/api/v0/admin/users/login`, data)
-      .then((res) => {
-        dispatch(setAuthToken(res.data.data.token));
-        localStorage.setItem("authToken",res.data.data.token)
-        toast.success("Welcome");
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        dispatch(setError(err.message || "An error occurred"));
-        toast.error(err.response.data.message || "An error occurred");
-      });
+    dispatch(fetchData(data));
   };
+  if (localStorage.getItem("authToken") != null) {
+    navigate("/dashboard");
+  }
+  useEffect(() => {
+    dispatch(fetchDataStart(false));
+  }, [dispatch]);
+
   return (
     <>
-      <Box component="div">
+      <Box component="div" >
         {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>
@@ -57,57 +47,85 @@ const Login = () => {
           </Typography>
           <Typography>
             If you don’t have an account register <br /> You can
-            <Link to="/register"> Register here !</Link>
+            <Link
+              to="/register"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
+              Register here !
+            </Link>
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-            <OutlinedInput
-              type="email"
-              placeholder="Enter Your Email"
-              {...register("email", {
-                required: true,
-                pattern: /^[^@]+@[^@]+\.[^@ .]{2,}$/,
-              })}
-            />
-            {errors.email && errors.email.type === "required" && (
-              <Box className="text-danger" sx={{ color: "red" }}>
-                email is required
-              </Box>
-            )}
-            {errors.email && errors.email.type === "pattern" && (
-              <Box component="span" sx={{ color: "red" }}>
-                invalid email
-              </Box>
-            )}
-          </FormControl>
+          <TextField
+            variant="outlined"
+            type="email"
+            className="auth-input"
+            label="Email"
+            color="primary"
+            {...register("email", {
+              required,
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "Email is InValid",
+              },
+            })}
+            error={!!errors.email}
+            helperText={
+              !!errors.email ? errors?.email?.message?.toString() : null
+            }
+          />
 
-          <FormControl sx={{ width: "100%", margin: "20px 0" }}>
-            <OutlinedInput
-              type="password"
-              placeholder="Please Enter Your Password"
-              {...register("password", {
-                required: true,
-              })}
-            />
-            {errors.email && errors.email.type === "required" && (
-              <Box className="text-danger" sx={{ color: "red" }}>
-                Password is required
-              </Box>
-            )}
-          </FormControl>
+          <TextField
+            variant="outlined"
+            type="password"
+            className="auth-input"
+            label="Password"
+            color="primary"
+            {...register("password", {
+              required,
+            })}
+            error={!!errors.password}
+            helperText={
+              !!errors.password ? errors?.password?.message?.toString() : null
+            }
+          />
+
           <Box sx={{ textAlign: "end" }}>
-            <Link to="/forget-password" style={{ textDecoration: "none" }}>
+            <Link
+              to="/forget-password"
+              style={{
+                textDecoration: "none",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
               Forget Password
             </Link>
           </Box>
-          <Button
-            type="submit"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-            variant="contained"
-          >
-            Login
-          </Button>
+          {loading ? (
+            <LoadingButton
+              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              className="loadingButton"
+              loading
+              variant="outlined"
+            >
+              Login
+            </LoadingButton>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              type="submit"
+              size="large"
+            >
+              <ChevronLeft /> Login
+            </Button>
+          )}
         </form>
       </Box>
     </>
