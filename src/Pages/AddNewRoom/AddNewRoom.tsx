@@ -83,11 +83,12 @@ const AddNewRoom = () => {
         setLoading(true);
         try {
           const getEditRoomData = await dispatch(RoomsDataDetails(id));
-          const rdata = getEditRoomData.payload.data.room;
-          setValue("price", rdata?.price);
-          setValue("roomNumber", rdata?.roomNumber);
-          setValue("discount", rdata?.discount);
-          setValue("capacity", rdata?.capacity);
+          const roomDetails = getEditRoomData.payload.data.room;
+          setValue("price", roomDetails?.price);
+          setValue("roomNumber", roomDetails?.roomNumber);
+          setValue("discount", roomDetails?.discount);
+          setValue("capacity", roomDetails?.capacity);
+          console.log(getEditRoomData.payload.data.room);
         } catch (error) {
           toast.error(error);
         } finally {
