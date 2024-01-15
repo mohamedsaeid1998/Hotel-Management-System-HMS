@@ -79,16 +79,16 @@ const AddNewRoom = () => {
   useEffect(() => {
     getFacilitiesData();
     if (isEdit) {
-      setRoomId(id);
       const getRoomDetails = async () => {
         setLoading(true);
         try {
-          const getEditRoomData = await dispatch(RoomsDataDetails(roomId));
-          setRoomDetails(getEditRoomData.payload.data.room);
+          const getEditRoomData = await dispatch(RoomsDataDetails(id));
+          const roomDetails = getEditRoomData.payload.data.room;
           setValue("price", roomDetails?.price);
           setValue("roomNumber", roomDetails?.roomNumber);
           setValue("discount", roomDetails?.discount);
           setValue("capacity", roomDetails?.capacity);
+          console.log(getEditRoomData.payload.data.room);
         } catch (error) {
           toast.error(error);
         } finally {
