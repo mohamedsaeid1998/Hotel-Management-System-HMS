@@ -1,6 +1,6 @@
 /** @format */
 
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, Skeleton, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import "./AddNewRoom.module.scss";
@@ -12,13 +12,17 @@ import { ChevronRight } from "@mui/icons-material";
 import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import UpdateRoom, { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
+import { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
+import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
 interface propState {
   isEdit: boolean;
 }
 const AddNewRoom = () => {
   const [roomId, setRoomId] = useState(null);
   const [checkPage, setCheckPage] = useState(false);
+  const [roomDetails, setRoomDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [test, setTest] = useState("");
   const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location.state as propState;
@@ -26,6 +30,8 @@ const AddNewRoom = () => {
     register,
     handleSubmit,
     getValues,
+    setValue,
+
     formState: { errors },
   } = useForm();
 
@@ -44,17 +50,55 @@ const AddNewRoom = () => {
       // @ts-ignore
       setSelectData(element.payload.data.facilities);
     } finally {
-      console.log("error");
+      console.log("error on getFacilitiesData");
     }
   }, [dispatch]);
+  {
+    /*get details while edit row */
+  }
 
+  // const getRoomDetails = useCallback(
+  //   async (id) => {
+  //     setLoading(true);
+  //     console.log(id);
+  //     try {
+  //       const getEditRoomData = await dispatch(RoomsDataDetails(id));
+  //       setRoomDetails(getEditRoomData.payload.data.room);
+  //       setValue("price", roomDetails?.price);
+  //       setValue("roomNumber", roomDetails?.roomNumber);
+  //       setValue("discount", roomDetails?.discount);
+  //       setValue("capacity", roomDetails?.capacity);
+  //     } catch (error) {
+  //       toast.error(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   },
+  //   [dispatch]
+  // );
   useEffect(() => {
-    if (isEdit) {
-      setCheckPage(isEdit);
-      setRoomId(id);
-    }
     getFacilitiesData();
-  }, [roomId]);
+    if (isEdit) {
+      setRoomId(id);
+      const getRoomDetails = async () => {
+        setLoading(true);
+        try {
+          const getEditRoomData = await dispatch(RoomsDataDetails(roomId));
+          setRoomDetails(getEditRoomData.payload.data.room);
+          setValue("price", roomDetails?.price);
+          setValue("roomNumber", roomDetails?.roomNumber);
+          setValue("discount", roomDetails?.discount);
+          setValue("capacity", roomDetails?.capacity);
+        } catch (error) {
+          toast.error(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getRoomDetails();
+      setCheckPage(isEdit);
+    }
+  }, []);
 
   //! ***************Selected Input ***************
 
@@ -197,8 +241,6 @@ const AddNewRoom = () => {
             className="facilities"
             color="secondary"
             onClick={() => setFacilities(facilities)}
-            defaultValue={Facilities}
-            select
             SelectProps={{ multiple: true }}
             {...register("facilities", {
               required,
