@@ -2,8 +2,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
-import RoomsData from "./Features/Rooms/GetRoomsSlice";
-import FacilitiesData from "./Features/Facilities/FacilitiesSlice";
 import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
 import changePassword from "./Features/Auth/ChangePasswordSlice";
 import RoomsData from "./Features/Rooms/GetRoomsSlice";
@@ -14,6 +12,8 @@ import updateRoomsSlice from "./Features/Rooms/UpdateRoom";
 import updateFacilitySlice from "./Features/Facilities/updateFacilitySlice";
 import UpdateAdsSlice from "./Features/Ads/UpdateAdsSlice";
 import getAdsDetailsSlice from "./Features/Ads/getAdsDetalisSlice";
+import roomsDetailsSlice from "./Features/Rooms/RoomDetailsSlice";
+import facilityDetailsSlice from "./Features/Facilities/FacilitiesSlice";
 const Store = configureStore({
   reducer: {
     login: loginReducer,
@@ -28,6 +28,8 @@ const Store = configureStore({
     updateFacilitySlice,
     UpdateAdsSlice,
     getAdsDetailsSlice,
+    roomsDetailsSlice,
+    facilityDetailsSlice,
   },
 });
 

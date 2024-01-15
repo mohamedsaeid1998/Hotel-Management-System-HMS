@@ -2,7 +2,7 @@
 
 import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./AddNewRoom.module.scss";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ interface propState {
 const AddNewRoom = () => {
   const [roomId, setRoomId] = useState(null);
   const [checkPage, setCheckPage] = useState(false);
-  const paramId = useParams();
+  const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location.state as propState;
   const {
@@ -37,17 +37,21 @@ const AddNewRoom = () => {
   const dispatch = useDispatch();
   const [selectData, setSelectData] = useState(null);
 
-  const getFacilitiesData = async () => {
-    // @ts-ignore
-    const element = await dispatch(FacilitiesData());
-    // @ts-ignore
-    setSelectData(element.payload.data.facilities);
-  };
+  const getFacilitiesData = useCallback(async () => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(FacilitiesData());
+      // @ts-ignore
+      setSelectData(element.payload.data.facilities);
+    } finally {
+      console.log("error");
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     if (isEdit) {
       setCheckPage(isEdit);
-      setRoomId(paramId.id);
+      setRoomId(id);
     }
     getFacilitiesData();
   }, [roomId]);

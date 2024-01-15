@@ -79,29 +79,12 @@ const Rooms = () => {
     }
   }, [dispatch]);
 
-
-
-const tableBody: GridColDef[] = [
-  {
-    field: 'roomNumber',
-    headerName: 'RoomNumber',
-    width: 180,
-    editable: false,
-    
-  },
-  {
-    field: 'price',
-    headerName: 'Price',
-    width: 180,
-    editable: false,
-  },
-  {
-    field: 'images',
-    headerName: 'Image',
-    width: 180,
-    editable: false,
-    renderCell: (params) => {
-      return (params.formattedValue === "" || params?.row?.images[0] === undefined? <img className='img-table' src={defaultImage} alt="image" /> : <img className='img-table' crossOrigin='anonymous' src={params?.row?.images[0]} alt="image" />)
+  const tableBody: GridColDef[] = [
+    {
+      field: "roomNumber",
+      headerName: "RoomNumber",
+      width: 180,
+      editable: false,
     },
     {
       field: "price",
@@ -116,18 +99,19 @@ const tableBody: GridColDef[] = [
       editable: false,
       renderCell: (params) => {
         return params.formattedValue === "" ||
-          params?.row?.images[0] == undefined ? (
+          params?.row?.images[0] === undefined ? (
           <img className="img-table" src={defaultImage} alt="image" />
         ) : (
           <img
             className="img-table"
             crossOrigin="anonymous"
-            src={`http://upskilling-egypt.com:3000/` + params?.row?.images[0]}
+            src={params?.row?.images[0]}
             alt="image"
           />
         );
       },
     },
+
     {
       field: "discount",
       headerName: "Discount",
@@ -206,7 +190,7 @@ const tableBody: GridColDef[] = [
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        // checkboxSelection
         // disableRowSelectionOnClick
         // disableColumnFilter
         // disableDensitySelector

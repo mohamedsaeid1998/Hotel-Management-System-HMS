@@ -22,6 +22,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.module.scss";
 import React from "react";
+import ChangePassword from "../ChangePassword/ChangePassword";
 
 // import Drawer from '@mui/material/Drawer';
 // import Toolbar from '@mui/material/Toolbar';
@@ -31,7 +32,7 @@ import React from "react";
 // import List from '@mui/material/List';
 // import ListItemText from '@mui/material/ListItemText';
 
-const Sidebar = () => {
+const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
   const { pathname } = useLocation();
   const DrawerItems = [
     {
@@ -63,7 +64,7 @@ const Sidebar = () => {
       id: 4,
       text: "Facilities",
       icon: <Grade />,
-      path: "/dashboard/facilities",
+      path: "/dashboard/room-facilities",
       subPath: "facility",
       time: "600",
       shape: "fade-right",
@@ -79,9 +80,9 @@ const Sidebar = () => {
     },
     {
       id: 6,
-      text: "Bookings",
+      text: "Booking",
       icon: <AutoStories />,
-      path: "/dashboard/bookings",
+      path: "/dashboard/booking",
       subPath: "booking",
       time: "800",
       shape: "fade-right",
