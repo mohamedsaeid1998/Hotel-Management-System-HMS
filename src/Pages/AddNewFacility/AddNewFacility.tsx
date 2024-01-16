@@ -5,37 +5,47 @@ import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewFacility.module.scss";
 import { updateFacilityData } from "@/Redux/Features/Facilities/updateFacilitySlice";
+import { facilitiesDataDetails } from "@/Redux/Features/Facilities/FacilitiesDetailsSlice";
 interface propState {
   isEdit: boolean;
 }
 const AddNewFacility = () => {
-  const [facilityID, setFacilityID] = useState(null);
-  const paramId = useParams();
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location.state as propState;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
-
   const required = "This Field is required";
 
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-
   //? ***************Send Data***************
-
+  const facilityDetails = useCallback(async () => {
+    setLoading(true);
+    try {
+      const facilityEditDetails = await dispatch(facilitiesDataDetails(id));
+      const facDetails = facilityEditDetails.payload.data.facility;
+      setValue("name", facDetails.name);
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch, setValue]);
   const sendData = async (data: any) => {
     setLoading(true);
     if (!isEdit) {
@@ -80,48 +90,58 @@ const AddNewFacility = () => {
   };
   useEffect(() => {
     if (isEdit) {
-      setFacilityID(paramId.id);
+      facilityDetails();
     }
-  }, [facilityID]);
+  }, []);
   return (
     <>
-      <Box
-        className="formContainer"
-        component="form"
-        onSubmit={handleSubmit(sendData)}
-      >
-        <TextField
-          variant="filled"
-          type="text"
-          className="roomNumber"
-          label="Facility Name"
-          color="secondary"
-          {...register("name", {
-            required,
-            minLength: { value: 3, message: "minlength is 3" },
-          })}
-          error={!!errors.name}
-          helperText={!!errors.name ? errors?.name?.message?.toString() : null}
-        />
+      {loading ? (
+        "loading"
+      ) : (
+        <Box
+          className="formContainer"
+          component="form"
+          onSubmit={handleSubmit(sendData)}
+        >
+          <TextField
+            variant="filled"
+            type="text"
+            className="roomNumber"
+            label="Facility Name"
+            color="secondary"
+            {...register("name", {
+              required,
+              minLength: { value: 3, message: "minlength is 3" },
+            })}
+            error={!!errors.name}
+            helperText={
+              !!errors.name ? errors?.name?.message?.toString() : null
+            }
+          />
 
-        <Box className="btnContainer">
-          <Link to={"/dashboard/room-facilities"}>
-            <Button variant="outlined" size="large">
-              Cancel
-            </Button>
-          </Link>
+          <Box className="btnContainer">
+            <Link to={"/dashboard/room-facilities"}>
+              <Button variant="outlined" size="large">
+                Cancel
+              </Button>
+            </Link>
 
-          {loading ? (
-            <LoadingButton className="loadingButton" loading variant="outlined">
-              Submit
-            </LoadingButton>
-          ) : (
-            <Button variant="contained" type="submit" size="large">
-              Submit <ChevronRight />
-            </Button>
-          )}
+            {loading ? (
+              <LoadingButton
+                className="loadingButton"
+                loading
+                variant="outlined"
+              >
+                Submit
+              </LoadingButton>
+            ) : (
+              <Button variant="contained" type="submit" size="large">
+                Submit <ChevronRight />
+              </Button>
+            )}
+          </Box>
         </Box>
-      </Box>
+      )}
     </>
   );
 };

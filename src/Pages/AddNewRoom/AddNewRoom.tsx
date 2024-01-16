@@ -50,55 +50,36 @@ const AddNewRoom = () => {
       // @ts-ignore
       setSelectData(element.payload.data.facilities);
     } finally {
-      console.log("error on getFacilitiesData");
+      toast.error("error on getFacilitiesData");
     }
   }, [dispatch]);
   {
     /*get details while edit row */
   }
 
-  // const getRoomDetails = useCallback(
-  //   async (id) => {
-  //     setLoading(true);
-  //     console.log(id);
-  //     try {
-  //       const getEditRoomData = await dispatch(RoomsDataDetails(id));
-  //       setRoomDetails(getEditRoomData.payload.data.room);
-  //       setValue("price", roomDetails?.price);
-  //       setValue("roomNumber", roomDetails?.roomNumber);
-  //       setValue("discount", roomDetails?.discount);
-  //       setValue("capacity", roomDetails?.capacity);
-  //     } catch (error) {
-  //       toast.error(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   },
-  //   [dispatch]
-  // );
+  const getRoomDetails = async () => {
+    setLoading(true);
+    try {
+      const getEditRoomData = await dispatch(RoomsDataDetails(id));
+      const roomDetails = getEditRoomData.payload.data.room;
+      setValue("price", roomDetails?.price);
+      setValue("roomNumber", roomDetails?.roomNumber);
+      setValue("discount", roomDetails?.discount);
+      setValue("capacity", roomDetails?.capacity);
+      console.log(getEditRoomData.payload.data.room);
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     getFacilitiesData();
     if (isEdit) {
-      const getRoomDetails = async () => {
-        setLoading(true);
-        try {
-          const getEditRoomData = await dispatch(RoomsDataDetails(id));
-          const roomDetails = getEditRoomData.payload.data.room;
-          setValue("price", roomDetails?.price);
-          setValue("roomNumber", roomDetails?.roomNumber);
-          setValue("discount", roomDetails?.discount);
-          setValue("capacity", roomDetails?.capacity);
-          console.log(getEditRoomData.payload.data.room);
-        } catch (error) {
-          toast.error(error);
-        } finally {
-          setLoading(false);
-        }
-      };
       getRoomDetails();
       setCheckPage(isEdit);
     }
-  }, [id]);
+  }, []);
 
   //! ***************Selected Input ***************
 
