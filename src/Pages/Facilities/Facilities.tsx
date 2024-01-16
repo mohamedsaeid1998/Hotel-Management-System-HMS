@@ -20,6 +20,8 @@ const Facilities = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
+  const [facilityID, setFacilityID] = useState("");
+  const [facDetails, setFacDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   {
     /*check current page  */
@@ -182,7 +184,7 @@ const Facilities = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        // checkboxSelection
         // disableRowSelectionOnClick
         // disableColumnFilter
         // disableDensitySelector
