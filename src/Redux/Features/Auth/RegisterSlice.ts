@@ -1,3 +1,5 @@
+/** @format */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import baseUrl from "../../../utils/Custom/Custom";
@@ -38,7 +40,7 @@ const fetchData = createAsyncThunk<string, UserData, { rejectValue: string }>(
         toast.success("register successfully");
       })
       .catch((error) => {
-        toast.success(error);
+        toast.error(error);
       });
   }
 );

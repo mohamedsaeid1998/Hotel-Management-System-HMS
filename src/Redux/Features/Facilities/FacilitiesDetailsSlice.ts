@@ -22,6 +22,7 @@ export const facilitiesDataDetails = createAsyncThunk<any, void>(
       });
       return data.data;
     } catch (error) {
+      console.log(error);
       rejectWithValue(error);
     }
   }

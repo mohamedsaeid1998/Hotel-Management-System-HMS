@@ -13,7 +13,7 @@ const token = localStorage.getItem("authToken");
 export const BookingData = createAsyncThunk<any, void>(
   "GetBookingSlice/BookingData",
   async () => {
-    let data = await baseUrl.get(`/api/v0/admin/booking?page=1&size=100`, {
+    const data = await baseUrl.get(`/api/v0/admin/booking?page=1&size=100`, {
       headers: {
         Authorization: token,
       },

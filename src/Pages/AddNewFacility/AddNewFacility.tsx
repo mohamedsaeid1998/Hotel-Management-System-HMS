@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import "./AddNewFacility.module.scss";
 import { updateFacilityData } from "@/Redux/Features/Facilities/updateFacilitySlice";
 import { facilitiesDataDetails } from "@/Redux/Features/Facilities/FacilitiesDetailsSlice";
+import LoadingComponent from "@/Components/Loading/Loading";
 interface propState {
   isEdit: boolean;
 }
@@ -96,7 +97,7 @@ const AddNewFacility = () => {
   return (
     <>
       {loading ? (
-        "loading"
+        <LoadingComponent />
       ) : (
         <Box
           className="formContainer"

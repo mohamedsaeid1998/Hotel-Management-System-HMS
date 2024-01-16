@@ -177,7 +177,7 @@ const Bookings = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        // checkboxSelection
         // disableRowSelectionOnClick
         // disableColumnFilter
         // disableDensitySelector

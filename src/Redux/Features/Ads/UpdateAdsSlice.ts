@@ -2,6 +2,7 @@
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../utils/Custom/Custom";
+import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -31,6 +32,7 @@ export const updateAdsData = createAsyncThunk<any, void>(
       return response.data;
     } catch (error) {
       rejectWithValue(error);
+      toast.error(error);
     }
   }
 );

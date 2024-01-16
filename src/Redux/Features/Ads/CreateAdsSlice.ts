@@ -2,6 +2,7 @@
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../utils/Custom/Custom";
+import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -13,7 +14,6 @@ const token = localStorage.getItem("authToken");
 export const CreateAds = createAsyncThunk<any, void>(
   "CreateAdsSlice/CreateAds",
   async ({ room, discount, isActive }: any, thunkAPI) => {
-    console.log(room, discount, isActive);
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await baseUrl.post(
@@ -29,15 +29,15 @@ export const CreateAds = createAsyncThunk<any, void>(
           },
         }
       );
-
       return response.data;
     } catch (error) {
       rejectWithValue(error);
+      toast.error(error.message);
     }
   }
 );
 
-let initialState: Props = {
+const initialState: Props = {
   data: [],
   loading: false,
   error: null,
@@ -61,6 +61,7 @@ export const CreateAdsSlice = createSlice({
     builder.addCase(CreateAds.rejected, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = action.payload.message;
+      console.log(state);
     });
   },
 });

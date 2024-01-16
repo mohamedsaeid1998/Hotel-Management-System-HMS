@@ -6,7 +6,13 @@ import { getAdsDetailsData } from "@/Redux/Features/Ads/getAdsDetalisSlice";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { Button, MenuItem, TextField } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
+import LoadingComponent from "@/Components/Loading/Loading";
 
 const AddNewAds = () => {
   const [isActive, setIsActive] = useState("");
@@ -86,10 +93,6 @@ const AddNewAds = () => {
         navigate("/dashboard/ads");
       } else {
         setLoading(false);
-        toast.error(createAdsData?.payload?.message, {
-          autoClose: 2000,
-          theme: "colored",
-        });
       }
     } else {
       const updateAds = await dispatch(updateAdsData({ ...data, id }));
@@ -118,108 +121,108 @@ const AddNewAds = () => {
   }, []);
   return (
     <>
-      {loading
-        ? "loading"
-        : roomsData.length > 0 && (
-            <>
-              <Box
-                className="formContainer"
-                component="form"
-                onSubmit={handleSubmit(sendData)}
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        roomsData.length > 0 && (
+          <>
+            <Box
+              className="formContainer"
+              component="form"
+              onSubmit={handleSubmit(sendData)}
+            >
+              <TextField
+                label="select Room"
+                className="roomNumber"
+                color="secondary"
+                select
+                disabled={isEdit}
+                defaultValue={roomsData[0]._id}
+                {...register("room", {
+                  required,
+                })}
+                error={!!errors.room}
+                helperText={
+                  !!errors.room ? errors?.room?.message?.toString() : null
+                }
               >
+                {roomsData?.map(({ _id, roomNumber }: any) => (
+                  <MenuItem key={_id} value={_id}>
+                    {roomNumber}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <Box className="middleInputs">
+                <TextField
+                  variant="filled"
+                  type="number"
+                  className="discount"
+                  label="discount"
+                  color="secondary"
+                  {...register("discount", {
+                    required,
+
+                    valueAsNumber: true,
+                    validate: (value) =>
+                      (value !== undefined && +value >= 0) ||
+                      "Please enter a positive number",
+                  })}
+                  defaultValue={" "}
+                  error={!!errors.discount}
+                  helperText={
+                    !!errors.discount
+                      ? errors?.discount?.message?.toString()
+                      : null
+                  }
+                />
+
                 <TextField
                   label="select Room"
-                  className="roomNumber"
+                  className="discount"
                   color="secondary"
                   select
-                  disabled={isEdit}
-                  defaultValue={roomsData[0]._id}
-                  {...register("room", {
+                  {...register("isActive", {
                     required,
                   })}
-                  error={!!errors.room}
+                  defaultValue={isActive}
+                  error={!!errors.isActive}
                   helperText={
-                    !!errors.room ? errors?.room?.message?.toString() : null
+                    !!errors.isActive
+                      ? errors?.isActive?.message?.toString()
+                      : null
                   }
                 >
-                  {roomsData?.map(({ _id, roomNumber }: any) => (
-                    <MenuItem key={_id} value={_id}>
-                      {roomNumber}
-                    </MenuItem>
-                  ))}
+                  <MenuItem value={"true"}>Active</MenuItem>
+                  <MenuItem value={"false"}>Not Active</MenuItem>
                 </TextField>
+              </Box>
 
-                <Box className="middleInputs">
-                  <TextField
-                    variant="filled"
-                    type="number"
-                    className="discount"
-                    label="discount"
-                    color="secondary"
-                    {...register("discount", {
-                      required,
+              <Box className="btnContainer">
+                <Link to={"/dashboard/ads"}>
+                  <Button variant="outlined" size="large">
+                    Cancel
+                  </Button>
+                </Link>
 
-                      valueAsNumber: true,
-                      validate: (value) =>
-                        (value !== undefined && +value >= 0) ||
-                        "Please enter a positive number",
-                    })}
-                    defaultValue={" "}
-                    error={!!errors.discount}
-                    helperText={
-                      !!errors.discount
-                        ? errors?.discount?.message?.toString()
-                        : null
-                    }
-                  />
-
-                  <TextField
-                    label="select Room"
-                    className="discount"
-                    color="secondary"
-                    select
-                    {...register("isActive", {
-                      required,
-                    })}
-                    defaultValue={isActive}
-                    error={!!errors.isActive}
-                    helperText={
-                      !!errors.isActive
-                        ? errors?.isActive?.message?.toString()
-                        : null
-                    }
+                {loading ? (
+                  <LoadingButton
+                    className="loadingButton"
+                    loading
+                    variant="outlined"
                   >
-                    <MenuItem value={"true"}>Active</MenuItem>
-                    <MenuItem defaultValue="" value={"false"}>
-                      Not Active
-                    </MenuItem>
-                  </TextField>
-                </Box>
-
-                <Box className="btnContainer">
-                  <Link to={"/dashboard/ads"}>
-                    <Button variant="outlined" size="large">
-                      Cancel
-                    </Button>
-                  </Link>
-
-                  {loading ? (
-                    <LoadingButton
-                      className="loadingButton"
-                      loading
-                      variant="outlined"
-                    >
-                      Submit
-                    </LoadingButton>
-                  ) : (
-                    <Button variant="contained" type="submit" size="large">
-                      Submit <ChevronRight />
-                    </Button>
-                  )}
-                </Box>
-              </Box>{" "}
-            </>
-          )}
+                    Submit
+                  </LoadingButton>
+                ) : (
+                  <Button variant="contained" type="submit" size="large">
+                    Submit <ChevronRight />
+                  </Button>
+                )}
+              </Box>
+            </Box>{" "}
+          </>
+        )
+      )}
     </>
   );
 };

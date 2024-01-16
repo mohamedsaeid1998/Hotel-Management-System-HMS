@@ -14,43 +14,52 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
 import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
+import LoadingComponent from "@/Components/Loading/Loading";
 interface propState {
   isEdit: boolean;
 }
 const AddNewRoom = () => {
-  const [roomId, setRoomId] = useState(null);
-  const [checkPage, setCheckPage] = useState(false);
-  const [roomDetails, setRoomDetails] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { id } = useParams();
-  const location = useLocation();
-  const { isEdit } = location.state as propState;
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
-    trigger,
 
     formState: { errors },
   } = useForm();
+  const [roomId, setRoomId] = useState(null);
+  const [checkPage, setCheckPage] = useState(false);
+  const [roomDetails, setRoomDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectData, setSelectData] = useState(null);
+  const [Facilities, setFacilities] = useState<string[]>([]);
+  const { id } = useParams();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const { isEdit } = location.state as propState;
+  const facilities = getValues("facilities");
 
   const navigate = useNavigate();
 
   const required = "This Field is required";
 
   //? ***************Get Facilities Data ***************
-  const dispatch = useDispatch();
-  const [selectData, setSelectData] = useState(null);
+  // const getFacilitiesData = async () => {
+  //   // @ts-ignore
+  //   let element = await dispatch(FacilitiesData());
 
+  //   // @ts-ignore
+  //   setSelectData(element.payload.data.facilities);
+  // };
   const getFacilitiesData = useCallback(async () => {
     try {
       // @ts-ignore
       const element = await dispatch(FacilitiesData());
       // @ts-ignore
       setSelectData(element.payload.data.facilities);
-    } finally {
-      toast.error("error on getFacilitiesData");
+    } catch (error) {
+      console.log(error);
+      // toast.error("error on getFacilitiesData");
     }
   }, [dispatch]);
   {
@@ -66,7 +75,11 @@ const AddNewRoom = () => {
       setValue("roomNumber", roomDetails?.roomNumber);
       setValue("discount", roomDetails?.discount);
       setValue("capacity", roomDetails?.capacity);
-      console.log(getEditRoomData.payload.data.room);
+      // const selectedFac = roomDetails.facilities;
+      // const defaultValues = { selectedFac };
+
+      // selectedFac.map((facility) => defaultValues[facility.fieldName] = facility.defaultValue;);
+      // console.log(defaultValues);
     } catch (error) {
       toast.error(error);
     } finally {
@@ -80,11 +93,8 @@ const AddNewRoom = () => {
       setCheckPage(isEdit);
     }
   }, []);
-
+  console.log(Facilities, facilities);
   //! ***************Selected Input ***************
-
-  const [Facilities, setFacilities] = useState<string[]>([]);
-  const facilities = getValues("facilities");
 
   //! ***************Selected Images ***************
   const [images, setImages] = useState([]);
@@ -135,137 +145,149 @@ const AddNewRoom = () => {
   return (
     <>
       {loading ? (
-        "loading"
+        <LoadingComponent />
       ) : (
-        <Box
-          className="formContainer"
-          component="form"
-          onSubmit={handleSubmit(sendData)}
-        >
-          <TextField
-            variant="filled"
-            type="text"
-            className="roomNumber"
-            label="Room Number"
-            {...register("roomNumber", {
-              required,
-              minLength: { value: 3, message: "minlength is 3 " },
-              validate: (value) =>
-                (value !== undefined && +value > 0) ||
-                "Please enter a positive number",
-            })}
-            error={Boolean(errors.roomNumber)}
-            helperText={
-              Boolean(errors.roomNumber)
-                ? errors?.roomNumber?.message?.toString()
-                : null
-            }
-          />
-
-          <Box className="middleInputs">
-            <TextField
-              variant="filled"
-              type="number"
-              className="price"
-              label="Price"
-              {...register("price", {
-                required,
-                validate: (value) =>
-                  (value !== undefined && +value > 0) ||
-                  "Please enter a positive number",
-              })}
-              error={!!errors.price}
-              helperText={
-                !!errors.price ? errors?.price?.message?.toString() : null
-              }
-            />
-
-            <TextField
-              variant="filled"
-              type="number"
-              className="capacity"
-              label="Capacity"
-              {...register("capacity", {
-                required,
-                validate: (value) =>
-                  (value !== undefined && +value > 0) ||
-                  "Please enter a positive number",
-              })}
-              error={Boolean(errors.capacity)}
-              helperText={
-                Boolean(errors.capacity)
-                  ? errors?.capacity?.message?.toString()
-                  : null
-              }
-            />
-          </Box>
-
-          <Box className="middleInputs">
-            <TextField
-              variant="filled"
-              type="number"
-              className="discount"
-              label="Discount"
-              {...register("discount", {
-                required,
-                validate: (value) =>
-                  (value !== undefined && +value >= 0) ||
-                  "Please enter a positive number",
-              })}
-              error={Boolean(errors.discount)}
-              helperText={
-                Boolean(errors.discount)
-                  ? errors?.discount?.message?.toString()
-                  : null
-              }
-            />
-
-            <TextField
-              label="select facilities"
-              className="facilities"
-              color="secondary"
-              onClick={() => setFacilities(facilities)}
-              SelectProps={{ multiple: true }}
-              {...register("facilities", {
-                required,
-              })}
-              error={!!errors.facilities}
-              helperText={
-                !!errors.facilities
-                  ? errors?.facilities?.message?.toString()
-                  : null
-              }
+        setSelectData.length > 0 && (
+          <>
+            {" "}
+            <Box
+              className="formContainer"
+              component="form"
+              onSubmit={handleSubmit(sendData)}
             >
-              {selectData?.map(({ _id, name }: any) => (
-                <MenuItem key={_id} value={_id}>
-                  {name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-          <Box className="imagesBtn">
-            <Button
-              component="label"
-              variant="contained"
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload Images
-              <input onChange={handleImageChange} type="file" multiple hidden />
-            </Button>
-          </Box>
+              <TextField
+                variant="filled"
+                type="text"
+                className="roomNumber"
+                label="Room Number"
+                {...register("roomNumber", {
+                  required,
+                  minLength: { value: 3, message: "minlength is 3 " },
+                  validate: (value) =>
+                    (value !== undefined && +value > 0) ||
+                    "Please enter a positive number",
+                })}
+                error={Boolean(errors.roomNumber)}
+                helperText={
+                  Boolean(errors.roomNumber)
+                    ? errors?.roomNumber?.message?.toString()
+                    : null
+                }
+              />
 
-          <Box className="btnContainer">
-            <Link to={"/dashboard/rooms"}>
-              <Button variant="outlined" size="large">
-                Cancel
-              </Button>
-            </Link>
+              <Box className="middleInputs">
+                <TextField
+                  variant="filled"
+                  type="number"
+                  className="price"
+                  label="Price"
+                  {...register("price", {
+                    required,
+                    validate: (value) =>
+                      (value !== undefined && +value > 0) ||
+                      "Please enter a positive number",
+                  })}
+                  error={!!errors.price}
+                  helperText={
+                    !!errors.price ? errors?.price?.message?.toString() : null
+                  }
+                />
 
-            <Button variant="contained" type="submit" size="large">
-              Submit <ChevronRight />
-            </Button>
-          </Box>
-        </Box>
+                <TextField
+                  variant="filled"
+                  type="number"
+                  className="capacity"
+                  label="Capacity"
+                  {...register("capacity", {
+                    required,
+                    validate: (value) =>
+                      (value !== undefined && +value > 0) ||
+                      "Please enter a positive number",
+                  })}
+                  error={Boolean(errors.capacity)}
+                  helperText={
+                    Boolean(errors.capacity)
+                      ? errors?.capacity?.message?.toString()
+                      : null
+                  }
+                />
+              </Box>
+
+              <Box className="middleInputs">
+                <TextField
+                  variant="filled"
+                  type="number"
+                  className="discount"
+                  label="Discount"
+                  {...register("discount", {
+                    required,
+                    validate: (value) =>
+                      (value !== undefined && +value >= 0) ||
+                      "Please enter a positive number",
+                  })}
+                  error={Boolean(errors.discount)}
+                  helperText={
+                    Boolean(errors.discount)
+                      ? errors?.discount?.message?.toString()
+                      : null
+                  }
+                />
+
+                <TextField
+                  label="select facilities"
+                  className="facilities"
+                  color="secondary"
+                  onClick={() => setFacilities(facilities)}
+                  defaultValue={["sara"]}
+                  select
+                  SelectProps={{ multiple: true }}
+                  {...register("facilities", {
+                    required,
+                  })}
+                  error={!!errors.facilities}
+                  helperText={
+                    !!errors.facilities
+                      ? errors?.facilities?.message?.toString()
+                      : null
+                  }
+                >
+                  {selectData?.map(({ _id, name }: any) => (
+                    <MenuItem key={_id} value={_id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Box>
+              <Box className="imagesBtn">
+                <Button
+                  component="label"
+                  variant="contained"
+                  startIcon={<CloudUploadIcon />}
+                >
+                  Upload Images
+                  <input
+                    onChange={handleImageChange}
+                    type="file"
+                    multiple
+                    hidden
+                  />
+                </Button>
+              </Box>
+
+              <Box className="btnContainer">
+                <Link to={"/dashboard/rooms"}>
+                  <Button variant="outlined" size="large">
+                    Cancel
+                  </Button>
+                </Link>
+
+                <Button variant="contained" type="submit" size="large">
+                  Submit <ChevronRight />
+                </Button>
+              </Box>
+            </Box>
+          </>
+        )
       )}
     </>
   );

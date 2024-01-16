@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import "../../Styles/global.scss";
 import "./Rooms.module.scss";
 import { useNavigate } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
 
 const Rooms = () => {
   const dispatch = useDispatch();
@@ -139,11 +140,13 @@ const Rooms = () => {
               openDialog={openDialog}
               itemId={roomId}
             />
+
             <ViewDialogModal
               itemId={roomId}
               handleClose={handleCloseViewDialog}
               open={openViewDialog}
             />
+
             <PopupList
               handleClickMenu={handleClickMenu}
               handleCloseMenu={handleCloseMenu}
