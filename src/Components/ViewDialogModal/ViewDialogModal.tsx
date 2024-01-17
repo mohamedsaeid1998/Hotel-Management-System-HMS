@@ -73,6 +73,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
       >
         {loading ? (
           <Backdrop
+            style={{ opacity: 1, backgroundColor: "rgb(4 87 253 / 4%)" }}
             sx={{
               color: "#203FC7",
               zIndex: (theme) => theme.zIndex.drawer + 1,

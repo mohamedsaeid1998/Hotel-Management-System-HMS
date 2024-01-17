@@ -69,6 +69,8 @@
   background-color: rgba(26, 36, 63, 0.17);
   border-left: 4px solid rgb(2, 2, 158);
   color: white;
+  animation: active 5s infinite;
+
   .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
     color: white !important;
     opacity: 1;
@@ -78,7 +80,11 @@
     transition: all 0.4s;
   }
 }
-
+@keyframes active {
+  50% {
+    box-shadow: 10px 1px 2rem rgba(48, 151, 230, 0.53);
+  }
+}
 //! *************** Authentication ***************
 
 .authLayout {

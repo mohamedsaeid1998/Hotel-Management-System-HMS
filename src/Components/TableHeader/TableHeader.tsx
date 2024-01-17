@@ -13,6 +13,7 @@ interface IProps {
 
 const TableHeader = ({ title, subTitle, path }: IProps) => {
   const { pathname } = useLocation();
+
   return (
     <>
       <Box component="header" className="header">
@@ -26,15 +27,14 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
             </Typography>
           </Box>
 
-          {pathname === "/dashboard/users" ? (
-            ""
-          ) : (
-            <Button color="primary" variant="contained">
-              <Link to={path} state={{ isEdit: false }} className="linkStyle">
-                Add New {subTitle}
-              </Link>
-            </Button>
-          )}
+          {pathname !== "/dashboard/users" ||
+            ("/dashboard/booking" && (
+              <Button color="primary" variant="contained">
+                <Link to={path} state={{ isEdit: false }} className="linkStyle">
+                  Add New {subTitle}
+                </Link>
+              </Button>
+            ))}
         </Box>
       </Box>
     </>
@@ -42,28 +42,3 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
 };
 
 export default TableHeader;
-
-{
-  /* <header className=" header-container rounded-3 ">
-<div className="row py-3 pe-5 mt-3 align-items-center px-1 g-0  ">
-
-  <div className="col-sm-10">
-
-    <div className="px-3 text-white">
-      <h3 className='fw-light capitalize'><span className="fw-bold h2">{title}</span>  {subTitle}</h3>
-
-      <p className="fw-light mWidth">{para} {subPara}</p>
-    </div>
-
-  </div>
-
-  <div className="col-sm-2">
-    <div className='text-center'>
-
-      <img src={pathname === "/dashboard" ? homeAvatar : usersAvatar} className='img-fluid headerImg' alt="headerBg" />
-    </div>
-  </div>
-
-</div>
-</header> */
-}
