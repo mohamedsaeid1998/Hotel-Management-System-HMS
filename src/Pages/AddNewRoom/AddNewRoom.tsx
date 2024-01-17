@@ -75,11 +75,9 @@ const AddNewRoom = () => {
       setValue("roomNumber", roomDetails?.roomNumber);
       setValue("discount", roomDetails?.discount);
       setValue("capacity", roomDetails?.capacity);
-      // const selectedFac = roomDetails.facilities;
-      // const defaultValues = { selectedFac };
-
-      // selectedFac.map((facility) => defaultValues[facility.fieldName] = facility.defaultValue;);
-      // console.log(defaultValues);
+      const facilitiesDetailsArr = roomDetails?.facilities;
+      const facilitiesNames = facilitiesDetailsArr.map((fitme) => fitme.name);
+      setValue("facilities", facilitiesNames);
     } catch (error) {
       toast.error(error);
     } finally {
@@ -93,7 +91,6 @@ const AddNewRoom = () => {
       setCheckPage(isEdit);
     }
   }, []);
-  console.log(Facilities, facilities);
   //! ***************Selected Input ***************
 
   //! ***************Selected Images ***************
@@ -238,8 +235,8 @@ const AddNewRoom = () => {
                   className="facilities"
                   color="secondary"
                   onClick={() => setFacilities(facilities)}
-                  defaultValue={["sara"]}
                   select
+                  defaultValue={["sara"]}
                   SelectProps={{ multiple: true }}
                   {...register("facilities", {
                     required,

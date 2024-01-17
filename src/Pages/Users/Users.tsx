@@ -82,7 +82,7 @@ const Users = () => {
       <TableHeader
         title={"Users"}
         subTitle={"User"}
-        path={"/dashboard/add-new-room"}
+        path={"/dashboard/rooms-add"}
       />
 
       <DataGrid

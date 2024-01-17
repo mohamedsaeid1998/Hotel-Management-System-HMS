@@ -1,6 +1,8 @@
 /** @format */
 
 import { Provider } from "react-redux";
+import { Suspense, lazy } from "react";
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound } from "./Components";
 import {
@@ -20,7 +22,10 @@ import {
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import LoadingComponent from "./Components/Loading/Loading";
+
 function App() {
+  const lazyLoading = lazy(() => import("./Components/Loading/Loading"));
   const routes = createBrowserRouter([
     {
       path: "dashboard",
@@ -31,11 +36,18 @@ function App() {
       ),
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Home /> },
+        {
+          index: true,
+          element: (
+            <Suspense>
+              <Home />
+            </Suspense>
+          ),
+        },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
-        { path: "add-new-room", element: <AddNewRoom /> },
-        { path: "add-new-room/:id", element: <AddNewRoom /> },
+        { path: "rooms-add", element: <AddNewRoom /> },
+        { path: "rooms-add/:id", element: <AddNewRoom /> },
         { path: "room-facilities", element: <Facilities /> },
         { path: "add-new-facility", element: <AddNewFacility /> },
         { path: "add-new-facility/:id", element: <AddNewFacility /> },
