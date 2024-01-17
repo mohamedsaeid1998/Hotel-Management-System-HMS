@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  Input,
-  InputLabel,
-  TextField,
-  Typography
-} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,15 +11,28 @@ import "./Register.module.scss";
 const Register = () => {
   const dispatch = useDispatch();
   const { isRegister } = useSelector((state) => state.register);
+  console.log("from register", isRegister);
+
   const navigate = useNavigate();
   const required = "This Field is required";
-
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm();
+
   const onSubmit = (data) => {
     dispatch(fetchData(data));
   };
@@ -34,7 +40,7 @@ const Register = () => {
     if (isRegister) {
       navigate("/");
     }
-  }, [isRegister]);
+  }, [isRegister, navigate]);
   return (
     <>
       <Box component="div">
@@ -58,7 +64,7 @@ const Register = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "red",
+                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
@@ -172,10 +178,28 @@ const Register = () => {
             }
           />
 
-          <InputLabel sx={{ marginTop: "5px" }}>Profile Image</InputLabel>
-          <FormControl sx={{ width: "100%" }}>
+          {/* <InputLabel sx={{ marginTop: "5px" }}>Profile Image</InputLabel> */}
+          {/* <FormControl sx={{ width: "100%" }}>
             <Input type="file" {...register("profileImage")} />
-          </FormControl>
+          </FormControl> */}
+
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+          >
+            Upload Profile Image
+            <VisuallyHiddenInput
+              type="file"
+              {...register("profileImage")}
+              error={!!errors.profileImage}
+              helperText={
+                !!errors.profileImage
+                  ? errors?.profileImage?.message?.toString()
+                  : null
+              }
+            />
+          </Button>
           <Button
             type="submit"
             sx={{ width: "100%", padding: "10px", margin: "20px 0" }}

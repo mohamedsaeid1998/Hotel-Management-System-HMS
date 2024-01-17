@@ -90,6 +90,9 @@
 }
 .auth {
   background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+
   font-family: sans-serif;
   display: flex;
   justify-content: left;
@@ -103,13 +106,16 @@
 }
 .auth-background2 {
   background-image: url("../Assets/Images/bg2.png");
-  height: 95vh;
+  height: 90%;
 }
 .auth-background3 {
   background-image: url("../Assets/Images/bg3.png");
-  height: 70vh;
+  height: 80vh;
 }
-
+.auth-background4 {
+  background-image: url("../Assets/Images/bg1.png");
+  height: 90%;
+}
 .auth-desc h3 {
   font-size: 30px;
 }
