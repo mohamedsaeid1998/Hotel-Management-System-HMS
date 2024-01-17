@@ -184,11 +184,6 @@ const Facilities = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        // checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
-        // disableDensitySelector
-        // disableColumnSelector
       />
     </>
   );

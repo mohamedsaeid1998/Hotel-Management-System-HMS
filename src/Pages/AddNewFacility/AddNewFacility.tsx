@@ -70,8 +70,6 @@ const AddNewFacility = () => {
         });
       }
     } else {
-      const id = facilityID;
-      console.log(id);
       const updateData = await dispatch(updateFacilityData({ data, id }));
       if (updateData?.payload?.success) {
         setLoading(false);

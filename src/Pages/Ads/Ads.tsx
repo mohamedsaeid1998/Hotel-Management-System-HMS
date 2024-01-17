@@ -135,7 +135,6 @@ const Ads = () => {
       width: 235,
       renderCell: (params) => {
         const { _id } = params.row;
-
         return (
           <>
             <DeleteDialog

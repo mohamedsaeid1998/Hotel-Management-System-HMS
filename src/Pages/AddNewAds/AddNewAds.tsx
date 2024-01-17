@@ -24,6 +24,8 @@ import LoadingComponent from "@/Components/Loading/Loading";
 
 const AddNewAds = () => {
   const [isActive, setIsActive] = useState("");
+  const [defRoomId, setDefRoomId] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [roomsData, setRoomsData] = useState([]);
   const navigate = useNavigate();
@@ -65,9 +67,9 @@ const AddNewAds = () => {
       const initActiveValue =
         roomDetails?.isActive !== undefined && String(roomDetails?.isActive);
       setIsActive(initActiveValue);
-
-      setValue("discount", roomDetails?.room?.discount);
-
+      setValue("room", "555");
+      console.log();
+      setDefRoomId(roomDetails?.room._id);
       setValue("discount", roomDetails?.room?.discount);
     } catch (error) {
       toast.error("Error fetching existing data:", error);
@@ -137,10 +139,12 @@ const AddNewAds = () => {
                 color="secondary"
                 select
                 disabled={isEdit}
-                defaultValue={roomsData[0]._id}
-                {...register("room", {
-                  required,
-                })}
+                // defaultValue={isEdit && "555"}
+                defaultValue={isEdit ? defRoomId : false}
+                {...(!isEdit &&
+                  register("room", {
+                    required,
+                  }))}
                 error={!!errors.room}
                 helperText={
                   !!errors.room ? errors?.room?.message?.toString() : null
@@ -162,7 +166,6 @@ const AddNewAds = () => {
                   color="secondary"
                   {...register("discount", {
                     required,
-
                     valueAsNumber: true,
                     validate: (value) =>
                       (value !== undefined && +value >= 0) ||
@@ -219,7 +222,7 @@ const AddNewAds = () => {
                   </Button>
                 )}
               </Box>
-            </Box>{" "}
+            </Box>
           </>
         )
       )}
