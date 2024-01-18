@@ -22,10 +22,8 @@ import {
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-import LoadingComponent from "./Components/Loading/Loading";
-
+// import LoadingComponent from "./Components/Loading/Loading";
 function App() {
-  const lazyLoading = lazy(() => import("./Components/Loading/Loading"));
   const routes = createBrowserRouter([
     {
       path: "dashboard",
@@ -39,9 +37,9 @@ function App() {
         {
           index: true,
           element: (
-            <Suspense>
-              <Home />
-            </Suspense>
+            <Home />
+            // <Suspense>
+            // </Suspense>
           ),
         },
         { path: "users", element: <Users /> },
