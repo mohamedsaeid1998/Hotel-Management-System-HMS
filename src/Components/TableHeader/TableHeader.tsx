@@ -29,11 +29,14 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
           {pathname === "/dashboard/users" || pathname === "/dashboard/booking" ? (
             ""
           ) : (
-            <Button color="primary" variant="contained">
-              <Link to={path} state={{ isEdit: false }} className="linkStyle">
+            <Box>
+
+            <Button color="primary" variant="contained" >
+              <Link to={path} state={{ isEdit: false }} className="linkStyle"  >
                 Add New {subTitle}
               </Link>
             </Button>
+            </Box>
           )}
         </Box>
       </Box>
