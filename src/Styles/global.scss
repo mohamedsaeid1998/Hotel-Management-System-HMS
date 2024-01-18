@@ -40,6 +40,12 @@
   }
 }
 
+.nav-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
 //! *************** Toolbar Drawer ***************
 
 .css-hyum1k-MuiToolbar-root {
@@ -96,6 +102,9 @@
 }
 .auth {
   background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+
   font-family: sans-serif;
   display: flex;
   justify-content: left;
@@ -109,13 +118,16 @@
 }
 .auth-background2 {
   background-image: url("../Assets/Images/bg2.png");
-  height: 95vh;
+  height: 90%;
 }
 .auth-background3 {
   background-image: url("../Assets/Images/bg3.png");
-  height: 70vh;
+  height: 80vh;
 }
-
+.auth-background4 {
+  background-image: url("../Assets/Images/bg1.png");
+  height: 90%;
+}
 .auth-desc h3 {
   font-size: 30px;
 }
@@ -249,22 +261,20 @@
 // popup
 .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
   border: rgba(21, 3, 177, 0.505) 2px solid !important;
-  animation: shadowAni 5s ;
+  animation: shadowAni 5s;
   box-shadow: rgba(22, 22, 22, 0.904) 5px 1px 1px !important;
-  animation: moveInBottom 1s ;
+  animation: moveInBottom 1s;
 }
 
-.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper:hover{
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper:hover {
   box-shadow: rgb(3, 62, 255) 2px 0px 1px !important;
-
 }
 @keyframes moveInBottom {
   50% {
-      transform: translateY(-5%)rotateY(10deg);
-      
+    transform: translateY(-5%) rotateY(10deg);
   }
 
   100% {
-      transform: translatex(0px);
+    transform: translatex(0px);
   }
 }

@@ -23,9 +23,6 @@ const Facilities = () => {
   const [facilityID, setFacilityID] = useState("");
   const [facDetails, setFacDetails] = useState([]);
   const [loading, setLoading] = useState(false);
-  {
-    /*check current page  */
-  }
 
   {
     /*************popUp************** */
@@ -167,7 +164,6 @@ const Facilities = () => {
         columns={tableBody}
         getRowId={(row) => row._id}
         rowSelectionModel={"server"}
-        rowCount={5}
         loading={loading}
         initialState={{
           pagination: {

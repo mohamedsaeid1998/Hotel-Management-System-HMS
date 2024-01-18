@@ -53,7 +53,9 @@ const Navbar = ({ showDrawer }: any) => {
             <Box className="navAvatar">
               <Tooltip title="Open settings">
                 <IconButton>
-                  <Avatar
+                  <img
+                  crossOrigin="anonymous"
+                  className="nav-img"
                     src={
                       userData?.profileImage == null
                         ? defaultImage

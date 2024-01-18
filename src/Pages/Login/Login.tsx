@@ -11,7 +11,7 @@ import "./Login.module.scss";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.login)
   const required = "This Field is required";
   const {
     register,
@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <>
-      <Box component="div" >
+      <Box component="div">
         {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>
@@ -51,7 +51,7 @@ const Login = () => {
               to="/register"
               style={{
                 textDecoration: "none",
-                color: "red",
+                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
@@ -100,7 +100,7 @@ const Login = () => {
               to="/forget-password"
               style={{
                 textDecoration: "none",
-                color: "red",
+                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >

@@ -11,23 +11,9 @@ const token = localStorage.getItem("authToken");
 
 export const updateRoomData = createAsyncThunk<any, void>(
   "updateRooms/updateRoomData",
-  async (
-    { roomNumber, price, capacity, discount, facilities, images, id }:any,
-    thunkAPI
-  ) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
+  async ({addFormData,roomId}:any) => {
       const data = await baseUrl.put(
-        `/api/v0/admin/rooms/${id}`,
-        {
-          roomNumber,
-          price,
-          capacity,
-          discount,
-          facilities,
-          imgs: images[0],
-        },
-        {
+        `/api/v0/admin/rooms/${roomId}`,addFormData,{
           headers: {
             Authorization: token,
             "Content-Type": "multipart/form-data",
@@ -35,9 +21,7 @@ export const updateRoomData = createAsyncThunk<any, void>(
         }
       );
       return data.data;
-    } catch (error) {
-      rejectWithValue(error);
-    }
+
   }
 );
 

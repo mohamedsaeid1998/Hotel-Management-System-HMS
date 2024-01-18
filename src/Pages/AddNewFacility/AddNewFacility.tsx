@@ -47,6 +47,7 @@ const AddNewFacility = () => {
       setLoading(false);
     }
   }, [dispatch, setValue]);
+
   const sendData = async (data: any) => {
     setLoading(true);
     if (!isEdit) {
@@ -73,14 +74,14 @@ const AddNewFacility = () => {
       const updateData = await dispatch(updateFacilityData({ data, id }));
       if (updateData?.payload?.success) {
         setLoading(false);
-        toast.success("Room Facility Created Successfully", {
+        toast.success("Room Facility Updated Successfully", {
           autoClose: 2000,
           theme: "colored",
         });
         navigate("/dashboard/room-facilities");
       } else {
         setLoading(false);
-        toast.error("Room Facility Was Not Created Successfully", {
+        toast.error("Room Facility Was Not Updated Successfully", {
           autoClose: 2000,
           theme: "colored",
         });

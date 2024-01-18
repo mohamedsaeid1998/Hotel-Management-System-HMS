@@ -90,7 +90,6 @@ const Users = () => {
         rows={tableData}
         columns={tableBody}
         rowSelectionModel={"server"}
-        rowCount={2}
         loading={loading}
         getRowId={(row) => row._id}
         initialState={{

@@ -1,4 +1,3 @@
-/** @format */
 
 import bg1 from "./bg1.png";
 import NoImage5 from "./NoImage5.png";

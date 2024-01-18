@@ -45,15 +45,17 @@ const ForgetPassword = () => {
             Forgot password
           </Typography>
           <Typography>
-            If you already have an account register <br /> You can
+            If you already have an account register <br />
+            You can
             <Link
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "red",
+                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
+              {" "}
               Login here !
             </Link>
           </Typography>

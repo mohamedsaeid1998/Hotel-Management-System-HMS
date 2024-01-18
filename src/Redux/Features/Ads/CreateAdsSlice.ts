@@ -61,7 +61,6 @@ export const CreateAdsSlice = createSlice({
     builder.addCase(CreateAds.rejected, (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = action.payload.message;
-      console.log(state);
     });
   },
 });

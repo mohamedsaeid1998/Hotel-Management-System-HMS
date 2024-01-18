@@ -16,7 +16,7 @@ import {
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
@@ -56,6 +56,7 @@ const AddNewAds = () => {
       toast.error("Error fetching data:", error);
     }
   }, [setRoomsData, dispatch]);
+  const [roomId, setRoomId] = useState("");
 
   //? ***************Get details Data***************
   const getDetailsAds = async () => {
@@ -67,10 +68,12 @@ const AddNewAds = () => {
       const initActiveValue =
         roomDetails?.isActive !== undefined && String(roomDetails?.isActive);
       setIsActive(initActiveValue);
-      setValue("room", "555");
-      console.log();
-      setDefRoomId(roomDetails?.room._id);
+
       setValue("discount", roomDetails?.room?.discount);
+
+      setRoomId(`${roomDetails?.room?._id}`);
+      setDefRoomId(roomDetails?.room._id);
+      setValue("room", defRoomId);
     } catch (error) {
       toast.error("Error fetching existing data:", error);
     } finally {
@@ -116,10 +119,10 @@ const AddNewAds = () => {
     }
   };
   useEffect(() => {
+    getData();
     if (isEdit) {
       getDetailsAds();
     }
-    getData();
   }, []);
   return (
     <>
@@ -133,29 +136,51 @@ const AddNewAds = () => {
               component="form"
               onSubmit={handleSubmit(sendData)}
             >
-              <TextField
-                label="select Room"
-                className="roomNumber"
-                color="secondary"
-                select
-                disabled={isEdit}
-                // defaultValue={isEdit && "555"}
-                defaultValue={isEdit ? defRoomId : false}
-                {...(!isEdit &&
-                  register("room", {
+              {isEdit ? (
+                <TextField
+                  label="select Room"
+                  className="roomNumber"
+                  color="secondary"
+                  select
+                  disabled={isEdit}
+                  // defaultValue={isEdit && "555"}
+                  defaultValue={isEdit ? defRoomId : false}
+                  {...(!isEdit &&
+                    register("room", {
+                      required,
+                    }))}
+                  error={!!errors.room}
+                  helperText={
+                    !!errors.room ? errors?.room?.message?.toString() : null
+                  }
+                >
+                  {roomsData?.map(({ _id, roomNumber }: any) => (
+                    <MenuItem key={_id} value={_id}>
+                      {roomNumber}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  label="select Room"
+                  className="roomNumber"
+                  color="secondary"
+                  select
+                  {...register("room", {
                     required,
-                  }))}
-                error={!!errors.room}
-                helperText={
-                  !!errors.room ? errors?.room?.message?.toString() : null
-                }
-              >
-                {roomsData?.map(({ _id, roomNumber }: any) => (
-                  <MenuItem key={_id} value={_id}>
-                    {roomNumber}
-                  </MenuItem>
-                ))}
-              </TextField>
+                  })}
+                  error={!!errors.room}
+                  helperText={
+                    !!errors.room ? errors?.room?.message?.toString() : null
+                  }
+                >
+                  {roomsData?.map(({ _id, roomNumber }: any) => (
+                    <MenuItem key={_id} value={_id}>
+                      {roomNumber}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
 
               <Box className="middleInputs">
                 <TextField
@@ -171,7 +196,6 @@ const AddNewAds = () => {
                       (value !== undefined && +value >= 0) ||
                       "Please enter a positive number",
                   })}
-                  defaultValue={" "}
                   error={!!errors.discount}
                   helperText={
                     !!errors.discount
@@ -185,10 +209,10 @@ const AddNewAds = () => {
                   className="discount"
                   color="secondary"
                   select
+                  defaultValue={isActive}
                   {...register("isActive", {
                     required,
                   })}
-                  defaultValue={isActive}
                   error={!!errors.isActive}
                   helperText={
                     !!errors.isActive
