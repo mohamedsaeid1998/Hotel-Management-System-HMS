@@ -26,7 +26,7 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
             </Typography>
           </Box>
 
-          {pathname === "/dashboard/users" ? (
+          {pathname === "/dashboard/users" || pathname === "/dashboard/booking" ? (
             ""
           ) : (
             <Button color="primary" variant="contained">
