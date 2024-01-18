@@ -55,9 +55,9 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
       viewItem();
     }
   }, [open]);
-  console.log(roomDetailsData);
-  
-  const { capacity, price, roomNumber, discount ,images }:any = roomDetailsData;
+
+  const { capacity, price, roomNumber, discount, images }: any =
+    roomDetailsData;
   return (
     <>
       <Dialog
@@ -68,6 +68,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
       >
         {loading ? (
           <Backdrop
+            style={{ opacity: 1, backgroundColor: "#ffff" }}
             sx={{
               color: "#203FC7",
               zIndex: (theme) => theme.zIndex.drawer + 1,

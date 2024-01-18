@@ -12,22 +12,14 @@ const token = localStorage.getItem("authToken");
 
 export const CreateRooms = createAsyncThunk<any, void>(
   "CreateRoomsSlice/CreateRooms",
-  async (
-    { roomNumber, price, capacity, discount, facilities, images }: any,
-    thunkAPI
-  ) => {
+  async (addFormData: any, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
       const data = await baseUrl.post(
         `/api/v0/admin/rooms`,
-        {
-          roomNumber,
-          price,
-          capacity,
-          discount,
-          facilities,
-          imgs: images[0],
-        },
+
+        addFormData,
+
         {
           headers: {
             Authorization: token,
