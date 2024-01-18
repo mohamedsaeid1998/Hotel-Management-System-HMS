@@ -43,13 +43,15 @@ const AddNewFacility = () => {
       const facilityEditDetails = await dispatch(facilitiesDataDetails(id));
       const facDetails = facilityEditDetails.payload.data.facility;
       setValue("name", facDetails.name);
-    } finally {
+    }finally {
       setLoading(false);
     }
   }, [dispatch, setValue]);
+
   const sendData = async (data: any) => {
     setLoading(true);
     if (!isEdit) {
+      
       // @ts-ignore
       const FacilityData = await dispatch(CreateFacility(data));
       // @ts-ignore
@@ -70,19 +72,18 @@ const AddNewFacility = () => {
         });
       }
     } else {
-      const id = facilityID;
-      console.log(id);
+
       const updateData = await dispatch(updateFacilityData({ data, id }));
       if (updateData?.payload?.success) {
         setLoading(false);
-        toast.success("Room Facility Created Successfully", {
+        toast.success("Room Facility Updated Successfully", {
           autoClose: 2000,
           theme: "colored",
         });
         navigate("/dashboard/room-facilities");
       } else {
         setLoading(false);
-        toast.error("Room Facility Was Not Created Successfully", {
+        toast.error("Room Facility Was Not Updated Successfully", {
           autoClose: 2000,
           theme: "colored",
         });

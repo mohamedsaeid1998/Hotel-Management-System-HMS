@@ -9,10 +9,9 @@ import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../../Styles/global.scss";
 import "./Rooms.module.scss";
-import { useNavigate } from "react-router-dom";
-import Backdrop from "@mui/material/Backdrop";
 
 const Rooms = () => {
   const dispatch = useDispatch();
@@ -105,7 +104,6 @@ const Rooms = () => {
         ) : (
           <img
             className="img-table"
-            crossOrigin="anonymous"
             src={params?.row?.images[0]}
             alt="image"
           />
@@ -176,7 +174,6 @@ const Rooms = () => {
         columns={tableBody}
         getRowId={(row) => row._id}
         rowSelectionModel={"server"}
-        rowCount={5}
         loading={loading}
         initialState={{
           pagination: {

@@ -33,7 +33,7 @@ const Register = () => {
     getValues,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data:any) => {
     dispatch(fetchData(data));
   };
   useEffect(() => {
@@ -99,6 +99,10 @@ const Register = () => {
                 color="primary"
                 {...register("phoneNumber", {
                   required,
+                  pattern:{
+                    value:/^01[0125][0-9]{8}$/,
+                    message:"Phone number must start with 01 and be 11 digits in total"
+                  },
                 })}
                 error={!!errors.phoneNumber}
                 helperText={
@@ -117,6 +121,10 @@ const Register = () => {
                 color="primary"
                 {...register("country", {
                   required,
+                  minLength : {
+                    value : 3,
+                    message :"minlength 3 letters"
+                  }
                 })}
                 error={!!errors.country}
                 helperText={
@@ -153,6 +161,10 @@ const Register = () => {
             color="primary"
             {...register("password", {
               required,
+              pattern:{
+                value:/^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*0-9]).{5,}$/,
+                message:"password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number"
+              }
             })}
             error={!!errors.password}
             helperText={

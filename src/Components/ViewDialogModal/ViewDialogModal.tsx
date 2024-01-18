@@ -1,18 +1,7 @@
 /** @format */
 
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { viewRoomDetails } from "@/Redux/Features/ViewDetails/viewDetailsSlice";
 import CloseIcon from "@mui/icons-material/Close";
-import Slide from "@mui/material/Slide";
 import {
   Backdrop,
   Box,
@@ -20,11 +9,16 @@ import {
   Grid,
   ImageListItem,
 } from "@mui/material";
-import { defaultImage, imgView2, imgView3 } from "@/Assets/Images";
-import { useDispatch, useSelector } from "react-redux";
-import { viewRoomDetails } from "@/Redux/Features/ViewDetails/viewDetailsSlice";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import IconButton from "@mui/material/IconButton";
+import Slide from "@mui/material/Slide";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-// import axios from "axios";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -36,7 +30,6 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
   const [loading, setLoading] = React.useState(true);
 
   const dispatch = useDispatch();
-  const images = [defaultImage, imgView2, imgView3];
   const handleImageClick = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
@@ -62,7 +55,9 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
       viewItem();
     }
   }, [open]);
-  const { capacity, price, roomNumber, discount } = roomDetailsData;
+  console.log(roomDetailsData);
+  
+  const { capacity, price, roomNumber, discount ,images }:any = roomDetailsData;
   return (
     <>
       <Dialog

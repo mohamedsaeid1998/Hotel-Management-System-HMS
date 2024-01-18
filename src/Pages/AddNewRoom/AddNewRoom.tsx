@@ -1,20 +1,19 @@
-/** @format */
-
-import { Button, MenuItem, Skeleton, TextField } from "@mui/material";
+//@ts-nocheck
+import LoadingComponent from "@/Components/Loading/Loading";
+import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
+import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
+import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
+import { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
+import { ChevronRight } from "@mui/icons-material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
-import "./AddNewRoom.module.scss";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { useDispatch } from "react-redux";
-import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
 import { useForm } from "react-hook-form";
-import { ChevronRight } from "@mui/icons-material";
-import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
-import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
-import LoadingComponent from "@/Components/Loading/Loading";
+import "./AddNewRoom.module.scss";
 interface propState {
   isEdit: boolean;
 }
@@ -27,9 +26,9 @@ const AddNewRoom = () => {
 
     formState: { errors },
   } = useForm();
-  const [roomId, setRoomId] = useState(null);
+
   const [checkPage, setCheckPage] = useState(false);
-  const [roomDetails, setRoomDetails] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [selectData, setSelectData] = useState(null);
   const [Facilities, setFacilities] = useState<string[]>([]);
@@ -44,13 +43,6 @@ const AddNewRoom = () => {
   const required = "This Field is required";
 
   //? ***************Get Facilities Data ***************
-  // const getFacilitiesData = async () => {
-  //   // @ts-ignore
-  //   let element = await dispatch(FacilitiesData());
-
-  //   // @ts-ignore
-  //   setSelectData(element.payload.data.facilities);
-  // };
   const getFacilitiesData = useCallback(async () => {
     try {
       // @ts-ignore
@@ -59,13 +51,11 @@ const AddNewRoom = () => {
       setSelectData(element.payload.data.facilities);
     } catch (error) {
       console.log(error);
-      // toast.error("error on getFacilitiesData");
+      toast.error(error)
     }
   }, [dispatch]);
-  {
-    /*get details while edit row */
-  }
 
+  const [EditFacilities, setEditFacilities] = useState()
   const getRoomDetails = async () => {
     setLoading(true);
     try {
@@ -75,17 +65,19 @@ const AddNewRoom = () => {
       setValue("roomNumber", roomDetails?.roomNumber);
       setValue("discount", roomDetails?.discount);
       setValue("capacity", roomDetails?.capacity);
-      // const selectedFac = roomDetails.facilities;
-      // const defaultValues = { selectedFac };
 
-      // selectedFac.map((facility) => defaultValues[facility.fieldName] = facility.defaultValue;);
-      // console.log(defaultValues);
+      let roomsIds = []
+      const details = roomDetails?.facilities.map((ele) => roomsIds.push(ele._id))
+
+      setEditFacilities(roomsIds)
+
     } catch (error) {
       toast.error(error);
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     getFacilitiesData();
     if (isEdit) {
@@ -93,8 +85,7 @@ const AddNewRoom = () => {
       setCheckPage(isEdit);
     }
   }, []);
-  console.log(Facilities, facilities);
-  //! ***************Selected Input ***************
+
 
   //! ***************Selected Images ***************
   const [images, setImages] = useState([]);
@@ -103,12 +94,37 @@ const AddNewRoom = () => {
     const files = Array.from(event.target.files);
     setImages(files);
   };
-  //? ***************Send Data***************
 
-  const sendData = async (data: any) => {
+
+  //? ***************Send Data***************
+  const submitData = (data: any) => {
+
+    const addFormData = new FormData()
+
+
+    // for (let i = 0; i < images.length; i++) {
+    //   addFormData.append('imgs', images[i]);
+    // }
+
+    // for (let i = 0; i < facilities.length; i++) {
+    //   addFormData.append('facilities[]', facilities[i]);
+    // }
+
+    facilities.forEach((facility: string) => addFormData.append('facilities[]', facility))
+
+    images.forEach((img) => addFormData.append('imgs', img))
+
+    addFormData.append('roomNumber', data["roomNumber"]);
+    addFormData.append('price', data["price"]);
+    addFormData.append('capacity', data["capacity"]);
+    addFormData.append('discount', data["discount"]);
+    sendData(addFormData)
+  }
+
+  const sendData = async (addFormData: any) => {
     if (!checkPage) {
       const roomsData = await dispatch(
-        CreateRooms({ ...data, facilities, images })
+        CreateRooms(addFormData)
       );
       if (roomsData?.payload?.message === "Room created successfully") {
         toast.success(" Room created successfully", {
@@ -123,9 +139,9 @@ const AddNewRoom = () => {
         });
       }
     } else {
-      const id = roomId;
+      const roomId = id
       const updateData = await dispatch(
-        updateRoomData({ ...data, facilities, images, id })
+        updateRoomData({ addFormData, roomId })
       );
       if (updateData?.payload?.success) {
         toast.success(updateData?.payload?.message, {
@@ -149,11 +165,10 @@ const AddNewRoom = () => {
       ) : (
         setSelectData.length > 0 && (
           <>
-            {" "}
             <Box
               className="formContainer"
               component="form"
-              onSubmit={handleSubmit(sendData)}
+              onSubmit={handleSubmit(submitData)}
             >
               <TextField
                 variant="filled"
@@ -232,13 +247,12 @@ const AddNewRoom = () => {
                       : null
                   }
                 />
-
-                <TextField
+                {isEdit ? <TextField
                   label="select facilities"
                   className="facilities"
                   color="secondary"
                   onClick={() => setFacilities(facilities)}
-                  defaultValue={["sara"]}
+                  defaultValue={EditFacilities}
                   select
                   SelectProps={{ multiple: true }}
                   {...register("facilities", {
@@ -257,6 +271,32 @@ const AddNewRoom = () => {
                     </MenuItem>
                   ))}
                 </TextField>
+                  :
+                  <TextField
+                    label="select facilities"
+                    className="facilities"
+                    color="secondary"
+                    onClick={() => setFacilities(facilities)}
+                    defaultValue={Facilities}
+                    select
+                    SelectProps={{ multiple: true }}
+                    {...register("facilities", {
+                      required,
+                    })}
+                    error={!!errors.facilities}
+                    helperText={
+                      !!errors.facilities
+                        ? errors?.facilities?.message?.toString()
+                        : null
+                    }
+                  >
+                    {selectData?.map(({ _id, name }: any) => (
+                      <MenuItem key={_id} value={_id}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </TextField>}
+
               </Box>
               <Box className="imagesBtn">
                 <Button

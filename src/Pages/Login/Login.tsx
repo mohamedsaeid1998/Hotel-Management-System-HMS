@@ -11,7 +11,7 @@ import "./Login.module.scss";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.login)
   const required = "This Field is required";
   const {
     register,

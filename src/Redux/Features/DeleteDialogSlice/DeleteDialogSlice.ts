@@ -18,7 +18,7 @@ export const deleteDialog = createAsyncThunk(
       );
       return response;
     } catch (error) {
-      console.log(error);
+
       return rejectWithValue(error?.message);
     }
   }

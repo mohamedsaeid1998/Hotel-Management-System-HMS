@@ -9,18 +9,13 @@ export interface Props {
 }
 const token = localStorage.getItem("authToken")
 
-export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async ({roomNumber,price,capacity,discount,facilities,images}:any) => {
+export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async (addFormData:any) => {
 
 
 
-  let data = await baseUrl.post(`/api/v0/admin/rooms`,{
-    roomNumber,
-    price,
-    capacity,
-    discount,
-    facilities,
-    imgs:images[0]
-  },{
+  let data = await baseUrl.post(`/api/v0/admin/rooms`,
+    addFormData
+  ,{
     headers:{
       Authorization: token,
       "Content-Type": "multipart/form-data"

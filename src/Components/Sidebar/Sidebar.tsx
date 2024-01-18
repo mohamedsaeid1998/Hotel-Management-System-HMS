@@ -56,7 +56,7 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
       text: "Rooms",
       icon: <MeetingRoom />,
       path: "/dashboard/rooms",
-      subPath: "room",
+      subPath: "rooms",
       time: "500",
       shape: "fade-right",
     },

@@ -159,7 +159,6 @@ const Bookings = () => {
         rows={tableData}
         columns={tableBody}
         rowSelectionModel={"server"}
-        rowCount={5}
         loading={loading}
         getRowId={(row) => row._id}
         initialState={{
@@ -173,7 +172,7 @@ const Bookings = () => {
         slotProps={{
           toolbar: {
             showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 },
+            quickFilterProps: { debounceMs: 300 },
           },
         }}
         pageSizeOptions={[5, 10]}

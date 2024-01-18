@@ -173,7 +173,6 @@ const Ads = () => {
         rows={tableData}
         columns={tableBody}
         rowSelectionModel={"server"}
-        rowCount={5}
         loading={loading}
         getRowId={(row) => row._id}
         initialState={{
