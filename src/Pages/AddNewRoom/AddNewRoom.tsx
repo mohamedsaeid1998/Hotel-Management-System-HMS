@@ -178,9 +178,10 @@ const AddNewRoom = () => {
                 {...register("roomNumber", {
                   required,
                   minLength: { value: 3, message: "minlength is 3 " },
-                  validate: (value) =>
-                    (value !== undefined && +value > 0) ||
-                    "Please enter a positive number",
+                  pattern:{
+                    value:/^[^-][A-Za-z0-9]*$/,
+                    message:'"Please enter a positive number"'
+                  }
                 })}
                 error={Boolean(errors.roomNumber)}
                 helperText={
