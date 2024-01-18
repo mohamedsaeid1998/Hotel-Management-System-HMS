@@ -18,7 +18,7 @@ const Users = () => {
     getData();
   }, []);
 
-  const getData = useCallback(async () => {
+  const getData = async () => {
     setLoading(true);
     try {
       // @ts-ignore
@@ -28,7 +28,7 @@ const Users = () => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch]);
+  };
 
   const tableBody: GridColDef[] = [
     {
@@ -82,7 +82,7 @@ const Users = () => {
       <TableHeader
         title={"Users"}
         subTitle={"User"}
-        path={"/dashboard/add-new-room"}
+        path={"/dashboard/rooms/add-new/:id"}
       />
 
       <DataGrid

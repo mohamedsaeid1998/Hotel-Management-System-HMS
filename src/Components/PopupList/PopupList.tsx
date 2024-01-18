@@ -68,15 +68,13 @@ const PopupList = ({
           ) : (
             ""
           )}
-          {currentUrl !== "booking" ? (
+          {currentUrl !== "booking" && (
             <MenuItem onClick={moveToEdit}>
               <ListItemIcon style={{ color: indigo[500] }}>
                 <EditIcon />
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>
             </MenuItem>
-          ) : (
-            ""
           )}
 
           <MenuItem onClick={handleOpenDialog}>

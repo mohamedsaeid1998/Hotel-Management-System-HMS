@@ -21,7 +21,7 @@ const Navbar = ({ showDrawer }: any) => {
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     getData();
-  }, [setUserData]);
+  }, []);
 
   const getData = async () => {
     // @ts-ignore

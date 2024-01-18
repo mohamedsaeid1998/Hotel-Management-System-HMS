@@ -63,7 +63,7 @@ const Facilities = () => {
     /*moveToEdit screen */
   }
   const moveToEdit = () => {
-    navigate(`/dashboard/add-new-facility/${roomId}`, {
+    navigate(`/dashboard/room-facilities/update-facility/${roomId}`, {
       state: { isEdit: true },
     });
   };
@@ -158,7 +158,7 @@ const Facilities = () => {
       <TableHeader
         title={"Facilities"}
         subTitle={"facility"}
-        path={"/dashboard/add-new-facility"}
+        path={"/dashboard/room-facilities/add-new-facility"}
       />
 
       <DataGrid

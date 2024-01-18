@@ -45,7 +45,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
   //   const viewDetails = await dispatch(viewRoomDetails(itemId));
   //   setRoomDetailsData(viewDetails.payload.data.room);
   // }, [dispatch, itemId]);
-  const viewItem = React.useCallback(async () => {
+  const viewItem = async () => {
     try {
       const viewDetails = await dispatch(viewRoomDetails(itemId));
       setRoomDetailsData(viewDetails.payload.data.room);
@@ -54,7 +54,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
       toast.error("Error fetching room details:", error);
       setLoading(false);
     }
-  }, [dispatch, itemId]);
+  };
   React.useEffect(() => {
     if (open) {
       setLoading(true);
