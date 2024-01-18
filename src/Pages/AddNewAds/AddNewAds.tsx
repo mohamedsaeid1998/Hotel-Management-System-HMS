@@ -1,26 +1,20 @@
 /** @format */
 
+import LoadingComponent from "@/Components/Loading/Loading";
 import { CreateAds } from "@/Redux/Features/Ads/CreateAdsSlice";
 import { updateAdsData } from "@/Redux/Features/Ads/UpdateAdsSlice";
 import { getAdsDetailsData } from "@/Redux/Features/Ads/getAdsDetalisSlice";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import {
-  Backdrop,
-  Button,
-  CircularProgress,
-  MenuItem,
-  TextField,
-} from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
-import LoadingComponent from "@/Components/Loading/Loading";
 
 const AddNewAds = () => {
   const [isActive, setIsActive] = useState("");
@@ -52,6 +46,7 @@ const AddNewAds = () => {
       const element = await dispatch(RoomsData());
       // @ts-ignore
       setRoomsData(element.payload.data.rooms);
+      console.log(element.payload.data.rooms._id);
     } catch (error) {
       toast.error("Error fetching data:", error);
     }
@@ -76,13 +71,12 @@ const AddNewAds = () => {
       setValue("room", defRoomId);
     } catch (error) {
       toast.error("Error fetching existing data:", error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
-
   //? ***************Send Data***************
-  // @ts-ignore
 
   const sendData = async (data: any) => {
     setLoading(true);
@@ -143,7 +137,6 @@ const AddNewAds = () => {
                   color="secondary"
                   select
                   disabled={isEdit}
-                  // defaultValue={isEdit && "555"}
                   defaultValue={isEdit ? defRoomId : false}
                   {...(!isEdit &&
                     register("room", {
