@@ -149,12 +149,12 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
             <ChangePassword />
           </ListItem>
           <ListItem disablePadding data-aos-delay="1000" data-aos="fade-right">
-            <ListItemButton>
+            <ListItemButton onClick={handelLogout}>
               <ListItemIcon>
                 <Logout />
               </ListItemIcon>
-              <ListItemText primary={"Logout"} onClick={handelLogout} />
-            </ListItemButton>
+              <ListItemText primary={"Logout"}  />
+            </ListItemButton >
           </ListItem>
         </List>
       </Drawer>

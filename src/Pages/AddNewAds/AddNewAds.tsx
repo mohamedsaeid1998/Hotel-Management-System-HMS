@@ -155,7 +155,7 @@ const AddNewAds = () => {
                 </TextField>
               ) : (
                 <TextField
-                  label="select Room"
+                  label="Select Room"
                   className="roomNumber"
                   color="secondary"
                   select
@@ -180,7 +180,7 @@ const AddNewAds = () => {
                   variant="filled"
                   type="number"
                   className="discount"
-                  label="discount"
+                  label="Discount"
                   color="secondary"
                   {...register("discount", {
                     required,
@@ -198,7 +198,7 @@ const AddNewAds = () => {
                 />
 
                 <TextField
-                  label="select Room"
+                  label="Status"
                   className="discount"
                   color="secondary"
                   select
