@@ -25,7 +25,7 @@ const Navbar = ({ showDrawer }: any) => {
 
   const getData = async () => {
     // @ts-ignore
-    let element = await dispatch(UserDetails(userId));
+    const element = await dispatch(UserDetails(userId));
     // @ts-ignore
     setUserData(element.payload.data.user);
   };

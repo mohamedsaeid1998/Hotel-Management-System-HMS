@@ -93,6 +93,7 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
   const handelLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
     navigate("/");
   };
 

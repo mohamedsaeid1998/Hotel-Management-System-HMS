@@ -180,6 +180,7 @@ const AddNewRoom = () => {
                   minLength: { value: 3, message: "minlength is 3 " },
                   pattern: {
                     value: /^[^-][A-Za-z0-9]*$/,
+                    
                     message: '"Please enter a positive number"',
                   },
                 })}
