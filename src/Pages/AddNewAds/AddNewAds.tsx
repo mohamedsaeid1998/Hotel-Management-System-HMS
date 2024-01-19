@@ -137,7 +137,7 @@ const [roomId, setRoomId] = useState("")
               component="form"
               onSubmit={handleSubmit(sendData)}
             >
-              {isEdit ?               <TextField
+              {isEdit ?   <TextField
                 label="select Room"
                 className="roomNumber"
                 color="secondary"
@@ -202,7 +202,7 @@ const [roomId, setRoomId] = useState("")
                 />
 
                 <TextField
-                  label="select Room"
+                  label="Status"
                   className="discount"
                   color="secondary"
                   select
