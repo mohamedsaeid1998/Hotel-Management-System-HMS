@@ -1,19 +1,17 @@
+/** @format */
 import { configureStore } from "@reduxjs/toolkit";
+import changePassword from "./Features/Auth/ChangePasswordSlice";
+import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
 import loginReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
-import RoomsData from "./Features/Rooms/GetRoomsSlice";
-import FacilitiesData from "./Features/Facilities/FacilitiesSlice";
-import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
-import changePassword from "./Features/Auth/ChangePasswordSlice";
-
+import CreateAdsSlice from "./Features/Ads/CreateAdsSlice";
 const Store = configureStore({
   reducer: {
     login: loginReducer,
     register: registerReducer,
     ForgetPassword,
     changePassword,
-    RoomsData,
-    FacilitiesData,
+    CreateAdsSlice
   },
 });
 

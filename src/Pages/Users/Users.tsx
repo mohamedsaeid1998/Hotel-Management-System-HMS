@@ -1,25 +1,33 @@
+/** @format */
+
 import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { UsersData } from "@/Redux/Features/Users/GetUsersSlice";
 import moment from "moment";
 import "./Users.module.scss";
-
+import "../../Styles/global.scss";
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    // @ts-ignore
-    let element = await dispatch(UsersData());
-    // @ts-ignore
-    setTableData(element.payload.data.users);
+    setLoading(true);
+    try {
+      // @ts-ignore
+      const element = await dispatch(UsersData());
+      // @ts-ignore
+      setTableData(element.payload.data.users);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const tableBody: GridColDef[] = [
@@ -67,18 +75,22 @@ const Users = () => {
     },
   ];
 
+  // PopupList
+
   return (
     <>
       <TableHeader
         title={"Users"}
         subTitle={"User"}
-        path={"/dashboard/add-new-room"}
+        path={"/dashboard/rooms/add-new/:id"}
       />
 
       <DataGrid
-        className="dataGrid"
+        className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}
+        rowSelectionModel={"server"}
+        loading={loading}
         getRowId={(row) => row._id}
         initialState={{
           pagination: {
@@ -87,19 +99,19 @@ const Users = () => {
             },
           },
         }}
-        slots={{ toolbar: GridToolbar }}
-        slotProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 },
-          },
-        }}
+        // slots={{ toolbar: GridToolbar }}
+        // slotProps={{
+        //   toolbar: {
+        //     showQuickFilter: true,
+        //     quickFilterProps: { debounceMs: 500 },
+        //   },
+        // }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
+        // checkboxSelection
+        disableRowSelectionOnClick
+        disableColumnFilter
         // disableDensitySelector
-        // disableColumnSelector
+        disableColumnSelector
       />
     </>
   );

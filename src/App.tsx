@@ -1,7 +1,13 @@
+/** @format */
+
 import { Provider } from "react-redux";
+import { Suspense, lazy } from "react";
+
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound } from "./Components";
 import {
+  AddNewAds,
+  AddNewFacility,
   AddNewRoom,
   Ads,
   Bookings,
@@ -16,7 +22,7 @@ import {
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-
+// import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -28,13 +34,27 @@ function App() {
       ),
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Home /> },
+        {
+          index: true,
+          element: <Home />,
+        },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
-        { path: "add-new-room", element: <AddNewRoom /> },
-        { path: "facilities", element: <Facilities /> },
+        { path: "rooms/add-new/", element: <AddNewRoom /> },
+        { path: "rooms/add-new/:id", element: <AddNewRoom /> },
+        { path: "room-facilities", element: <Facilities /> },
+        {
+          path: "room-facilities/add-new-facility",
+          element: <AddNewFacility />,
+        },
+        {
+          path: "room-facilities/update-facility/:id",
+          element: <AddNewFacility />,
+        },
         { path: "ads", element: <Ads /> },
-        { path: "bookings", element: <Bookings /> },
+        { path: "add-new-ads", element: <AddNewAds /> },
+        { path: "add-new-ads/:id", element: <AddNewAds /> },
+        { path: "booking", element: <Bookings /> },
       ],
     },
 

@@ -1,8 +1,11 @@
+/** @format */
+
 import {
   AutoStories,
   Discount,
   Grade,
   Home,
+  LockOpen,
   Logout,
   MeetingRoom,
   PeopleAlt,
@@ -14,13 +17,22 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar
+  Toolbar,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import ChangePassword from "../ChangePassword/ChangePassword";
 import "./Sidebar.module.scss";
+import React from "react";
+import ChangePassword from "../ChangePassword/ChangePassword";
 
-const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
+// import Drawer from '@mui/material/Drawer';
+// import Toolbar from '@mui/material/Toolbar';
+// import ListItem from '@mui/material/ListItem';
+// import ListItemButton from '@mui/material/ListItemButton';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+// import List from '@mui/material/List';
+// import ListItemText from '@mui/material/ListItemText';
+
+const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
   const { pathname } = useLocation();
   const DrawerItems = [
     {
@@ -44,7 +56,7 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
       text: "Rooms",
       icon: <MeetingRoom />,
       path: "/dashboard/rooms",
-      subPath: "room",
+      subPath: "rooms",
       time: "500",
       shape: "fade-right",
     },
@@ -52,8 +64,8 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
       id: 4,
       text: "Facilities",
       icon: <Grade />,
-      path: "/dashboard/facilities",
-      subPath: "facility",
+      path: "/dashboard/room-facilities",
+      subPath: "room-facilities",
       time: "600",
       shape: "fade-right",
     },
@@ -68,9 +80,9 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
     },
     {
       id: 6,
-      text: "Bookings",
+      text: "Booking",
       icon: <AutoStories />,
-      path: "/dashboard/bookings",
+      path: "/dashboard/booking",
       subPath: "booking",
       time: "800",
       shape: "fade-right",
@@ -81,17 +93,15 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
   const handelLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
     navigate("/");
   };
 
-
-
   return (
     <>
-      <Drawer 
-
+      <Drawer
         sx={{
-          display:{xs:display,sm:"block"},
+          display: { xs: display, sm: "block" },
           width: "230px",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -103,9 +113,8 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
         anchor="left"
         open={true}
         onClose={() => {
-          closeDrawer()
-        }
-      }
+          closeDrawer();
+        }}
       >
         <Toolbar />
         <List>
@@ -140,12 +149,12 @@ const Sidebar = ({display,DrawerVariant,closeDrawer}:any) => {
             <ChangePassword />
           </ListItem>
           <ListItem disablePadding data-aos-delay="1000" data-aos="fade-right">
-            <ListItemButton>
+            <ListItemButton onClick={handelLogout}>
               <ListItemIcon>
                 <Logout />
               </ListItemIcon>
-              <ListItemText primary={"Logout"} onClick={handelLogout} />
-            </ListItemButton>
+              <ListItemText primary={"Logout"}  />
+            </ListItemButton >
           </ListItem>
         </List>
       </Drawer>

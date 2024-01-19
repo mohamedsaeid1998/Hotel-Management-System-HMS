@@ -1,3 +1,5 @@
+/** @format */
+
 @import "./variables.scss";
 @import "./responsive.scss";
 
@@ -11,16 +13,13 @@
     margin-left: 0 !important;
     margin-inline: 10px;
   }
-  
 }
 
-
-.display-none{
+.display-none {
   display: none !important;
 }
 
-
-.display-block{
+.display-block {
   display: block !important;
 }
 //? *************** Navbar ***************
@@ -39,6 +38,12 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.nav-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 //! *************** Toolbar Drawer ***************
@@ -70,6 +75,9 @@
   background-color: rgba(26, 36, 63, 0.17);
   border-left: 4px solid rgb(2, 2, 158);
   color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 4px 4px 4px,
+    rgba(145, 145, 145, 0.173) 0px 1px 1px 4px;
+  animation: sideAni 2s;
   .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
     color: white !important;
     opacity: 1;
@@ -79,8 +87,11 @@
     transition: all 0.4s;
   }
 }
-
-
+@keyframes sideAni {
+  50% {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 0px 0px, rgba(0, 0, 0, 0.23) 0px 0px 0px;
+  }
+}
 //! *************** Authentication ***************
 
 .authLayout {
@@ -92,6 +103,9 @@
 }
 .auth {
   background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+
   font-family: sans-serif;
   display: flex;
   justify-content: left;
@@ -105,13 +119,16 @@
 }
 .auth-background2 {
   background-image: url("../Assets/Images/bg2.png");
-  height: 95vh;
+  height: 90%;
 }
 .auth-background3 {
   background-image: url("../Assets/Images/bg3.png");
-  height: 70vh;
+  height: 80vh;
 }
-
+.auth-background4 {
+  background-image: url("../Assets/Images/bg1.png");
+  height: 90%;
+}
 .auth-desc h3 {
   font-size: 30px;
 }
@@ -138,7 +155,6 @@
   display: flex;
   justify-content: space-between;
 }
-
 
 //? *************** TableHeader ***************
 .header {
@@ -180,7 +196,7 @@
 .img-table {
   width: 35px;
   height: 35px;
-  border-radius: 50%;
+  border-radius: 0.5em;
   transition: all 0.4s;
 
   &:hover {
@@ -219,7 +235,6 @@
   }
 }
 
-
 //! *************** ChangePassword ***************
 .changePasswordBox {
   position: absolute;
@@ -232,4 +247,35 @@
   border-radius: 20px;
   box-shadow: 24px;
   padding: 30px;
+}
+
+.loadingButton {
+  background-color: #1976d2 !important;
+
+  span {
+    color: white !important;
+  }
+}
+.tableStyle {
+  height: 27rem !important;
+}
+// popup
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+  border: rgba(21, 3, 177, 0.505) 2px solid !important;
+  animation: shadowAni 5s;
+  box-shadow: rgba(22, 22, 22, 0.904) 5px 1px 1px !important;
+  animation: moveInBottom 1s;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper:hover {
+  box-shadow: rgb(3, 62, 255) 2px 0px 1px !important;
+}
+@keyframes moveInBottom {
+  50% {
+    transform: translateY(-5%) rotateY(10deg);
+  }
+
+  100% {
+    transform: translatex(0px);
+  }
 }
