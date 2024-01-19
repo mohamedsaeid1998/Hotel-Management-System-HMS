@@ -72,6 +72,7 @@ const AddNewRoom = () => {
       const details = roomDetails?.facilities.map((ele) =>
         roomsIds.push(ele._id)
       );
+      setValue("facilities", roomsIds);
 
       setEditFacilities(roomsIds);
     } catch (error) {
