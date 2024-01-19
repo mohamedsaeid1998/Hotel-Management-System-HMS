@@ -22,9 +22,15 @@ import {
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import ViewDetailsRoom from "./AdminPort/Components/ViewDetailsRoom/ViewDetailsRoom";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "dashboard/portal/rooms",
+      element: <ViewDetailsRoom />,
+      errorElement: <NotFound />,
+    },
     {
       path: "dashboard",
       element: (
