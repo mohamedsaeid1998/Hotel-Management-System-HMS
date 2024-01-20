@@ -132,7 +132,7 @@ const Ads = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 235,
+      width: 70,
       renderCell: (params) => {
         const { _id } = params.row;
         return (

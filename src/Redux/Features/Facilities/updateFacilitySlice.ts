@@ -8,11 +8,11 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
 
 export const updateFacilityData = createAsyncThunk<any, void>(
   "updateFacilities/updateFacilityData",
   async ({ data, id }, thunkAPI) => {
+    const token = localStorage.getItem("authToken");
     const { name } = data;
     const { rejectWithValue } = thunkAPI;
     try {

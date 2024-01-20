@@ -123,7 +123,7 @@ const Facilities = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 240,
+      width: 70,
       renderCell: (params) => {
         const { _id } = params.row;
 

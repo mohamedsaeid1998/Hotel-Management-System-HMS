@@ -6,11 +6,11 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
 
 export const UserDetails = createAsyncThunk<any, void>(
   "GetUserDetailsSlice/UserDetails",
   async (id) => {
+    const token = localStorage.getItem("authToken");
     let data = await baseUrl.get(`/api/v0/admin/users/${id}`, {
       headers: {
         Authorization: token,

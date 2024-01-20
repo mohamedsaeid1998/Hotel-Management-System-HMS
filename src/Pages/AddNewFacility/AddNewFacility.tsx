@@ -26,6 +26,7 @@ const AddNewFacility = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loadingBtn, setLoadingBtn] = useState(false)
 
   const {
     register,
@@ -49,7 +50,7 @@ const AddNewFacility = () => {
   }, [dispatch, setValue]);
 
   const sendData = async (data: any) => {
-    setLoading(true);
+    setLoadingBtn(true);
     if (!isEdit) {
       // @ts-ignore
       const FacilityData = await dispatch(CreateFacility(data));
@@ -57,14 +58,14 @@ const AddNewFacility = () => {
       if (
         FacilityData?.payload?.message === "Room Facility created successfully"
       ) {
-        setLoading(false);
+        setLoadingBtn(false);
         toast.success("Room Facility Created Successfully", {
           autoClose: 2000,
           theme: "colored",
         });
         navigate("/dashboard/room-facilities");
       } else {
-        setLoading(false);
+        setLoadingBtn(false);
         toast.error("Room Facility Was Not Created Successfully", {
           autoClose: 2000,
           theme: "colored",
@@ -126,7 +127,7 @@ const AddNewFacility = () => {
               </Button>
             </Link>
 
-            {loading ? (
+            {loadingBtn ? (
               <LoadingButton
                 className="loadingButton"
                 loading

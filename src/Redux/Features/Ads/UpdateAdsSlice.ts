@@ -14,6 +14,7 @@ const token = localStorage.getItem("authToken");
 export const updateAdsData = createAsyncThunk<any, void>(
   "updateAds/updateAdsData",
   async ({ discount, isActive, id }: any, thunkAPI) => {
+    const token = localStorage.getItem("authToken");
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await baseUrl.put(

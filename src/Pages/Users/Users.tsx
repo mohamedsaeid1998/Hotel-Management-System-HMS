@@ -65,7 +65,7 @@ const Users = () => {
     {
       field: "createdAt",
       headerName: "Created At",
-      width: 175,
+      width: 90,
       editable: false,
       renderCell: (params) => {
         return (

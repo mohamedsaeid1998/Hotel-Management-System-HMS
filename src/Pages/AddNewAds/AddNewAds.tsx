@@ -28,7 +28,7 @@ const AddNewAds = () => {
   const { id } = useParams();
   const location = useLocation();
   const { isEdit } = location.state;
-
+  const [loadingBtn, setLoadingBtn] = useState(false)
   const {
     register,
     handleSubmit,
@@ -79,19 +79,19 @@ const AddNewAds = () => {
   //? ***************Send Data***************
 
   const sendData = async (data: any) => {
-    setLoading(true);
+    setLoadingBtn(true);
     if (!isEdit) {
       // @ts-ignore
       const createAdsData = await dispatch(CreateAds({ ...data }));
       if (createAdsData?.payload?.message === "Ads created successfully") {
-        setLoading(false);
+        setLoadingBtn(false);
         toast.success("Ads Created Successfully", {
           autoClose: 2000,
           theme: "colored",
         });
         navigate("/dashboard/ads");
       } else {
-        setLoading(false);
+        setLoadingBtn(false);
       }
     } else {
       const updateAds = await dispatch(updateAdsData({ ...data, id }));
@@ -225,7 +225,7 @@ const AddNewAds = () => {
                   </Button>
                 </Link>
 
-                {loading ? (
+                {loadingBtn ? (
                   <LoadingButton
                     className="loadingButton"
                     loading

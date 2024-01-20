@@ -9,11 +9,12 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
+
 
 export const CreateAds = createAsyncThunk<any, void>(
   "CreateAdsSlice/CreateAds",
   async ({ room, discount, isActive }: any, thunkAPI) => {
+    const token = localStorage.getItem("authToken");
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await baseUrl.post(

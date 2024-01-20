@@ -7,11 +7,11 @@ export interface Props {
   loading:boolean
   error:null|string
 }
-const token = localStorage.getItem("authToken")
+
 
 export const CreateFacility = createAsyncThunk<any, void>("CreateFacilitySlice/CreateFacility", async ({name}:string) => {
 
-
+  const token = localStorage.getItem("authToken")
 
   const data = await baseUrl.post(`/api/v0/admin/room-facilities`,{
 name

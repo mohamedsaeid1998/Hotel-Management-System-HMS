@@ -124,7 +124,7 @@ const Bookings = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 165,
+      width: 70,
       renderCell: (params) => {
         return (
           <>

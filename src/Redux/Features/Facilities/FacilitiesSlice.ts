@@ -8,11 +8,12 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
+
 
 export const FacilitiesData = createAsyncThunk<any, void>(
   "GetFacilitiesSlice/FacilitiesData",
   async () => {
+    const token = localStorage.getItem("authToken")
     const data = await baseUrl.get(
       `/api/v0/admin/room-facilities?page=1&size=100`,
       {

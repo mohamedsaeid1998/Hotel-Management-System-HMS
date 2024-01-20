@@ -13,6 +13,7 @@ const token = localStorage.getItem("authToken");
 export const getAdsDetailsData = createAsyncThunk<any, void>(
   "adsDetails/getAdsData",
   async (id) => {
+    const token = localStorage.getItem("authToken");
     const data = await baseUrl.get(`/api/v0/admin/ads/${id}`, {
       headers: {
         Authorization: token,

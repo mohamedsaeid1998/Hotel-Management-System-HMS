@@ -44,8 +44,7 @@ const AddNewRoom = () => {
   const facilities = getValues("facilities");
   const navigate = useNavigate();
   const required = "This Field is required";
-  const { loading } = useSelector((state) => state.CreateRoomsSlice);
-
+const [loadingBtn, setLoadingBtn] = useState(false)
   //? ***************Get Facilities Data ***************
   const getFacilitiesData = useCallback(async () => {
     try {
@@ -99,6 +98,7 @@ const AddNewRoom = () => {
 
   //? ***************Send Data***************
   const submitData = (data: any) => {
+    setLoadingBtn(true)
     const addFormData = new FormData();
 
     // for (let i = 0; i < images.length; i++) {
@@ -127,7 +127,10 @@ const AddNewRoom = () => {
       const roomsData = await dispatch(CreateRooms(addFormData));
 
       if (roomsData?.payload === undefined) {
+        setLoadingBtn(false)
         navigate("/dashboard/rooms");
+      }else{
+        setLoadingBtn(false)
       }
     } else {
       const roomId = id;
@@ -135,12 +138,15 @@ const AddNewRoom = () => {
         updateRoomData({ addFormData, roomId })
       );
       if (updateData?.payload?.success) {
+        setLoadingBtn(false)
         toast.success(updateData?.payload?.message, {
           autoClose: 2000,
           theme: "colored",
         });
         navigate("/dashboard/rooms");
+
       } else {
+        setLoadingBtn(false)
         toast.error(" Error please try agin", {
           autoClose: 2000,
           theme: "colored",
@@ -313,7 +319,7 @@ const AddNewRoom = () => {
                   Cancel
                 </Button>
               </Link>
-              {loading ? (
+              {loadingBtn ? (
                 <LoadingButton
                   className="loadingButton"
                   loading

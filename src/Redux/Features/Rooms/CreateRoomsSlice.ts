@@ -9,11 +9,11 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
 
 export const CreateRooms = createAsyncThunk<any, void>(
   "CreateRoomsSlice/CreateRooms",
 async (addFormData: any) => {
+  const token = localStorage.getItem("authToken");
 try {
   await baseUrl.post(`/api/v0/admin/rooms`,
   addFormData,
