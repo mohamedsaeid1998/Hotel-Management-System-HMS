@@ -6,10 +6,10 @@ interface Props {
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-  if (localStorage.getItem("authToken")) {
+  if (localStorage.getItem("authToken")&&localStorage.getItem("userRole")==="admin" ) {
     return children;
   } else {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/login"} />;
   }
 };
 

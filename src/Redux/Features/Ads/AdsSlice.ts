@@ -10,11 +10,12 @@ export interface Props {
   error: null | string;
 }
 
-const token = localStorage.getItem("authToken");
 
 export const AdsData = createAsyncThunk<any, void>(
   "GetAdsSlice/AdsData",
   async (_, thunkAPI) => {
+
+const token = localStorage.getItem("authToken");
     const { rejectWithValue } = thunkAPI;
     try {
       const data = await baseUrl.get(`/api/v0/admin/ads?page=1&size=100`, {

@@ -65,7 +65,6 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
 
   const { capacity, price, roomNumber, discount, images }: any =
     roomDetailsData;
-  console.log(images);
   return (
     <>
       <Dialog

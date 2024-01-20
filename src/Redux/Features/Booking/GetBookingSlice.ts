@@ -8,11 +8,12 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
+
 
 export const BookingData = createAsyncThunk<any, void>(
   "GetBookingSlice/BookingData",
   async () => {
+    const token = localStorage.getItem("authToken");
     const data = await baseUrl.get(`/api/v0/admin/booking?page=1&size=100`, {
       headers: {
         Authorization: token,

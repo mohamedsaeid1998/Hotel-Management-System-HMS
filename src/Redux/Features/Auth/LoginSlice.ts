@@ -6,13 +6,16 @@ interface LoginState {
   data: [];
   loading: boolean;
   errors: string | null;
+  islogged:null
 }
 const initialState: LoginState = {
   role: null,
   data: [],
   loading: false,
   errors: null,
+  islogged:null
 };
+
 
 const fetchData = createAsyncThunk("login/fetchData", async (userData) => {
   try {
@@ -30,14 +33,18 @@ const fetchData = createAsyncThunk("login/fetchData", async (userData) => {
       autoClose: 2000,
       theme: "colored",
     });
-    throw error;
+    return error.response
   }
 });
 
 const loginSlice = createSlice({
   name: "login",
   initialState,
-  reducers: {},
+  reducers: {
+    fetchDataIslogged: (state) => {
+      state.islogged = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state) => {
       state.loading = true;
@@ -45,6 +52,7 @@ const loginSlice = createSlice({
     builder.addCase(fetchData.fulfilled, (state, action) => {
       state.role = action.payload;
       state.loading = false;
+      state.islogged = action.payload
     });
     builder.addCase(fetchData.rejected, (state, action) => {
       state.loading = false;
@@ -52,5 +60,8 @@ const loginSlice = createSlice({
     });
   },
 });
+
+export const { fetchDataIslogged } = loginSlice.actions;
+
 export { fetchData };
 export default loginSlice.reducer;

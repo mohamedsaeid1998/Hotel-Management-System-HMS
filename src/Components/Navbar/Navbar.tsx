@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import "./Navbar.module.scss";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { UserDetails } from "@/Redux/Features/Users/GetUserDetailsSlice";
 import { defaultImage } from "@/Assets/Images";
 
@@ -21,7 +21,7 @@ const Navbar = ({ showDrawer }: any) => {
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     getData();
-  }, []);
+  }, [dispatch]);
 
   const getData = async () => {
     // @ts-ignore

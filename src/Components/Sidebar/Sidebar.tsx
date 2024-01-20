@@ -94,7 +94,7 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userId");
-    navigate("/");
+    navigate("/login");
   };
 
   return (

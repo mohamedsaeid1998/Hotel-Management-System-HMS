@@ -7,11 +7,11 @@ export interface Props {
   loading: boolean;
   error: null | string;
 }
-const token = localStorage.getItem("authToken");
 
 export const updateRoomData = createAsyncThunk<any, void>(
   "updateRooms/updateRoomData",
   async ({addFormData,roomId}:any) => {
+    const token = localStorage.getItem("authToken");
       const data = await baseUrl.put(
         `/api/v0/admin/rooms/${roomId}`,addFormData,{
           headers: {

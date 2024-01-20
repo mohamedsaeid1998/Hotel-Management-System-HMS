@@ -1,7 +1,7 @@
-/** @format */
 
 import { Provider } from "react-redux";
-import { Suspense, lazy } from "react";
+import React from "react";
+const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound } from "./Components";
@@ -13,7 +13,7 @@ import {
   Bookings,
   Facilities,
   ForgetPassword,
-  Home,
+  Landing,
   Login,
   Register,
   ResetPassword,
@@ -22,9 +22,20 @@ import {
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import UserLayout from "./Components/UserLayout/UserLayout";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <UserLayout />
+      ),
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <Landing /> }
+      ]
+    },
     {
       path: "dashboard",
       element: (
@@ -35,8 +46,10 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          index: true,
-          element: <Home />,
+          index: true, element:
+            <React.Suspense fallback="Loading...">
+              <LazyLoading />
+            </React.Suspense>
         },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
@@ -63,7 +76,6 @@ function App() {
       element: <AuthLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         { path: "forget-password", element: <ForgetPassword /> },
