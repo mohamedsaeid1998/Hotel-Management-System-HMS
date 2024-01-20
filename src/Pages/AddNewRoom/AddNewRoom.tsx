@@ -59,18 +59,19 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
   }, [dispatch]);
 
   const [EditFacilities, setEditFacilities] = useState();
+
   const getRoomDetails = async () => {
 
     try {
       const getEditRoomData = await dispatch(RoomsDataDetails(id));
-      const roomDetails = getEditRoomData.payload.data.room;
+      const roomDetails = getEditRoomData?.payload?.data?.room;
       setValue("price", roomDetails?.price);
       setValue("roomNumber", roomDetails?.roomNumber);
       setValue("discount", roomDetails?.discount);
       setValue("capacity", roomDetails?.capacity);
 
       const roomsIds = [];
-      const details = roomDetails?.facilities.map((ele) =>
+      const details = roomDetails?.facilities.map((ele:any) =>
         roomsIds.push(ele._id)
       );
       setValue("facilities", roomsIds);
@@ -146,6 +147,7 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
       }
     }
   };
+console.log(isEdit);
 
   return (
     <>
@@ -238,7 +240,7 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
                       : null
                   }
                 />
-                {isEdit ? (
+                {isEdit ? 
                   <TextField
                     label="select facilities"
                     className="facilities"
@@ -263,7 +265,7 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
                       </MenuItem>
                     ))}
                   </TextField>
-                ) : (
+                : 
                   <TextField
                     label="select facilities"
                     className="facilities"
@@ -288,7 +290,7 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
                       </MenuItem>
                     ))}
                   </TextField>
-                )}
+                }
               </Box>
               <Box className="imagesBtn">
                 <Button

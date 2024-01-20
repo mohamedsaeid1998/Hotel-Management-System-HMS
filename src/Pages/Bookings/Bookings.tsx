@@ -44,9 +44,10 @@ const Bookings = () => {
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
   const handleCloseDialog = () => setOpenDialog(false);
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [dispatch]);
 
   const getData = useCallback(async () => {
     setLoading(true);
@@ -115,11 +116,8 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        return params?.formattedValue === "pending" ? (
-          <Chip label={"pending"} size="small" color="warning" />
-        ) : (
-          params?.formattedValue
-        );
+        return params?.formattedValue === "pending" ? 
+<Chip label={"Pending"} size="small" color="warning" />: params?.formattedValue === "completed" ? <Chip label={"Completed"} size="small" color="success" /> : params?.formattedValue
       },
     },
 

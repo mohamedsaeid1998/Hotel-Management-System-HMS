@@ -1,8 +1,8 @@
 /** @format */
 
 import { TableHeader } from "@/Components";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import { useCallback, useEffect, useState } from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { UsersData } from "@/Redux/Features/Users/GetUsersSlice";
@@ -16,7 +16,7 @@ const Users = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [dispatch]);
 
   const getData = async () => {
     setLoading(true);

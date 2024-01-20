@@ -2,7 +2,7 @@ import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
 import { ChevronLeft } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,21 +11,30 @@ import "./Login.module.scss";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.login)
+  const { loading,islogged  } = useSelector((state) => state.login)
   const required = "This Field is required";
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // useCallback(async()=>{try{}catch{}},[])
+  const onSubmit = useCallback(async( data: { email: string; password: string })=> {
+    dispatch(fetchData(data))
 
-  const onSubmit = (data: { email: string; password: string }) => {
-    dispatch(fetchData(data));
-  };
-  if (localStorage.getItem("authToken") != null) {
-    navigate("/dashboard");
-  }
+  },[dispatch]) 
+
+    if (islogged==="admin") {
+      navigate("/dashboard");
+    }else if(islogged==="user"){
+      navigate("/dashboard/booking");
+    }
+
+
+
+
   useEffect(() => {
+
     dispatch(fetchDataStart(false));
   }, [dispatch]);
 

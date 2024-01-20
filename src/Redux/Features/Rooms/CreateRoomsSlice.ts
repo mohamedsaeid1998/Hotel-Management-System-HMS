@@ -23,7 +23,6 @@ try {
     },
   }
 ).then((res) => {
-  console.log(res)
         toast.success(res.data.message, {
           autoClose: 2000,
           theme: "colored",
@@ -33,7 +32,6 @@ try {
       }
       )
 } catch (error) {
-  console.log("here");
   
   toast.error(error?.response?.data?.message, {
     autoClose: 2000,
