@@ -59,14 +59,14 @@ const Ads = () => {
   const handleCloseDialog = () => setOpenDialog(false);
 
   const getAdsData = useCallback(async () => {
-    setLoading(true);
+
     try {
       // @ts-ignore
       const element = await dispatch(AdsData());
       // @ts-ignore
       setTableData(element.payload.data.ads);
     } finally {
-      setLoading(false);
+
     }
   }, [dispatch]);
 

@@ -58,7 +58,7 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
     }
   }, [dispatch]);
 
-  const [EditFacilities, setEditFacilities] = useState();
+  const [EditFacilities, setEditFacilities] = useState([]);
 
   const getRoomDetails = async () => {
 
@@ -125,6 +125,8 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
   const sendData = async (addFormData: any) => {
     if (!checkPage) {
       const roomsData = await dispatch(CreateRooms(addFormData));
+      console.log(roomsData);
+      
       if (roomsData?.payload === undefined) {
         navigate("/dashboard/rooms")
       }
@@ -147,7 +149,6 @@ const {loading} = useSelector((state)=> state.CreateRoomsSlice)
       }
     }
   };
-console.log(isEdit);
 
   return (
     <>
@@ -246,7 +247,7 @@ console.log(isEdit);
                     className="facilities"
                     color="secondary"
                     onClick={() => setFacilities(facilities)}
-                    defaultValue={EditFacilities}
+                    defaultValue={`${EditFacilities}`}
                     select
                     SelectProps={{ multiple: true }}
                     {...register("facilities", {

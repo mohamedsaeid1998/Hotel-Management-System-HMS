@@ -20,8 +20,6 @@ const Facilities = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
-  const [facilityID, setFacilityID] = useState("");
-  const [facDetails, setFacDetails] = useState([]);
   const [loading, setLoading] = useState(false);
 
   {
@@ -84,22 +82,24 @@ const Facilities = () => {
     {
       field: "name",
       headerName: "facility Name",
-      width: 290,
+      width: 240,
       editable: false,
     },
-    // {
-    //   field: 'createdBy',
-    //   headerName: 'createdBy',
-    //   width: 290,
-    //   editable: false,
-    //   renderCell: (params) => {
-    //     return (console.log(params.row.createdBy))
-    //   },
-    // },
+    {
+      field: 'createdBy',
+      headerName: 'createdBy',
+      width: 240,
+      editable: false,
+      renderCell: (params) => {
+        console.log(params?.row?.createdBy)
+        
+        return params?.row?.createdBy===null ? 'Anonymous':params?.row?.createdBy?.userName
+      },
+    },
     {
       field: "createdAt",
       headerName: "Created At",
-      width: 290,
+      width: 240,
       editable: false,
       renderCell: (params) => {
         return (
@@ -111,7 +111,7 @@ const Facilities = () => {
     {
       field: "updatedAt",
       headerName: "Updated At",
-      width: 290,
+      width: 240,
       editable: false,
       renderCell: (params) => {
         return (
@@ -123,7 +123,7 @@ const Facilities = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 290,
+      width: 240,
       renderCell: (params) => {
         const { _id } = params.row;
 
@@ -149,6 +149,8 @@ const Facilities = () => {
       },
     },
   ];
+
+
 
   return (
     <>
