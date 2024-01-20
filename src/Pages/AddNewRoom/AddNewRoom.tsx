@@ -1,6 +1,6 @@
-/** @format */
 
-//@ts-nocheck
+
+//@ts-nochec
 import LoadingComponent from "@/Components/Loading/Loading";
 import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
 import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
@@ -12,10 +12,11 @@ import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewRoom.module.scss";
+import { LoadingButton } from "@mui/lab";
 interface propState {
   isEdit: boolean;
 }
@@ -31,7 +32,6 @@ const AddNewRoom = () => {
 
   const [checkPage, setCheckPage] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const [selectData, setSelectData] = useState(null);
   const [Facilities, setFacilities] = useState<string[]>([]);
   const { id } = useParams();
@@ -39,10 +39,11 @@ const AddNewRoom = () => {
   const dispatch = useDispatch();
   const { isEdit } = location.state as propState;
   const facilities = getValues("facilities");
-
   const navigate = useNavigate();
-
   const required = "This Field is required";
+
+const {loading} = useSelector((state)=> state.CreateRoomsSlice)
+
 
   //? ***************Get Facilities Data ***************
   const getFacilitiesData = useCallback(async () => {
@@ -59,7 +60,7 @@ const AddNewRoom = () => {
 
   const [EditFacilities, setEditFacilities] = useState();
   const getRoomDetails = async () => {
-    setLoading(true);
+
     try {
       const getEditRoomData = await dispatch(RoomsDataDetails(id));
       const roomDetails = getEditRoomData.payload.data.room;
@@ -78,7 +79,6 @@ const AddNewRoom = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
     }
   };
 
@@ -110,9 +110,7 @@ const AddNewRoom = () => {
     //   addFormData.append('facilities[]', facilities[i]);
     // }
 
-    facilities.forEach((facility: string) =>
-      addFormData.append("facilities[]", facility)
-    );
+    facilities.forEach((facility: string) =>addFormData.append("facilities[]", facility))
 
     images.forEach((img) => addFormData.append("imgs", img));
 
@@ -126,17 +124,8 @@ const AddNewRoom = () => {
   const sendData = async (addFormData: any) => {
     if (!checkPage) {
       const roomsData = await dispatch(CreateRooms(addFormData));
-      if (roomsData?.payload?.message === "Room created successfully") {
-        toast.success(" Room created successfully", {
-          autoClose: 2000,
-          theme: "colored",
-        });
-        navigate("/dashboard/rooms");
-      } else {
-        toast.error(" Room was not created successfully", {
-          autoClose: 2000,
-          theme: "colored",
-        });
+      if (roomsData?.payload === undefined) {
+        navigate("/dashboard/rooms")
       }
     } else {
       const roomId = id;
@@ -221,9 +210,9 @@ const AddNewRoom = () => {
                       (value !== undefined && +value > 0) ||
                       "Please enter a positive number",
                   })}
-                  error={Boolean(errors.capacity)}
+                  error={Boolean(errors?.capacity)}
                   helperText={
-                    Boolean(errors.capacity)
+                    Boolean(errors?.capacity)
                       ? errors?.capacity?.message?.toString()
                       : null
                   }
@@ -323,10 +312,18 @@ const AddNewRoom = () => {
                     Cancel
                   </Button>
                 </Link>
+{loading ?            <LoadingButton
+              className="loadingButton"
+              loading
+              variant="outlined"
+            >
+              Login
+            </LoadingButton>:
+                            <Button variant="contained" type="submit" size="large">
+                            Submit <ChevronRight />
+                          </Button>
+            }
 
-                <Button variant="contained" type="submit" size="large">
-                  Submit <ChevronRight />
-                </Button>
               </Box>
             </Box>
           </>

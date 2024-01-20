@@ -2,6 +2,7 @@
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../utils/Custom/Custom";
+import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -12,27 +13,43 @@ const token = localStorage.getItem("authToken");
 
 export const CreateRooms = createAsyncThunk<any, void>(
   "CreateRoomsSlice/CreateRooms",
-  async (addFormData: any, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      const data = await baseUrl.post(
-        `/api/v0/admin/rooms`,
-
-        addFormData,
-
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      return data.data;
-    } catch (error) {
-      rejectWithValue(error);
-    }
+async (addFormData: any) => {
+try {
+  await baseUrl.post(`/api/v0/admin/rooms`,
+  addFormData,
+  {
+    headers: {
+      Authorization: token,
+    },
   }
+).then((res) => {
+  console.log(res)
+        toast.success(res.data.message, {
+          autoClose: 2000,
+          theme: "colored",
+        })
+
+        return res
+      }
+      )
+} catch (error) {
+  console.log("here");
+  
+  toast.error(error?.response?.data?.message, {
+    autoClose: 2000,
+    theme: "colored",
+    
+  })
+
+  return error
+}
+}
+
+
+
+
+
+
   // export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async (addFormData:any) => {
 
   //   let data = await baseUrl.post(`/api/v0/admin/rooms`,
@@ -70,7 +87,7 @@ export const CreateRoomsSlice = createSlice({
       CreateRooms.rejected,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       }
     );
   },

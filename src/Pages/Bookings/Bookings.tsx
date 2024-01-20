@@ -1,6 +1,3 @@
-/** @format */
-
-import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useCallback, useEffect, useState } from "react";
@@ -70,7 +67,9 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        return params.row.room === null ? "1002-5" : params.row.room;
+        console.log(params);
+        
+        return params?.row?.room === null ? "1002-5" : params?.row?.room?.roomNumber;
       },
     },
     {
@@ -79,7 +78,9 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        return params.row.room === null ? "Mohamed" : params.row.room;
+        console.log(params)
+        
+        return params?.row?.user === null ? "Mohamed" : params?.row?.user?.userName;
       },
     },
     {
@@ -114,10 +115,10 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        return params.formattedValue === "pending" ? (
+        return params?.formattedValue === "pending" ? (
           <Chip label={"pending"} size="small" color="warning" />
         ) : (
-          params.formattedValue
+          params?.formattedValue
         );
       },
     },
@@ -127,7 +128,6 @@ const Bookings = () => {
       headerName: "Action",
       width: 165,
       renderCell: (params) => {
-        const { _id } = params.row;
         return (
           <>
             <DeleteDialog
@@ -142,7 +142,7 @@ const Bookings = () => {
               anchorEl={anchorEl}
               handleViewDialog={handleViewDialog}
               handleOpenDialog={handleOpenDialog}
-              id={_id}
+              id={params?.row?._id}
             />
           </>
         );
@@ -160,7 +160,7 @@ const Bookings = () => {
         columns={tableBody}
         rowSelectionModel={"server"}
         loading={loading}
-        getRowId={(row) => row._id}
+        getRowId={(row) => row?._id}
         initialState={{
           pagination: {
             paginationModel: {
