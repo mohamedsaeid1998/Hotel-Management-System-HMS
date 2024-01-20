@@ -86,14 +86,14 @@ const Facilities = () => {
       editable: false,
     },
     {
-      field: 'createdBy',
-      headerName: 'createdBy',
+      field: "createdBy",
+      headerName: "createdBy",
       width: 240,
       editable: false,
       renderCell: (params) => {
-        console.log(params?.row?.createdBy)
-        
-        return params?.row?.createdBy===null ? 'Anonymous':params?.row?.createdBy?.userName
+        return params?.row?.createdBy === null
+          ? "Anonymous"
+          : params?.row?.createdBy?.userName;
       },
     },
     {
@@ -149,8 +149,6 @@ const Facilities = () => {
       },
     },
   ];
-
-
 
   return (
     <>
