@@ -7,9 +7,9 @@ import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import PopupList from "@/Components/PopupList/PopupList";
+import PopupList from "@/Components/Shared/PopupList/PopupList";
 import { useNavigate } from "react-router-dom";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import "./Ads.module.scss";
 
 const Ads = () => {
@@ -119,9 +119,8 @@ const Ads = () => {
             <Chip
               size="small"
               label={`${params.formattedValue}`}
-              color={`${
-                params.formattedValue === !!"true" ? "success" : "error"
-              }`}
+              color={`${params.formattedValue === !!"true" ? "success" : "error"
+                }`}
               variant="filled"
             />
           </Stack>
@@ -189,11 +188,11 @@ const Ads = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        // checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
-        // disableDensitySelector
-        // disableColumnSelector
+      // checkboxSelection
+      // disableRowSelectionOnClick
+      // disableColumnFilter
+      // disableDensitySelector
+      // disableColumnSelector
       />
     </>
   );

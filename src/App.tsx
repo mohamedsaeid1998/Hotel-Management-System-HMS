@@ -21,8 +21,8 @@ import {
   Users,
 } from "./Pages";
 import Store from "./Redux/Store";
-import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-import UserLayout from "./Components/UserLayout/UserLayout";
+import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
+import UserLayout from "./Components/Shared/UserLayout/UserLayout";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
   const routes = createBrowserRouter([

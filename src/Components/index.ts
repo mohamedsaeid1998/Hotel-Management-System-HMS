@@ -1,8 +1,13 @@
-export {default as AuthLayout} from './AuthLayout/AuthLayout'
-export {default as MasterLayout} from './MasterLayout/MasterLayout'
-export {default as Navbar} from './Navbar/Navbar'
-export {default as TableHeader} from './TableHeader/TableHeader'
-export {default as NotFound} from './NotFound/NotFound'
-export {default as Sidebar} from './Sidebar/Sidebar'
+export { default as AuthLayout } from './Shared/AuthLayout/AuthLayout'
+export { default as MasterLayout } from './Shared/MasterLayout/MasterLayout'
+export { default as NotFound } from './Shared/NotFound/NotFound'
+
+
+export { default as Navbar } from './AdminSharedComponents/Navbar/Navbar'
+export { default as TableHeader } from './AdminSharedComponents/TableHeader/TableHeader'
+export { default as Sidebar } from './AdminSharedComponents/Sidebar/Sidebar'
+
+
+export { default as NavBar } from './UserSharedComponents/NavBar/NavBar'
 
 

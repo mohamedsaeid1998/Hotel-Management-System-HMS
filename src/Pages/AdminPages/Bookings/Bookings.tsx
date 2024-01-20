@@ -6,8 +6,8 @@ import { BookingData } from "@/Redux/Features/Booking/GetBookingSlice";
 import moment from "moment";
 import { Chip } from "@mui/material";
 
-import PopupList from "@/Components/PopupList/PopupList";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import PopupList from "@/Components/Shared/PopupList/PopupList";
+import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import "./Bookings.module.scss";
 const Bookings = () => {
   const dispatch = useDispatch();

@@ -5,8 +5,8 @@ import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Facilities.module.scss";
-import PopupList from "@/Components/PopupList/PopupList";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
+import PopupList from "@/Components/Shared/PopupList/PopupList";
+import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import { useNavigate } from "react-router-dom";
 
 const Facilities = () => {

@@ -1,19 +1,16 @@
-/** @format */
-
+import { defaultImage } from "@/Assets/Images";
+import { UserDetails } from "@/Redux/Features/Users/GetUserDetailsSlice";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import "./Navbar.module.scss";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {  useEffect, useState } from "react";
-import { UserDetails } from "@/Redux/Features/Users/GetUserDetailsSlice";
-import { defaultImage } from "@/Assets/Images";
+import "./Navbar.module.scss";
 
 const Navbar = ({ showDrawer }: any) => {
   const dispatch = useDispatch();

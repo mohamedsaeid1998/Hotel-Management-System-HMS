@@ -2,9 +2,9 @@
 
 import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
-import PopupList from "@/Components/PopupList/PopupList";
-import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
+import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
+import PopupList from "@/Components/Shared/PopupList/PopupList";
+import ViewDialogModal from "@/Components/Shared/ViewDialogModal/ViewDialogModal";
 import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React, { useCallback, useEffect, useState } from "react";
@@ -189,11 +189,11 @@ const Rooms = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        // checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
-        // disableDensitySelector
-        // disableColumnSelector
+      // checkboxSelection
+      // disableRowSelectionOnClick
+      // disableColumnFilter
+      // disableDensitySelector
+      // disableColumnSelector
       />
     </>
   );

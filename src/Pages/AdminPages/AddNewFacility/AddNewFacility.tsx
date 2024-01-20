@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import "./AddNewFacility.module.scss";
 import { updateFacilityData } from "@/Redux/Features/Facilities/updateFacilitySlice";
 import { facilitiesDataDetails } from "@/Redux/Features/Facilities/FacilitiesDetailsSlice";
-import LoadingComponent from "@/Components/Loading/Loading";
+import LoadingComponent from "@/Components/Shared/Loading/Loading";
 interface propState {
   isEdit: boolean;
 }

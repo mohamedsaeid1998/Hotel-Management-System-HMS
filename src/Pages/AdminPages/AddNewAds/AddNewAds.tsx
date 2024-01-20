@@ -1,6 +1,6 @@
 /** @format */
 
-import LoadingComponent from "@/Components/Loading/Loading";
+import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { CreateAds } from "@/Redux/Features/Ads/CreateAdsSlice";
 import { updateAdsData } from "@/Redux/Features/Ads/UpdateAdsSlice";
 import { getAdsDetailsData } from "@/Redux/Features/Ads/getAdsDetalisSlice";

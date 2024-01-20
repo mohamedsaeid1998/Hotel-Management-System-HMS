@@ -1,7 +1,7 @@
 /** @format */
 
 //@ts-nochec
-import LoadingComponent from "@/Components/Loading/Loading";
+import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
 import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
 import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
@@ -44,7 +44,7 @@ const AddNewRoom = () => {
   const facilities = getValues("facilities");
   const navigate = useNavigate();
   const required = "This Field is required";
-const [loadingBtn, setLoadingBtn] = useState(false)
+  const [loadingBtn, setLoadingBtn] = useState(false)
   //? ***************Get Facilities Data ***************
   const getFacilitiesData = useCallback(async () => {
     try {
@@ -129,7 +129,7 @@ const [loadingBtn, setLoadingBtn] = useState(false)
       if (roomsData?.payload === undefined) {
         setLoadingBtn(false)
         navigate("/dashboard/rooms");
-      }else{
+      } else {
         setLoadingBtn(false)
       }
     } else {

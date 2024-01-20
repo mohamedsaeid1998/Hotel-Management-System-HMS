@@ -122,11 +122,10 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
             <ListItem
               key={id}
               disablePadding
-              className={` ${
-                pathname === path || pathname?.includes(subPath)
-                  ? "active"
-                  : null
-              }`}
+              className={` ${pathname === path || pathname?.includes(subPath)
+                ? "active"
+                : null
+                }`}
             >
               <ListItemButton
                 onClick={() => {
@@ -153,7 +152,7 @@ const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
               <ListItemIcon>
                 <Logout />
               </ListItemIcon>
-              <ListItemText primary={"Logout"}  />
+              <ListItemText primary={"Logout"} />
             </ListItemButton >
           </ListItem>
         </List>
