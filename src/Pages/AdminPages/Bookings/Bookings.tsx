@@ -2,7 +2,6 @@ import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import "./Bookings.module.scss";
 import { BookingData } from "@/Redux/Features/Booking/GetBookingSlice";
 import moment from "moment";
 import { Chip } from "@mui/material";
@@ -10,7 +9,6 @@ import { Chip } from "@mui/material";
 import PopupList from "@/Components/PopupList/PopupList";
 import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import "./Bookings.module.scss";
-import "../../Styles/global.scss";
 const Bookings = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
@@ -69,7 +67,7 @@ const Bookings = () => {
       editable: false,
       renderCell: (params) => {
         console.log(params);
-        
+
         return params?.row?.room === null ? "1002-5" : params?.row?.room?.roomNumber;
       },
     },
@@ -80,7 +78,7 @@ const Bookings = () => {
       editable: false,
       renderCell: (params) => {
         console.log(params)
-        
+
         return params?.row?.user === null ? "Mohamed" : params?.row?.user?.userName;
       },
     },
@@ -116,8 +114,8 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        return params?.formattedValue === "pending" ? 
-<Chip label={"Pending"} size="small" color="warning" />: params?.formattedValue === "completed" ? <Chip label={"Completed"} size="small" color="success" /> : params?.formattedValue
+        return params?.formattedValue === "pending" ?
+          <Chip label={"Pending"} size="small" color="warning" /> : params?.formattedValue === "completed" ? <Chip label={"Completed"} size="small" color="success" /> : params?.formattedValue
       },
     },
 
@@ -174,11 +172,11 @@ const Bookings = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        // checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
-        // disableDensitySelector
-        // disableColumnSelector
+      // checkboxSelection
+      // disableRowSelectionOnClick
+      // disableColumnFilter
+      // disableDensitySelector
+      // disableColumnSelector
       />
     </>
   );

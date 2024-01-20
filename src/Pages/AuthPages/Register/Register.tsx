@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchData } from "../../Redux/Features/Auth/RegisterSlice";
+import { fetchData } from "../../../Redux/Features/Auth/RegisterSlice";
 import "./Register.module.scss";
 
 const Register = () => {
@@ -33,12 +33,12 @@ const Register = () => {
     getValues,
   } = useForm();
 
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     dispatch(fetchData(data));
   };
   useEffect(() => {
     if (isRegister) {
-      navigate("/");
+      navigate("/login");
     }
   }, [isRegister, navigate]);
   return (
@@ -99,9 +99,9 @@ const Register = () => {
                 color="primary"
                 {...register("phoneNumber", {
                   required,
-                  pattern:{
-                    value:/^01[0125][0-9]{8}$/,
-                    message:"Phone number must start with 01 and be 11 digits in total"
+                  pattern: {
+                    value: /^01[0125][0-9]{8}$/,
+                    message: "Phone number must start with 01 and be 11 digits in total"
                   },
                 })}
                 error={!!errors.phoneNumber}
@@ -121,9 +121,9 @@ const Register = () => {
                 color="primary"
                 {...register("country", {
                   required,
-                  minLength : {
-                    value : 3,
-                    message :"minlength 3 letters"
+                  minLength: {
+                    value: 3,
+                    message: "minlength 3 letters"
                   }
                 })}
                 error={!!errors.country}
@@ -161,9 +161,9 @@ const Register = () => {
             color="primary"
             {...register("password", {
               required,
-              pattern:{
-                value:/^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*0-9]).{5,}$/,
-                message:"password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number"
+              pattern: {
+                value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*0-9]).{5,}$/,
+                message: "password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number"
               }
             })}
             error={!!errors.password}

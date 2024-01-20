@@ -10,7 +10,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import baseUrl from "../../utils/Custom/Custom";
+import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
 
 const ResetPassword = () => {

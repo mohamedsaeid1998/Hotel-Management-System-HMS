@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { UsersData } from "@/Redux/Features/Users/GetUsersSlice";
 import moment from "moment";
 import "./Users.module.scss";
-import "../../Styles/global.scss";
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);

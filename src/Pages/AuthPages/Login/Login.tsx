@@ -6,12 +6,12 @@ import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchData } from "../../Redux/Features/Auth/LoginSlice";
+import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading,islogged  } = useSelector((state) => state.login)
+  const { loading, islogged } = useSelector((state) => state.login)
   const required = "This Field is required";
   const {
     register,
@@ -19,17 +19,17 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   // useCallback(async()=>{try{}catch{}},[])
-  const onSubmit = useCallback(async( data: { email: string; password: string })=> {
+  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
     dispatch(fetchData(data))
 
-  },[dispatch]) 
+  }, [dispatch])
 
-    if (islogged==="admin") {
-      navigate("/dashboard");
-    }else if(islogged==="user"){
-      navigate("/dashboard/booking");
-    }
-
+  if (islogged === "admin") {
+    navigate("/dashboard");
+  } else if (islogged === "user") {
+    navigate("/");
+  }
+  console.log(islogged);
 
 
 

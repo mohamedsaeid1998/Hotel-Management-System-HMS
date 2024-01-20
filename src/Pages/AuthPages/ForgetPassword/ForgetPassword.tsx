@@ -4,7 +4,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchData } from "../../Redux/Features/Auth/ForgetPasswordSlice";
+import { fetchData } from "../../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
 
 const ForgetPassword = () => {

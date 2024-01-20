@@ -1,19 +1,15 @@
-/** @format */
-
-import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
-import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
-import PopupList from "@/Components/PopupList/PopupList";
-import ViewDialogModal from "@/Components/ViewDialogModal/ViewDialogModal";
-import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
+import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
-import React, { useCallback, useEffect, useState } from "react";
+import moment from "moment";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import "./Facilities.module.scss";
+import PopupList from "@/Components/PopupList/PopupList";
+import DeleteDialog from "@/Components/DeleteDialog/DeleteDialog";
 import { useNavigate } from "react-router-dom";
-import "../../Styles/global.scss";
-import "./Rooms.module.scss";
 
-const Rooms = () => {
+const Facilities = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tableData, setTableData] = useState([]);
@@ -23,18 +19,6 @@ const Rooms = () => {
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  /*Handle popup menu */
-
-  const handleClickMenu = (
-    event: React.MouseEvent<HTMLElement>,
-    id: number
-  ) => {
-    setRoomId(id);
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
   {
     /*************popUp************** */
   }
@@ -54,74 +38,83 @@ const Rooms = () => {
     setAnchorEl(null);
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
-  {
-    /* move to edit  */
-  }
-  const moveToEdit = () => {
-    navigate(`/dashboard/rooms/add-new/${roomId}`, { state: { isEdit: true } });
+
+  /*Handle popup menu */
+
+  const handleClickMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    id: number
+  ) => {
+    setRoomId(id);
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
   };
   {
-    /*get Room */
+    /*moveToEdit screen */
   }
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = useCallback(async () => {
+  const moveToEdit = () => {
+    navigate(`/dashboard/room-facilities/update-facility/${roomId}`, {
+      state: { isEdit: true },
+    });
+  };
+  const getFacilitiesData = useCallback(async () => {
     setLoading(true);
     try {
       // @ts-ignore
-      const element = await dispatch(RoomsData());
+      const element = await dispatch(FacilitiesData());
       // @ts-ignore
-      setTableData(element.payload.data.rooms);
+      setTableData(element.payload.data.facilities);
     } finally {
       setLoading(false);
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    getFacilitiesData();
+  }, []);
+
   const tableBody: GridColDef[] = [
     {
-      field: "roomNumber",
-      headerName: "RoomNumber",
-      width: 180,
+      field: "name",
+      headerName: "facility Name",
+      width: 240,
       editable: false,
     },
     {
-      field: "price",
-      headerName: "Price",
-      width: 180,
-      editable: false,
-    },
-    {
-      field: "images",
-      headerName: "Image",
-      width: 180,
+      field: "createdBy",
+      headerName: "createdBy",
+      width: 240,
       editable: false,
       renderCell: (params) => {
-        return params.formattedValue === "" ||
-          params?.row?.images[0] === undefined ? (
-          <img className="img-table" src={defaultImage} alt="image" />
-        ) : (
-          <img
-            className="img-table"
-            src={params?.row?.images[0]}
-            alt="image"
-          />
+        return params?.row?.createdBy === null
+          ? "Anonymous"
+          : params?.row?.createdBy?.userName;
+      },
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      width: 240,
+      editable: false,
+      renderCell: (params) => {
+        return (
+          <span>{moment(params?.formattedValue).format("Do MMM YY")}</span>
         );
       },
     },
 
     {
-      field: "discount",
-      headerName: "Discount",
-      width: 180,
+      field: "updatedAt",
+      headerName: "Updated At",
+      width: 240,
       editable: false,
-    },
-    {
-      field: "capacity",
-      headerName: "Capacity",
-      width: 180,
-      editable: false,
+      renderCell: (params) => {
+        return (
+          <span>{moment(params?.formattedValue).format("Do MMM YY")}</span>
+        );
+      },
     },
 
     {
@@ -130,28 +123,22 @@ const Rooms = () => {
       width: 70,
       renderCell: (params) => {
         const { _id } = params.row;
+
         return (
           <>
             <DeleteDialog
-              getData={getData}
+              getData={getFacilitiesData}
               handleCloseDialog={handleCloseDialog}
               openDialog={openDialog}
               itemId={roomId}
             />
-
-            <ViewDialogModal
-              itemId={roomId}
-              handleClose={handleCloseViewDialog}
-              open={openViewDialog}
-            />
-
             <PopupList
               handleClickMenu={handleClickMenu}
               handleCloseMenu={handleCloseMenu}
               anchorEl={anchorEl}
               handleViewDialog={handleViewDialog}
-              handleOpenDialog={handleOpenDialog}
               moveToEdit={moveToEdit}
+              handleOpenDialog={handleOpenDialog}
               id={_id}
             />
           </>
@@ -163,12 +150,12 @@ const Rooms = () => {
   return (
     <>
       <TableHeader
-        title={"Rooms"}
-        subTitle={"Room"}
-        path={"/dashboard/rooms/add-new/"}
+        title={"Facilities"}
+        subTitle={"facility"}
+        path={"/dashboard/room-facilities/add-new-facility"}
       />
+
       <DataGrid
-        // style={{ height: "27rem" }}
         className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}
@@ -190,14 +177,9 @@ const Rooms = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        // checkboxSelection
-        // disableRowSelectionOnClick
-        // disableColumnFilter
-        // disableDensitySelector
-        // disableColumnSelector
       />
     </>
   );
 };
 
-export default Rooms;
+export default Facilities;
