@@ -1,3 +1,4 @@
+/** @format */
 
 import { Provider } from "react-redux";
 import React from "react";
@@ -19,6 +20,7 @@ import {
   ResetPassword,
   Rooms,
   Users,
+  ViewRoomDetails,
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
@@ -28,13 +30,12 @@ function App() {
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <UserLayout />
-      ),
+      element: <UserLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Landing /> }
-      ]
+        { index: true, element: <Landing /> },
+        { path: "portal/rooms", element: <ViewRoomDetails /> },
+      ],
     },
     {
       path: "dashboard",
@@ -46,10 +47,12 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          index: true, element:
+          index: true,
+          element: (
             <React.Suspense fallback="Loading...">
               <LazyLoading />
             </React.Suspense>
+          ),
         },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },

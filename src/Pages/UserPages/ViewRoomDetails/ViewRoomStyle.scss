@@ -1,0 +1,22 @@
+/** @format */
+
+/** @format */
+
+.gridImage {
+  display: grid;
+  grid-template-areas:
+    "a a c"
+    "a a b";
+  grid-template-columns: auto minmax(0, 1fr) minmax(15em, 1fr) minmax(15em, 1fr);
+  grid-template-rows: 20rem 20rem;
+  grid-gap: 1em;
+  .gallery__img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gridImage {
+    grid-template-columns: auto 1fr 1fr;
+  }
+}

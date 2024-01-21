@@ -1,20 +1,21 @@
-export { default as Home } from './AdminPages/Home/Home'
-export { default as Users } from './AdminPages/Users/Users'
-export { default as Rooms } from './AdminPages/Rooms/Rooms'
-export { default as AddNewRoom } from './AdminPages/AddNewRoom/AddNewRoom'
-export { default as Facilities } from './AdminPages/Facilities/Facilities'
-export { default as AddNewFacility } from './AdminPages/AddNewFacility/AddNewFacility'
-export { default as Ads } from './AdminPages/Ads/Ads'
-export { default as AddNewAds } from './AdminPages/AddNewAds/AddNewAds'
-export { default as Bookings } from './AdminPages/Bookings/Bookings'
+/** @format */
 
-export { default as Login } from './AuthPages/Login/Login'
-export { default as Register } from './AuthPages/Register/Register'
-export { default as ResetPassword } from './AuthPages/ResetPassword/ResetPassword'
-export { default as ForgetPassword } from './AuthPages/ForgetPassword/ForgetPassword'
+export { default as Home } from "./AdminPages/Home/Home";
+export { default as Users } from "./AdminPages/Users/Users";
+export { default as Rooms } from "./AdminPages/Rooms/Rooms";
+export { default as AddNewRoom } from "./AdminPages/AddNewRoom/AddNewRoom";
+export { default as Facilities } from "./AdminPages/Facilities/Facilities";
+export { default as AddNewFacility } from "./AdminPages/AddNewFacility/AddNewFacility";
+export { default as Ads } from "./AdminPages/Ads/Ads";
+export { default as AddNewAds } from "./AdminPages/AddNewAds/AddNewAds";
+export { default as Bookings } from "./AdminPages/Bookings/Bookings";
 
-export { default as NavBar } from '../Components/UserSharedComponents/NavBar/NavBar'
-export { default as Footer } from './UserPages/Footer/Footer'
-export { default as Landing } from './UserPages/Landing/Landing'
+export { default as Login } from "./AuthPages/Login/Login";
+export { default as Register } from "./AuthPages/Register/Register";
+export { default as ResetPassword } from "./AuthPages/ResetPassword/ResetPassword";
+export { default as ForgetPassword } from "./AuthPages/ForgetPassword/ForgetPassword";
 
-
+export { default as NavBar } from "../Components/UserSharedComponents/NavBar/NavBar";
+export { default as Footer } from "./UserPages/Footer/Footer";
+export { default as Landing } from "./UserPages/Landing/Landing";
+export { default as ViewRoomDetails } from "./UserPages/ViewRoomDetails/ViewRoomDetails";
