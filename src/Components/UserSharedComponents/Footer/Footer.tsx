@@ -6,7 +6,6 @@ const Footer = () => {
 <Box className="footerContainer">
 
 <Box>
-<Typography className='subNav' variant="h4" component="div" color="initial"> <Typography variant='' className='blueColor'>Stay</Typography>cation.</Typography>
 
 </Box>
 
