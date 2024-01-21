@@ -1,34 +1,31 @@
 /** @format */
 
 import {
+  bathroom,
   bedImg,
   defaultImage,
-  imgView2,
-  imgView3,
-  bathroom,
+  ic_ac,
+  ic_kulkas,
   ic_livingroom,
   ic_tv,
   ic_wifi,
-  ic_kulkas,
-  ic_ac,
+  imgView2,
+  imgView3,
 } from "@/Assets/Images";
 import BreadcrumbsComponent from "@/Components/UserSharedComponents/NavBar/BreadcrumbsComponent";
 import {
-  Avatar,
   Box,
   Container,
   CssBaseline,
   List,
   ListItem,
-  ListItemAvatar,
-  ListItemText,
   ThemeProvider,
   Typography,
   createTheme,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 
 import "./ViewRoomStyle.scss";
 
