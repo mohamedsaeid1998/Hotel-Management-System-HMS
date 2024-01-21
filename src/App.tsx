@@ -11,12 +11,15 @@ import {
   AddNewRoom,
   Ads,
   Bookings,
+  Explore,
   Facilities,
+  Favorites,
   ForgetPassword,
   Landing,
   Login,
   Register,
   ResetPassword,
+  Reviews,
   Rooms,
   Users,
 } from "./Pages";
@@ -33,7 +36,10 @@ function App() {
       ),
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Landing /> }
+        { index: true, element: <Landing /> },
+        { path:'explore', element: <Explore /> },
+        { path:'reviews', element: <Reviews /> },
+        { path:'Favorites', element: <Favorites /> },
       ]
     },
     {

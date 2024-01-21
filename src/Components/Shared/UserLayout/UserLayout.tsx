@@ -1,4 +1,4 @@
-import { Footer, NavBar } from '@/Pages'
+import { NavBar,Footer } from '@/Components'
 import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 

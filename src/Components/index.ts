@@ -9,5 +9,5 @@ export { default as Sidebar } from './AdminSharedComponents/Sidebar/Sidebar'
 
 
 export { default as NavBar } from './UserSharedComponents/NavBar/NavBar'
-
+export { default as Footer } from './UserSharedComponents/Footer/Footer'
 
