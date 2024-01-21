@@ -169,7 +169,6 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                       alt={`room image`}
                     />
                   )}
-                 
                 </ImageListItem>
               </Grid>
               <Grid item md={6} style={{ marginTop: "3rem" }}>
@@ -177,7 +176,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                   <Typography variant="h5" gutterBottom>
                     About Room
                   </Typography>
-                  <Typography style={{ width: "80%" }}>
+                  <Typography style={{ width: "70%" }}>
                     Minimal techno is a minimalist subgenre of techno music. It
                     is characterized by a stripped-down aesthetic that exploits
                     the use of repetition and understated development. Minimal
@@ -185,7 +184,9 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                     early 1990s by Detroit-based producers Robert Hood and
                     Daniel Bell.
                   </Typography>
-                  <Typography gutterBottom>Capacity : {capacity}</Typography>
+                  <Typography gutterBottom style={{ marginTop: ".5em" }}>
+                    Capacity : {capacity}
+                  </Typography>
                   <Typography gutterBottom>Price : {price}</Typography>
                   <Typography gutterBottom>
                     Discount : {price - discount}
