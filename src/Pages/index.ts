@@ -10,12 +10,16 @@ export { default as Ads } from "./AdminPages/Ads/Ads";
 export { default as AddNewAds } from "./AdminPages/AddNewAds/AddNewAds";
 export { default as Bookings } from "./AdminPages/Bookings/Bookings";
 
+export { default as Explore } from "./UserPages/Explore/Explore";
+export { default as Reviews } from "./UserPages/Reviews/Reviews";
+export { default as Favorites } from "./UserPages/Favorites/Favorites";
+
 export { default as Login } from "./AuthPages/Login/Login";
 export { default as Register } from "./AuthPages/Register/Register";
 export { default as ResetPassword } from "./AuthPages/ResetPassword/ResetPassword";
 export { default as ForgetPassword } from "./AuthPages/ForgetPassword/ForgetPassword";
 
 export { default as NavBar } from "../Components/UserSharedComponents/NavBar/NavBar";
-export { default as Footer } from "./UserPages/Footer/Footer";
+export { default as Footer } from "./UserPages/Explore/Explore";
 export { default as Landing } from "./UserPages/Landing/Landing";
 export { default as ViewRoomDetails } from "./UserPages/ViewRoomDetails/ViewRoomDetails";

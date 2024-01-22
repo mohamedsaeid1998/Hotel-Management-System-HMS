@@ -1,8 +1,15 @@
+import { Box } from '@mui/material'
 import './Footer.module.scss'
 
 const Footer = () => {
   return <>
-    <div>Footer</div>
+<Box className="footerContainer">
+
+<Box>
+
+</Box>
+
+</Box>
   </>
 }
 

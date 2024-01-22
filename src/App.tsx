@@ -12,12 +12,15 @@ import {
   AddNewRoom,
   Ads,
   Bookings,
+  Explore,
   Facilities,
+  Favorites,
   ForgetPassword,
   Landing,
   Login,
   Register,
   ResetPassword,
+  Reviews,
   Rooms,
   Users,
   ViewRoomDetails,
@@ -35,8 +38,12 @@ function App() {
       children: [
         { index: true, element: <Landing /> },
         { path: "portal/rooms", element: <ViewRoomDetails /> },
+        { path: "explore", element: <Explore /> },
+        { path: "reviews", element: <Reviews /> },
+        { path: "Favorites", element: <Favorites /> },
       ],
     },
+
     {
       path: "dashboard",
       element: (
