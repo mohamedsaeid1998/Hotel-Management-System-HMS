@@ -1,7 +1,7 @@
 /** @format */
 
 import { TableHeader } from "@/Components";
-import { AdsData } from "@/Redux/Features/Ads/AdsSlice";
+import { AdsData } from "@/Redux/Features/Admin/Ads/AdsSlice";
 import { Chip, Stack } from "@mui/material";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";

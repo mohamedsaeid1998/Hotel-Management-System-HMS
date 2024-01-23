@@ -1,5 +1,5 @@
 import { defaultImage } from "@/Assets/Images";
-import { UserDetails } from "@/Redux/Features/Users/GetUserDetailsSlice";
+import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -57,7 +57,7 @@ const Navbar = ({ showDrawer }: any) => {
                       userData?.profileImage == null
                         ? defaultImage
                         : `http://upskilling-egypt.com:3000/` +
-                          userData?.profileImage
+                        userData?.profileImage
                     }
                   />
                 </IconButton>

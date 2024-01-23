@@ -3,6 +3,19 @@
 @import "./variables.scss";
 @import "./responsive.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+.grayColor {
+  color: $GrayColor;
+}
+
+.blueColor {
+  color: $BlueColor;
+}
+
+.darkColor {
+  color: $DarkColor;
+}
+
 .mainContainer {
   margin-left: 240px !important;
   margin-inline: 10px;
@@ -33,11 +46,6 @@
   .navAvatar {
     margin-left: auto !important;
   }
-
-  .navInfo {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .nav-img {
@@ -46,6 +54,10 @@
   border-radius: 50%;
 }
 
+.navInfo {
+  display: flex;
+  flex-direction: column;
+}
 //! *************** Toolbar Drawer ***************
 
 .css-hyum1k-MuiToolbar-root {
@@ -280,20 +292,14 @@
   }
 }
 
-//! ************** Landing **************
+//ToDo **************************** Landing-Portal ****************************
 
 .userContainer {
   padding-top: 50px;
   padding-inline: 70px;
 }
 
-.blueColor {
-  color: $BlueColor;
-}
-
-.darkColor {
-  color: $DarkColor;
-}
+//! ************** NavBar-Portal **************
 
 .nav {
   position: static !important;
@@ -317,8 +323,6 @@
       font-weight: 400 !important;
       text-decoration: none;
       font-size: 18px;
-
-
     }
     .activeLink {
       color: $BlueColor !important;
@@ -330,13 +334,13 @@
       padding-inline: 25px !important;
     }
 
-    .navBtnOut{
+    .navBtnOut {
       border-radius: 4px;
       box-shadow: 0px 8px 15px 0px rgba(223, 70, 50, 0.3) !important;
       padding-inline: 25px !important;
     }
-    
-    .navBtnSign{
+
+    .navBtnSign {
       border-radius: 4px;
       background: #ddcd1b !important;
 
@@ -346,13 +350,47 @@
   }
 }
 
-.footerContainer{
-  padding-block: 100px;
+//! ************** Footer **************
+
+.footerContainer {
+  padding-top: 100px;
+  padding-bottom: 40px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
+.mainPart{
+  padding-bottom: 20px;
+}
 
+.subPara {
+  @extend .grayColor;
+  max-width: 250px;
+}
+
+// .footerList{
+//   padding-bottom:20px !important;
+// }
+
+.listHead{
+  @extend .darkColor ;
+  padding-top: 0 !important;
+  font-size: 20px !important;
+  font-weight: 600;
+}
+
+.listChild{
+  @extend .grayColor;
+    padding-bottom: 0 !important;
+}
+
+.FooterCopyRight{
+  @extend .grayColor;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+}
 
 // .flex{
 //   display: flex;

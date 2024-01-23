@@ -5,7 +5,7 @@ import { TableHeader } from "@/Components";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import PopupList from "@/Components/Shared/PopupList/PopupList";
 import ViewDialogModal from "@/Components/Shared/ViewDialogModal/ViewDialogModal";
-import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
+import { RoomsData } from "@/Redux/Features/Admin/Rooms/GetRoomsSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";

@@ -38,8 +38,8 @@ function App() {
       children: [
         { index: true, element: <Landing /> },
         { path:'explore', element: <Explore /> },
-        { path:'reviews', element: <Reviews /> },
-        { path:'Favorites', element: <Favorites /> },
+        { path:'room-reviews', element: <Reviews /> },
+        { path:'favorite-rooms', element: <Favorites /> },
       ]
     },
     {

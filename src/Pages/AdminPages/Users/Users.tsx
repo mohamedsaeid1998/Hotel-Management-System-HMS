@@ -2,10 +2,10 @@
 
 import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { UsersData } from "@/Redux/Features/Users/GetUsersSlice";
+import { UsersData } from "@/Redux/Features/Admin/Users/GetUsersSlice";
 import moment from "moment";
 import "./Users.module.scss";
 const Users = () => {

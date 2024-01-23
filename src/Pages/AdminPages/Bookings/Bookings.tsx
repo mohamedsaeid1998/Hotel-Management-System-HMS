@@ -2,7 +2,7 @@ import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { BookingData } from "@/Redux/Features/Booking/GetBookingSlice";
+import { BookingData } from "@/Redux/Features/Admin/Booking/GetBookingSlice";
 import moment from "moment";
 import { Chip } from "@mui/material";
 

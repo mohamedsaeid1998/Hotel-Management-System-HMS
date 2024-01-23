@@ -1,10 +1,10 @@
 /** @format */
 
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
-import { CreateAds } from "@/Redux/Features/Ads/CreateAdsSlice";
-import { updateAdsData } from "@/Redux/Features/Ads/UpdateAdsSlice";
-import { getAdsDetailsData } from "@/Redux/Features/Ads/getAdsDetalisSlice";
-import { RoomsData } from "@/Redux/Features/Rooms/GetRoomsSlice";
+import { CreateAds } from "@/Redux/Features/Admin/Ads/CreateAdsSlice";
+import { updateAdsData } from "@/Redux/Features/Admin/Ads/UpdateAdsSlice";
+import { getAdsDetailsData } from "@/Redux/Features/Admin/Ads/getAdsDetalisSlice";
+import { RoomsData } from "@/Redux/Features/Admin/Rooms/GetRoomsSlice";
 import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, MenuItem, TextField } from "@mui/material";

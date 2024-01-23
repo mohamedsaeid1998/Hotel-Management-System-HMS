@@ -1,7 +1,7 @@
 /** @format */
 
 import { imgView3 } from "@/Assets/Images";
-import { viewRoomDetails } from "@/Redux/Features/ViewDetails/viewDetailsSlice";
+import { viewRoomDetails } from "@/Redux/Features/Admin/ViewDetails/viewDetailsSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Backdrop,

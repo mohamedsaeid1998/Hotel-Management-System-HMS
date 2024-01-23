@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/Custom/Custom";
+import baseUrl from "../../../../utils/Custom/Custom";
 
 export interface Props {
   data: any[];

@@ -2,10 +2,10 @@
 
 //@ts-nochec
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
-import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
-import { CreateRooms } from "@/Redux/Features/Rooms/CreateRoomsSlice";
-import { RoomsDataDetails } from "@/Redux/Features/Rooms/RoomDetailsSlice";
-import { updateRoomData } from "@/Redux/Features/Rooms/UpdateRoom";
+import { FacilitiesData } from "@/Redux/Features/Admin/Facilities/FacilitiesSlice";
+import { CreateRooms } from "@/Redux/Features/Admin/Rooms/CreateRoomsSlice";
+import { RoomsDataDetails } from "@/Redux/Features/Admin/Rooms/RoomDetailsSlice";
+import { updateRoomData } from "@/Redux/Features/Admin/Rooms/UpdateRoom";
 import { ChevronRight } from "@mui/icons-material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Button, MenuItem, TextField } from "@mui/material";
