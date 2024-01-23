@@ -13,8 +13,11 @@ export { default as Register } from './AuthPages/Register/Register'
 export { default as ResetPassword } from './AuthPages/ResetPassword/ResetPassword'
 export { default as ForgetPassword } from './AuthPages/ForgetPassword/ForgetPassword'
 
-export { default as NavBar } from '../Components/UserSharedComponents/NavBar/NavBar'
-export { default as Footer } from './UserPages/Footer/Footer'
+
 export { default as Landing } from './UserPages/Landing/Landing'
+export { default as Explore } from './UserPages/Explore/Explore'
+export { default as Reviews } from './UserPages/Reviews/Reviews'
+export { default as Favorites } from './UserPages/Favorites/Favorites'
+
 
 

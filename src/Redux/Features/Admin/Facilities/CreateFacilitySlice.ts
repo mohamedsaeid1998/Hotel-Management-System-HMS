@@ -1,32 +1,32 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/Custom/Custom";
+import baseUrl from "../../../../utils/Custom/Custom";
 
 
 export interface Props {
   data: any[]
-  loading:boolean
-  error:null|string
+  loading: boolean
+  error: null | string
 }
 
 
-export const CreateFacility = createAsyncThunk<any, void>("CreateFacilitySlice/CreateFacility", async ({name}:string) => {
+export const CreateFacility = createAsyncThunk<any, void>("CreateFacilitySlice/CreateFacility", async ({ name }: string) => {
 
   const token = localStorage.getItem("authToken")
 
-  const data = await baseUrl.post(`/api/v0/admin/room-facilities`,{
-name
-  },{
-    headers:{
+  const data = await baseUrl.post(`/api/v0/admin/room-facilities`, {
+    name
+  }, {
+    headers: {
       Authorization: token,
     }
 
   })
-  
+
   return data.data
 })
 
 
-let initialState:Props = {
+let initialState: Props = {
   data: [],
   loading: false,
   error: null
@@ -36,7 +36,7 @@ let initialState:Props = {
 export const CreateFacilitySlice = createSlice({
   name: 'CreateFacility',
   initialState,
-  reducers:{},
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(CreateFacility.pending, (state) => {
       state.loading = true;

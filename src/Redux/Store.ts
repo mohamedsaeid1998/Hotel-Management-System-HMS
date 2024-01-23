@@ -4,8 +4,8 @@ import changePassword from "./Features/Auth/ChangePasswordSlice";
 import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
 import loginReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
-import CreateAdsSlice from "./Features/Ads/CreateAdsSlice";
-import CreateRoomsSlice from "./Features/Rooms/CreateRoomsSlice";
+import CreateAdsSlice from "./Features/Admin/Ads/CreateAdsSlice";
+import CreateRoomsSlice from "./Features/Admin/Rooms/CreateRoomsSlice";
 const Store = configureStore({
   reducer: {
     login: loginReducer,

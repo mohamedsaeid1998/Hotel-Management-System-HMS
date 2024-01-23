@@ -1,8 +1,7 @@
 /** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/Custom/Custom";
-import { toast } from "react-toastify";
+import baseUrl from "../../../../utils/Custom/Custom";
 
 export interface Props {
   data: any[];
@@ -10,19 +9,17 @@ export interface Props {
   error: null | string;
 }
 
-
-export const CreateAds = createAsyncThunk<any, void>(
-  "CreateAdsSlice/CreateAds",
-  async ({ room, discount, isActive }: any, thunkAPI) => {
+export const updateFacilityData = createAsyncThunk<any, void>(
+  "updateFacilities/updateFacilityData",
+  async ({ data, id }, thunkAPI) => {
     const token = localStorage.getItem("authToken");
+    const { name } = data;
     const { rejectWithValue } = thunkAPI;
     try {
-      const response = await baseUrl.post(
-        `/api/v0/admin/ads`,
+      const data = await baseUrl.put(
+        `/api/v0/admin/room-facilities/${id}`,
         {
-          room,
-          discount,
-          isActive,
+          name,
         },
         {
           headers: {
@@ -30,10 +27,10 @@ export const CreateAds = createAsyncThunk<any, void>(
           },
         }
       );
-      return response.data;
+
+      return data.data;
     } catch (error) {
       rejectWithValue(error);
-      toast.error(error.message);
     }
   }
 );
@@ -44,26 +41,29 @@ const initialState: Props = {
   error: null,
 };
 
-export const CreateAdsSlice = createSlice({
-  name: "CreateFacility",
+export const updateFacilitySlice = createSlice({
+  name: "updateFacilities",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(CreateAds.pending, (state) => {
+    builder.addCase(updateFacilityData.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(
-      CreateAds.fulfilled,
+      updateFacilityData.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.data = action.payload;
       }
     );
-    builder.addCase(CreateAds.rejected, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload.message;
-    });
+    builder.addCase(
+      updateFacilityData.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      }
+    );
   },
 });
 
-export default CreateAdsSlice.reducer;
+export default updateFacilitySlice.reducer;

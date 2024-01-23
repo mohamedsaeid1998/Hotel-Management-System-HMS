@@ -1,6 +1,6 @@
 /** @format */
 
-import baseUrl from "../../../utils/Custom/Custom";
+import baseUrl from "../../../../utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -15,7 +15,7 @@ export const AdsData = createAsyncThunk<any, void>(
   "GetAdsSlice/AdsData",
   async (_, thunkAPI) => {
 
-const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("authToken");
     const { rejectWithValue } = thunkAPI;
     try {
       const data = await baseUrl.get(`/api/v0/admin/ads?page=1&size=100`, {
