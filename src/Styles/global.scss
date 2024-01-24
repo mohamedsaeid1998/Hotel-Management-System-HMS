@@ -106,7 +106,7 @@
   background-position: center;
   border-radius: 20px;
 
-  font-family: sans-serif;
+  font-family: "Poppins";
   display: flex;
   justify-content: left;
   padding: 20px 30px;
@@ -317,8 +317,6 @@
       font-weight: 400 !important;
       text-decoration: none;
       font-size: 18px;
-
-
     }
     .activeLink {
       color: $BlueColor !important;
@@ -330,13 +328,13 @@
       padding-inline: 25px !important;
     }
 
-    .navBtnOut{
+    .navBtnOut {
       border-radius: 4px;
       box-shadow: 0px 8px 15px 0px rgba(223, 70, 50, 0.3) !important;
       padding-inline: 25px !important;
     }
-    
-    .navBtnSign{
+
+    .navBtnSign {
       border-radius: 4px;
       background: #ddcd1b !important;
 
@@ -346,13 +344,11 @@
   }
 }
 
-.footerContainer{
+.footerContainer {
   padding-block: 100px;
   display: flex;
   align-items: center;
 }
-
-
 
 // .flex{
 //   display: flex;
