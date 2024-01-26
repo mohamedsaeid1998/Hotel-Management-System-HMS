@@ -1,3 +1,5 @@
+/** @format */
+
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../utils/Custom/Custom";
 
@@ -41,10 +43,13 @@ export const GetUserDetailsSlice = createSlice({
         state.data = action.payload;
       }
     );
-    builder.addCase(UserDetails.rejected, (state, action: PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload.message;
-    });
+    builder.addCase(
+      UserDetails.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      }
+    );
   },
 });
 
