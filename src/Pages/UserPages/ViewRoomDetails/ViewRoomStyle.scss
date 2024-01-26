@@ -1,14 +1,16 @@
 /** @format */
 
-/** @format */
-
+.gridImageContainer {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
 .gridImage {
   display: grid;
   grid-template-areas:
     "a a c"
     "a a b";
   grid-template-columns: auto minmax(0, 1fr) minmax(15em, 1fr) minmax(15em, 1fr);
-  // grid-template-rows: 20rem 20rem;
   grid-gap: 1em;
   .gallery__img {
     width: 100%;
