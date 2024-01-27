@@ -20,6 +20,7 @@ import {
   Register,
   ResetPassword,
   Reviews,
+  RoomDetails,
   Rooms,
   Users,
 } from "./Pages";
@@ -28,6 +29,7 @@ import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
 // import LoadingComponent from "./Components/Loading/Loading";
 function App() {
+  // /explore?startDate=${startDate}&endDate=${endDate}&person=${personsCount}
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -38,8 +40,10 @@ function App() {
       children: [
         { index: true, element: <Landing /> },
         { path:'explore', element: <Explore /> },
+        { path:'explore/:startData/:endDate/:persons', element: <Explore /> },
         { path:'room-reviews', element: <Reviews /> },
         { path:'favorite-rooms', element: <Favorites /> },
+        { path:'room-details?/:startData/:endDate/:persons', element: <RoomDetails /> },
       ]
     },
     {
