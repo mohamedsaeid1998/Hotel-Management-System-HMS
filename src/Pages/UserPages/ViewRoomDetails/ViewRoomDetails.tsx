@@ -26,14 +26,15 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
-import { styled } from "@mui/material/styles";
 
-import "./ViewRoomStyle.scss";
-import BookingCalender from "@/Components/BookingCalender";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import RatingComponent from "@/Components/UserSharedComponents/RatingComponent/RatingComponent";
 import FeedbackComponent from "@/Components/UserSharedComponents/Feedback/FeedbackComponent";
+import RatingComponent from "@/Components/UserSharedComponents/RatingComponent/RatingComponent";
+import { styled } from "@mui/system";
+import "./ViewRoomStyle.scss";
+import { viewUserRoomDetails } from "@/Redux/UserPort/viewUserRoom/viewUserRoomDetailsSlice";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import LoadingComponent from "@/Components/Shared/Loading/Loading";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -53,6 +54,18 @@ declare module "@mui/material/Typography" {
     h3: false;
   }
 }
+
+const iconImages = [
+  { src: bedImg, caption: `5 bedroom` },
+  { src: bathroom, caption: `1 living room` },
+  { src: ic_livingroom, caption: `3 bathroom` },
+  { src: ic_tv, caption: `5 bedroom` },
+  { src: ic_wifi, caption: `5 bedroom` },
+  { src: ic_kulkas, caption: `5 bedroom` },
+  { src: ic_ac, caption: `3 bathroom` },
+  { src: ic_ac, caption: `3 bathroom` },
+];
+
 const theme = createTheme({
   typography: {
     poster: {
@@ -74,81 +87,79 @@ const theme = createTheme({
 });
 const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
+  // ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
+  // textAlign: "center",
   // color: theme.palette.text.secondary,
 }));
 const Booking = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
+  // ...theme.typography.body2,
   padding: theme.spacing(4),
   textAlign: "start",
   // color: theme.palette.text.secondary,
 }));
 
 const ViewRoomDetails = () => {
-  const [roomDeatisData, setRoomDetails] = useState([]);
+  const [roomDetails, setRoomDetails] = useState({});
+  const [roomDiscount, setRoomDiscount] = useState(0);
+  const [isLoading, setLoading] = useState(null);
+  const dispatch = useDispatch();
 
-  // const getRoomDetails = async () => {
-  //   axios
-  //     .get(
-  //       `http://154.41.228.234:3000/api/v0/portal/rooms/65a81207a5d9953dd42cb59a`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFhNjdlN2RiNzVhYzQ5ODAzNTY5ZDYiLCJyb2xlIjoidXNlciIsInZlcmlmaWVkIjpmYWxzZSwiaWF0IjoxNzA2MDM1NTI0LCJleHAiOjE3MDcyNDUxMjR9.TDuGCM3aH7Vdk-0urEVoW6ztAeVjC_L4DqeTPzwcgNQ`,
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-  // useEffect(() => {
-  //   getRoomDetails();
-  // }, []);
-  const images = [
-    { src: bedImg, caption: `5 bedroom` },
-    { src: bathroom, caption: `1 living room` },
-    { src: ic_livingroom, caption: `3 bathroom` },
-    { src: ic_tv, caption: `5 bedroom` },
-    { src: ic_wifi, caption: `5 bedroom` },
-    { src: ic_kulkas, caption: `5 bedroom` },
-    { src: ic_ac, caption: `3 bathroom` },
-    { src: ic_ac, caption: `3 bathroom` },
-  ];
+  const getRoomDetails = async () => {
+    setLoading(true);
+    try {
+      const viewDetails = await dispatch(
+        viewUserRoomDetails("65a906a3a5d9953dd42cf40a")
+      );
+      setRoomDetails(viewDetails?.payload?.data.room);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { _id, roomNumber, price, discount, capacity, images } = roomDetails;
+  useEffect(() => {
+    getRoomDetails();
+  }, []);
+  useEffect(() => {
+    if (price !== 0) {
+      const percentageDiscount = (discount / price) * 100;
+      setRoomDiscount(percentageDiscount.toFixed(2));
+    }
+  }, [price]);
   return (
     <>
-      <Container fixed>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Box style={{ margin: "2rem" }}>
-            <Typography variant="poster">Village Angga</Typography>
-            <Typography variant="inherit">Bogor, Indonesia</Typography>
-          </Box>
-          <Box>
-            <BreadcrumbsComponent />
-          </Box>
-          <Box style={{ margin: "2rem" }}>{/* <Breadcrumbs /> */}</Box>
-          <Box className="gridImage" style={{ textAlign: "center" }}>
-            <div className="gallery__img">
-              <img src={imgView3} alt="" />
-            </div>
-            <div className="gallery__img">
-              <img src={defaultImage} alt="" />
-              <img src={imgView2} alt="" />
-            </div>
-          </Box>
-          <Box>
-            <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid xs={6}>
-                <Item>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <Container fixed>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box style={{ margin: "2rem" }}>
+              <Typography variant="poster">Village Angga</Typography>
+              <Typography variant="inherit">Bogor, Indonesia</Typography>
+            </Box>
+            <Box>
+              <BreadcrumbsComponent />
+            </Box>
+            <Box style={{ margin: "2rem" }}>{/* <Breadcrumbs /> */}</Box>
+            <Box className="gridImage" style={{ textAlign: "center" }}>
+              <div className="gallery__img">
+                <img src={images} alt="" />
+              </div>
+              <div className="gallery__img">
+                <img src={defaultImage} alt="" />
+                <img src={imgView2} alt="" />
+              </div>
+            </Box>
+            <Box>
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid xs={6}>
                   <List>
                     <ListItem>
                       <ListItemText
@@ -191,7 +202,7 @@ const ViewRoomDetails = () => {
                     </ListItem>
                   </List>
                   <Grid container spacing={1}>
-                    {images.slice(0, 4).map((image, index) => (
+                    {iconImages.slice(0, 4).map((image, index) => (
                       <Grid item key={index} xs={3}>
                         <img src={image.src} alt="" />
                         <Typography>{image.caption}</Typography>
@@ -199,78 +210,90 @@ const ViewRoomDetails = () => {
                     ))}
                   </Grid>
                   <Grid container spacing={1} style={{ margin: " 2em 0 " }}>
-                    {images.slice(4, 8).map((image, index) => (
+                    {iconImages.slice(4, 8).map((image, index) => (
                       <Grid item key={index} xs={3}>
                         <img src={image.src} alt="" />
                         <Typography>{image.caption}</Typography>
                       </Grid>
                     ))}
                   </Grid>
-                </Item>
-              </Grid>
-              <Grid xs={6}>
-                <Grid>
-                  <Booking style={{ width: "487px", height: "550px" }}>
-                    <Typography
-                      style={{
-                        color: "#152C5B",
-                        fontWeight: "bolder",
-                        fontSize: "clamp(1rem, 2.5vw, 2.5rem)",
-                      }}
-                    >
-                      Start Booking
-                    </Typography>
-                    <Typography
-                      style={{
-                        color: "#1ABC9C",
-                        fontSize: "clamp(2.5rem, 2.5vw, 1rem)",
-                      }}
-                      variant="caption"
-                    >
-                      <span>&#36;</span>
-                      280
-                    </Typography>
-                    <span
-                      style={{
-                        fontSize: "clamp(2.5rem, 2.5vw, 1rem)",
-                        color: "gray",
-                        fontWeight: "275",
-                        fontFamily: "Poppins",
-                        marginLeft: ".5rem",
-                      }}
-                    >
-                      Per night
-                    </span>
-                    <Typography
-                      style={{
-                        color: "red",
-                        fontSize: "clamp(1rem, 2.5vw, .5rem)",
-                      }}
-                    >
-                      Discount 20% Off{" "}
-                    </Typography>
-                    {/* <BookingCalender /> */}
-                    <Typography variant="caption">Pick a Date</Typography>
-                    <Typography>You will pay $480 USD per 2 Person</Typography>
-                  </Booking>
+                </Grid>
+                <Grid xs={6}>
+                  <Grid>
+                    <Booking style={{ width: "487px", height: "550px" }}>
+                      <Typography
+                        style={{
+                          color: "#152C5B",
+                          fontWeight: "bolder",
+                          fontSize: "clamp(1rem, 2.5vw, 2.5rem)",
+                        }}
+                      >
+                        Start Booking
+                      </Typography>
+                      <Typography
+                        style={{
+                          color: "#1ABC9C",
+                          fontSize: "clamp(2.5rem, 2.5vw, 1rem)",
+                        }}
+                        variant="caption"
+                      >
+                        <span>&#36;</span>
+                        {price}
+                      </Typography>
+                      <span
+                        style={{
+                          fontSize: "clamp(2.5rem, 2.5vw, 1rem)",
+                          color: "gray",
+                          fontWeight: "275",
+                          fontFamily: "Poppins",
+                          marginLeft: ".5rem",
+                        }}
+                      >
+                        Per night
+                      </span>
+                      <Typography
+                        style={{
+                          color: "red",
+                          fontSize: "clamp(1rem, 2.5vw, .5rem)",
+                        }}
+                      >
+                        {roomDiscount} 20% Off
+                      </Typography>
+                      {/* <BookingCalender /> */}
+                      <Typography variant="caption">Pick a Date</Typography>
+                      <Typography>
+                        You will pay $480 USD per 2 Person
+                      </Typography>
+                    </Booking>
+                  </Grid>
                 </Grid>
               </Grid>
-
-              <Grid xs={12}>
-                <Item>
-                  <Grid xs={6}>
-                    <RatingComponent />
-                    <Box>
-                      <FeedbackComponent />
-                    </Box>
-                  </Grid>
-                  <Grid xs={6}></Grid>
-                </Item>
+            </Box>
+            <Item sx={{ width: "100%" }}>
+              <Grid
+                container
+                rowSpacing={3}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                style={{ padding: "1.5rem" }}
+              >
+                <Grid xs={6}>
+                  <Box style={{ marginBottom: "9ch" }}>
+                    <RatingComponent roomID={"65aa752bcc8304619b0fd7e4"} />
+                  </Box>
+                </Grid>
+                <Grid xs={6}>
+                  <Box>
+                    <Typography style={{ color: "#152C5B", fontWeight: 500 }}>
+                      Add Your Comment
+                    </Typography>
+                  </Box>
+                  <FeedbackComponent btnText={"Send"} />
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
-        </ThemeProvider>
-      </Container>
+            </Item>
+          </ThemeProvider>
+        </Container>
+      )}
     </>
   );
 };
