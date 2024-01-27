@@ -2,7 +2,7 @@ import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { BookingData } from "@/Redux/Features/Booking/GetBookingSlice";
+import { BookingData } from "@/Redux/Features/Admin/Booking/GetBookingSlice";
 import moment from "moment";
 import { Chip } from "@mui/material";
 
@@ -66,7 +66,6 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        console.log(params);
 
         return params?.row?.room === null ? "1002-5" : params?.row?.room?.roomNumber;
       },
@@ -77,7 +76,6 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        console.log(params)
 
         return params?.row?.user === null ? "Mohamed" : params?.row?.user?.userName;
       },

@@ -1,0 +1,13 @@
+@media (max-width: 950px) {
+  .footerContainer {
+    flex-direction: column !important;
+    align-items: start !important;
+    gap: 20px;
+  }
+  .listHead{
+    padding-left:0 !important;
+  }
+  .listChild{
+    padding-left:0 !important;
+  }
+}

@@ -1,6 +1,6 @@
 /** @format */
 
-import { CreateFacility } from "@/Redux/Features/Facilities/CreateFacilitySlice";
+import { CreateFacility } from "@/Redux/Features/Admin/Facilities/CreateFacilitySlice";
 import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, TextField } from "@mui/material";
@@ -11,8 +11,8 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewFacility.module.scss";
-import { updateFacilityData } from "@/Redux/Features/Facilities/updateFacilitySlice";
-import { facilitiesDataDetails } from "@/Redux/Features/Facilities/FacilitiesDetailsSlice";
+import { updateFacilityData } from "@/Redux/Features/Admin/Facilities/updateFacilitySlice";
+import { facilitiesDataDetails } from "@/Redux/Features/Admin/Facilities/FacilitiesDetailsSlice";
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 interface propState {
   isEdit: boolean;

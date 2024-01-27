@@ -30,3 +30,18 @@ export {
   ic_kulkas,
   ic_ac,
 };
+import LandingImg from "./LandingImg.jpg";
+import RoomPicture1 from "./RoomPicture1.png";
+import RoomPicture2 from "./RoomPicture2.png";
+
+export {
+  NoImage5,
+  bg1,
+  defaultImage,
+  deleteImg,
+  imgView2,
+  imgView3,
+  LandingImg,
+  RoomPicture1,
+  RoomPicture2,
+};

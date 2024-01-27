@@ -1,7 +1,7 @@
 /** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import baseUrl from "../../../utils/Custom/Custom";
+import baseUrl from "../../../../utils/Custom/Custom";
 
 export interface Props {
   data: any[];
@@ -9,11 +9,11 @@ export interface Props {
   error: null | string;
 }
 
-export const UserDetails = createAsyncThunk<any, void>(
-  "GetUserDetailsSlice/UserDetails",
-  async (id) => {
+export const RoomsData = createAsyncThunk<any, void>(
+  "GetRoomsSlice/RoomsData",
+  async () => {
     const token = localStorage.getItem("authToken");
-    let data = await baseUrl.get(`/api/v0/admin/users/${id}`, {
+    const data = await baseUrl.get(`/api/v0/admin/rooms?page=1&size=100`, {
       headers: {
         Authorization: token,
       },
@@ -22,35 +22,32 @@ export const UserDetails = createAsyncThunk<any, void>(
   }
 );
 
-let initialState: Props = {
+const initialState: Props = {
   data: [],
   loading: false,
   error: null,
 };
 
-export const GetUserDetailsSlice = createSlice({
-  name: "UserDetails",
+export const GetRoomsSlice = createSlice({
+  name: "RoomsData",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(UserDetails.pending, (state) => {
+    builder.addCase(RoomsData.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(
-      UserDetails.fulfilled,
+      RoomsData.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.data = action.payload;
       }
     );
-    builder.addCase(
-      UserDetails.rejected,
-      (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      }
-    );
+    builder.addCase(RoomsData.rejected, (state, action: PayloadAction<any>) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
   },
 });
 
-export default GetUserDetailsSlice.reducer;
+export default GetRoomsSlice.reducer;

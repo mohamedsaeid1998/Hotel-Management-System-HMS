@@ -1,5 +1,5 @@
 import { TableHeader } from "@/Components";
-import { FacilitiesData } from "@/Redux/Features/Facilities/FacilitiesSlice";
+import { FacilitiesData } from "@/Redux/Features/Admin/Facilities/FacilitiesSlice";
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
