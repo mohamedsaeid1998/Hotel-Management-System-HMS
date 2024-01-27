@@ -384,7 +384,7 @@
     "@floating-ui/core" "^1.5.3"
     "@floating-ui/utils" "^0.2.0"
 
-"@floating-ui/react-dom@^2.0.5", "@floating-ui/react-dom@^2.0.6":
+"@floating-ui/react-dom@^2.0.5":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@floating-ui/react-dom/-/react-dom-2.0.6.tgz"
   integrity sha512-IB8aCRFxr8nFkdYZgH+Otd9EVQPJoynxeFRGTB8voPoZMRWo8XjYuCRgpI1btvuKY69XMiLnW+ym7zoBHM90Rw==
@@ -478,20 +478,7 @@
     clsx "^2.1.0"
     prop-types "^15.8.1"
 
-"@mui/base@5.0.0-beta.33":
-  version "5.0.0-beta.33"
-  resolved "https://registry.npmjs.org/@mui/base/-/base-5.0.0-beta.33.tgz"
-  integrity sha512-WcSpoJUw/UYHXpvgtl4HyMar2Ar97illUpqiS/X1gtSBp6sdDW6kB2BJ9OlVQ+Kk/RL2GDp/WHA9sbjAYV35ow==
-  dependencies:
-    "@babel/runtime" "^7.23.8"
-    "@floating-ui/react-dom" "^2.0.6"
-    "@mui/types" "^7.2.13"
-    "@mui/utils" "^5.15.6"
-    "@popperjs/core" "^2.11.8"
-    clsx "^2.1.0"
-    prop-types "^15.8.1"
-
-"@mui/core-downloads-tracker@^5.15.4", "@mui/core-downloads-tracker@^5.15.6":
+"@mui/core-downloads-tracker@^5.15.4":
   version "5.15.6"
   resolved "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.6.tgz"
   integrity sha512-0aoWS4qvk1uzm9JBs83oQmIMIQeTBUeqqu8u+3uo2tMznrB5fIKqQVCbCgq+4Tm4jG+5F7dIvnjvQ2aV7UKtdw==
@@ -502,20 +489,6 @@
   integrity sha512-Vs0Z6cd6ieTavMjqPvIJJfwsKaCLdRSErk5LjKdZlBqk7r2SR6roDyhVTQuZOeCzjEFj0qZ4iVPp2DJZRwuYbw==
   dependencies:
     "@babel/runtime" "^7.23.6"
-
-"@mui/joy@^5.0.0-beta.24":
-  version "5.0.0-beta.24"
-  resolved "https://registry.npmjs.org/@mui/joy/-/joy-5.0.0-beta.24.tgz"
-  integrity sha512-cKlIW56GsKKo9cVm+6pzNS+s4ch3r/SX/Zq5DA10I/TSuW9O5ptIOqeSs+WYpkyAzIoPkCpEXCPR/vGHpOt6MA==
-  dependencies:
-    "@babel/runtime" "^7.23.8"
-    "@mui/base" "5.0.0-beta.33"
-    "@mui/core-downloads-tracker" "^5.15.6"
-    "@mui/system" "^5.15.6"
-    "@mui/types" "^7.2.13"
-    "@mui/utils" "^5.15.6"
-    clsx "^2.1.0"
-    prop-types "^15.8.1"
 
 "@mui/lab@^5.0.0-alpha.160":
   version "5.0.0-alpha.160"
@@ -2211,7 +2184,7 @@ strip-json-comments@^3.1.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-styled-components@^6.0.0, styled-components@^6.1.8:
+styled-components@^6.0.0:
   version "6.1.8"
   resolved "https://registry.npmjs.org/styled-components/-/styled-components-6.1.8.tgz"
   integrity sha512-PQ6Dn+QxlWyEGCKDS71NGsXoVLKfE1c3vApkvDYS5KAK+V8fNWGhbSUEo9Gg2iaID2tjLXegEW3bZDUGpofRWw==
