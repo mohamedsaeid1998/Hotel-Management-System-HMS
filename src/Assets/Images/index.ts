@@ -24,6 +24,9 @@ export {
   imgView3,
   bedImg,
   bathroom,
+  LandingImg,
+  RoomPicture1,
+  RoomPicture2,
   ic_livingroom,
   ic_tv,
   ic_wifi,
@@ -33,15 +36,3 @@ export {
 import LandingImg from "./LandingImg.jpg";
 import RoomPicture1 from "./RoomPicture1.png";
 import RoomPicture2 from "./RoomPicture2.png";
-
-export {
-  NoImage5,
-  bg1,
-  defaultImage,
-  deleteImg,
-  imgView2,
-  imgView3,
-  LandingImg,
-  RoomPicture1,
-  RoomPicture2,
-};
