@@ -234,7 +234,7 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
       <Box className="grid">
         {adsData?.map((ele, index) => <>
           <Box key={ele._id} className={`${index === 0 ? "main" : ""} here`}>
-            <img className='' src={ele.images[0]} alt="RoomPicture" />
+            <img className='RoomPicture' src={ele.images[0]} alt="RoomPicture" />
             <Box className="layer">
               <Box className="text ">
                 <Typography variant='h6' className="roomName">{ele.roomNumber.toUpperCase()}</Typography>
