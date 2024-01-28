@@ -18,7 +18,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // useCallback(async()=>{try{}catch{}},[])
   const onSubmit = useCallback(async (data: { email: string; password: string }) => {
     dispatch(fetchData(data))
 
@@ -29,7 +28,6 @@ const Login = () => {
   } else if (islogged === "user") {
     navigate("/");
   }
-  console.log(islogged);
 
 
 

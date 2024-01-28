@@ -46,7 +46,6 @@ const AddNewAds = () => {
       const element = await dispatch(RoomsData());
       // @ts-ignore
       setRoomsData(element.payload.data.rooms);
-      console.log(element.payload.data.rooms._id);
     } catch (error) {
       toast.error("Error fetching data:", error);
     }

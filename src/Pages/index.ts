@@ -18,6 +18,7 @@ export { default as Landing } from './UserPages/Landing/Landing'
 export { default as Explore } from './UserPages/Explore/Explore'
 export { default as Reviews } from './UserPages/Reviews/Reviews'
 export { default as Favorites } from './UserPages/Favorites/Favorites'
+export { default as RoomDetails } from './UserPages/RoomDetails/RoomDetails'
 
 
 

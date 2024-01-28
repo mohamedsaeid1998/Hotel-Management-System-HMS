@@ -6,6 +6,8 @@ import loginReducer from "./Features/Auth/LoginSlice";
 import registerReducer from "./Features/Auth/RegisterSlice";
 import CreateAdsSlice from "./Features/Admin/Ads/CreateAdsSlice";
 import CreateRoomsSlice from "./Features/Admin/Rooms/CreateRoomsSlice";
+import AddToFavorite from "./Features/Portal/Favorites/AddToFavoriteSlice";
+import RemoveFavoriteItemSlice from "./Features/Portal/Favorites/RemoveFavoriteItemSlice";
 const Store = configureStore({
   reducer: {
     login: loginReducer,
@@ -13,7 +15,9 @@ const Store = configureStore({
     ForgetPassword,
     changePassword,
     CreateAdsSlice,
-    CreateRoomsSlice
+    CreateRoomsSlice,
+    AddToFavorite,
+    RemoveFavoriteItemSlice
   },
 });
 

@@ -16,6 +16,11 @@
   color: $DarkColor;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+}
+
 .mainContainer {
   margin-left: 240px !important;
   margin-inline: 10px;
@@ -311,6 +316,7 @@
   .subNav {
     // font-weight: 400 !important;
     flex-grow: 1;
+    margin-left: 30px;
   }
 
   .navList {
@@ -360,7 +366,7 @@
   justify-content: space-between;
 }
 
-.mainPart{
+.mainPart {
   padding-bottom: 20px;
 }
 
@@ -373,26 +379,275 @@
 //   padding-bottom:20px !important;
 // }
 
-.listHead{
-  @extend .darkColor ;
+.listHead {
+  @extend .darkColor;
   padding-top: 0 !important;
   font-size: 20px !important;
   font-weight: 600;
 }
 
-.listChild{
+.listChild {
   @extend .grayColor;
-    padding-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
-.FooterCopyRight{
+.FooterCopyRight {
   @extend .grayColor;
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
 }
 
-// .flex{
-//   display: flex;
-//   align-items: center;
-// }
+//? ************** Landing **************
+
+.landingSec {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+
+  .leftCon {
+    .title {
+      @extend .darkColor;
+      font-family: "Poppins", sans-serif;
+      max-width: 450px;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .subTitle {
+      @extend .grayColor;
+      font-family: "Poppins", sans-serif;
+      max-width: 530px;
+      line-height: 28px;
+    }
+
+    .bookingTitle {
+      @extend .darkColor;
+      margin-top: 20px;
+      font-family: "Poppins", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .subBookingTitle {
+      font-family: "Poppins", sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      margin-left: 5px;
+      margin-top: 10px;
+    }
+  }
+
+  .exploreCon {
+    margin-top: 15px;
+    margin-left: 5px;
+
+    .caleBtn {
+      // display: inline-block;
+      padding-block: 10px !important;
+      margin-right: 10px !important;
+      margin-top: 3px;
+      // display: ;
+    }
+
+    .css-i4bv87-MuiSvgIcon-root {
+      font-size: 30px !important;
+    }
+
+    .calendarField {
+      display: inline-block;
+      margin-right: 10px;
+
+      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+        padding: 16.5px 60px !important;
+        margin: auto;
+      }
+    }
+    .capacityCon {
+      margin-top: 20px;
+
+      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+        width: 25% !important;
+        margin: auto;
+        padding: 16.5px 60px;
+      }
+    }
+  }
+
+  .rightCon {
+    position: relative;
+    padding-right: 40px;
+    .LandingImg {
+      position: relative;
+      border-radius: 100px 15px 15px 15px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 100px 15px 15px 15px;
+      top: 10%;
+      left: 10%;
+      right: 0px;
+      bottom: -10%;
+      border: 2px solid #e5e5e5;
+      z-index: -1;
+    }
+  }
+
+  .submitExplore {
+    margin-top: 50px !important;
+    margin-left: 10px;
+    border-radius: 4px;
+    background: #3252df !important;
+    box-shadow: 0px 8px 15px 0px rgba(50, 82, 223, 0.3) !important;
+    padding-inline: 100px !important;
+    text-transform: none !important;
+  }
+}
+
+//? ****************************ViewSection-Landing*********************************
+.viewSec {
+  margin-top: 50px;
+
+  .adsTitle {
+    @extend .darkColor;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+.grid{
+  // width: 1000px;
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr;
+  grid-template-rows: 15rem 15rem;
+  grid-template-areas:
+    "main - -"
+    "main - -";
+  gap: 30px 20px;
+  justify-content: space-between;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.main {
+  grid-area: main;
+  object-fit: fill;
+  border-radius: 15px;
+}
+
+.here {
+  position: relative !important;
+}
+
+.sliderCon{
+  // display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.RoomPicture{
+  object-fit: fill;
+  width: 200px ;
+  height: 200px ;
+  
+  border-radius: 15px ;
+}
+
+
+.discountLayer{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #FF498B;
+  color: white;
+  width: 120px;
+  text-align: center;
+  border-radius: 0px 15px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: rgba(32, 63, 199, 0.21);
+  border-radius: 15px;
+  opacity: 0;
+  transition: all .5s;
+  z-index: 2;
+  transform: translateY(10px);
+}
+
+.here:hover .layer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.layer .text {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translate(0%, -50%);
+  text-align: center;
+}
+
+.layer .text h6 {
+  font-style: italic;
+  font-size: 20px;
+  position: relative;
+  margin-bottom: 15px;
+  color: white;
+  transform: translateY(-15px);
+  transition: transform .5s;
+}
+
+.icons{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  color: white;
+
+  svg{
+    cursor: pointer;
+  }
+
+}
+
+.here:hover h6,
+.here:hover .icons svg {
+  transform: translateY(0);
+}
+
+
+.bookingTitle{
+  @extend .adsTitle
+}
+
+.iconBtn{
+
+  padding: 0 !important;
+  width: 24px !important;
+}
+
+.slick-slide {
+  width: 200px !important;
+  }
+
+  .slick-track{
+    display: flex;
+    gap: 70px;
+  }

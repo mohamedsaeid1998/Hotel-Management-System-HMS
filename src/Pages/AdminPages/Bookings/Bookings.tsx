@@ -66,7 +66,6 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        console.log(params);
 
         return params?.row?.room === null ? "1002-5" : params?.row?.room?.roomNumber;
       },
@@ -77,7 +76,6 @@ const Bookings = () => {
       width: 165,
       editable: false,
       renderCell: (params) => {
-        console.log(params)
 
         return params?.row?.user === null ? "Mohamed" : params?.row?.user?.userName;
       },
