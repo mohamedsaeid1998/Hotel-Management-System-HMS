@@ -71,29 +71,6 @@ const Landing = () => {
           dots: true
         }
       },
-      // {
-      //   breakpoint: 770,
-      //   settings: {
-      //     slidesToShow: 3,
-      //     slidesToScroll: 1,
-      //     initialSlide: 2
-      //   }
-      // },
-      // {
-      //   breakpoint: 600,
-      //   settings: {
-      //     slidesToShow: 2,
-      //     slidesToScroll: 1,
-      //     initialSlide: 2
-      //   }
-      // },
-      // {
-      //   breakpoint: 400,
-      //   settings: {
-      //     slidesToShow: 1,
-      //     slidesToScroll: 1,
-      //   }
-      // },
     ]
   }
 
@@ -102,7 +79,7 @@ const Landing = () => {
   const startDate = selectedDateRange[0]?.format('YYYY-MM-DD')
   const endDate = selectedDateRange[1]?.format('YYYY-MM-DD')
 
-  console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
+  // console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
   const getAdsData = async () => {
@@ -124,7 +101,6 @@ const Landing = () => {
     try {
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
-      console.log(element)
       // @ts-ignore
       toast.success(element?.payload?.message, {
         autoClose: 2000,
@@ -156,7 +132,6 @@ const Landing = () => {
     try {
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
-      console.log(element)
       // @ts-ignore
       toast.success(element?.payload?.message, {
         autoClose: 2000,
@@ -238,18 +213,10 @@ const Landing = () => {
 
 
       <Slider  {...settings}>
-
-          
-       
         {adsData?.map((ele,index) => <>
-
-
           <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
-
-
         </>
         )}
-
         </Slider>
 
       </Box>
