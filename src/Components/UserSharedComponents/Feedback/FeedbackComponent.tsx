@@ -1,32 +1,32 @@
 /** @format */
 
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, FormLabel, TextField } from "@mui/material";
 import * as React from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
-const FeedbackComponent = ({ btnText }) => {
+const FeedbackComponent = ({ roomID }) => {
   const [text, setText] = React.useState("");
-  // const [customerComments, setCustomerComments] = useState('');
+  const [loadingBtn, setLoadingBtn] = React.useState(false);
 
-  const handleCommentsChange = (event) => {
-    setText(event.target.value);
-  };
+  const dispatch = useDispatch();
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      roomId: roomID,
+    },
+  });
+  // const handleCommentsChange = (event) => {
+  //   setText(event.target.value);
+  // };
 
-  const handleSubmit = () => {
-    // Handle the submission of customer comments, e.g., send to a server, etc.
-    console.log("Customer Comments:", text);
-    // You can perform additional actions here, such as sending the comments to a server.
+  // const handleSubmit = () => {
+  //   console.log("Customer Comments:", text);
+  // };
+  const submitData = (data) => {
+    console.log(data);
   };
   return (
-    <div>
-      <FormLabel>{btnText === "Rate" ? "Message" : ""}</FormLabel>
+    <Box component="form" onSubmit={handleSubmit(submitData)}>
       <TextField
         // style={{ position: "fixed", left: 0, bottom: 0, width: "100%" }}
         placeholder="Type in here…"
@@ -35,19 +35,17 @@ const FeedbackComponent = ({ btnText }) => {
         variant="outlined"
         fullWidth
         value={text}
-        onChange={handleCommentsChange}
       />
       <Box style={{ marginTop: "1rem" }}>
         <Button
           variant="contained"
           style={{ textAlign: "end" }}
           color="primary"
-          onClick={handleSubmit}
         >
-          {btnText}
+          Send
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 };
 

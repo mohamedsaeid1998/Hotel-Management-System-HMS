@@ -21,7 +21,6 @@ import {
   Register,
   ResetPassword,
   Reviews,
-  RoomDetails,
   Rooms,
   Users,
   ViewRoomDetails,
@@ -44,8 +43,8 @@ function App() {
         { path: "room-reviews", element: <Reviews /> },
         { path: "favorite-rooms", element: <Favorites /> },
         {
-          path: "room-details?/:startData/:endDate/:persons",
-          element: <RoomDetails />,
+          path: "room-details?/:startData/:endDate/:persons/:id",
+          element: <ViewRoomDetails />,
         },
       ],
     },

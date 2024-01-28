@@ -13,11 +13,10 @@ export default function RatingComponent({ roomID }) {
   const [rateValue, setRateValue] = React.useState<number | null>(2);
   const [loadingBtn, setLoadingBtn] = React.useState(false);
 
-  const id = roomID;
   const dispatch = useDispatch();
   const { register, handleSubmit, control } = useForm({
     defaultValues: {
-      roomId: id,
+      roomId: roomID,
     },
   });
 
@@ -45,7 +44,6 @@ export default function RatingComponent({ roomID }) {
         control={control}
         render={({ field }) => <input type="hidden" {...field} />}
       />
-      {/* <input type="hidden" {...register("roomId", { value: id })} /> */}
       <Typography component="legend">Rate</Typography>
       <Controller
         name="rating"

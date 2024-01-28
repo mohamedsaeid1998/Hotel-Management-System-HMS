@@ -31,10 +31,11 @@ import FeedbackComponent from "@/Components/UserSharedComponents/Feedback/Feedba
 import RatingComponent from "@/Components/UserSharedComponents/RatingComponent/RatingComponent";
 import { styled } from "@mui/system";
 import "./ViewRoomStyle.scss";
-import { viewUserRoomDetails } from "@/Redux/UserPort/viewUserRoom/viewUserRoomDetailsSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
+import { viewUserRoomDetails } from "@/Redux/UserPort/viewUserRoom/viewUserRoomDetailsSlice";
+import { useParams } from "react-router-dom";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -103,6 +104,8 @@ const ViewRoomDetails = () => {
   const [roomDetails, setRoomDetails] = useState({});
   const [roomDiscount, setRoomDiscount] = useState(0);
   const [isLoading, setLoading] = useState(null);
+  const { endDate, id, persons, startData } = useParams();
+  console.log(id);
   const dispatch = useDispatch();
 
   const getRoomDetails = async () => {
@@ -113,11 +116,11 @@ const ViewRoomDetails = () => {
       );
       setRoomDetails(viewDetails?.payload?.data.room);
       setLoading(false);
+      // console.log(viewDetails);
     } catch (error) {
       console.log(error);
     }
   };
-
   const { _id, roomNumber, price, discount, capacity, images } = roomDetails;
   useEffect(() => {
     getRoomDetails();
@@ -278,7 +281,7 @@ const ViewRoomDetails = () => {
               >
                 <Grid xs={6}>
                   <Box style={{ marginBottom: "9ch" }}>
-                    <RatingComponent roomID={"65aa752bcc8304619b0fd7e4"} />
+                    <RatingComponent roomID={id} />
                   </Box>
                 </Grid>
                 <Grid xs={6}>

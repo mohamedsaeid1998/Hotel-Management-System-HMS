@@ -4,13 +4,12 @@ import baseUrl, { requestHeaders } from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
-export const setRatingRooms = createAsyncThunk(
-  "rate/RatingRooms",
-  async (data, thunkAPI) => {
+export const viewUserRoomDetails = createAsyncThunk(
+  "viewUserRoom/viewUserRoomDetails",
+  async (itemId, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log(data);
     try {
-      const response = await baseUrl.post(`/api/v0/portal/room-reviews`, data, {
+      const response = await baseUrl.get(`/api/v0/portal/rooms/${itemId}`, {
         headers: {
           Authorization: requestHeaders,
         },
@@ -32,24 +31,30 @@ export const setRatingRooms = createAsyncThunk(
 
 const initialState = { data: [], loading: false, error: null };
 
-const RatingRoomSlice = createSlice({
-  name: "rate",
+const viewUserRoomDetailsSlice = createSlice({
+  name: "viewUserRoom",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(RatingRooms.pending, (state) => {
+      .addCase(viewUserRoomDetails.pending, (state) => {
         state.loading = true;
       })
-      .addCase(RatingRooms.fulfilled, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.data = action.payload;
-      })
-      .addCase(RatingRooms.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.error = action.payload.message;
-      });
+      .addCase(
+        viewUserRoomDetails.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.data = action.payload;
+        }
+      )
+      .addCase(
+        viewUserRoomDetails.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = action.payload.message;
+        }
+      );
   },
 });
 
-export default RatingRoomSlice.reducer;
+export default viewUserRoomDetailsSlice.reducer;
