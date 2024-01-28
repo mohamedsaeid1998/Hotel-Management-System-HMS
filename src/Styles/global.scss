@@ -559,6 +559,21 @@
   border-radius: 15px ;
 }
 
+.discountLayer{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #FF498B;
+  color: white;
+  width: 120px;
+  text-align: center;
+  border-radius: 0px 15px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .layer {
   position: absolute;
   top: 0px;
@@ -612,4 +627,15 @@
 .here:hover h6,
 .here:hover .icons svg {
   transform: translateY(0);
+}
+
+
+.bookingTitle{
+  @extend .adsTitle
+}
+
+.iconBtn{
+
+  padding: 0 !important;
+  width: 24px !important;
 }

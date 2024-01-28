@@ -2,7 +2,7 @@ import { LandingImg } from '@/Assets/Images';
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
 import { Add, CalendarMonth, Favorite, Remove, Visibility } from '@mui/icons-material';
-import { Box, Button, Popover, TextField } from '@mui/material';
+import { Box, Button, Popover, Skeleton, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -17,81 +17,66 @@ import { toast } from 'react-toastify';
 import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
 import { useNavigate } from 'react-router-dom';
+import { Calendar, ImageCard } from '@/Components';
 const Landing = () => {
 
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite)
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice)
 
-  const [personsCount, setPersonsCount] = useState(1);
-const navigate =  useNavigate()
-
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [bookingGuestCount, setBookingGuestCount] = useState(1);
+  const navigate = useNavigate()
+  const today = dayjs();
+  const nextDate = dayjs().add(5, 'day');
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
-    dayjs('2024-01-25'),
-    dayjs('2024-01-30'),
+    today,
+    nextDate,
   ]);
-console.log(selectedDateRange);
-console.log(personsCount);
 
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getAdsData()
     dispatch(fetchDataIslogged());
     getFavoriteData()
-  }, [dispatch,count,data]);
+  }, [dispatch, count, data]);
 
 
-  const handleCalendarChange = (newDateRange: Range<Dayjs>) => {
-    setSelectedDateRange(newDateRange);
-  };
 
-  const handleButtonClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleDateSelected = () => {
-    handlePopoverClose();
-  };
 
   const handleIncrease = () => {
-    setPersonsCount(personsCount + 1);
+    setBookingGuestCount(bookingGuestCount + 1);
   };
 
   const handleDecrease = () => {
-    if (personsCount > 1) {
-      setPersonsCount(personsCount - 1);
+    if (bookingGuestCount > 1) {
+      setBookingGuestCount(bookingGuestCount - 1);
     }
   };
 
 
-const startDate =selectedDateRange[0]?.format('YYYY-MM-DD')
-const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
+  const startDate = selectedDateRange[0]?.format('YYYY-MM-DD')
+  const endDate = selectedDateRange[1]?.format('YYYY-MM-DD')
 
   console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
-  const getAdsData = useCallback(async () => {
+  const getAdsData = async () => {
 
     try {
       // @ts-ignore
+      setLoading(true)
       const element = await dispatch(AllAdsData());
       // @ts-ignore
       setAdsData(element?.payload?.data?.data?.rooms);
     } finally {
-
+      setLoading(false)
     }
-  }, [dispatch]);
-
-
+  }
 
 
   //! ************************ Add To Favorite  *************************
-  const addItemToFavorite = useCallback(async (roomId: any) => {
+  const addItemToFavorite = async (roomId: any) => {
     try {
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
@@ -104,11 +89,11 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
     } catch (error) {
       // toast.error("Error fetching data:", error);
     }
-  }, [dispatch]);
+  };
 
   //! ************************ Get All Favorite Rooms  *************************
   const [favList, setFavList] = useState([])
-  const getFavoriteData = useCallback(async () => {
+  const getFavoriteData = async () => {
     try {
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
@@ -118,12 +103,12 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
     } finally {
 
     }
-  }, [dispatch]);
+  }
 
 
   //! ************************ Delete From Favorite  *************************
 
-  const deleteFavoriteItem = useCallback(async (roomId: any) => {
+  const deleteFavoriteItem = async (roomId: any) => {
     try {
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
@@ -136,11 +121,8 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
     } catch (error) {
       // toast.error("Error fetching data:", error);
     }
-  }, [dispatch]);
+  }
 
-
-
-  const open = Boolean(anchorEl);
 
 
   return <>
@@ -161,7 +143,9 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
         </Box>
 
         <Box className="exploreCon">
-          <Button className="caleBtn" onClick={handleButtonClick} variant="contained" color="primary">
+
+          <Calendar {...{selectedDateRange,setSelectedDateRange}}/>
+          {/* <Button className="caleBtn" onClick={handleButtonClick} variant="contained" color="primary">
             <CalendarMonth />
           </Button>
 
@@ -194,7 +178,7 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
             className='calendarField'
             label="Selected Date Range"
             value={`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`}
-          />
+          /> */}
 
           <Box className="capacityCon">
             <Button onClick={handleIncrease} className="caleBtn" variant="contained" color="primary">
@@ -203,7 +187,7 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
             <TextField
               className='calendarField'
               label="Capacity"
-              value={`${personsCount} person`}
+              value={`${bookingGuestCount} person`}
             />
             <Button onClick={handleDecrease} className="caleBtn" variant="contained" color="error">
               <Remove />
@@ -212,7 +196,7 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
 
         </Box>
 
-        <Button className="submitExplore" onClick={()=>navigate(`/explore/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}`)} variant="contained" color="primary">
+        <Button className="submitExplore" onClick={() => navigate(`/explore/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}`)} variant="contained" color="primary">
           Explore
         </Button>
 
@@ -233,47 +217,18 @@ const endDate =selectedDateRange[1]?.format('YYYY-MM-DD')
 
       <Box className="grid">
         {adsData?.map((ele, index) => <>
-          <Box key={ele._id} className={`${index === 0 ? "main" : ""} here`}>
-            <img className='RoomPicture' src={ele.images[0]} alt="RoomPicture" />
-            <Box className="layer">
-              <Box className="text ">
-                <Typography variant='h6' className="roomName">{ele.roomNumber.toUpperCase()}</Typography>
-                <Box className="icons">
-                  {favList.some((favorite: any) => favorite._id === ele?._id) ?
-                    <Favorite color='error' onClick={() => deleteFavoriteItem(ele._id)} />
-                    :
-                    <Favorite  onClick={() => addItemToFavorite(ele._id)}  />}
-
-                  <Visibility onClick={()=>navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}`)}/>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-
+          <ImageCard key={ele._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
         </>
         )}
 
       </Box>
 
-      <Typography variant='h4' className="adsTitle"> Most Booked Rooms</Typography>
+      <Typography variant='h4' className="bookingTitle"> Most Booked Rooms</Typography>
       <Box className="sliderCon">
-      {adsData?.map((ele) => <>
-          <Box key={ele._id} className={` here `}>
-            <img className='RoomPicture' src={ele.images[0]} alt="RoomPicture" />
-            <Box className="layer">
-              <Box className="text ">
-                <Typography variant='h6' className="roomName">{ele.roomNumber.toUpperCase()}</Typography>
-                <Box className="icons">
-                  {favList.some((favorite: any) => favorite._id === ele?._id) ?
-                    <Favorite color='error' onClick={() => deleteFavoriteItem(ele._id)} />
-                    :
-                    <Favorite  onClick={() => addItemToFavorite(ele._id)}  />}
 
-                  <Visibility onClick={()=>navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}`)}/>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+        {adsData?.map((ele,index) => <>
+
+          <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
 
         </>
         )}
