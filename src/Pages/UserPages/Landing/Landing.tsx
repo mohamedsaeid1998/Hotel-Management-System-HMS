@@ -1,23 +1,20 @@
 import { LandingImg } from '@/Assets/Images';
+import { Calendar, ImageCard } from '@/Components';
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
-import { Add, CalendarMonth, Favorite, Remove, Visibility } from '@mui/icons-material';
-import { Box, Button, Popover, Skeleton, TextField } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import dayjs, { Dayjs, Range } from 'dayjs';
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import './Landing.module.scss';
 import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { toast } from 'react-toastify';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
+import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
+import { Add, Remove } from '@mui/icons-material';
+import { Box, Button, TextField } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import dayjs, { Dayjs, Range } from 'dayjs';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { Calendar, ImageCard } from '@/Components';
+import { toast } from 'react-toastify'
+import Slider from "react-slick";
+import './Landing.module.scss';
 const Landing = () => {
 
   const dispatch = useDispatch();
@@ -54,6 +51,53 @@ const Landing = () => {
     }
   };
 
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      // {
+      //   breakpoint: 770,
+      //   settings: {
+      //     slidesToShow: 3,
+      //     slidesToScroll: 1,
+      //     initialSlide: 2
+      //   }
+      // },
+      // {
+      //   breakpoint: 600,
+      //   settings: {
+      //     slidesToShow: 2,
+      //     slidesToScroll: 1,
+      //     initialSlide: 2
+      //   }
+      // },
+      // {
+      //   breakpoint: 400,
+      //   settings: {
+      //     slidesToShow: 1,
+      //     slidesToScroll: 1,
+      //   }
+      // },
+    ]
+  }
+
+
 
   const startDate = selectedDateRange[0]?.format('YYYY-MM-DD')
   const endDate = selectedDateRange[1]?.format('YYYY-MM-DD')
@@ -64,8 +108,8 @@ const Landing = () => {
   const getAdsData = async () => {
 
     try {
-      // @ts-ignore
       setLoading(true)
+      // @ts-ignore
       const element = await dispatch(AllAdsData());
       // @ts-ignore
       setAdsData(element?.payload?.data?.data?.rooms);
@@ -145,40 +189,6 @@ const Landing = () => {
         <Box className="exploreCon">
 
           <Calendar {...{selectedDateRange,setSelectedDateRange}}/>
-          {/* <Button className="caleBtn" onClick={handleButtonClick} variant="contained" color="primary">
-            <CalendarMonth />
-          </Button>
-
-          <Popover
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handlePopoverClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['DateRangeCalendar']}>
-                <DateRangeCalendar
-                  value={selectedDateRange}
-                  onChange={handleCalendarChange}
-                  onAccept={handleDateSelected}
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-          </Popover>
-
-
-          <TextField
-            className='calendarField'
-            label="Selected Date Range"
-            value={`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`}
-          /> */}
 
           <Box className="capacityCon">
             <Button onClick={handleIncrease} className="caleBtn" variant="contained" color="primary">
@@ -226,13 +236,21 @@ const Landing = () => {
       <Typography variant='h4' className="bookingTitle"> Most Booked Rooms</Typography>
       <Box className="sliderCon">
 
+
+      <Slider  {...settings}>
+
+          
+       
         {adsData?.map((ele,index) => <>
 
+
           <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
+
 
         </>
         )}
 
+        </Slider>
 
       </Box>
 

@@ -548,16 +548,19 @@
 }
 
 .sliderCon{
-  display: flex;
+  // display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 .RoomPicture{
   object-fit: fill;
-  width: 200px;
-  height: 200px;
+  width: 200px ;
+  height: 200px ;
+  
   border-radius: 15px ;
 }
+
 
 .discountLayer{
   position: absolute;
@@ -639,3 +642,12 @@
   padding: 0 !important;
   width: 24px !important;
 }
+
+.slick-slide {
+  width: 200px !important;
+  }
+
+  .slick-track{
+    display: flex;
+    gap: 70px;
+  }
