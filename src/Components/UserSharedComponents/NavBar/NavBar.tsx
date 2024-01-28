@@ -77,7 +77,7 @@ const [favoriteItemsCount, setFavoriteItemsCount] = useState(0)
         <Typography className='subNav' variant="h4" component="div" color="initial"> <Typography variant='' className='blueColor'>Stay</Typography>cation.</Typography>
         <Stack className='navList' direction="row">
           <Link className={`navLink ${pathname === '/' ? "activeLink" : ""}`} to={'./'}>Home</Link>
-          <Link className={`navLink ${pathname === '/explore' ? "activeLink" : ""}`} to={'./explore'}>Explore</Link>
+          <Link className={`navLink ${pathname?.includes("explore") ? "activeLink" : ""}`} to={'./explore'}>Explore</Link>
           <Link className={`navLink ${pathname === '/room-reviews' ? "activeLink" : ""}`} to={'./room-reviews'}>Reviews</Link>
           <IconButton aria-label={notificationsLabel(100)}>
             <Badge badgeContent={favoriteItemsCount===0?"0":favoriteItemsCount} color="primary">
