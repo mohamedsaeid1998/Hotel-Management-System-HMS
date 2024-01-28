@@ -104,24 +104,22 @@ const ViewRoomDetails = () => {
   const [roomDetails, setRoomDetails] = useState({});
   const [roomDiscount, setRoomDiscount] = useState(0);
   const [isLoading, setLoading] = useState(null);
-  const { endDate, id, persons, startData } = useParams();
-  console.log(id);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const { endDate, id, persons, startData } = useParams();
   const getRoomDetails = async () => {
     setLoading(true);
     try {
-      const viewDetails = await dispatch(
-        viewUserRoomDetails("65a906a3a5d9953dd42cf40a")
-      );
+      const viewDetails = await dispatch(viewUserRoomDetails(id));
       setRoomDetails(viewDetails?.payload?.data.room);
       setLoading(false);
-      // console.log(viewDetails);
     } catch (error) {
       console.log(error);
     }
   };
   const { _id, roomNumber, price, discount, capacity, images } = roomDetails;
+  console.log();
+
   useEffect(() => {
     getRoomDetails();
   }, []);
@@ -141,7 +139,12 @@ const ViewRoomDetails = () => {
             <CssBaseline />
             <Box style={{ margin: "2rem" }}>
               <Typography variant="poster">Village Angga</Typography>
-              <Typography variant="inherit">Bogor, Indonesia</Typography>
+              <Typography
+                variant="inherit"
+                style={{ textAlign: "center", color: "lightgray" }}
+              >
+                Bogor, Indonesia
+              </Typography>
             </Box>
             <Box>
               <BreadcrumbsComponent />
@@ -149,11 +152,35 @@ const ViewRoomDetails = () => {
             <Box style={{ margin: "2rem" }}>{/* <Breadcrumbs /> */}</Box>
             <Box className="gridImage" style={{ textAlign: "center" }}>
               <div className="gallery__img">
-                <img src={images} alt="" />
+                <img
+                  style={{
+                    width: "40rem",
+                    height: "30rem",
+                    borderRadius: ".5rem",
+                  }}
+                  src={images && images.length > 0 ? images[0] : imgView2}
+                  alt=""
+                />
               </div>
               <div className="gallery__img">
-                <img src={defaultImage} alt="" />
-                <img src={imgView2} alt="" />
+                <img
+                  style={{
+                    width: "30rem",
+                    height: "15rem",
+                    borderRadius: ".5rem",
+                  }}
+                  src={images && images.length > 1 ? images[1] : defaultImage}
+                  alt=""
+                />
+                <img
+                  style={{
+                    width: "30rem",
+                    height: "15rem",
+                    borderRadius: ".5rem",
+                  }}
+                  src={images && images.length > 2 ? images[2] : imgView3}
+                  alt=""
+                />
               </div>
             </Box>
             <Box>
@@ -162,7 +189,7 @@ const ViewRoomDetails = () => {
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <Grid xs={6}>
+                <Grid xs={7}>
                   <List>
                     <ListItem>
                       <ListItemText
@@ -204,24 +231,24 @@ const ViewRoomDetails = () => {
                       </ListItemText>
                     </ListItem>
                   </List>
-                  <Grid container spacing={1}>
+                  <Grid container spacing={10}>
                     {iconImages.slice(0, 4).map((image, index) => (
                       <Grid item key={index} xs={3}>
-                        <img src={image.src} alt="" />
+                        <img className="imgIcon" src={image.src} alt="" />
                         <Typography>{image.caption}</Typography>
                       </Grid>
                     ))}
                   </Grid>
-                  <Grid container spacing={1} style={{ margin: " 2em 0 " }}>
+                  <Grid container spacing={10} style={{ margin: " 2em 0 " }}>
                     {iconImages.slice(4, 8).map((image, index) => (
                       <Grid item key={index} xs={3}>
-                        <img src={image.src} alt="" />
+                        <img className="imgIcon" src={image.src} alt="" />
                         <Typography>{image.caption}</Typography>
                       </Grid>
                     ))}
                   </Grid>
                 </Grid>
-                <Grid xs={6}>
+                <Grid xs={5}>
                   <Grid>
                     <Booking style={{ width: "487px", height: "550px" }}>
                       <Typography
@@ -265,14 +292,14 @@ const ViewRoomDetails = () => {
                       {/* <BookingCalender /> */}
                       <Typography variant="caption">Pick a Date</Typography>
                       <Typography>
-                        You will pay $480 USD per 2 Person
+                        You will pay ${price} USD per 1 Person
                       </Typography>
                     </Booking>
                   </Grid>
                 </Grid>
               </Grid>
             </Box>
-            <Item sx={{ width: "100%" }}>
+            <Item sx={{ width: "100%", marginTop: "3rem" }}>
               <Grid
                 container
                 rowSpacing={3}
@@ -284,13 +311,21 @@ const ViewRoomDetails = () => {
                     <RatingComponent roomID={id} />
                   </Box>
                 </Grid>
+
                 <Grid xs={6}>
                   <Box>
-                    <Typography style={{ color: "#152C5B", fontWeight: 500 }}>
+                    <Typography
+                      style={{
+                        color: "#152C5B",
+                        fontWeight: 500,
+                        marginTop: "1rem",
+                        marginBottom: "2em",
+                      }}
+                    >
                       Add Your Comment
                     </Typography>
                   </Box>
-                  <FeedbackComponent btnText={"Send"} />
+                  <FeedbackComponent roomID={id} />
                 </Grid>
               </Grid>
             </Item>

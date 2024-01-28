@@ -22,3 +22,10 @@
     grid-template-columns: auto 1fr 1fr;
   }
 }
+.imgIcon:not(:first-child) {
+  margin-top: 100rem; /* Adjust the margin as needed */
+}
+// .imgIcon {
+//   margin-right: 2rem;
+//   width: 2rem;
+// }

@@ -1,32 +1,41 @@
 /** @format */
 
-import { Box, Button, FormLabel, TextField } from "@mui/material";
+import { CommentUserRoom } from "@/Redux/UserPort/CommentUerRoom/CommentUerRoomSlice";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormLabel,
+  TextField,
+} from "@mui/material";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
 const FeedbackComponent = ({ roomID }) => {
-  const [text, setText] = React.useState("");
   const [loadingBtn, setLoadingBtn] = React.useState(false);
 
   const dispatch = useDispatch();
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
       roomId: roomID,
     },
   });
-  // const handleCommentsChange = (event) => {
-  //   setText(event.target.value);
-  // };
 
-  // const handleSubmit = () => {
-  //   console.log("Customer Comments:", text);
-  // };
   const submitData = (data) => {
-    console.log(data);
+    setComment(data);
+  };
+  const setComment = async (data) => {
+    setLoadingBtn(true);
+    try {
+      const roomCommentData = await dispatch(CommentUserRoom(data));
+    } finally {
+      setLoadingBtn(false);
+      setValue("comment", "");
+    }
   };
   return (
-    <Box component="form" onSubmit={handleSubmit(submitData)}>
+    <Box component="form" onSubmit={handleSubmit(submitData)} >
       <TextField
         // style={{ position: "fixed", left: 0, bottom: 0, width: "100%" }}
         placeholder="Type in here…"
@@ -34,15 +43,16 @@ const FeedbackComponent = ({ roomID }) => {
         rows={4}
         variant="outlined"
         fullWidth
-        value={text}
+        {...register("comment")}
       />
       <Box style={{ marginTop: "1rem" }}>
         <Button
           variant="contained"
           style={{ textAlign: "end" }}
           color="primary"
+          type="submit"
         >
-          Send
+          {loadingBtn ? <CircularProgress size={24} color="inherit" /> : "Send"}
         </Button>
       </Box>
     </Box>

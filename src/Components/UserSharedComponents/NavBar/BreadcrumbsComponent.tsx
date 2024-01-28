@@ -14,16 +14,15 @@ const BreadcrumbsComponent = () => {
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
-          MUI
+          Home
         </Link>
         <Link
           underline="hover"
           color="inherit"
           href="/material-ui/getting-started/installation/"
         >
-          Core
+          View Room
         </Link>
-        <Typography color="text.primary">Breadcrumbs</Typography>
       </Breadcrumbs>
     </div>
   );

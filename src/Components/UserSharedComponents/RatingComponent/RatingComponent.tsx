@@ -14,7 +14,7 @@ export default function RatingComponent({ roomID }) {
   const [loadingBtn, setLoadingBtn] = React.useState(false);
 
   const dispatch = useDispatch();
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: {
       roomId: roomID,
     },
@@ -29,6 +29,7 @@ export default function RatingComponent({ roomID }) {
       const roomData = await dispatch(setRatingRooms(data));
     } finally {
       setLoadingBtn(false);
+      setValue("review", "");
     }
   };
   return (
@@ -70,7 +71,7 @@ export default function RatingComponent({ roomID }) {
           style={{ textAlign: "end" }}
           type="submit"
         >
-          {loadingBtn ? <CircularProgress size={24} color="inherit" /> : "Send"}
+          {loadingBtn ? <CircularProgress size={24} color="inherit" /> : "Rate"}
         </Button>
       </Box>
     </Box>

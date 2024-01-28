@@ -188,7 +188,7 @@ const NavBar = () => {
                     </Typography>
                   </MenuItem>
                 </Menu>
-                <Box className="navInfo">
+                <Box className="navInfo" style={{ marginRight: "8rem" }}>
                   <Typography variant="caption" color="initial">
                     {userData?.userName}
                   </Typography>
