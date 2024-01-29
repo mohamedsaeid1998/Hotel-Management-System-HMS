@@ -1,20 +1,30 @@
-import { LandingImg } from '@/Assets/Images';
-import { Calendar, ImageCard } from '@/Components';
+/** @format */
+
+import { LandingImg } from "@/Assets/Images";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
-import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
-import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
-import { Add, Remove } from '@mui/icons-material';
-import { Box, Button, TextField } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import dayjs, { Dayjs, Range } from 'dayjs';
-import { useEffect, useState } from "react";
+import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
+import {
+  Add,
+  CalendarMonth,
+  Favorite,
+  Remove,
+  Visibility,
+} from "@mui/icons-material";
+import { Box, Button, Popover, TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import dayjs, { Dayjs, Range } from "dayjs";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify'
-import Slider from "react-slick";
-import './Landing.module.scss';
+import "./Landing.module.scss";
+import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
+import { toast } from "react-toastify";
+import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { useNavigate } from "react-router-dom";
 const Landing = () => {
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
@@ -63,40 +73,13 @@ const Landing = () => {
     }
   };
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
-        }
-      },
-    ]
-  }
+  const startDate = selectedDateRange[0]?.format("YYYY-MM-DD");
+  const endDate = selectedDateRange[1]?.format("YYYY-MM-DD");
 
-
-
-  const startDate = selectedDateRange[0]?.format('YYYY-MM-DD')
-  const endDate = selectedDateRange[1]?.format('YYYY-MM-DD')
-
-  // console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
   const getAdsData = useCallback(async () => {
     try {
-      setLoading(true)
       // @ts-ignore
       const element = await dispatch(AllAdsData());
       // @ts-ignore
@@ -106,19 +89,23 @@ const Landing = () => {
   }, [dispatch]);
 
   //! ************************ Add To Favorite  *************************
-  const addItemToFavorite = async (roomId: any) => {
-    try {
-      // @ts-ignore
-      const element = await dispatch(AddFavoriteItem(roomId));
-      // @ts-ignore
-      toast.success(element?.payload?.message, {
-        autoClose: 2000,
-        theme: "colored",
-      });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
-    }
-  };
+  const addItemToFavorite = useCallback(
+    async (roomId: any) => {
+      try {
+        // @ts-ignore
+        const element = await dispatch(AddFavoriteItem(roomId));
+        console.log(element);
+        // @ts-ignore
+        toast.success(element?.payload?.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      } catch (error) {
+        // toast.error("Error fetching data:", error);
+      }
+    },
+    [dispatch]
+  );
 
   //! ************************ Get All Favorite Rooms  *************************
   const [favList, setFavList] = useState([]);
@@ -134,19 +121,23 @@ const Landing = () => {
 
   //! ************************ Delete From Favorite  *************************
 
-  const deleteFavoriteItem = async (roomId: any) => {
-    try {
-      // @ts-ignore
-      const element = await dispatch(RemoveFavoriteItem(roomId));
-      // @ts-ignore
-      toast.success(element?.payload?.message, {
-        autoClose: 2000,
-        theme: "colored",
-      });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
-    }
-  }
+  const deleteFavoriteItem = useCallback(
+    async (roomId: any) => {
+      try {
+        // @ts-ignore
+        const element = await dispatch(RemoveFavoriteItem(roomId));
+        // console.log(element);
+        // @ts-ignore
+        toast.success(element?.payload?.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      } catch (error) {
+        // toast.error("Error fetching data:", error);
+      }
+    },
+    [dispatch]
+  );
 
   const open = Boolean(anchorEl);
 
@@ -162,39 +153,13 @@ const Landing = () => {
             make another memorable moments.
           </Typography>
 
-  return <>
-    <Box component="section" className="landingSec">
-
-      <Box className="leftCon">
-
-        <Typography variant="h1" className='title'>Forget Busy Work, Start Next Vacation</Typography>
-        <Typography className='subTitle'>We provide what you need to enjoy your holiday with family. Time to make another memorable moments.</Typography>
-
-        <Box className="bookingCon">
-
-          <Typography variant="h3" className='bookingTitle'>Start Booking</Typography>
-          <Typography variant="h4" className='subBookingTitle'>Pick a Date</Typography>
-
-
-
-        </Box>
-
-        <Box className="exploreCon">
-
-          <Calendar {...{selectedDateRange,setSelectedDateRange}}/>
-
-          <Box className="capacityCon">
-            <Button onClick={handleIncrease} className="caleBtn" variant="contained" color="primary">
-              <Add />
-            </Button>
-            <TextField
-              className='calendarField'
-              label="Capacity"
-              value={`${bookingGuestCount} person`}
-            />
-            <Button onClick={handleDecrease} className="caleBtn" variant="contained" color="error">
-              <Remove />
-            </Button>
+          <Box className="bookingCon">
+            <Typography variant="h3" className="bookingTitle">
+              Start Booking
+            </Typography>
+            <Typography variant="h4" className="subBookingTitle">
+              Pick a Date
+            </Typography>
           </Box>
 
           <Box className="exploreCon">
@@ -381,40 +346,4 @@ const Landing = () => {
   );
 };
 
-    </Box>
-
-
-    <Box component="section" className="viewSec">
-
-      <Typography variant='h4' className="adsTitle"> Most Popular Ads</Typography>
-
-      <Box className="grid">
-        {adsData?.map((ele, index) => <>
-          <ImageCard key={ele._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
-        </>
-        )}
-
-      </Box>
-
-      <Typography variant='h4' className="bookingTitle"> Most Booked Rooms</Typography>
-      <Box className="sliderCon">
-
-
-      <Slider  {...settings}>
-        {adsData?.map((ele,index) => <>
-          <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
-        </>
-        )}
-        </Slider>
-
-      </Box>
-
-
-
-    </Box>
-
-
-  </>
-}
-
-export default Landing
+export default Landing;

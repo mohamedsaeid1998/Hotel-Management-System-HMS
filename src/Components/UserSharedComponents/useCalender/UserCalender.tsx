@@ -44,7 +44,7 @@ const UserCalender = ({ price }) => {
         />
         <Typography>You will pay ${price} USD per 1 Person</Typography>
 
-        <Box marginTop={4} textAlign={"center"}>
+        <Box marginTop={4} >
           <Button variant="contained">
             {loadingBtn ? (
               <CircularProgress size={24} color="inherit" />
