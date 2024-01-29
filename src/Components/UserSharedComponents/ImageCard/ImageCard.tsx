@@ -4,7 +4,20 @@ import { Box, Typography } from '@mui/material'
 import { Favorite, Visibility } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
-const ImageCard = ({ele,index,favList,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount}:any) => {
+interface Props {
+  ele:any,
+  index:any,
+  favList:any,
+  deleteFavoriteItem:any,
+  addItemToFavorite?:any,
+  startDate?:any,
+  endDate?:any,
+  bookingGuestCount?:any,
+
+}
+
+
+const ImageCard = ({ele,index,favList,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount}:Props) => {
 
   const navigate = useNavigate()
   
