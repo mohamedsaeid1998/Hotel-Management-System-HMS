@@ -1,3 +1,4 @@
+/** @format */
 
 import { Provider } from "react-redux";
 import React from "react";
@@ -20,9 +21,9 @@ import {
   Register,
   ResetPassword,
   Reviews,
-  RoomDetails,
   Rooms,
   Users,
+  ViewRoomDetails,
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
@@ -33,20 +34,21 @@ function App() {
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <UserLayout />
-      ),
+      element: <UserLayout />,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Landing /> },
-        { path:'explore', element: <Explore /> },
-        { path:'explore/:startData/:endDate/:persons', element: <Explore /> },
-        { path:'room-reviews', element: <Reviews /> },
-        { path:'favorite-rooms', element: <Favorites /> },
-        { path:'room-details', element: <RoomDetails /> },
-        { path:'room-details?/:startData/:endDate/:persons', element: <RoomDetails /> },
-      ]
+        { path: "explore", element: <Explore /> },
+        { path: "explore/:startData/:endDate/:persons", element: <Explore /> },
+        { path: "room-reviews", element: <Reviews /> },
+        { path: "favorite-rooms", element: <Favorites /> },
+        {
+          path: "room-details?/:startData/:endDate/:persons/:id",
+          element: <ViewRoomDetails />,
+        },
+      ],
     },
+
     {
       path: "dashboard",
       element: (
@@ -57,10 +59,12 @@ function App() {
       errorElement: <NotFound />,
       children: [
         {
-          index: true, element:
+          index: true,
+          element: (
             <React.Suspense fallback="Loading...">
               <LazyLoading />
             </React.Suspense>
+          ),
         },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
