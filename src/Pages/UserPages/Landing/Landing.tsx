@@ -16,38 +16,50 @@ import { toast } from 'react-toastify'
 import Slider from "react-slick";
 import './Landing.module.scss';
 const Landing = () => {
-
   const dispatch = useDispatch();
-  const { count } = useSelector((state) => state.AddToFavorite)
-  const { data } = useSelector((state) => state.RemoveFavoriteItemSlice)
+  const { count } = useSelector((state) => state.AddToFavorite);
+  const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
 
-  const [bookingGuestCount, setBookingGuestCount] = useState(1);
-  const navigate = useNavigate()
-  const today = dayjs();
-  const nextDate = dayjs().add(5, 'day');
+  const [personsCount, setPersonsCount] = useState(1);
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
-    today,
-    nextDate,
+    dayjs("2024-01-25"),
+    dayjs("2024-01-30"),
   ]);
-
-  const [loading, setLoading] = useState(false)
+  // console.log(selectedDateRange);
+  // console.log(personsCount);
 
   useEffect(() => {
-    getAdsData()
+    getAdsData();
     dispatch(fetchDataIslogged());
-    getFavoriteData()
+    getFavoriteData();
   }, [dispatch, count, data]);
 
+  const handleCalendarChange = (newDateRange: Range<Dayjs>) => {
+    setSelectedDateRange(newDateRange);
+  };
 
+  const handleButtonClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDateSelected = () => {
+    handlePopoverClose();
+  };
 
   const handleIncrease = () => {
-    setBookingGuestCount(bookingGuestCount + 1);
+    setPersonsCount(personsCount + 1);
   };
 
   const handleDecrease = () => {
-    if (bookingGuestCount > 1) {
-      setBookingGuestCount(bookingGuestCount - 1);
+    if (personsCount > 1) {
+      setPersonsCount(personsCount - 1);
     }
   };
 
@@ -82,8 +94,7 @@ const Landing = () => {
   // console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
-  const getAdsData = async () => {
-
+  const getAdsData = useCallback(async () => {
     try {
       setLoading(true)
       // @ts-ignore
@@ -91,10 +102,8 @@ const Landing = () => {
       // @ts-ignore
       setAdsData(element?.payload?.data?.data?.rooms);
     } finally {
-      setLoading(false)
     }
-  }
-
+  }, [dispatch]);
 
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
@@ -112,19 +121,16 @@ const Landing = () => {
   };
 
   //! ************************ Get All Favorite Rooms  *************************
-  const [favList, setFavList] = useState([])
-  const getFavoriteData = async () => {
+  const [favList, setFavList] = useState([]);
+  const getFavoriteData = useCallback(async () => {
     try {
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
       // @ts-ignore
-      setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms)
-
+      setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
     } finally {
-
     }
-  }
-
+  }, [dispatch]);
 
   //! ************************ Delete From Favorite  *************************
 
@@ -142,7 +148,19 @@ const Landing = () => {
     }
   }
 
+  const open = Boolean(anchorEl);
 
+  return (
+    <>
+      <Box component="section" className="landingSec">
+        <Box className="leftCon">
+          <Typography variant="h1" className="title">
+            Forget Busy Work, Start Next Vacation
+          </Typography>
+          <Typography className="subTitle">
+            We provide what you need to enjoy your holiday with family. Time to
+            make another memorable moments.
+          </Typography>
 
   return <>
     <Box component="section" className="landingSec">
@@ -179,19 +197,189 @@ const Landing = () => {
             </Button>
           </Box>
 
+          <Box className="exploreCon">
+            <Button
+              className="caleBtn"
+              onClick={handleButtonClick}
+              variant="contained"
+              color="primary"
+            >
+              <CalendarMonth />
+            </Button>
+
+            <Popover
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handlePopoverClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DateRangeCalendar"]}>
+                  <DateRangeCalendar
+                    value={selectedDateRange}
+                    onChange={handleCalendarChange}
+                    onAccept={handleDateSelected}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </Popover>
+
+            <TextField
+              className="calendarField"
+              label="Selected Date Range"
+              value={`${selectedDateRange[0]?.format(
+                "YYYY-MM-DD"
+              )} - ${selectedDateRange[1]?.format("YYYY-MM-DD")}`}
+            />
+
+            <Box className="capacityCon">
+              <Button
+                onClick={handleIncrease}
+                className="caleBtn"
+                variant="contained"
+                color="primary"
+              >
+                <Add />
+              </Button>
+              <TextField
+                className="calendarField"
+                label="Capacity"
+                value={`${personsCount} person`}
+              />
+              <Button
+                onClick={handleDecrease}
+                className="caleBtn"
+                variant="contained"
+                color="error"
+              >
+                <Remove />
+              </Button>
+            </Box>
+          </Box>
+
+          <Button
+            className="submitExplore"
+            onClick={() =>
+              navigate(
+                `/explore/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}`
+              )
+            }
+            variant="contained"
+            color="primary"
+          >
+            Explore
+          </Button>
         </Box>
 
-        <Button className="submitExplore" onClick={() => navigate(`/explore/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}`)} variant="contained" color="primary">
-          Explore
-        </Button>
-
+        <Box className="rightCon">
+          <img className="LandingImg" src={LandingImg} alt="Landing Image" />
+        </Box>
       </Box>
 
-      <Box className="rightCon">
+      <Box component="section" className="viewSec">
+        <Typography variant="h4" className="adsTitle">
+          Most Popular Ads
+        </Typography>
 
-        <img className='LandingImg' src={LandingImg} alt="Landing Image" />
+        <Box className="grid">
+          {adsData?.map((ele, index) => (
+            <>
+              <Box
+                key={ele._id}
+                className={`${index === 0 ? "main" : ""} here`}
+              >
+                <img
+                  className="RoomPicture"
+                  src={ele.images[0]}
+                  alt="RoomPicture"
+                />
+                <Box className="layer">
+                  <Box className="text ">
+                    <Typography variant="h6" className="roomName">
+                      {ele.roomNumber.toUpperCase()}
+                    </Typography>
+                    <Box className="icons">
+                      {favList?.some(
+                        (favorite: any) => favorite._id === ele?._id
+                      ) ? (
+                        <Favorite
+                          color="error"
+                          onClick={() => deleteFavoriteItem(ele._id)}
+                        />
+                      ) : (
+                        <Favorite onClick={() => addItemToFavorite(ele._id)} />
+                      )}
 
+                      <Visibility
+                        onClick={() => {
+                          navigate(
+                            `/room-details/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}/${ele._id}`
+                          );
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </>
+          ))}
+        </Box>
+
+        <Typography variant="h4" className="adsTitle">
+          {" "}
+          Most Booked Rooms
+        </Typography>
+        <Box className="sliderCon">
+          {adsData?.map((ele) => (
+            <>
+              <Box key={ele._id} className={` here `}>
+                <img
+                  className="RoomPicture"
+                  src={ele.images[0]}
+                  alt="RoomPicture"
+                />
+                <Box className="layer">
+                  <Box className="text ">
+                    <Typography variant="h6" className="roomName">
+                      {ele.roomNumber.toUpperCase()}
+                    </Typography>
+                    <Box className="icons">
+                      {favList?.some(
+                        (favorite: any) => favorite._id === ele?._id
+                      ) ? (
+                        <Favorite
+                          color="error"
+                          onClick={() => deleteFavoriteItem(ele._id)}
+                        />
+                      ) : (
+                        <Favorite onClick={() => addItemToFavorite(ele._id)} />
+                      )}
+
+                      <Visibility
+                        onClick={() =>
+                          navigate(
+                            `/room-details/startDate=${startDate}/endDate=${endDate}/persons=${personsCount}`
+                          )
+                        }
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </>
+          ))}
+        </Box>
       </Box>
+    </>
+  );
+};
 
     </Box>
 
