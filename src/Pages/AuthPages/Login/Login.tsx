@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
+import baseUrl from "@/utils/Custom/Custom";
+import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, islogged } = useSelector((state) => state.login)
+  const { loading, islogged } = useSelector((state) => state.login);
   const required = "This Field is required";
   const {
     register,
@@ -19,10 +21,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   // useCallback(async()=>{try{}catch{}},[])
-  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
-    dispatch(fetchData(data))
-
-  }, [dispatch])
+  const onSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      dispatch(fetchData(data));
+    },
+    [dispatch]
+  );
 
   if (islogged === "admin") {
     navigate("/dashboard");
@@ -31,12 +35,48 @@ const Login = () => {
   }
   console.log(islogged);
 
-
-
   useEffect(() => {
-
     dispatch(fetchDataStart(false));
   }, [dispatch]);
+
+  function handleCallbackResponse(response: any) {
+    localStorage.setItem("authToken", response.credential);
+    const accessToken = localStorage.getItem("authToken");
+    baseUrl
+      .post("/api/v0/portal/users/auth/google", { accessToken })
+      .then((res) => {
+        localStorage.setItem("authToken", res.data.data.token);
+        localStorage.setItem("userRole", res.data.data.user.role);
+        localStorage.setItem("userId", res.data.data.user._id);
+        console.log(res.data.message);
+        navigate("/dashboard");
+        toast.success(res.data.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      })
+      .catch((error) =>
+        toast.error(error, {
+          autoClose: 2000,
+          theme: "colored",
+        })
+      );
+  }
+
+  useEffect(() => {
+    const google = window.google;
+    google.accounts.id.initialize({
+      client_id:
+        "761128849378-ee7o8qlsfc5j6a1hik63auo1oq037hs5.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+    google.accounts.id.prompt();
+  }, []);
 
   return (
     <>
@@ -135,6 +175,7 @@ const Login = () => {
               <ChevronLeft /> Login
             </Button>
           )}
+          <div id="signInDiv"></div>
         </form>
       </Box>
     </>
