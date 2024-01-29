@@ -15,6 +15,7 @@ import {
 import BreadcrumbsComponent from "@/Components/UserSharedComponents/NavBar/BreadcrumbsComponent";
 import {
   Box,
+  CircularProgress,
   Container,
   CssBaseline,
   List,
@@ -36,6 +37,7 @@ import { useDispatch } from "react-redux";
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { viewUserRoomDetails } from "@/Redux/UserPort/viewUserRoom/viewUserRoomDetailsSlice";
 import { useParams } from "react-router-dom";
+import UserCalender from "@/Components/UserSharedComponents/useCalender/UserCalender";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -250,7 +252,14 @@ const ViewRoomDetails = () => {
                 </Grid>
                 <Grid xs={5}>
                   <Grid>
-                    <Booking style={{ width: "487px", height: "550px" }}>
+                    <Booking
+                      style={{
+                        width: "487px",
+                        height: "550px",
+                        position: "relative",
+                        padding: "4rem",
+                      }}
+                    >
                       <Typography
                         style={{
                           color: "#152C5B",
@@ -290,10 +299,21 @@ const ViewRoomDetails = () => {
                         {roomDiscount} 20% Off
                       </Typography>
                       {/* <BookingCalender /> */}
-                      <Typography variant="caption">Pick a Date</Typography>
-                      <Typography>
-                        You will pay ${price} USD per 1 Person
-                      </Typography>
+
+                      <Box
+                        textAlign={"center"}
+                        position={"absolute"}
+                        bottom={"2rem"}
+                      >
+                        <Typography
+                          marginY={2}
+                          textAlign={"start"}
+                          color={"#152C5B"}
+                        >
+                          Pick a Date
+                        </Typography>
+                        <UserCalender price={price} />
+                      </Box>
                     </Booking>
                   </Grid>
                 </Grid>

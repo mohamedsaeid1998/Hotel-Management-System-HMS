@@ -11,7 +11,7 @@ const UserLayout = () => {
         <NavBar />
         <Box className="userContainer">
           <Outlet />
-          {/* <Footer /> */}
+          <Footer />
         </Box>
       </Box>
     </>
