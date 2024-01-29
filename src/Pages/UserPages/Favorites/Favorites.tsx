@@ -1,4 +1,3 @@
-import { getFavorites } from "@/Redux/Features/Portal/Favorites/FavoritesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@mui/material/Button";
@@ -19,7 +18,7 @@ const Favorites = () => {
   const favoritesRooms = getAllFavorites[0]?.rooms;
 
   useEffect(() => {
-    dispatch(getFavorites());
+    dispatch(getFavoriteItems());
   }, [dispatch]);
   return (
     <>

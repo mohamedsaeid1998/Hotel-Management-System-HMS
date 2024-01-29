@@ -520,7 +520,7 @@
   }
 }
 
-.grid{
+.grid {
   // width: 1000px;
   display: grid;
   grid-template-columns: 2.5fr 1fr 1fr;
@@ -547,26 +547,24 @@
   position: relative !important;
 }
 
-.sliderCon{
+.sliderCon {
   // display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
-.RoomPicture{
+.RoomPicture {
   object-fit: fill;
-  width: 200px ;
-  height: 200px ;
-  
-  border-radius: 15px ;
+  width: 200px;
+  height: 200px;
+
+  border-radius: 15px;
 }
 
-
-.discountLayer{
+.discountLayer {
   position: absolute;
   top: 0px;
   right: 0px;
-  background-color: #FF498B;
+  background-color: #ff498b;
   color: white;
   width: 120px;
   text-align: center;
@@ -586,7 +584,7 @@
   background: rgba(32, 63, 199, 0.21);
   border-radius: 15px;
   opacity: 0;
-  transition: all .5s;
+  transition: all 0.5s;
   z-index: 2;
   transform: translateY(10px);
 }
@@ -612,19 +610,18 @@
   margin-bottom: 15px;
   color: white;
   transform: translateY(-15px);
-  transition: transform .5s;
+  transition: transform 0.5s;
 }
 
-.icons{
+.icons {
   display: flex;
   justify-content: center;
   gap: 15px;
   color: white;
 
-  svg{
+  svg {
     cursor: pointer;
   }
-
 }
 
 .here:hover h6,
@@ -632,22 +629,50 @@
   transform: translateY(0);
 }
 
-
-.bookingTitle{
-  @extend .adsTitle
+.bookingTitle {
+  @extend .adsTitle;
 }
 
-.iconBtn{
-
+.iconBtn {
   padding: 0 !important;
   width: 24px !important;
 }
 
 .slick-slide {
   width: 200px !important;
-  }
+}
 
-  .slick-track{
-    display: flex;
-    gap: 70px;
-  }
+.slick-track {
+  display: flex;
+  gap: 70px;
+}
+
+//! ****************************Explore Page*********************************
+
+.exploreCom{
+  font-family: "Poppins", sans-serif;
+
+.exploreTitle {
+  @extend .darkColor;
+  display: flex;
+  justify-content: center;
+  font-size: 36px !important;
+  font-weight: 600 !important;
+}
+
+.subExploreTitle {
+  @extend .darkColor;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  margin-top: 50px !important;
+}
+
+.roomCon{
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+}
