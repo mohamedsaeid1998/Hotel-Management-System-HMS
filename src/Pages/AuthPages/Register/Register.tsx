@@ -11,7 +11,7 @@ import "./Register.module.scss";
 const Register = () => {
   const dispatch = useDispatch();
   const { isRegister } = useSelector((state) => state.register);
-  console.log("from register", isRegister);
+
 
   const navigate = useNavigate();
   const required = "This Field is required";

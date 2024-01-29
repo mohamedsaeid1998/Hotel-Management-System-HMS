@@ -13,23 +13,26 @@ import {
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./NavBar.module.scss";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Favorite } from "@mui/icons-material";
 import { defaultImage } from "@/Assets/Images";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 
 const NavBar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
+  const { count } = useSelector((state) => state.AddToFavorite);
+  const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState();
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (localStorage.getItem("userId")) getData();
-  }, [dispatch]);
+    getFavoriteData();
+  }, [dispatch, count, data]);
 
   const getData = async () => {
     // @ts-ignore
@@ -37,6 +40,19 @@ const NavBar = () => {
     // @ts-ignore
     setUserData(element.payload.data.user);
   };
+
+  const [favoriteItemsCount, setFavoriteItemsCount] = useState(0);
+  const getFavoriteData = useCallback(async () => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(getFavoriteItems());
+      // @ts-ignore
+      setFavoriteItemsCount(
+        element?.payload?.data?.favoriteRooms[0]?.rooms?.length
+      );
+    } finally {
+    }
+  }, [dispatch]);
 
   const handelLogout = () => {
     localStorage.removeItem("authToken");
@@ -104,7 +120,12 @@ const NavBar = () => {
               Reviews
             </Link>
             <IconButton aria-label={notificationsLabel(100)}>
-              <Badge badgeContent={98} color="primary">
+              <Badge
+                badgeContent={
+                  favoriteItemsCount === 0 ? "0" : favoriteItemsCount
+                }
+                color="primary"
+              >
                 <Favorite onClick={() => navigate("./favorite-rooms")} />
               </Badge>
             </IconButton>

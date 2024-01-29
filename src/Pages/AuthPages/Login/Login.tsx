@@ -20,20 +20,16 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // useCallback(async()=>{try{}catch{}},[])
-  const onSubmit = useCallback(
-    async (data: { email: string; password: string }) => {
-      dispatch(fetchData(data));
-    },
-    [dispatch]
-  );
+  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
+    dispatch(fetchData(data))
+
+  }, [dispatch])
 
   if (islogged === "admin") {
     navigate("/dashboard");
   } else if (islogged === "user") {
     navigate("/");
   }
-  console.log(islogged);
 
   useEffect(() => {
     dispatch(fetchDataStart(false));

@@ -5,5 +5,8 @@ import deleteImg from "./deleted.png";
 import defaultImage from "./defaultImage.jpg";
 import imgView2 from "./imgView.png";
 import imgView3 from "./imgView3.png";
+import LandingImg from "./LandingImg.jpg";
+import RoomPicture1 from "./RoomPicture1.png";
+import RoomPicture2 from "./RoomPicture2.png";
 
-export { NoImage5, bg1, defaultImage, deleteImg, imgView2, imgView3 };
+export { NoImage5, bg1, defaultImage, deleteImg, imgView2, imgView3,LandingImg,RoomPicture1,RoomPicture2};
