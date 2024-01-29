@@ -157,8 +157,6 @@ const Landing = () => {
           <Typography variant="h3" className='bookingTitle'>Start Booking</Typography>
           <Typography variant="h4" className='subBookingTitle'>Pick a Date</Typography>
 
-
-
         </Box>
 
         <Box className="exploreCon">

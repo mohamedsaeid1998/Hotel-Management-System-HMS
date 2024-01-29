@@ -29,7 +29,6 @@ const NavBar = () => {
     // @ts-ignore
     setUserData(element.payload.data.user);
   }
-
 const [favoriteItemsCount, setFavoriteItemsCount] = useState(0)
   const getFavoriteData = useCallback(async () => {
     try {
