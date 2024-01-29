@@ -1,46 +1,52 @@
+import { getRooms } from '@/Redux/Features/Portal/Rooms/GetAllRoomsSlice';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { useEffect } from "react";
+import { ImageCard } from '@/Components';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+
+import { useParams } from 'react-router-dom';
+
+import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
+import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
+import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
+import { toast } from 'react-toastify';
 import "./Favorites.module.scss";
 
 const Favorites = () => {
-  const dispatch = useDispatch();
-  const { loading, data } = useSelector((state) => state.FavoritesSlice);
-  const getAllFavorites = data.map((item) => {
-    return item;
-  });
-  const favoritesRooms = getAllFavorites[0]?.rooms;
 
+
+  const dispatch = useDispatch();
+  //! ************************ Get All Favorite Rooms  *************************
+  const [favList, setFavList] = useState([])
+  const getFavoriteData = async () => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(getFavoriteItems());
+      console.log(element);
+      
+      // @ts-ignore
+      
+      setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms)
+
+    } finally {
+
+    }
+  }
   useEffect(() => {
-    dispatch(getFavoriteItems());
-  }, [dispatch]);
+    getFavoriteData()
+  }, []);
+
+console.log(favList);
+
+
   return (
     <>
       <div>
-        {favoritesRooms?.map((item) => (
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia sx={{ height: 140 }} image="" title="green iguana" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Lizard
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        ))}
+        {favList?.map((ele, index) => <>
+          <ImageCard key={ele?._id} {...{ ele, index, startDate, endDate, bookingGuestCount, favList, deleteFavoriteItem,addItemToFavorite }} />
+
+          </>)}
       </div>
     </>
   );
