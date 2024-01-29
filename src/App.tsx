@@ -43,8 +43,8 @@ function App() {
         { path:'explore/:startData/:endDate/:persons', element: <Explore /> },
         { path:'room-reviews', element: <Reviews /> },
         { path:'favorite-rooms', element: <Favorites /> },
-        { path:'room-details', element: <RoomDetails /> },
-        { path:'room-details?/:startData/:endDate/:persons', element: <RoomDetails /> },
+        { path:'room-details/:id', element: <RoomDetails /> },
+        { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
       ]
     },
     {

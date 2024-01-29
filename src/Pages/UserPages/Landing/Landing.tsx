@@ -214,7 +214,7 @@ const Landing = () => {
 
       <Slider  {...settings}>
         {adsData?.map((ele,index) => <>
-          <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
+          <ImageCard  key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
         </>
         )}
         </Slider>

@@ -1,9 +1,12 @@
 import React from 'react'
 import './RoomDetails.module.scss'
+import { Box } from '@mui/material'
 
 const RoomDetails = () => {
   return <>
-    <div>RoomDetails</div>
+<Box className="">
+
+</Box>
   </>
 }
 
