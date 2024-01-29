@@ -1,20 +1,22 @@
-import { getRooms } from '@/Redux/Features/Portal/Rooms/GetAllRoomsSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { ImageCard } from '@/Components';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
 
-import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
+import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { toast } from 'react-toastify';
 import "./Favorites.module.scss";
+import { Box } from '@mui/material';
 
 const Favorites = () => {
 
+
+  
+
+  const { count } = useSelector((state) => state.AddToFavorite)
+  const { data } = useSelector((state) => state.RemoveFavoriteItemSlice)
 
   const dispatch = useDispatch();
   //! ************************ Get All Favorite Rooms  *************************
@@ -35,19 +37,39 @@ const Favorites = () => {
   }
   useEffect(() => {
     getFavoriteData()
-  }, []);
+  }, [dispatch, count, data]);
 
 console.log(favList);
 
 
+  //! ************************ Delete From Favorite  *************************
+
+  const deleteFavoriteItem = async (roomId: any) => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(RemoveFavoriteItem(roomId));
+      // @ts-ignore
+      toast.success(element?.payload?.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
+    } catch (error) {
+      // toast.error("Error fetching data:", error);
+    }
+  }
+
+
+
   return (
     <>
-      <div>
+        <Box component={'main'} className='exploreCom'>
+<Box className="roomCon ">
         {favList?.map((ele, index) => <>
-          <ImageCard key={ele?._id} {...{ ele, index, startDate, endDate, bookingGuestCount, favList, deleteFavoriteItem,addItemToFavorite }} />
+          <ImageCard key={ele?._id} {...{ ele, index,favList,deleteFavoriteItem }} />
 
           </>)}
-      </div>
+          </Box>
+          </Box>
     </>
   );
 };

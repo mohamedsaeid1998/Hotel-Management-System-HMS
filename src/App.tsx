@@ -44,8 +44,9 @@ function App() {
         { path:'room-reviews', element: <Reviews /> },
 
         { path:'favorite-rooms', element: <Favorites /> },
-        { path:'room-details', element: <RoomDetails /> },
-        { path:'room-details?/:startData/:endDate/:persons', element: <RoomDetails /> },
+        // { path:'favorite-rooms/:startDate/:endDate/:persons/:id', element: <Favorites /> },
+        { path:'room-details/:id', element: <RoomDetails /> },
+        { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
       ]
     },
     {

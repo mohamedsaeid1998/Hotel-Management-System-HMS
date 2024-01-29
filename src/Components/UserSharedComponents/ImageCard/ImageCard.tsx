@@ -35,7 +35,7 @@ const ImageCard = ({ele,index,favList,deleteFavoriteItem,addItemToFavorite,start
                     :
                     <Favorite onClick={() => addItemToFavorite(ele._id)} />}
 
-                  <Visibility onClick={() => navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}`)} />
+                  <Visibility onClick={() => navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}/id=${ele._id}`)} />
                 </Box>
               </Box>
             </Box>

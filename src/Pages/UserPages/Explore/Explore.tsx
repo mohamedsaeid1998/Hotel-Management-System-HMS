@@ -18,15 +18,15 @@ const Explore = () => {
   const { count } = useSelector((state) => state.AddToFavorite)
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice)
   const dispatch = useDispatch();
-  const [rooms, setRooms] = useState([])
-
-  const { endDate: end, persons: per, startDate: str } = useParams()
-
+  
+  
   useEffect(() => {
     getRoomsData()
     getFavoriteData()
   }, [dispatch, count, data]);
-
+  
+  const [rooms, setRooms] = useState([])
+  const { endDate: end, persons: per, startDate: str } = useParams()
   const endDate = end?.substring(end?.indexOf('=') + 1);
   const startDate = str?.substring(str?.indexOf('=') + 1);
   const bookingGuestCount = per?.substring(per?.indexOf('=') + 1);

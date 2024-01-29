@@ -157,8 +157,6 @@ const Landing = () => {
           <Typography variant="h3" className='bookingTitle'>Start Booking</Typography>
           <Typography variant="h4" className='subBookingTitle'>Pick a Date</Typography>
 
-
-
         </Box>
 
         <Box className="exploreCon">
@@ -214,7 +212,7 @@ const Landing = () => {
 
       <Slider  {...settings}>
         {adsData?.map((ele,index) => <>
-          <ImageCard   key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
+          <ImageCard  key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
         </>
         )}
         </Slider>

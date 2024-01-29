@@ -20,6 +20,12 @@ export const getFavoriteItems = createAsyncThunk<any, void>(
         headers: {
           Authorization: token,
         },
+        
+          params:{
+            pageNumber:1,
+            pageSize:3,
+          }
+        
       });
       return data.data;
     } catch (error) {

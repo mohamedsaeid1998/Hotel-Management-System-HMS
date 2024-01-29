@@ -545,6 +545,7 @@
 
 .here {
   position: relative !important;
+  border-radius: 15px;
 }
 
 .sliderCon {
@@ -576,6 +577,7 @@
 }
 
 .layer {
+  height: 98%;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -674,5 +676,21 @@
   flex-wrap: wrap;
   gap: 20px;
 }
+}
 
+//! ****************************RoomDetails Page*********************************
+
+.roomDetailsCon{
+
+.roomImages{
+  display: grid;
+}
+
+
+}
+
+
+
+#g_a11y_announcement {
+  right: 0 !important;
 }
