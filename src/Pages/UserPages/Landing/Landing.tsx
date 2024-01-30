@@ -1,5 +1,5 @@
 import { LandingImg } from '@/Assets/Images';
-import { Calendar, ImageCard } from '@/Components';
+import { Calendar, ImageCard, ImageCard2 } from '@/Components';
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
 import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import Slider from "react-slick";
 import './Landing.module.scss';
+import { getRooms } from '@/Redux/Features/Portal/Rooms/GetAllRoomsSlice';
 const Landing = () => {
 
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const Landing = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    getRoomsData(15)
     getAdsData()
     dispatch(fetchDataIslogged());
     getFavoriteData()
@@ -89,7 +91,9 @@ const Landing = () => {
       // @ts-ignore
       const element = await dispatch(AllAdsData());
       // @ts-ignore
-      setAdsData(element?.payload?.data?.data?.rooms);
+      console.log(element?.payload?.data?.data?.ads?.map((ele)=>ele))
+
+      setAdsData(element?.payload?.data?.data?.ads);
     } finally {
       setLoading(false)
     }
@@ -124,6 +128,23 @@ const Landing = () => {
 
     }
   }
+
+  //! ************************ Get Rooms  *************************
+  const [rooms, setRooms] = useState([])
+
+  const getRoomsData = async (roomCount:any) => {
+    try {
+      // @ts-ignore
+      const element = await dispatch(getRooms({startDate,endDate,roomCount}));
+      // @ts-ignore
+      console.log(element?.payload?.data?.rooms);
+      
+      setRooms(element?.payload?.data?.rooms);
+    } finally {
+
+    }
+  }
+
 
 
   //! ************************ Delete From Favorite  *************************
@@ -161,7 +182,7 @@ const Landing = () => {
 
         <Box className="exploreCon">
 
-          <Calendar {...{selectedDateRange,setSelectedDateRange}}/>
+          <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
 
           <Box className="capacityCon">
             <Button onClick={handleIncrease} className="caleBtn" variant="contained" color="primary">
@@ -199,8 +220,8 @@ const Landing = () => {
       <Typography variant='h4' className="adsTitle"> Most Popular Ads</Typography>
 
       <Box className="grid">
-        {adsData?.map((ele, index) => <>
-          <ImageCard key={ele._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
+  {adsData?.map((ele,index) => <>
+          <ImageCard key={ele?._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
         </>
         )}
 
@@ -210,10 +231,11 @@ const Landing = () => {
       <Box className="sliderCon">
 
 
-      <Slider  {...settings}>
-        {adsData?.map((ele,index) => <>
-          <ImageCard  key={ele._id} {...{ele,index,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount,favList}}/>
+        <Slider  {...settings}>
+        { rooms?.map((ele, index) => <>
+          <ImageCard2 key={ele?._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
         </>
+
         )}
         </Slider>
 

@@ -651,41 +651,89 @@
 
 //! ****************************Explore Page*********************************
 
-.exploreCom{
+
+
+
+.exploreCom {
   font-family: "Poppins", sans-serif;
 
-.exploreTitle {
+
+  .roomCon {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+.title {
   @extend .darkColor;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
   font-size: 36px !important;
   font-weight: 600 !important;
 }
 
-.subExploreTitle {
+.subTitle {
   @extend .darkColor;
+  font-family: "Poppins", sans-serif;
   font-size: 24px !important;
   font-weight: 500 !important;
-  margin-top: 50px !important;
+  margin-top: 20px !important;
 }
 
-.roomCon{
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-}
+
 
 //! ****************************RoomDetails Page*********************************
 
-.roomDetailsCon{
+.roomDetailsCon {
 
-.roomImages{
-  display: grid;
+  .roomImages{
+    margin-top: 20px;
+  }
+  .gridDetails {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 15rem 15rem;
+    grid-template-areas:
+      "image - "
+      "image - ";
+    gap: 30px 20px;
+    justify-content: space-between;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      border-radius: 15px;
+    }
+
+    .image {
+      grid-area: image;
+      object-fit: fill;
+      border-radius: 15px;
+    }
+  }
 }
 
-
+.path {
+  @extend .grayColor;
+  font-family: "Poppins", sans-serif !important;
+  text-decoration: none;
 }
 
+.slash {
+  @extend .grayColor;
+  font-family: "Poppins", sans-serif !important;
+  margin-inline: 10px !important;
+}
+
+.subPath {
+  color: #152c5b !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  font-style: italic;
+}

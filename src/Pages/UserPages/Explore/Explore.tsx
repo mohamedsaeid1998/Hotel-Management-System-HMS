@@ -2,15 +2,15 @@ import { getRooms } from '@/Redux/Features/Portal/Rooms/GetAllRoomsSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { ImageCard } from '@/Components';
+import { ImageCard2 } from '@/Components';
 import { Box, Typography } from '@mui/material';
 
-import { useParams } from 'react-router-dom';
-import './Explore.module.scss';
 import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
+import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './Explore.module.scss';
 
 const Explore = () => {
 
@@ -23,22 +23,21 @@ const Explore = () => {
   const { endDate: end, persons: per, startDate: str } = useParams()
 
   useEffect(() => {
-    getRoomsData()
+    getRoomsData(50)
     getFavoriteData()
   }, [dispatch, count, data]);
 
   const endDate = end?.substring(end?.indexOf('=') + 1);
   const startDate = str?.substring(str?.indexOf('=') + 1);
   const bookingGuestCount = per?.substring(per?.indexOf('=') + 1);
-  const getRoomsData = async () => {
 
+  
+  //! ************************ Get Rooms  *************************
+  const getRoomsData = async (roomCount:any) => {
     try {
-
       // @ts-ignore
-      const element = await dispatch(getRooms({startDate,endDate}));
+      const element = await dispatch(getRooms({startDate,endDate,roomCount}));
       // @ts-ignore
-      console.log(element?.payload?.data?.rooms)
-
       setRooms(element?.payload?.data?.rooms);
     } finally {
 
@@ -99,12 +98,14 @@ const Explore = () => {
 
   return <>
     <Box component={'main'} className='exploreCom'>
-      <Typography variant="h1" className='exploreTitle'>Explore ALL Rooms</Typography>
-
-      <Typography variant="h4" className='subExploreTitle'>All Rooms</Typography>
-<Box className="roomCon ">
+      <Typography variant="h1" className='title'>Explore ALL Rooms</Typography>
+      <Link to={'/'} className='path'>Home</Link>
+<Typography variant='caption' className='slash'>/</Typography>
+<Typography variant='caption' className='subPath'>Explore</Typography>
+      <Typography variant="h4" className='subTitle'>All Rooms</Typography>
+<Box className="roomCon">
 {rooms?.map((ele, index) => <>
-        <ImageCard key={ele?._id} {...{ ele, index, startDate, endDate, bookingGuestCount, favList, deleteFavoriteItem,addItemToFavorite }} />
+        <ImageCard2 key={ele?._id} {...{ ele, index, startDate, endDate, bookingGuestCount, favList, deleteFavoriteItem,addItemToFavorite }} />
       </>
       )}
 </Box>

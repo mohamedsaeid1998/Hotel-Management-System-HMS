@@ -1,4 +1,3 @@
-/** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../../utils/Custom/Custom";

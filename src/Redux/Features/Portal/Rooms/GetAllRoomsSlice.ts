@@ -12,14 +12,13 @@ export interface Props {
 
 export const getRooms = createAsyncThunk<any, void>(
   "GetAllRoomsSlice/getRooms",
-  async ({startDate,endDate}) => {
-    console.log(startDate,endDate);
+  async ({startDate,endDate,roomCount}:any) => {
     
     try {
       const data = await baseUrl.get(`/api/v0/portal/rooms/available`,{
         params:{
 page:1,
-size:20,
+size:roomCount,
 startDate,
 endDate
         }
