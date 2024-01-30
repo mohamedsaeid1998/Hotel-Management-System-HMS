@@ -42,7 +42,9 @@ function App() {
         { path:'explore', element: <Explore /> },
         { path:'explore/:startDate/:endDate/:persons', element: <Explore /> },
         { path:'room-reviews', element: <Reviews /> },
+
         { path:'favorite-rooms', element: <Favorites /> },
+        // { path:'favorite-rooms/:startDate/:endDate/:persons/:id', element: <Favorites /> },
         { path:'room-details/:id', element: <RoomDetails /> },
         { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
       ]
