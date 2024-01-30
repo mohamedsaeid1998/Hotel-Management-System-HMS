@@ -651,12 +651,8 @@
 
 //! ****************************Explore Page*********************************
 
-
-
-
 .exploreCom {
   font-family: "Poppins", sans-serif;
-
 
   .roomCon {
     margin-top: 30px;
@@ -684,13 +680,10 @@
   margin-top: 20px !important;
 }
 
-
-
 //! ****************************RoomDetails Page*********************************
 
 .roomDetailsCon {
-
-  .roomImages{
+  .roomImages {
     margin-top: 20px;
   }
   .gridDetails {
@@ -740,4 +733,24 @@
 
 #g_a11y_announcement {
   right: 0 !important;
+}
+.iconLogin {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.loginButton {
+  width: 150px;
+  padding: 15px 25px;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.facebook {
+  background-color: #507cc0;
 }

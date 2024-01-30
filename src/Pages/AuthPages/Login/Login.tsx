@@ -1,3 +1,5 @@
+/** @format */
+
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
 import { ChevronLeft } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
@@ -10,6 +12,8 @@ import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
 import baseUrl from "@/utils/Custom/Custom";
 import { toast } from "react-toastify";
+import "../../../Styles/global.scss";
+import FacebookLoginAuth from "./FacebookLoginAuth";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,10 +24,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
-    dispatch(fetchData(data))
-
-  }, [dispatch])
+  const onSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      dispatch(fetchData(data));
+    },
+    [dispatch]
+  );
 
   if (islogged === "admin") {
     navigate("/dashboard");
@@ -58,6 +64,12 @@ const Login = () => {
         })
       );
   }
+  {
+    /*FaceBook */
+  }
+  const facebook = () => {
+    window.open("http://154.41.228.234:3000/api/v0/portal/users/auth/facebook");
+  };
 
   useEffect(() => {
     const google = window.google;
@@ -77,7 +89,6 @@ const Login = () => {
   return (
     <>
       <Box component="div">
-        {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>
             Stay
@@ -100,7 +111,6 @@ const Login = () => {
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Register here !
             </Link>
           </Typography>
@@ -172,6 +182,7 @@ const Login = () => {
             </Button>
           )}
           <div id="signInDiv"></div>
+          <FacebookLoginAuth />
         </form>
       </Box>
     </>
