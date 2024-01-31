@@ -400,6 +400,8 @@
 
 //? ************** Landing **************
 
+
+
 .landingSec {
   display: flex;
   justify-content: space-between;
@@ -438,31 +440,19 @@
     }
   }
 
+
+
+
   .exploreCon {
     margin-top: 15px;
     margin-left: 5px;
 
-    .caleBtn {
-      // display: inline-block;
-      padding-block: 10px !important;
-      margin-right: 10px !important;
-      margin-top: 3px;
-      // display: ;
-    }
 
     .css-i4bv87-MuiSvgIcon-root {
       font-size: 30px !important;
     }
 
-    .calendarField {
-      display: inline-block;
-      margin-right: 10px;
 
-      .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-        padding: 16.5px 60px !important;
-        margin: auto;
-      }
-    }
     .capacityCon {
       margin-top: 20px;
 
@@ -506,6 +496,22 @@
   }
 }
 
+.caleBtn {
+  display: inline-block !important;
+  padding-block: 10px !important;
+  margin-right: 10px !important;
+  margin-top: 3px;
+  // display: ;
+}
+.calendarField {
+  display: inline-block !important;
+  margin-right: 10px;
+
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 16.5px 60px !important;
+    margin: auto;
+  }
+}
 //? ****************************ViewSection-Landing*********************************
 .viewSec {
   margin-top: 50px;
@@ -651,12 +657,8 @@
 
 //! ****************************Explore Page*********************************
 
-
-
-
 .exploreCom {
   font-family: "Poppins", sans-serif;
-
 
   .roomCon {
     margin-top: 30px;
@@ -684,13 +686,11 @@
   margin-top: 20px !important;
 }
 
-
-
 //! ****************************RoomDetails Page*********************************
 
 .roomDetailsCon {
-
-  .roomImages{
+  font-family: "Poppins", sans-serif ;
+  .roomImages {
     margin-top: 20px;
   }
   .gridDetails {
@@ -716,8 +716,110 @@
       border-radius: 15px;
     }
   }
+
+  .roomDetailsBooking {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    .description {
+      @extend .grayColor;
+      max-width: 730px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 200%;
+      word-spacing: 1.8px;
+      margin-bottom: 5px;
+    }
+
+    .roomFacilities {
+      display: flex;
+      
+      justify-content: space-between;
+      column-gap: 60px;
+      row-gap: 20px;
+      align-items: center;
+      max-width: 650px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      .facilities {
+        display: flex;
+        flex-direction: column;
+
+        .facilitiesIcon {
+          width: 50px;
+        }
+        .mainDec {
+          @extend .darkColor;
+          font-weight: bold;
+        }
+        .subDec {
+          @extend .grayColor;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .roomDetailsBook {
+      .roomDetailsCard {
+        padding-right: 15px;
+        padding-left: 60px;
+        padding-block: 50px;
+
+        .cardContent {
+          .bookingCon {
+            @extend .darkColor;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 15px;
+          }
+          .bookingPrice {
+            color: #1abc9c;
+            font-size: 36px;
+            font-weight: 500;
+          }
+          .priceFor {
+            @extend .grayColor;
+            font-size: 36px;
+            font-weight: 275;
+          }
+          .bookingDiscount {
+            color: #ff1612;
+            font-weight: 500;
+          }
+          .bookingTitle {
+            @extend .darkColor;
+            margin-top: 150px;
+            font-family: "Poppins", sans-serif;
+            margin-bottom: 10px;
+          }
+        }
+
+        .submitBooking{
+          @extend .flex;
+          justify-content: center ;
+          align-items: center;
+          margin-top: 20px;
+          .submitBtn{
+            
+          background-color: $BlueColor !important;
+          width: 70%;
+
+          }
+        }
+
+
+
+
+      }
+    }
+  }
 }
 
+.sub{
+font-size: 18px !important;
+font-weight: 300;
+
+}
 .path {
   @extend .grayColor;
   font-family: "Poppins", sans-serif !important;
@@ -740,4 +842,14 @@
 
 #g_a11y_announcement {
   right: 0 !important;
+}
+
+
+.cardElement {
+  width: 20%;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
 }

@@ -13,8 +13,6 @@ export interface Props {
 export const roomDetails = createAsyncThunk<any, void>(
   "GetRoomDetailsSlice/roomDetails",
   async (id) => {
-    console.log(id);
-    
     try {
       const data = await baseUrl.get(`/api/v0/portal/rooms/${id}`);
       return data;

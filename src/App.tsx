@@ -2,7 +2,8 @@
 import { Provider } from "react-redux";
 import React from "react";
 const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
-
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound } from "./Components";
 import {
@@ -22,13 +23,19 @@ import {
   Reviews,
   RoomDetails,
   Rooms,
+  StripePayment,
   Users,
 } from "./Pages";
 import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
 // import LoadingComponent from "./Components/Loading/Loading";
+
+
 function App() {
+
+
+
   // /explore?startDate=${startDate}&endDate=${endDate}&person=${personsCount}
   const routes = createBrowserRouter([
     {
@@ -47,6 +54,7 @@ function App() {
         // { path:'favorite-rooms/:startDate/:endDate/:persons/:id', element: <Favorites /> },
         { path:'room-details/:id', element: <RoomDetails /> },
         { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
+        { path:'stripePayment', element: <StripePayment /> },
       ]
     },
     {

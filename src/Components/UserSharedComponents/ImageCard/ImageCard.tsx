@@ -20,10 +20,10 @@ interface Props {
 const ImageCard = ({ele,index,favList,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount}:Props) => {
 
   const navigate = useNavigate()
-  
+
   return <>
   
-          <Box key={ele?._id} className={`${index === 0 ? "main" : ""} here`}>
+          <Box key={ele?.room?._id} className={`${index === 0 ? "main" : ""} here`}>
               <img  className='RoomPicture' src={ele?.room?.images[0]} alt="RoomPicture" />
             {ele?.room?.discount?<Box className="discountLayer">{ele?.room?.discount}$ per night</Box>:null}
             <Box className="layer"  >
@@ -36,7 +36,7 @@ const ImageCard = ({ele,index,favList,deleteFavoriteItem,addItemToFavorite,start
                     :
                     <Favorite onClick={() => addItemToFavorite(ele?.room?._id)} />}
 
-                  <Visibility onClick={() => navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}/id=${ele._id}`)} />
+                  <Visibility onClick={() => navigate(`/room-details/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}/id=${ele?.room?._id}`)} />
                 </Box>
               </Box>
             </Box>

@@ -8,8 +8,13 @@ import { Dayjs, Range } from 'dayjs';
 import { useState } from "react";
 import './Calendar.module.scss';
 
+  interface IProps {
+  selectedDateRange?:any,
+  setSelectedDateRange?:any
+}
 
-const Calendar = ({selectedDateRange,setSelectedDateRange}:any) => {
+
+const Calendar = ({selectedDateRange,setSelectedDateRange}:IProps) => {
 
 
   const [anchorEl, setAnchorEl] = useState(null);
