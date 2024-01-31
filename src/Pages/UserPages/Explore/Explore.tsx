@@ -14,6 +14,7 @@ import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavo
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
+import LoadingComponent from "@/Components/Shared/Loading/Loading";
 
 const Explore = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -113,24 +114,28 @@ const Explore = () => {
           All Rooms
         </Typography>
         <Box className="roomCon" justifyContent={"center"}>
-          {currentRooms?.map((ele, index) => (
-            <>
-              <ImageCard2
-                className={style.cardImage}
-                key={ele?._id}
-                {...{
-                  ele,
-                  index,
-                  startDate,
-                  endDate,
-                  bookingGuestCount,
-                  favList,
-                  deleteFavoriteItem,
-                  addItemToFavorite,
-                }}
-              />
-            </>
-          ))}
+          {currentRooms?.length <= 0 ? (
+            <LoadingComponent />
+          ) : (
+            currentRooms?.map((ele, index) => (
+              <>
+                <ImageCard2
+                  className={style.cardImage}
+                  key={ele?._id}
+                  {...{
+                    ele,
+                    index,
+                    startDate,
+                    endDate,
+                    bookingGuestCount,
+                    favList,
+                    deleteFavoriteItem,
+                    addItemToFavorite,
+                  }}
+                />
+              </>
+            ))
+          )}
         </Box>
       </Box>
       <Stack spacing={2} marginTop={4} justifyContent={"center"}>
