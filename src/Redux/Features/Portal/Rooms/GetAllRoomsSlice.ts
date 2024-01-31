@@ -9,19 +9,17 @@ export interface Props {
   error: null | string;
 }
 
-
 export const getRooms = createAsyncThunk<any, void>(
   "GetAllRoomsSlice/getRooms",
-  async ({startDate,endDate,roomCount}:any) => {
-    
+  async ({ startDate, endDate, roomCount }: any) => {
     try {
-      const data = await baseUrl.get(`/api/v0/portal/rooms/available`,{
-        params:{
-page:1,
-size:roomCount,
-startDate,
-endDate
-        }
+      const data = await baseUrl.get(`/api/v0/portal/rooms/available`, {
+        params: {
+          page: 1,
+          size: roomCount,
+          startDate,
+          endDate,
+        },
       });
       return data.data;
     } catch (error) {

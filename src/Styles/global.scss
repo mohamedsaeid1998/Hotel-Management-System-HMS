@@ -657,9 +657,12 @@
   .roomCon {
     margin-top: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-wrap: wrap;
     gap: 20px;
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
   }
 }
 
@@ -754,3 +757,6 @@
 .facebook {
   background-color: #507cc0;
 }
+// .css-wjh20t-MuiPagination-ul {
+//   justify-content: center !important;
+// }

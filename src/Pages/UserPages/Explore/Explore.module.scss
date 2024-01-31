@@ -1,1 +1,23 @@
-.Explore {}
+/** @format */
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 2rem 0;
+}
+.cardImage {
+  width: 100%;
+  max-width: 4rem;
+  background-color: black;
+  @media (max-width: 575px) {
+    background-color: blue($color: #000000);
+
+    width: 200rem;
+  }
+  @media (min-width: 575px) {
+    width: 300rem;
+    background-color: red;
+  }
+}
