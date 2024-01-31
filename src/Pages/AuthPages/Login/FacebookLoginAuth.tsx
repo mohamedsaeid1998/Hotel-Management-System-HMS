@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login";
 const FacebookLoginAuth = () => {
   const [accessToken, setAccessToken] = useState(null);
-  console.log(accessToken);
-  const handleFacebookLogin = (response) => {
+  const handleFacebookLogin = async (response) => {
     console.log(response);
+    console.log(response.accessToken);
     setAccessToken(response.accessToken);
 
     axios
-      .post(
-        `http://154.41.228.234:3000/portal/users/auth/facebook`,
-        accessToken
-      )
+      .post(`http://154.41.228.234:3000/portal/users/auth/facebook`, {
+        accessToken,
+        userID: "65aa6efdcc8304619b0fd44c",
+      })
       .then((response) => {
         console.log("API response:", response.data);
       })
@@ -22,9 +22,7 @@ const FacebookLoginAuth = () => {
         console.error("API error:", error);
       });
   };
-  useEffect(() => {
-    handleFacebookLogin;
-  }, []);
+
   return (
     <>
       {" "}
