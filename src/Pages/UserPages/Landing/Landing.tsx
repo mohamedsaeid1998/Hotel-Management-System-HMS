@@ -255,7 +255,17 @@ const Landing = () => {
         <Box className="sliderCon">
           <Slider {...settings}>
             {rooms?.map((ele, index) => (
-              <>
+              <Box
+                sx={{
+                  borderRadius: "8px",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "transform 0.3s ease-in-out",
+
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                  },
+                }}
+              >
                 <ImageCard2
                   key={ele?._id}
                   {...{
@@ -269,7 +279,7 @@ const Landing = () => {
                     favList,
                   }}
                 />
-              </>
+              </Box>
             ))}
           </Slider>
         </Box>
