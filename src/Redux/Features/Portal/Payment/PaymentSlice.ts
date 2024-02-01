@@ -1,5 +1,6 @@
 /** @format */
 
+
 import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
@@ -14,7 +15,7 @@ export interface Props {
 
 export const paymentByVisa = createAsyncThunk<any, void>(
   "PaymentSlice/paymentByVisa",
-  async ({id,token}) => {
+  async ({id,tokenId:token}:any) => {
     const tokens = localStorage.getItem("authToken");
     try {
       const data = await baseUrl.post(`/api/v0/portal/booking/${id}/pay`,{
@@ -26,7 +27,13 @@ export const paymentByVisa = createAsyncThunk<any, void>(
       });
       return data.data;
     } catch (error) {
-      toast.error(error);
+      console.log(error)
+      
+      toast.error(error?.response?.data?.message, {
+        autoClose: 2000,
+        theme: "colored",
+
+      })
     }
   }
 );

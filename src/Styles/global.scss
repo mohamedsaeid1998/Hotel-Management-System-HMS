@@ -808,8 +808,6 @@
         }
 
 
-
-
       }
     }
   }
@@ -845,11 +843,40 @@ font-weight: 300;
 }
 
 
-.cardElement {
-  width: 20%;
-  font-family: 'Arial', sans-serif;
+
+
+//! ****************************Payment Page*********************************
+
+
+.paymentForm {
+  width: 100%; /* جعل النموذج يمتد على العرض بشكل كامل */
+  max-width: 400px; /* تحديد العرض الأقصى للنموذج */
+  margin: auto;
+  padding: 20px;
   border: 1px solid #ccc;
-  padding: 10px;
   border-radius: 5px;
-  margin-bottom: 15px;
+}
+
+.cardElement,
+.AddressElement {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.paymentForm Button {
+  width: 100%; 
+  margin-top: 20px;
+  background-color: #2196F3; 
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paymentForm Button:hover {
+  background-color: #1565C0; 
 }

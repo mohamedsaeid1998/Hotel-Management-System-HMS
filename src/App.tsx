@@ -54,7 +54,7 @@ function App() {
         // { path:'favorite-rooms/:startDate/:endDate/:persons/:id', element: <Favorites /> },
         { path:'room-details/:id', element: <RoomDetails /> },
         { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
-        { path:'stripePayment', element: <StripePayment /> },
+        { path:'stripePayment/:id', element: <StripePayment /> },
       ]
     },
     {

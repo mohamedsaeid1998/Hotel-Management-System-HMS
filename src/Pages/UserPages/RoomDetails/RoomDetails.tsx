@@ -65,7 +65,7 @@ const navigate = useNavigate()
         autoClose: 2000,
         theme: "colored",
       });
-      navigate('/stripePayment')
+      navigate(`/stripePayment/${element?.payload?.data?.booking?._id}`)
     } catch (error) {
       // toast.error("Error fetching data:", error);
     }
