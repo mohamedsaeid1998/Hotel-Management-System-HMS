@@ -22,6 +22,7 @@ interface IProps {
 export const CreateBooking = createAsyncThunk<any, void>(
   "CreateBookingSlice/CreateBooking",
   async ({startDate,endDate,id,price}:IProps) => {
+
     const token = localStorage.getItem("authToken");
     try {
       const data = await baseUrl.post(`/api/v0/portal/booking`,{
@@ -36,7 +37,10 @@ export const CreateBooking = createAsyncThunk<any, void>(
       });
       return data.data;
     } catch (error) {
-      toast.error(error);
+      toast.error(error?.response?.data?.message, {
+        autoClose: 2000,
+        theme: "colored",
+      })
     }
   }
 );

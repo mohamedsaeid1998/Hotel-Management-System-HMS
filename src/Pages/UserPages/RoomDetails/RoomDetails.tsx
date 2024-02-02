@@ -1,14 +1,14 @@
+import { RoomDetails1, RoomDetails2, RoomDetails3, ac, bathroom, bedroom, diningroom, kulkas, livingroom, tv, wifi } from '@/Assets/Images';
+import { Calendar } from '@/Components';
+import { CreateBooking } from '@/Redux/Features/Portal/Booking/CreateBookingSlice';
+import { roomDetails } from '@/Redux/Features/Portal/Rooms/GetRoomDetailsSlice';
 import { Box, Button, Card, CardContent, Typography } from '@mui/material';
-import './RoomDetails.module.scss';
+import dayjs, { Dayjs, Range } from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
-import { roomDetails } from '@/Redux/Features/Portal/Rooms/GetRoomDetailsSlice';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { RoomDetails1, RoomDetails2, RoomDetails3, ic_ac, ic_bathroom, ic_bedroom, ic_diningroom, ic_kulkas, ic_livingroom, ic_tv, ic_wifi } from '@/Assets/Images';
-import { Calendar } from '@/Components';
-import dayjs, { Dayjs, Range } from 'dayjs';
-import { CreateBooking } from '@/Redux/Features/Portal/Booking/CreateBookingSlice';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './RoomDetails.module.scss';
 
 
 const RoomDetails = () => {
@@ -21,27 +21,32 @@ const RoomDetails = () => {
     nextDate,
   ]);
 
-  const { endDate: end, persons: per, startDate: str, id: roomId } = useParams()
-  const endDate = end?.substring(end?.indexOf('=') + 1);
-  const startDate = str?.substring(str?.indexOf('=') + 1);
-  const bookingGuestCount = per?.substring(per?.indexOf('=') + 1);
-  const id = roomId?.substring(roomId?.indexOf('=') + 1);
-  
+
+  const { state } = useLocation()
+console.log(state);
+
+  const startDate = state?.range === undefined ? today : state?.range[0].format('YYYY-MM-DD')
+  const endDate = state?.range === undefined ? nextDate : state?.range[1].format('YYYY-MM-DD')
+  const bookingGuestCount = state?.persons
+  const id = state?.roomId
+
+
   const [details, setDetails] = useState()
   const [price, setPrice] = useState(0)
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     getRoomDetails()
   }, []);
 
 
-//! ************************ Get Room Details *************************
+  //! ************************ Get Room Details *************************
   const getRoomDetails = async () => {
 
     try {
       // @ts-ignore
       const element = await dispatch(roomDetails(id));
+      console.log(element?.payload?.data?.data?.room?.discount);
       // @ts-ignore
       setDetails(element?.payload?.data?.data?.room);
       // @ts-ignore
@@ -49,17 +54,18 @@ const navigate = useNavigate()
     } finally {
     }
   }
-  
+
 
   //! ************************ Booking Room  *************************
 
-  const handleBooking = async(e:any) => {
+  const handleBooking = async (e: any) => {
     e.preventDefault()
     try {
       // @ts-ignore
-      const element = await dispatch(CreateBooking({startDate,endDate,id,price}));
+
+      const element = await dispatch(CreateBooking({ startDate, endDate, id, price }));
       console.log(element);
-      
+
       // @ts-ignore
       toast.success(element?.payload?.message, {
         autoClose: 2000,
@@ -71,18 +77,20 @@ const navigate = useNavigate()
     }
   }
 
-    //! ************************ facilities Content *************************
+  //! ************************ facilities Content *************************
 
   const facilitiesDetails = [
-    { Icon: ic_bedroom, main: 5, sub: "bedroom" },
-    { Icon: ic_livingroom, main: 1, sub: "living room" },
-    { Icon: ic_bathroom, main: 3, sub: "bathroom" },
-    { Icon: ic_diningroom, main: 1, sub: "dining room" },
-    { Icon: ic_wifi, main: 10, sub: "mbp/s" },
-    { Icon: ic_ac, main: 7, sub: "unit ready" },
-    { Icon: ic_kulkas, main: 2, sub: "refigrator" },
-    { Icon: ic_tv, main: 4, sub: "television" },
+    { Icon: bedroom, main: 5, sub: "bedroom" },
+    { Icon: livingroom, main: 1, sub: "living room" },
+    { Icon: bathroom, main: 3, sub: "bathroom" },
+    { Icon: diningroom, main: 1, sub: "dining room" },
+    { Icon: wifi, main: 10, sub: "mbp/s" },
+    { Icon: ac, main: 7, sub: "unit ready" },
+    { Icon: kulkas, main: 2, sub: "refigrator" },
+    { Icon: tv, main: 4, sub: "television" },
   ]
+
+console.log(bookingGuestCount);
 
 
   return <>
@@ -135,11 +143,11 @@ const navigate = useNavigate()
           <Card variant="outlined" className='roomDetailsCard'>
             <CardContent className='cardContent'>
               <Typography className='bookingCon'>Start Booking</Typography>
-              <Typography className='bookingPrice'>$280 <Typography variant='caption' className='priceFor'> per night</Typography> </Typography>
-              <Typography className='bookingDiscount'>Discount 20% Off</Typography>
+              <Typography className='bookingPrice'>{`$${price}`} <Typography variant='caption' className='priceFor'> per night</Typography> </Typography>
+              {Math.round((details?.discount / price) * 100) !== 0 &&  <Typography className='bookingDiscount'>Discount {Math.round((details?.discount / price) * 100)}% Off</Typography>}
               <Typography className='bookingTitle'>Pick a Date</Typography>
               <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
-              <Typography className='grayColor'>You will pay  <Typography variant='caption' className='bookingCon'> $480 USD </Typography> <Typography variant='caption' className='sub'>pre</Typography> <Typography variant='caption' className='bookingCon'> 2 Person</Typography> </Typography>
+              <Typography className='grayColor'>You will pay <Typography variant='caption' className='bookingCon'> {`$${bookingGuestCount ? price * bookingGuestCount : price} USD`}</Typography> <Typography variant='caption' className='sub'>pre</Typography> <Typography variant='caption' className='bookingCon'> {`${bookingGuestCount !== 1 && bookingGuestCount !== undefined ? `${bookingGuestCount} persons` : `1 person`} `}</Typography> </Typography>
               <Box className="submitBooking">
                 <Button className="submitBtn" type='submit' variant="contained" onClick={handleBooking}>
                   Continue Book

@@ -120,6 +120,7 @@ const [favoriteItemsCount, setFavoriteItemsCount] = useState(0)
             </Link>
             <IconButton aria-label={notificationsLabel(100)}>
               <Badge
+              className="favoriteCount"
                 badgeContent={
                   favoriteItemsCount === 0 ? "0" : favoriteItemsCount
                 }

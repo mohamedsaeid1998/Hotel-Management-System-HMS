@@ -6,7 +6,7 @@ import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavorite
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
 import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { Add, Remove } from '@mui/icons-material';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, IconButton, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import dayjs, { Dayjs, Range } from 'dayjs';
 import { useEffect, useState } from "react";
@@ -91,7 +91,7 @@ const Landing = () => {
       // @ts-ignore
       const element = await dispatch(AllAdsData());
       // @ts-ignore
-      console.log(element?.payload?.data?.data?.ads?.map((ele)=>ele))
+      console.log(element?.payload?.data?.data?.ads?.map((ele) => ele))
 
       setAdsData(element?.payload?.data?.data?.ads);
     } finally {
@@ -132,13 +132,13 @@ const Landing = () => {
   //! ************************ Get Rooms  *************************
   const [rooms, setRooms] = useState([])
 
-  const getRoomsData = async (roomCount:any) => {
+  const getRoomsData = async (roomCount: any) => {
     try {
       // @ts-ignore
-      const element = await dispatch(getRooms({startDate,endDate,roomCount}));
+      const element = await dispatch(getRooms({ startDate, endDate, roomCount }));
       // @ts-ignore
       console.log(element?.payload?.data?.rooms);
-      
+
       setRooms(element?.payload?.data?.rooms);
     } finally {
 
@@ -185,22 +185,24 @@ const Landing = () => {
           <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
 
           <Box className="capacityCon">
-            <Button onClick={handleIncrease} className="caleBtn" variant="contained" color="primary">
+            <IconButton onClick={handleIncrease} className="caleBtn" color="primary">
               <Add />
-            </Button>
+            </IconButton>
             <TextField
-              className='calendarField'
+              className='capacityField'
               label="Capacity"
               value={`${bookingGuestCount} person`}
             />
-            <Button onClick={handleDecrease} className="caleBtn" variant="contained" color="error">
+            <IconButton onClick={handleDecrease} className="caleBtnDiscernment" color="error">
               <Remove />
-            </Button>
+            </IconButton>
+
           </Box>
 
         </Box>
 
-        <Button className="submitExplore" onClick={() => navigate(`/explore/startDate=${startDate}/endDate=${endDate}/persons=${bookingGuestCount}`)} variant="contained" color="primary">
+        <Button className="submitExplore" onClick={() => navigate(`/explore`, { state: { range: selectedDateRange, persons: bookingGuestCount } }
+        )} variant="contained" color="primary">
           Explore
         </Button>
 
@@ -220,8 +222,8 @@ const Landing = () => {
       <Typography variant='h4' className="adsTitle"> Most Popular Ads</Typography>
 
       <Box className="grid">
-  {adsData?.map((ele,index) => <>
-          <ImageCard key={ele?._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
+        {adsData?.map((ele, index) => <>
+          <ImageCard key={ele?._id} {...{ selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
         </>
         )}
 
@@ -232,11 +234,11 @@ const Landing = () => {
 
 
         <Slider  {...settings}>
-        { rooms?.map((ele, index) => <>
-          <ImageCard2 key={ele?._id} {...{ ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
-        </>
+          {rooms?.map((ele, index) => <>
+            <ImageCard2 key={ele?._id} {...{ selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
+          </>
 
-        )}
+          )}
         </Slider>
 
       </Box>

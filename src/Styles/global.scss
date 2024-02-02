@@ -356,6 +356,10 @@
   }
 }
 
+// .css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover {
+//   background-color: rgb(255 0 0 / 15%);
+// }
+
 //! ************** Footer **************
 
 .footerContainer {
@@ -455,7 +459,8 @@
 
     .capacityCon {
       margin-top: 20px;
-
+      display: flex;
+      align-items: center;
       .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
         width: 25% !important;
         margin: auto;
@@ -497,20 +502,33 @@
 }
 
 .caleBtn {
-  display: inline-block !important;
-  padding-block: 10px !important;
+background-color: #1976d2 !important;
+width: 50px !important;
+height: 50px !important;
+border-radius: 15px !important;
+  padding-block: 8px !important;
   margin-right: 10px !important;
-  margin-top: 3px;
-  // display: ;
+  margin-left: 5px !important;
+  color: white !important;
 }
+.caleBtnDiscernment {
+  @extend .caleBtn;
+  background-color: #d32f2f !important;
+
+  }
 .calendarField {
   display: inline-block !important;
-  margin-right: 10px;
+  margin-right: 10px !important;
 
   .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 16.5px 60px !important;
     margin: auto;
   }
+}
+
+.capacityField{
+  @extend .calendarField;
+  margin-left: 10px !important;
 }
 //? ****************************ViewSection-Landing*********************************
 .viewSec {
@@ -624,9 +642,17 @@
 .icons {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  color: white;
+  gap: 5px;
 
+
+  .opacity:hover {
+    background-color: rgb(255 0 0 / 15%);
+  }
+
+  .color{
+    color: white !important;
+
+  }
   svg {
     cursor: pointer;
   }
