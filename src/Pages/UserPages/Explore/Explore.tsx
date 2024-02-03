@@ -14,7 +14,6 @@ import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavo
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
-import LoadingComponent from "@/Components/Shared/Loading/Loading";
 
 const Explore = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,11 +23,12 @@ const Explore = () => {
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const dispatch = useDispatch();
   const isLargeScreen = useMediaQuery("(min-width: 960px)");
-  // const itemsPerPage = isLargeScreen ? 12 : 6;
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentRooms = rooms.slice(indexOfFirstItem, indexOfLastItem);
+  const currentRooms = rooms?.slice(indexOfFirstItem, indexOfLastItem);
+  const isSmallScreen = useMediaQuery("(max-width:960px)");
+
   const handlePageChange = async (event, page) => {
     try {
       setIsLoading(true);
@@ -66,12 +66,15 @@ const Explore = () => {
   //! ************************ Get All Favorite Rooms  *************************
   const [favList, setFavList] = useState([]);
   const getFavoriteData = async () => {
+    setIsLoading(true);
+
     try {
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
       // @ts-ignore
       setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
     } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,11 +109,11 @@ const Explore = () => {
     }
   };
   const loadingArray = Array.from(
-    new Array(currentRooms.length || itemsPerPage)
+    new Array(currentRooms?.length || itemsPerPage)
   );
   return (
     <>
-      <Box component={"main"} className="exploreCom">
+      <Box component={"main"} className={style.exploreContainer}>
         <Typography variant="h1" className="title">
           Explore ALL Rooms
         </Typography>
@@ -123,17 +126,30 @@ const Explore = () => {
         <Typography variant="caption" className="subPath">
           Explore
         </Typography>
-        <Typography variant="h4" className="subTitle">
+        <Typography
+          variant="h4"
+          className="subTitle"
+          style={{ fontSize: "clamp(1rem, 2.5vw, 2rem)" }}
+        >
           All Rooms
         </Typography>
-        <Box className="roomCon" justifyContent={"center"}>
+        <Box className={style.ExploreImages} justifyContent={"center"}>
           {isLoading
             ? loadingArray.map(() => (
-                <Skeleton variant="rounded" width={200} height={200} />
+                <Skeleton
+                  variant="rounded"
+                  width={200}
+                  height={200}
+                  animation="wave"
+                />
               ))
-            : currentRooms.length >= 0 &&
-              currentRooms.map((ele, index) => (
-                <Box key={index} sx={{ width: 210, marginRight: 0.5, my: 5 }}>
+            : currentRooms?.length >= 0 &&
+              currentRooms?.map((ele, index) => (
+                <Box
+                  key={index}
+                  sx={{ width: 200, height: 200, my: 2 }}
+                  className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                >
                   <ImageCard2
                     className={style.cardImage}
                     key={ele?._id}
