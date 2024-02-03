@@ -58,14 +58,14 @@ const Favorites = () => {
   };
 
   const loadMoreImages = () => {
-    setVisibleImages(favList.length);
+    setVisibleImages(favList?.length);
   };
   const loadLessImages = () => {
     setVisibleImages(
-      Math.min(visibleImages - (isSmallScreen ? 3 : 6), favList.length)
+      Math.min(visibleImages - (isSmallScreen ? 3 : 6), favList?.length)
     );
   };
-  const loadingArray = Array.from(new Array(6));
+  const loadingArray = Array.from(new Array(6 || favList?.length));
   return (
     <>
       <Box
