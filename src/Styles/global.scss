@@ -404,8 +404,6 @@
 
 //? ************** Landing **************
 
-
-
 .landingSec {
   display: flex;
   justify-content: space-between;
@@ -444,18 +442,13 @@
     }
   }
 
-
-
-
   .exploreCon {
     margin-top: 15px;
     margin-left: 5px;
 
-
     .css-i4bv87-MuiSvgIcon-root {
       font-size: 30px !important;
     }
-
 
     .capacityCon {
       margin-top: 20px;
@@ -502,10 +495,10 @@
 }
 
 .caleBtn {
-background-color: #1976d2 !important;
-width: 50px !important;
-height: 50px !important;
-border-radius: 15px !important;
+  background-color: #1976d2 !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 15px !important;
   padding-block: 8px !important;
   margin-right: 10px !important;
   margin-left: 5px !important;
@@ -514,8 +507,7 @@ border-radius: 15px !important;
 .caleBtnDiscernment {
   @extend .caleBtn;
   background-color: #d32f2f !important;
-
-  }
+}
 .calendarField {
   display: inline-block !important;
   margin-right: 10px !important;
@@ -526,7 +518,7 @@ border-radius: 15px !important;
   }
 }
 
-.capacityField{
+.capacityField {
   @extend .calendarField;
   margin-left: 10px !important;
 }
@@ -644,14 +636,12 @@ border-radius: 15px !important;
   justify-content: center;
   gap: 5px;
 
-
   .opacity:hover {
     background-color: rgb(255 0 0 / 15%);
   }
 
-  .color{
+  .color {
     color: white !important;
-
   }
   svg {
     cursor: pointer;
@@ -715,7 +705,7 @@ border-radius: 15px !important;
 //! ****************************RoomDetails Page*********************************
 
 .roomDetailsCon {
-  font-family: "Poppins", sans-serif ;
+  font-family: "Poppins", sans-serif;
   .roomImages {
     margin-top: 20px;
   }
@@ -759,7 +749,7 @@ border-radius: 15px !important;
 
     .roomFacilities {
       display: flex;
-      
+
       justify-content: space-between;
       column-gap: 60px;
       row-gap: 20px;
@@ -820,29 +810,24 @@ border-radius: 15px !important;
           }
         }
 
-        .submitBooking{
+        .submitBooking {
           @extend .flex;
-          justify-content: center ;
+          justify-content: center;
           align-items: center;
           margin-top: 20px;
-          .submitBtn{
-            
-          background-color: $BlueColor !important;
-          width: 70%;
-
+          .submitBtn {
+            background-color: $BlueColor !important;
+            width: 70%;
           }
         }
-
-
       }
     }
   }
 }
 
-.sub{
-font-size: 18px !important;
-font-weight: 300;
-
+.sub {
+  font-size: 18px !important;
+  font-weight: 300;
 }
 .path {
   @extend .grayColor;
@@ -868,15 +853,11 @@ font-weight: 300;
   right: 0 !important;
 }
 
-
-
-
 //! ****************************Payment Page*********************************
 
-
 .paymentForm {
-  width: 100%; /* جعل النموذج يمتد على العرض بشكل كامل */
-  max-width: 400px; /* تحديد العرض الأقصى للنموذج */
+  width: 100%;
+  max-width: 400px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
@@ -892,9 +873,9 @@ font-weight: 300;
 }
 
 .paymentForm Button {
-  width: 100%; 
+  width: 100%;
   margin-top: 20px;
-  background-color: #2196F3; 
+  background-color: #2196f3;
   color: white;
   padding: 8px 20px;
   border: none;
@@ -904,5 +885,5 @@ font-weight: 300;
 }
 
 .paymentForm Button:hover {
-  background-color: #1565C0; 
+  background-color: #1565c0;
 }

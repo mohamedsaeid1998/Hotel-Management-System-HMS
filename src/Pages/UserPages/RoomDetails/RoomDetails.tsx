@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './RoomDetails.module.scss';
+import { LoadingButton } from '@mui/lab';
 
 
 const RoomDetails = () => {
@@ -23,10 +24,10 @@ const RoomDetails = () => {
 
 
   const { state } = useLocation()
-console.log(state);
+  console.log(state);
 
-  const startDate = state?.range === undefined ? today : state?.range[0].format('YYYY-MM-DD')
-  const endDate = state?.range === undefined ? nextDate : state?.range[1].format('YYYY-MM-DD')
+  const startDate = state?.range === undefined ? today : state?.range[0]?.format('YYYY-MM-DD')
+  const endDate = state?.range === undefined ? nextDate : state?.range[1]?.format('YYYY-MM-DD')
   const bookingGuestCount = state?.persons
   const id = state?.roomId
 
@@ -57,12 +58,12 @@ console.log(state);
 
 
   //! ************************ Booking Room  *************************
-
+  const [loading, setLoading] = useState(false)
   const handleBooking = async (e: any) => {
     e.preventDefault()
     try {
       // @ts-ignore
-
+      setLoading(true)
       const element = await dispatch(CreateBooking({ startDate, endDate, id, price }));
       console.log(element);
 
@@ -72,8 +73,8 @@ console.log(state);
         theme: "colored",
       });
       navigate(`/stripePayment/${element?.payload?.data?.booking?._id}`)
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -90,7 +91,7 @@ console.log(state);
     { Icon: tv, main: 4, sub: "television" },
   ]
 
-console.log(bookingGuestCount);
+  console.log(bookingGuestCount);
 
 
   return <>
@@ -144,14 +145,24 @@ console.log(bookingGuestCount);
             <CardContent className='cardContent'>
               <Typography className='bookingCon'>Start Booking</Typography>
               <Typography className='bookingPrice'>{`$${price}`} <Typography variant='caption' className='priceFor'> per night</Typography> </Typography>
-              {Math.round((details?.discount / price) * 100) !== 0 &&  <Typography className='bookingDiscount'>Discount {Math.round((details?.discount / price) * 100)}% Off</Typography>}
+              {Math.round((details?.discount / price) * 100) !== 0 && <Typography className='bookingDiscount'>Discount {Math.round((details?.discount / price) * 100)}% Off</Typography>}
               <Typography className='bookingTitle'>Pick a Date</Typography>
               <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
               <Typography className='grayColor'>You will pay <Typography variant='caption' className='bookingCon'> {`$${bookingGuestCount ? price * bookingGuestCount : price} USD`}</Typography> <Typography variant='caption' className='sub'>pre</Typography> <Typography variant='caption' className='bookingCon'> {`${bookingGuestCount !== 1 && bookingGuestCount !== undefined ? `${bookingGuestCount} persons` : `1 person`} `}</Typography> </Typography>
               <Box className="submitBooking">
-                <Button className="submitBtn" type='submit' variant="contained" onClick={handleBooking}>
-                  Continue Book
-                </Button>
+
+                {loading ? (
+                  <LoadingButton
+                    className="submitBtn white"
+                    loading
+                    variant="outlined"
+                  >
+                    Login
+                  </LoadingButton>
+                ) : (
+                  <Button className="submitBtn" type='submit' variant="contained" onClick={handleBooking}>
+                    Continue Book
+                  </Button>)}
               </Box>
 
             </CardContent>
@@ -165,3 +176,4 @@ console.log(bookingGuestCount);
 }
 
 export default RoomDetails
+

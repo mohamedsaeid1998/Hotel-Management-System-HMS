@@ -10,14 +10,12 @@ interface Props {
   favList: any,
   deleteFavoriteItem: any,
   addItemToFavorite?: any,
-  startDate?: any,
-  endDate?: any,
   bookingGuestCount?: any,
   selectedDateRange?:any
 }
 
 
-const ImageCard2 = ({selectedDateRange ,ele, index, favList, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount }: Props) => {
+const ImageCard2 = ({selectedDateRange ,ele, index, favList, deleteFavoriteItem, addItemToFavorite, bookingGuestCount }: Props) => {
 
   const navigate = useNavigate()
 

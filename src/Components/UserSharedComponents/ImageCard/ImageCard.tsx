@@ -10,21 +10,19 @@ interface Props {
   favList:any,
   deleteFavoriteItem:any,
   addItemToFavorite?:any,
-  startDate?:any,
-  endDate?:any,
   bookingGuestCount?:any,
   selectedDateRange?:any
 }
 
 
-const ImageCard = ({selectedDateRange,ele,index,favList,deleteFavoriteItem,addItemToFavorite,startDate,endDate,bookingGuestCount}:Props) => {
+const ImageCard = ({selectedDateRange,ele,index,favList,deleteFavoriteItem,addItemToFavorite,bookingGuestCount}:Props) => {
 
   const navigate = useNavigate()
 
   return <>
   
           <Box key={ele?.room?._id} className={`${index === 0 ? "main" : ""} here`}>
-              <img  className='RoomPicture' src={ele?.room?.images[0]} alt="RoomPicture" />
+              <img  className='RoomPicture' src={ele?.room?.images[0]}  alt="RoomPicture" />
             {ele?.room?.discount?<Box className="discountLayer">{ele?.room?.discount}$ per night</Box>:null}
             <Box className="layer"  >
               <Box className="text ">

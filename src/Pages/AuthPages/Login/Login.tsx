@@ -1,8 +1,8 @@
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
-import { ChevronLeft } from "@mui/icons-material";
+import { ChevronLeft, Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,6 +34,8 @@ const Login = () => {
   useEffect(() => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
+
+
 
   function handleCallbackResponse(response: any) {
     localStorage.setItem("authToken", response.credential);
@@ -127,7 +129,7 @@ const Login = () => {
 
           <TextField
             variant="outlined"
-            type="password"
+            type='password'
             className="auth-input"
             label="Password"
             color="primary"
@@ -179,3 +181,8 @@ const Login = () => {
 };
 
 export default Login;
+
+
+{/* <IconButton onClick={handleClickShowPassword} >
+{showPassword ? <VisibilityOff /> : <Visibility />}
+</IconButton> */}

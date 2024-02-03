@@ -16,8 +16,7 @@ const fetchData = createAsyncThunk(
   "changePassword/fetchData",
   async (userData) => {
     const token = localStorage.getItem("authToken");
-    const response = await baseUrl
-      .post(`/api/v0/admin/users/change-password`, userData, {
+    const response = await baseUrl.post(`/api/v0/admin/users/change-password`, userData, {
         headers: {
           Authorization: token,
         },

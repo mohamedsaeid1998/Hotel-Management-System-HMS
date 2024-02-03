@@ -6,7 +6,7 @@ import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavorite
 import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
 import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
 import { Add, Remove } from '@mui/icons-material';
-import { Box, Button, IconButton, TextField } from '@mui/material';
+import { Box, Button, IconButton, Skeleton, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import dayjs, { Dayjs, Range } from 'dayjs';
 import { useEffect, useState } from "react";
@@ -221,6 +221,7 @@ const Landing = () => {
 
       <Typography variant='h4' className="adsTitle"> Most Popular Ads</Typography>
 
+      {!adsData&&<Skeleton variant='rectangular' animation="pulse" width={200} height={200}/>}
       <Box className="grid">
         {adsData?.map((ele, index) => <>
           <ImageCard key={ele?._id} {...{ selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
