@@ -1,4 +1,4 @@
-import { Box, List, ListItem, Menu, MenuItem, Typography } from '@mui/material'
+import { Box, List, ListItem, Typography } from '@mui/material'
 import './Footer.module.scss'
 
 const Footer = () => {

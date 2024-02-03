@@ -1,13 +1,33 @@
+@media (max-width: 1050px) {
+  .Stepper {
+    width: 75% !important;
+  }
+
+  .leftCon {
+    display: none;
+  }
+}
+
 @media (max-width: 950px) {
   .footerContainer {
     flex-direction: column !important;
     align-items: start !important;
     gap: 20px;
   }
-  .listHead{
-    padding-left:0 !important;
+  .listHead {
+    padding-left: 0 !important;
   }
-  .listChild{
-    padding-left:0 !important;
+  .listChild {
+    padding-left: 0 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .Stepper {
+    width: 100% !important;
+  }
+
+  .userContainer {
+    padding-inline: 20px !important;
   }
 }

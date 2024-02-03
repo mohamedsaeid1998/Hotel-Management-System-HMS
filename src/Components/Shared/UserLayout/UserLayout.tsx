@@ -1,4 +1,4 @@
-import { NavBar,Footer } from '@/Components'
+import { NavBar, Footer } from '@/Components'
 import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 
@@ -10,8 +10,8 @@ const UserLayout = () => {
       <NavBar />
       <Box className="userContainer">
         <Outlet />
-        <Footer />
       </Box>
+      <Footer />
     </Box>
   </>
 }

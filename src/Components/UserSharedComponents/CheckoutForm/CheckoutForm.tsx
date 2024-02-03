@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
-import './CheckoutForm.module.scss'
-import { Box, Button } from '@mui/material'
-import { useStripe, useElements, CardElement, CardCvcElement, CardExpiryElement, CardNumberElement, AuBankAccountElement, AddressElement, ExpressCheckoutElement, IbanElement, FpxBankElement } from '@stripe/react-stripe-js';
-import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { paymentByVisa } from '@/Redux/Features/Portal/Payment/PaymentSlice';
 import { LoadingButton } from '@mui/lab';
+import { Box, Button, Skeleton, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import { AddressElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import './CheckoutForm.module.scss';
+import { creditCard, paymentDone } from '@/Assets/Images';
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate()
   const { id } = useParams()
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
-  
+  // useEffect(() => {
+  //   first
+
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
+
   //! ************************ Payment function  *************************
   const handlePayment = async (tokenId: any) => {
 
@@ -27,6 +35,7 @@ const CheckoutForm = () => {
         autoClose: 2000,
         theme: "colored",
       });
+      setActiveStep((currentStep) => currentStep + 1)
     } finally {
       setLoading(false)
     }
@@ -54,25 +63,136 @@ const CheckoutForm = () => {
     }
   };
 
+  const [activeStep, setActiveStep] = useState(0)
+  console.log(activeStep);
 
+  const handleNavigate = () => {
+    navigate('/')
+  }
   return <>
-    <Box component={"form"} className="paymentForm" onSubmit={handleSubmit}>
-      <AddressElement className='AddressElement' options={{ mode: 'billing' }}	></AddressElement>
-      <CardElement className='cardElement' />
-      {loading ? (
-        <LoadingButton
-          sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-          className="loadingButton"
-          loading
-          variant="outlined"
-        >
-          Login
-        </LoadingButton>
-      ) : (
-        <Button variant='contained' disabled={!stripe} type='submit'>Pay</Button>
-      )}    </Box>
+    <Box component={"main"} >
+      <Box className="Stepper">
+
+        <Stepper activeStep={activeStep}>
+          <Step className='circle'>
+            <StepLabel> First </StepLabel>
+          </Step>
+          <Step>
+            <StepLabel> Second </StepLabel>
+          </Step>
+        </Stepper>
+      </Box>
+
+      <Box >
+
+
+        {activeStep === 0 ? <>
+          <Box className="headerPay">
+            <Typography variant='h3' className='headerTitle'>Payment</Typography>
+            <Typography className='content'>Kindly follow the instructions below</Typography>
+          </Box>
+
+          <Box className="paymentCon">
+            <Box className="leftCon">
+              {!creditCard ? (
+                <Skeleton variant="rectangular" width={420} height={460} animation="wave" />
+              ) : (
+                <img src={creditCard} alt="creditCardImage" />
+              )}
+            </Box>
+
+            <Box component={"form"} className="paymentForm" onSubmit={handleSubmit}>
+              <AddressElement className='AddressElement' options={{ mode: 'billing' }}	></AddressElement>
+              <CardElement className='cardElement' />
+              {loading ? (
+                <LoadingButton
+                  sx={{ width: "100%", padding: "20px", margin: "20px 0" }}
+                  className="loadingButton"
+                  loading
+                  variant="outlined"
+                >
+                </LoadingButton>
+              ) : <>
+
+                <Button variant='contained' className='paymentBtn' disabled={!stripe} type='submit'>Pay</Button>
+
+              </>}    </Box>
+          </Box>
+        </> : <>
+          <Box className="headerPay">
+            <Typography variant='h3' className='headerTitle'>Yay! Completed</Typography>
+            <img src={paymentDone} alt="" />
+            <Typography className='content'>We will inform you via email later once the transaction has been accepted</Typography>
+            <Button className="backBtn" onClick={() => handleNavigate()}>Back To Home</Button>
+          </Box>
+
+        </>
+
+        }
+      </Box>
+
+
+
+    </Box >
+
+
   </>
 }
 
 export default CheckoutForm
 
+//  <Stepper activeStep={activeStep}>
+//         {steps.map((label, index) => {
+//           const stepProps: { completed?: boolean } = {};
+//           const labelProps: {
+//             optional?: React.ReactNode;
+//           } = {};
+//           if (isStepOptional(index)) {
+//             labelProps.optional = (
+//               <Typography variant="caption">Optional</Typography>
+//             );
+//           }
+//           if (isStepSkipped(index)) {
+//             stepProps.completed = false;
+//           }
+//           return (
+//             <Step key={label} {...stepProps}>
+//               <StepLabel {...labelProps}>{label}</StepLabel>
+//             </Step>
+//           );
+//         })}
+//       </Stepper>
+//       {activeStep === steps.length ? (
+//         <React.Fragment>
+//           <Typography sx={{ mt: 2, mb: 1 }}>
+//             All steps completed - you&apos;re finished
+//           </Typography>
+//           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+//             <Box sx={{ flex: '1 1 auto' }} />
+//             <Button onClick={handleReset}>Reset</Button>
+//           </Box>
+//         </React.Fragment>
+//       ) : (
+//         <React.Fragment>
+//           <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+//           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+//             <Button
+//               color="inherit"
+//               disabled={activeStep === 0}
+//               onClick={handleBack}
+//               sx={{ mr: 1 }}
+//             >
+//               Back
+//             </Button>
+//             <Box sx={{ flex: '1 1 auto' }} />
+//             {isStepOptional(activeStep) && (
+//               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+//                 Skip
+//               </Button>
+//             )}
+//             <Button onClick={handleNext}>
+//               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+//             </Button>
+//           </Box>
+//         </React.Fragment>
+//       )} 

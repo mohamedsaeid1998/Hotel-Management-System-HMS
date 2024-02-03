@@ -157,7 +157,6 @@
 
 .loadingButton {
   background-color: #1976d2 !important;
-
   span {
     color: white !important;
   }
@@ -363,8 +362,11 @@
 //! ************** Footer **************
 
 .footerContainer {
-  padding-top: 100px;
+  margin-top: 40px;
+  padding-top: 40px;
   padding-bottom: 40px;
+  padding-inline: 70px;
+  border-top: 1px solid #e5e5e5;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -378,10 +380,6 @@
   @extend .grayColor;
   max-width: 250px;
 }
-
-// .footerList{
-//   padding-bottom:20px !important;
-// }
 
 .listHead {
   @extend .darkColor;
@@ -844,9 +842,8 @@
 .subPath {
   color: #152c5b !important;
   font-family: "Poppins", sans-serif !important;
-  font-size: 18px !important;
+  font-size: clamp(1rem, 2.5vw, 1rem) !important;
   font-weight: 500 !important;
-  font-style: italic;
 }
 
 #g_a11y_announcement {
@@ -854,36 +851,86 @@
 }
 
 //! ****************************Payment Page*********************************
+.paymentCon {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  .leftCon {
+    color: white;
+  }
 
-.paymentForm {
-  width: 100%;
-  max-width: 400px;
+  .paymentForm {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    .cardElement,
+    .AddressElement {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .paymentBtn {
+      width: 100%;
+      margin-block: 20px;
+      background-color: #2196f3;
+      color: white;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .paymentBtn:hover {
+      background-color: #1565c0;
+    }
+  }
+}
+
+.Stepper {
+  width: 50%;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+}
+.headerPay {
+  @extend .flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+
+  .headerTitle {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #152c5b;
+    font-size: 36px;
+    font-weight: 600;
+  }
+
+  .content {
+    max-width: 396px;
+    color: #b0b0b0;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 27px;
+    text-align: center;
+  }
 }
 
-.cardElement,
-.AddressElement {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.paymentForm Button {
-  width: 100%;
-  margin-top: 20px;
-  background-color: #2196f3;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
+.backBtn {
+  margin-top: 20px !important;
+  background-color: #3252df !important;
+  color: white !important;
+  padding: 8px 20px !important;
+  border-radius: 5px !important;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease !important;
 }
 
-.paymentForm Button:hover {
-  background-color: #1565c0;
+.backBtn:hover {
+  background-color: #1565c0 !important;
 }
+
