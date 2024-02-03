@@ -1,23 +1,23 @@
-/** @format */
-
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { ImageCard2 } from "@/Components";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
-import { toast } from "react-toastify";
-import "./Favorites.module.scss";
-import { Box, Button, Skeleton, useMediaQuery } from "@mui/material";
-import style from "./Favorites.module.scss";
+import { Favorite, Home } from "@mui/icons-material";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import { Box, Breadcrumbs, Button, Skeleton, Typography, useMediaQuery } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
-import LoadingComponent from "@/Components/Shared/Loading/Loading";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "./Favorites.module.scss";
+import style from "./Favorites.module.scss";
 
 const Favorites = () => {
   const [visibleImages, setVisibleImages] = useState(6);
   const [favList, setFavList] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -39,21 +39,22 @@ const Favorites = () => {
     getFavoriteData();
   }, [dispatch, count, data]);
 
-  console.log(favList);
+
 
   //! ************************ Delete From Favorite  *************************
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
       // @ts-ignore
+      setDisabled(true)
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
       toast.success(element?.payload?.message, {
         autoClose: 2000,
         theme: "colored",
       });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally  {
+      setDisabled(false)
     }
   };
 
@@ -73,6 +74,18 @@ const Favorites = () => {
         style={{ height: "100vh" }}
         className="exploreCom"
       >
+        <Typography variant="h1" className="title">
+          Favorite Rooms
+        </Typography>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4.0 }}>
+          <Link className="path" color="inherit" to={"/"}> <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+            Home
+          </Link>
+          <Typography variant="caption" className="subPath" >
+            <Favorite fontSize="inherit" sx={{ mr: 0.5 }} />
+            Favorites
+          </Typography>
+        </Breadcrumbs>
         {isLoading ? (
           <Box className={style.favoriteComponent}>
             {loadingArray.map(() => (
@@ -91,7 +104,7 @@ const Favorites = () => {
                 <>
                   <ImageCard2
                     key={ele?._id}
-                    {...{ ele, index, favList, deleteFavoriteItem }}
+                    {...{ ele, index, favList, deleteFavoriteItem ,disabled }}
                   />
                 </>
               ))}

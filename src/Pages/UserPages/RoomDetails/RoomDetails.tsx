@@ -16,7 +16,7 @@ import {
 import { Calendar } from "@/Components";
 import { CreateBooking } from "@/Redux/Features/Portal/Booking/CreateBookingSlice";
 import { roomDetails } from "@/Redux/Features/Portal/Rooms/GetRoomDetailsSlice";
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Card, CardContent, Typography } from "@mui/material";
 import dayjs, { Dayjs, Range } from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -24,6 +24,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./RoomDetails.module.scss";
 import { LoadingButton } from "@mui/lab";
+import { Details, Home } from "@mui/icons-material";
 
 const RoomDetails = () => {
   const dispatch = useDispatch();
@@ -112,16 +113,15 @@ const RoomDetails = () => {
       <Typography variant="h1" className="title">
         {details?.roomNumber}
       </Typography>
-      <Link to={"/"} className="path">
-        Home
-      </Link>
-      <Typography variant="caption" className="slash">
-        /
-      </Typography>
-      <Typography variant="caption" className="subPath">
-        Room Details
-      </Typography>
-
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link className="path" color="inherit" to={"/"}> <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+          Home
+        </Link>
+        <Typography variant="caption" className="subPath" >
+          <Details fontSize="inherit" sx={{ mr: 0.5 }} />
+          Room Details
+        </Typography>
+      </Breadcrumbs>
       <Box component={"section"} className="roomImages">
         <Box className="gridDetails">
           {details && (
@@ -175,9 +175,8 @@ const RoomDetails = () => {
               <Box key={main} className="facilities">
                 <img className="facilitiesIcon" src={Icon} alt="Icons" />
                 <Typography className="mainDec">
-                  {main}{" "}
+                  {main}
                   <Typography variant="caption" className="subDec">
-                    {" "}
                     {sub}
                   </Typography>
                 </Typography>
@@ -216,8 +215,8 @@ const RoomDetails = () => {
         </Box>
 
       </Box>
-      </Box>
-    </>
+    </Box>
+  </>
 };
 
-    export default RoomDetails;
+export default RoomDetails;

@@ -1,4 +1,3 @@
-
 import './ImageCard2.module.scss'
 import { Box, IconButton, Typography } from '@mui/material'
 import { Favorite, Visibility } from '@mui/icons-material'
@@ -12,10 +11,11 @@ interface Props {
   addItemToFavorite?: any,
   bookingGuestCount?: any,
   selectedDateRange?:any
+  disabled?:boolean
 }
 
 
-const ImageCard2 = ({selectedDateRange ,ele, index, favList, deleteFavoriteItem, addItemToFavorite, bookingGuestCount }: Props) => {
+const ImageCard2 = ({selectedDateRange ,ele, index, favList, deleteFavoriteItem, addItemToFavorite, bookingGuestCount,disabled }: Props) => {
 
   const navigate = useNavigate()
 
@@ -29,11 +29,11 @@ const ImageCard2 = ({selectedDateRange ,ele, index, favList, deleteFavoriteItem,
           <Typography variant='h6' className="roomName">{ele?.roomNumber?.toUpperCase()}</Typography>
           <Box className="icons">
             {favList?.some((favorite: any) => favorite?._id === ele?._id) ?
-              <IconButton className='color opacity'  onClick={() => deleteFavoriteItem(ele._id)}>
+              <IconButton className='color opacity' disabled={disabled} onClick={() => deleteFavoriteItem(ele._id)}>
                 <Favorite color='error' />
               </IconButton>
               :
-              <IconButton className='color'  onClick={() => addItemToFavorite(ele?._id)}>
+              <IconButton className='color' disabled={disabled} onClick={() => addItemToFavorite(ele?._id)}>
                 <Favorite  />
               </IconButton>
             }

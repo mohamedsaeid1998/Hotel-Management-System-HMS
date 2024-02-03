@@ -2,7 +2,7 @@ import { paymentByVisa } from '@/Redux/Features/Portal/Payment/PaymentSlice';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Skeleton, Step, StepLabel, Stepper, Typography } from '@mui/material';
 import { AddressElement, CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -15,13 +15,6 @@ const CheckoutForm = () => {
   const { id } = useParams()
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
-  // useEffect(() => {
-  //   first
-
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
 
   //! ************************ Payment function  *************************
   const handlePayment = async (tokenId: any) => {

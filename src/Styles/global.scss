@@ -830,16 +830,15 @@
 .path {
   @extend .grayColor;
   font-family: "Poppins", sans-serif !important;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-}
-
-.slash {
-  @extend .grayColor;
-  font-family: "Poppins", sans-serif !important;
-  margin-inline: 10px !important;
+  font-size: clamp(1rem, 2.5vw, 1rem) !important;
 }
 
 .subPath {
+  display: flex;
+  align-items: center;
   color: #152c5b !important;
   font-family: "Poppins", sans-serif !important;
   font-size: clamp(1rem, 2.5vw, 1rem) !important;
@@ -933,4 +932,3 @@
 .backBtn:hover {
   background-color: #1565c0 !important;
 }
-

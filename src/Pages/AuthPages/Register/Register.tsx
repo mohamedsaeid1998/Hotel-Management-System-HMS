@@ -44,7 +44,6 @@ const Register = () => {
   return (
     <>
       <Box component="div">
-        {" "}
         <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
           <Box component="span" sx={{ color: "skyblue" }}>
             Stay
@@ -68,7 +67,6 @@ const Register = () => {
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Login here !
             </Link>
           </Typography>

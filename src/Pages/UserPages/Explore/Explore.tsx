@@ -1,34 +1,29 @@
-/** @format */
-
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { ImageCard2 } from "@/Components";
-import { Box, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Breadcrumbs, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
-
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
-
+import { Home, Living } from "@mui/icons-material";
 const Explore = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
+  const [disabled, setDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const dispatch = useDispatch();
-  const isLargeScreen = useMediaQuery("(min-width: 960px)");
   const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentRooms = rooms?.slice(indexOfFirstItem, indexOfLastItem);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
-
   const handlePageChange = async (event, page) => {
     try {
       setIsLoading(true);
@@ -51,9 +46,9 @@ const Explore = () => {
   const getRoomsData = async (roomCount: any) => {
     setIsLoading(true);
     try {
-      // @ts-ignore
       setIsLoading(true);
       const element = await dispatch(
+        // @ts-ignore
         getRooms({ startDate, endDate, roomCount })
       );
       // @ts-ignore
@@ -82,6 +77,7 @@ const Explore = () => {
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
+      setDisabled(true)
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
@@ -89,14 +85,15 @@ const Explore = () => {
         autoClose: 2000,
         theme: "colored",
       });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally {
+      setDisabled(false)
     }
   };
 
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
     try {
+      setDisabled(true)
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -104,8 +101,8 @@ const Explore = () => {
         autoClose: 2000,
         theme: "colored",
       });
-    } catch (error) {
-      toast.error("Error fetching data:", error);
+    } finally  {
+      setDisabled(false)
     }
   };
   const loadingArray = Array.from(
@@ -117,15 +114,20 @@ const Explore = () => {
         <Typography variant="h1" className="title">
           Explore ALL Rooms
         </Typography>
-        <Link to={"/"} className="path">
-          Home
-        </Link>
-        <Typography variant="caption" className="slash">
-          /
-        </Typography>
-        <Typography variant="caption" className="subPath">
-          Explore
-        </Typography>
+
+
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link className="path" color="inherit" to={"/"}> <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+            Home
+          </Link>
+          <Typography variant="caption" className="subPath" >
+            <Living fontSize="inherit" sx={{ mr: 0.5 }} />
+            Explore
+          </Typography>
+        </Breadcrumbs>
+
+
+
         <Typography
           variant="h4"
           className="subTitle"
@@ -136,36 +138,37 @@ const Explore = () => {
         <Box className={style.ExploreImages} justifyContent={"center"}>
           {isLoading
             ? loadingArray.map(() => (
-                <Skeleton
-                  variant="rounded"
-                  width={200}
-                  height={200}
-                  animation="wave"
-                />
-              ))
+              <Skeleton
+                variant="rounded"
+                width={200}
+                height={200}
+                animation="wave"
+              />
+            ))
             : currentRooms?.length >= 0 &&
-              currentRooms?.map((ele, index) => (
-                <Box
-                  key={index}
-                  sx={{ width: 200, height: 200, my: 2 }}
-                  className={` ${isSmallScreen ? style.imgExplore : ""}`}
-                >
-                  <ImageCard2
-                    className={style.cardImage}
-                    key={ele?._id}
-                    {...{
-                      ele,
-                      index,
-                      startDate,
-                      endDate,
-                      bookingGuestCount,
-                      favList,
-                      deleteFavoriteItem,
-                      addItemToFavorite,
-                    }}
-                  />
-                </Box>
-              ))}
+            currentRooms?.map((ele, index) => (
+              <Box
+                key={index}
+                sx={{ width: 200, height: 200, my: 2 }}
+                className={` ${isSmallScreen ? style.imgExplore : ""}`}
+              >
+                <ImageCard2
+                  className={style.cardImage}
+                  key={ele?._id}
+                  {...{
+                    ele,
+                    index,
+                    startDate,
+                    endDate,
+                    bookingGuestCount,
+                    favList,
+                    deleteFavoriteItem,
+                    addItemToFavorite,
+                    disabled
+                  }}
+                />
+              </Box>
+            ))}
         </Box>
         <Stack spacing={2} marginTop={4} justifyContent={"center"}>
           <Pagination

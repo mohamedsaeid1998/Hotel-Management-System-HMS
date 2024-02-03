@@ -22,7 +22,7 @@ const Landing = () => {
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
-
+  const [disabled, setDisabled] = useState(false);
   const [bookingGuestCount, setBookingGuestCount] = useState(1);
   const navigate = useNavigate();
   const today = dayjs();
@@ -31,8 +31,6 @@ const Landing = () => {
     today,
     nextDate,
   ]);
-
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getRoomsData(15);
@@ -81,20 +79,19 @@ const Landing = () => {
   //! ************************ Rooms Ads *************************
   const getAdsData = async () => {
     try {
-      setLoading(true);
       // @ts-ignore
       const element = await dispatch(AllAdsData());
       // @ts-ignore
 
       setAdsData(element?.payload?.data?.data?.ads);
     } finally {
-      setLoading(false);
     }
   };
 
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
     try {
+      setDisabled(true)
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -102,8 +99,8 @@ const Landing = () => {
         autoClose: 2000,
         theme: "colored",
       });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally {
+      setDisabled(false)
     }
   };
 
@@ -124,8 +121,8 @@ const Landing = () => {
 
   const getRoomsData = async (roomCount: any) => {
     try {
-      // @ts-ignore
       const element = await dispatch(
+        // @ts-ignore
         getRooms({ startDate, endDate, roomCount })
       );
       // @ts-ignore
@@ -139,6 +136,7 @@ const Landing = () => {
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
+      setDisabled(true)
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
@@ -146,8 +144,8 @@ const Landing = () => {
         autoClose: 2000,
         theme: "colored",
       });
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally {
+      setDisabled(false)
     }
   };
 
@@ -219,20 +217,18 @@ const Landing = () => {
 
       <Box component="section" className="viewSec">
         <Typography variant="h4" className="adsTitle">
-          {" "}
           Most Popular Ads
         </Typography>
 
-      <Box className="grid">
-        {adsData?.map((ele, index) => <>
-          <ImageCard key={ele?._id} {...{ selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
-        </>
-        )}
+        <Box className="grid">
+          {adsData?.map((ele, index) => <>
+            <ImageCard key={ele?._id} {...{ disabled, selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
+          </>
+          )}
 
-      </Box>
+        </Box>
 
         <Typography variant="h4" className="bookingTitle">
-          {" "}
           Most Booked Rooms
         </Typography>
         <Box className="sliderCon">
@@ -251,6 +247,7 @@ const Landing = () => {
                     endDate,
                     bookingGuestCount,
                     favList,
+                    disabled
                   }}
                 />
               </>
