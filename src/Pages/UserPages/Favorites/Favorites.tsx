@@ -7,7 +7,7 @@ import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavori
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import { toast } from "react-toastify";
 import "./Favorites.module.scss";
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button, Skeleton, useMediaQuery } from "@mui/material";
 import style from "./Favorites.module.scss";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -15,23 +15,24 @@ import Tooltip from "@mui/material/Tooltip";
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 
 const Favorites = () => {
+  const [visibleImages, setVisibleImages] = useState(6);
+  const [favList, setFavList] = useState([]);
+  const [isLoading, setLoading] = useState(false);
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const dispatch = useDispatch();
   //! ************************ Get All Favorite Rooms  *************************
-  const [favList, setFavList] = useState([]);
   const getFavoriteData = async () => {
+    setLoading(true);
     try {
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
-      console.log(element);
-
       // @ts-ignore
-
       setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
     } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -55,7 +56,6 @@ const Favorites = () => {
       // toast.error("Error fetching data:", error);
     }
   };
-  const [visibleImages, setVisibleImages] = useState(6);
 
   const loadMoreImages = () => {
     setVisibleImages(favList.length);
@@ -65,6 +65,7 @@ const Favorites = () => {
       Math.min(visibleImages - (isSmallScreen ? 3 : 6), favList.length)
     );
   };
+  const loadingArray = Array.from(new Array(6));
   return (
     <>
       <Box
@@ -72,8 +73,17 @@ const Favorites = () => {
         style={{ height: "100vh" }}
         className="exploreCom"
       >
-        {favList?.length <= 0 ? (
-          <LoadingComponent />
+        {isLoading ? (
+          <Box className={style.favoriteComponent}>
+            {loadingArray.map(() => (
+              <Skeleton
+                variant="rounded"
+                width={200}
+                height={200}
+                animation="wave"
+              />
+            ))}
+          </Box>
         ) : (
           <>
             <Box className={style.favoriteComponent}>
