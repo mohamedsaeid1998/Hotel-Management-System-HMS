@@ -1,1 +1,26 @@
-.Favorites {}
+/** @format */
+
+.Favorites {
+}
+.showMore {
+  animation: showMoreCursor 2s infinite;
+}
+@keyframes showMoreCursor {
+  50% {
+    transform: translateY(-20%) rotateY(10deg);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+.favoriteComponent {
+  margin-top: 30px;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 20px;
+  @media (max-width: 960px) {
+    justify-content: center !important;
+  }
+}
