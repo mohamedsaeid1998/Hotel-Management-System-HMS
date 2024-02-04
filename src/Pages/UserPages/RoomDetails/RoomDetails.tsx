@@ -31,11 +31,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import RatingComponent from "@/Components/Rating/RatingComponent";
-import FeedbackComponent from "@/Components/FeedbackComponent/FeedbackComponent";
 import style from "./RoomDetails.module.scss";
 import { LoadingButton } from "@mui/lab";
 import { Details, Home } from "@mui/icons-material";
+import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
+import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
 
 const RoomDetails = () => {
   const [showMore, setShowMore] = useState(false);
