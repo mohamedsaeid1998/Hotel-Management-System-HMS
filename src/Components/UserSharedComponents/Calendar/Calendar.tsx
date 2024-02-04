@@ -1,7 +1,7 @@
 /** @format */
 
 import { CalendarMonth } from "@mui/icons-material";
-import { Button, Popover, TextField } from "@mui/material";
+import { Box, Button, IconButton, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -9,13 +9,20 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { Dayjs, Range } from "dayjs";
 import { useState } from "react";
 import "./Calendar.module.scss";
+import { Add, Remove } from "@mui/icons-material";
 
 interface IProps {
   selectedDateRange?: any;
   setSelectedDateRange?: any;
 }
 
-const Calendar = ({ selectedDateRange, setSelectedDateRange }: IProps) => {
+const Calendar = ({
+  selectedDateRange,
+  setSelectedDateRange,
+  handleIncrease,
+  bookingGuestCount,
+  handleDecrease,
+}: IProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleCalendarChange = (newDateRange: Range<Dayjs>) => {

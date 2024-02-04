@@ -36,11 +36,12 @@ import { LoadingButton } from "@mui/lab";
 import { Details, Home } from "@mui/icons-material";
 import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
 import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
+import Slider from "react-slick";
 
 const RoomDetails = () => {
   const [showMore, setShowMore] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
-
+  const isMobile = useMediaQuery("(max-width:576px)");
   const handleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -114,7 +115,6 @@ const RoomDetails = () => {
   };
 
   //! ************************ facilities Content *************************
-
   const facilitiesDetails = [
     { Icon: bedroom, main: 5, sub: "bedroom" },
     { Icon: livingroom, main: 1, sub: "living room" },
@@ -137,12 +137,24 @@ const RoomDetails = () => {
   const displayedDescriptions = showMore
     ? descriptions
     : descriptions.slice(0, 1);
+  const settings2 = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    pauseOnHover: true,
+  };
+  console.log(details);
 
   return (
     <>
       <Box component={"main"} className="roomDetailsCon">
         <Typography variant="h1" className="title">
-          {details?.roomNumber}
+          Village Angga
         </Typography>
         <Breadcrumbs aria-label="breadcrumb">
           <Link className="path" color="inherit" to={"/"}>
@@ -155,27 +167,45 @@ const RoomDetails = () => {
           </Typography>
         </Breadcrumbs>
         <Box component={"section"} className="roomImages">
-          <Box className="gridDetails">
-            {details && (
+          {!isMobile ? (
+            details && (
+              <Box className="gridDetails">
+                <>
+                  <img
+                    className="image"
+                    src={details?.images[0] ? details?.images[0] : RoomDetails1}
+                    alt="roomImage"
+                  />
+                  <img
+                    className="img"
+                    src={details?.images[1] ? details?.images[1] : RoomDetails2}
+                    alt="roomImage"
+                  />
+                  <img
+                    className="img"
+                    src={details?.images[2] ? details?.images[2] : RoomDetails3}
+                    alt="roomImage"
+                  />
+                </>
+              </Box>
+            )
+          ) : (
+            <Slider {...settings2}>
               <>
-                <img
-                  className="image"
-                  src={details?.images[0] ? details?.images[0] : RoomDetails1}
-                  alt="roomImage"
-                />
-                <img
-                  className="img"
-                  src={details?.images[1] ? details?.images[1] : RoomDetails2}
-                  alt="roomImage"
-                />
-                <img
-                  className="img"
-                  src={details?.images[2] ? details?.images[2] : RoomDetails3}
-                  alt="roomImage"
-                />
+                {details?.images?.map((image, index) => (
+                  <Box style={{ width: "20rem", hieght: "20rem" }}>
+                    <img
+                      key={index}
+                      className="image"
+                      style={{ width: "100%" }}
+                      src={image}
+                      alt={`roomImage-${index}`}
+                    />
+                  </Box>
+                ))}
               </>
-            )}
-          </Box>
+            </Slider>
+          )}
         </Box>
 
         <Box
@@ -197,27 +227,6 @@ const RoomDetails = () => {
             <Button color="primary" onClick={handleShowMore}>
               {showMore ? "Show Less" : "Show More"}
             </Button>
-            {/* <Typography className="description">
-              Minimal techno is a minimalist subgenre of techno music. It is
-              characterized by a stripped-down aesthetic that exploits the use
-              of repetition and understated development. Minimal techno is
-              thought to have been originally developed in the early 1990s by
-              Detroit-based producers Robert Hood and Daniel Bell.
-            </Typography>
-            <Typography className="description">
-              Such trends saw the demise of the soul-infused techno that
-              typified the original Detroit sound. Robert Hood has noted that he
-              and Daniel Bell both realized something was missing from techno in
-              the post-rave era.
-            </Typography>
-            <Typography className="description">
-              Design is a plan or specification for the construction of an
-              object or system or for the implementation of an activity or
-              process, or the result of that plan or specification in the form
-              of a prototype, product or process. The national agency for
-              design: enabling Singapore to use design for economic growth and
-              to make lives better.
-            </Typography> */}
 
             <Box className="roomFacilities">
               {facilitiesDetails.map(({ main, Icon, sub, index }) => (
@@ -254,6 +263,7 @@ const RoomDetails = () => {
                 <Box className={style.calenderBox} style={{ background: "" }}>
                   <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
                 </Box>
+
                 <Typography className="grayColor">
                   You will pay
                   <Typography variant="caption" className="bookingCon">
@@ -298,63 +308,19 @@ const RoomDetails = () => {
         </Box>
 
         <Box component={"section"} className={style.review}>
-          <Box>
-            <Box>
-              <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
-                Rating
-              </Typography>
-            </Box>
-            {/* <Box>
-              <Typography>Comments</Typography>
-            </Box> */}
-            <Box className={style.roomfeedback}>
-              <RatingComponent id={id} />
-            </Box>
-            <Box
-              // style={{ backgroundColor: "blue" }}
-              marginTop={2}
-              className={style.comments}
-            >
-              <FeedbackComponent />
-            </Box>
+          <Box className={style.roomfeedback}>
+            <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
+              Rating
+            </Typography>
+            <RatingComponent id={id} />
           </Box>
-          {/* <Grid
-            container
-            rowSpacing={1}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid xs={6} style={{ background: "red" }}>
-              <Box>
-                <Typography>Rating</Typography>
-              </Box>
-            </Grid>
-            <Grid xs={6}>
-              <Box>
-                <Typography>Comments</Typography>
-              </Box>
-            </Grid>
-            <Grid xs={6}>
-              <Box>
-                {" "}
-                <Box className={style.roomfeedback}>
-                  <RatingComponent />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid xs={6}>
-              <Box
-                // style={{ backgroundColor: "blue" }}
-                marginTop={2}
-                className={style.comments}
-              >
-                <FeedbackComponent />
-              </Box>
-            </Grid>
-          </Grid> */}
-          {/* <Box></Box>
-          <Box></Box> */}
+          <Box className={style.reviewLine}></Box>
+          <Box className={style.comments}>
+            <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
+              Comment
+            </Typography>
+            <FeedbackComponent />
+          </Box>
         </Box>
       </Box>
     </>
