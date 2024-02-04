@@ -513,6 +513,13 @@
   .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 16.5px 60px !important;
     margin: auto;
+    @media (max-width: 960px) {
+      // padding: 16.5px 4px !important;
+      width: 100%;
+    }
+    @media (max-width: 576px) {
+      padding: 16.5px 0.5rem !important;
+    }
   }
 }
 
@@ -653,6 +660,10 @@
 
 .bookingTitle {
   @extend .adsTitle;
+  @media (max-width: 960px) {
+    margin-bottom: 1rem;
+    margin-top: 2rem !important;
+  }
 }
 
 .iconBtn {
@@ -760,7 +771,8 @@
         flex-direction: column;
 
         .facilitiesIcon {
-          width: 50px;
+          max-width: 60%;
+          min-width: 30%;
         }
         .mainDec {
           @extend .darkColor;
@@ -769,20 +781,33 @@
         .subDec {
           @extend .grayColor;
           font-size: 16px;
+          @media (max-width: 576px) {
+            font-size: clamp(0.5rem, 2.5vw, 1rem);
+          }
         }
       }
     }
 
     .roomDetailsBook {
+      @media (max-width: 960px) {
+        margin-top: 3rem;
+      }
       .roomDetailsCard {
         padding-right: 15px;
         padding-left: 60px;
         padding-block: 50px;
-
+        @media (max-width: 960px) {
+          padding: 4rem;
+          padding-block: 2rem;
+        }
+        @media (max-width: 768px) {
+          padding: 1rem;
+          padding-block: 2rem;
+        }
         .cardContent {
           .bookingCon {
             @extend .darkColor;
-            font-size: 20px;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             font-weight: 500;
             margin-bottom: 15px;
           }
@@ -793,8 +818,10 @@
           }
           .priceFor {
             @extend .grayColor;
-            font-size: 36px;
+            font-size: clamp(2rem, 2.5vw, 1.5rem);
             font-weight: 275;
+            font-family: Poppins;
+            text-transform: capitalize;
           }
           .bookingDiscount {
             color: #ff1612;
@@ -805,6 +832,9 @@
             margin-top: 150px;
             font-family: "Poppins", sans-serif;
             margin-bottom: 10px;
+            @media (max-width: 960px) {
+              margin-top: 2rem;
+            }
           }
         }
 

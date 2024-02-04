@@ -37,7 +37,6 @@ const FeedbackComponent = ({ roomID }) => {
   return (
     <Box component="form" onSubmit={handleSubmit(submitData)}>
       <TextField
-        // style={{ position: "fixed", left: 0, bottom: 0, width: "100%" }}
         placeholder="Type in here…"
         multiline
         rows={4}

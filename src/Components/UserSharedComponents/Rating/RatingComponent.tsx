@@ -9,14 +9,15 @@ import { Button, CircularProgress, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setRatingRooms } from "@/Redux/Features/Portal/RatingSlice/RatingSlice";
 
-export default function RatingComponent({ roomID }) {
+export default function RatingComponent({ id }) {
   const [rateValue, setRateValue] = React.useState<number | null>(2);
+
   const [loadingBtn, setLoadingBtn] = React.useState(false);
 
   const dispatch = useDispatch();
   const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: {
-      roomId: roomID,
+      roomId: id,
     },
   });
 
@@ -34,9 +35,9 @@ export default function RatingComponent({ roomID }) {
   };
   return (
     <Box
-      sx={{
-        "& > legend": { mt: 2 },
-      }}
+      // sx={{
+      //   "& > legend": { mt: 2 },
+      // }}
       component="form"
       onSubmit={handleSubmit(submitData)}
     >
