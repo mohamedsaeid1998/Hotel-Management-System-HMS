@@ -22,14 +22,15 @@ import {
   Button,
   Card,
   CardContent,
+  Grid,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import dayjs, { Dayjs, Range } from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "./RoomDetails.module.scss";
 import RatingComponent from "@/Components/Rating/RatingComponent";
 import FeedbackComponent from "@/Components/FeedbackComponent/FeedbackComponent";
 import style from "./RoomDetails.module.scss";
@@ -37,6 +38,13 @@ import { LoadingButton } from "@mui/lab";
 import { Details, Home } from "@mui/icons-material";
 
 const RoomDetails = () => {
+  const [showMore, setShowMore] = useState(false);
+  const isSmallScreen = useMediaQuery("(max-width:960px)");
+
+  const handleShowMore = () => {
+    setShowMore(!showMore);
+  };
+
   const dispatch = useDispatch();
   const today = dayjs();
   const nextDate = dayjs().add(5, "day");
@@ -117,6 +125,18 @@ const RoomDetails = () => {
     { Icon: kulkas, main: 2, sub: "refigrator" },
     { Icon: tv, main: 4, sub: "television" },
   ];
+  {
+    /*Show more paragraph  */
+  }
+  const maxLength = 100;
+  const descriptions = [
+    "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
+    "Such trends saw the demise of the soul-infused techno that typified the original Detroit sound. Robert Hood has noted that he and Daniel Bell both realized something was missing from techno in the post-rave era.",
+    "Design is a plan or specification for the construction of an object or system or for the implementation of an activity or process, or the result of that plan or specification in the form of a prototype, product or process. The national agency for design: enabling Singapore to use design for economic growth and to make lives better.",
+  ];
+  const displayedDescriptions = showMore
+    ? descriptions
+    : descriptions.slice(0, 1);
 
   return (
     <>
@@ -126,7 +146,6 @@ const RoomDetails = () => {
         </Typography>
         <Breadcrumbs aria-label="breadcrumb">
           <Link className="path" color="inherit" to={"/"}>
-            {" "}
             <Home sx={{ mr: 0.5 }} fontSize="inherit" />
             Home
           </Link>
@@ -157,26 +176,28 @@ const RoomDetails = () => {
               </>
             )}
           </Box>
-          <Box component={"section"} className={style.review}>
-            <Box
-              // style={{ backgroundColor: "red" }}
-              display={"flex"}
-              className={style.roomfeedback}
-            >
-              <RatingComponent />
-            </Box>
-            <Box
-              // style={{ backgroundColor: "blue" }}
-              className={style.comments}
-            >
-              <FeedbackComponent />
-            </Box>
-          </Box>
         </Box>
 
-        <Box component={"section"} className="roomDetailsBooking">
+        <Box
+          component={"section"}
+          className={`roomDetailsBooking ${
+            isSmallScreen && style.roomBookMobView
+          }`}
+        >
           <Box className="roomDetailsDec">
-            <Typography className="description">
+            {displayedDescriptions?.map((description, index) => (
+              <Typography
+                key={index}
+                className={`description ${showMore ? "show-all" : ""}`}
+              >
+                {description}
+              </Typography>
+            ))}
+            {showMore ? "" : "..."}
+            <Button color="primary" onClick={handleShowMore}>
+              {showMore ? "Show Less" : "Show More"}
+            </Button>
+            {/* <Typography className="description">
               Minimal techno is a minimalist subgenre of techno music. It is
               characterized by a stripped-down aesthetic that exploits the use
               of repetition and understated development. Minimal techno is
@@ -196,11 +217,11 @@ const RoomDetails = () => {
               of a prototype, product or process. The national agency for
               design: enabling Singapore to use design for economic growth and
               to make lives better.
-            </Typography>
+            </Typography> */}
 
             <Box className="roomFacilities">
-              {facilitiesDetails.map(({ main, Icon, sub }) => (
-                <Box key={main} className="facilities">
+              {facilitiesDetails.map(({ main, Icon, sub, index }) => (
+                <Box key={index} className="facilities">
                   <img className="facilitiesIcon" src={Icon} alt="Icons" />
                   <Typography className="mainDec">
                     {main}
@@ -218,11 +239,10 @@ const RoomDetails = () => {
               <CardContent className="cardContent">
                 <Typography className="bookingCon">Start Booking</Typography>
                 <Typography className="bookingPrice">
-                  {`$${price}`}{" "}
+                  {`$${price}`}
                   <Typography variant="caption" className="priceFor">
-                    {" "}
                     per night
-                  </Typography>{" "}
+                  </Typography>
                 </Typography>
                 {Math.round((details?.discount / price) * 100) !== 0 && (
                   <Typography className="bookingDiscount">
@@ -231,26 +251,26 @@ const RoomDetails = () => {
                   </Typography>
                 )}
                 <Typography className="bookingTitle">Pick a Date</Typography>
-                <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
+                <Box className={style.calenderBox} style={{ background: "" }}>
+                  <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
+                </Box>
                 <Typography className="grayColor">
-                  You will pay{" "}
+                  You will pay
                   <Typography variant="caption" className="bookingCon">
-                    {" "}
                     {`$${
                       bookingGuestCount ? price * bookingGuestCount : price
                     } USD`}
-                  </Typography>{" "}
+                  </Typography>
                   <Typography variant="caption" className="sub">
                     pre
-                  </Typography>{" "}
+                  </Typography>
                   <Typography variant="caption" className="bookingCon">
-                    {" "}
                     {`${
                       bookingGuestCount !== 1 && bookingGuestCount !== undefined
                         ? `${bookingGuestCount} persons`
                         : `1 person`
                     } `}
-                  </Typography>{" "}
+                  </Typography>
                 </Typography>
                 <Box className="submitBooking">
                   {loading ? (
@@ -275,6 +295,66 @@ const RoomDetails = () => {
               </CardContent>
             </Card>
           </Box>
+        </Box>
+
+        <Box component={"section"} className={style.review}>
+          <Box>
+            <Box>
+              <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
+                Rating
+              </Typography>
+            </Box>
+            {/* <Box>
+              <Typography>Comments</Typography>
+            </Box> */}
+            <Box className={style.roomfeedback}>
+              <RatingComponent id={id} />
+            </Box>
+            <Box
+              // style={{ backgroundColor: "blue" }}
+              marginTop={2}
+              className={style.comments}
+            >
+              <FeedbackComponent />
+            </Box>
+          </Box>
+          {/* <Grid
+            container
+            rowSpacing={1}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            <Grid xs={6} style={{ background: "red" }}>
+              <Box>
+                <Typography>Rating</Typography>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box>
+                <Typography>Comments</Typography>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box>
+                {" "}
+                <Box className={style.roomfeedback}>
+                  <RatingComponent />
+                </Box>
+              </Box>
+            </Grid>
+            <Grid xs={6}>
+              <Box
+                // style={{ backgroundColor: "blue" }}
+                marginTop={2}
+                className={style.comments}
+              >
+                <FeedbackComponent />
+              </Box>
+            </Grid>
+          </Grid> */}
+          {/* <Box></Box>
+          <Box></Box> */}
         </Box>
       </Box>
     </>

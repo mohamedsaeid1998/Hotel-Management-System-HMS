@@ -1,15 +1,40 @@
 /** @format */
-
+@import "../../../Styles/global.scss";
 .review {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  width: 1320px;
-  border: 1px solid black;
+  .reviewRows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    border: 1px solid;
+  }
+  // .reviewRows > * {
+  //   flex: 0 0 30rem;
+  // }
   .roomfeedback {
     width: 50%;
   }
   .comments {
-    width: 50%;
+    width: 90%;
+  }
+}
+// .showAll {
+//   max-height: none;
+//   overflow: visible;
+// }
+
+// .roomDetailsDec {
+//   max-height: 80px; // Set the initial height
+//   overflow: hidden;
+//   transition: max-height 0.3s ease; // Add a smooth transition
+// }
+.roomBookMobView {
+  @media (max-width: 960px) {
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+}
+.calenderBox {
+  @media (max-width: 1400px) {
+    display: flex;
   }
 }
