@@ -120,29 +120,27 @@ const NavBar = () => {
                 Home
               </Link>
               <Link
-                className={`navLink ${
-                  pathname?.includes("explore") ? "activeLink" : ""
-                }`}
+                className={`navLink ${pathname?.includes("explore") ? "activeLink" : ""
+                  }`}
                 to={"./explore"}
               >
                 Explore
               </Link>
               <Link
-                className={`navLink ${
-                  pathname === "/room-reviews" ? "activeLink" : ""
-                }`}
+                className={`navLink ${pathname === "/room-reviews" ? "activeLink" : ""
+                  }`}
                 to={"./room-reviews"}
               >
                 Reviews
               </Link>
-              <IconButton aria-label={notificationsLabel(100)}>
+              <IconButton onClick={() => navigate("./favorite-rooms")} aria-label={notificationsLabel(100)} >
                 <Badge
                   badgeContent={
                     favoriteItemsCount === 0 ? "0" : favoriteItemsCount
                   }
                   color="primary"
                 >
-                  <Favorite onClick={() => navigate("./favorite-rooms")} />
+                  <Favorite />
                 </Badge>
               </IconButton>
               {!localStorage.getItem("authToken") ? (

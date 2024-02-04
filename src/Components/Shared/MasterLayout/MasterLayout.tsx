@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
-import { Navbar, Sidebar } from '../..'
+import {Navbar,  Sidebar } from '../..'
 import './MasterLayout.module.scss'
 import { useState } from 'react'
 
