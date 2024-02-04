@@ -21,6 +21,8 @@ import wifi from "./ic_wifi 1.png";
 import tv from "./ic_tv.png";
 import bathroom from "./ic_bathroom.png";
 import ocean from "./ocean.jpg";
+import creditCard from "./creditCard.png";
+import paymentDone from "./paymentDone.png";
 
 export {
   bathroom,
@@ -44,4 +46,6 @@ export {
   RoomDetails2,
   RoomDetails3,
   ocean,
+  creditCard,
+  paymentDone
 };

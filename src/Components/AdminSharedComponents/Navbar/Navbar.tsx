@@ -110,7 +110,6 @@ const NavBar = () => {
             component="div"
             color="initial"
           >
-            {" "}
             <Typography
               variant=""
               className="blueColor"

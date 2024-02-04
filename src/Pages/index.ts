@@ -8,6 +8,7 @@ export { default as Ads } from './AdminPages/Ads/Ads'
 export { default as AddNewAds } from './AdminPages/AddNewAds/AddNewAds'
 export { default as Bookings } from './AdminPages/Bookings/Bookings'
 
+
 export { default as Login } from './AuthPages/Login/Login'
 export { default as Register } from './AuthPages/Register/Register'
 export { default as ResetPassword } from './AuthPages/ResetPassword/ResetPassword'

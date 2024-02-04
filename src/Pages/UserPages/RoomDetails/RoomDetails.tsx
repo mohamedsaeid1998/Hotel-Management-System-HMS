@@ -16,7 +16,14 @@ import {
 import { Calendar } from "@/Components";
 import { CreateBooking } from "@/Redux/Features/Portal/Booking/CreateBookingSlice";
 import { roomDetails } from "@/Redux/Features/Portal/Rooms/GetRoomDetailsSlice";
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import dayjs, { Dayjs, Range } from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -26,6 +33,9 @@ import "./RoomDetails.module.scss";
 import RatingComponent from "@/Components/Rating/RatingComponent";
 import FeedbackComponent from "@/Components/FeedbackComponent/FeedbackComponent";
 import style from "./RoomDetails.module.scss";
+import { LoadingButton } from "@mui/lab";
+import { Details, Home } from "@mui/icons-material";
+
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const today = dayjs();
@@ -73,16 +83,16 @@ const RoomDetails = () => {
   };
 
   //! ************************ Booking Room  *************************
-
+  const [loading, setLoading] = useState(false);
   const handleBooking = async (e: any) => {
     e.preventDefault();
     try {
       // @ts-ignore
-
+      setLoading(true);
       const element = await dispatch(
         CreateBooking({ startDate, endDate, id, price })
       );
-      // console.log(element);
+      console.log(element);
 
       // @ts-ignore
       toast.success(element?.payload?.message, {
@@ -90,8 +100,8 @@ const RoomDetails = () => {
         theme: "colored",
       });
       navigate(`/stripePayment/${element?.payload?.data?.booking?._id}`);
-    } catch (error) {
-      // toast.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,24 +118,23 @@ const RoomDetails = () => {
     { Icon: tv, main: 4, sub: "television" },
   ];
 
-  // console.log(bookingGuestCount);
-
   return (
     <>
       <Box component={"main"} className="roomDetailsCon">
         <Typography variant="h1" className="title">
           {details?.roomNumber}
         </Typography>
-        <Link to={"/"} className="path">
-          Home
-        </Link>
-        <Typography variant="caption" className="slash">
-          /
-        </Typography>
-        <Typography variant="caption" className="subPath">
-          Room Details
-        </Typography>
-
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link className="path" color="inherit" to={"/"}>
+            {" "}
+            <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+            Home
+          </Link>
+          <Typography variant="caption" className="subPath">
+            <Details fontSize="inherit" sx={{ mr: 0.5 }} />
+            Room Details
+          </Typography>
+        </Breadcrumbs>
         <Box component={"section"} className="roomImages">
           <Box className="gridDetails">
             {details && (
@@ -147,6 +156,21 @@ const RoomDetails = () => {
                 />
               </>
             )}
+          </Box>
+          <Box component={"section"} className={style.review}>
+            <Box
+              // style={{ backgroundColor: "red" }}
+              display={"flex"}
+              className={style.roomfeedback}
+            >
+              <RatingComponent />
+            </Box>
+            <Box
+              // style={{ backgroundColor: "blue" }}
+              className={style.comments}
+            >
+              <FeedbackComponent />
+            </Box>
           </Box>
         </Box>
 
@@ -179,9 +203,8 @@ const RoomDetails = () => {
                 <Box key={main} className="facilities">
                   <img className="facilitiesIcon" src={Icon} alt="Icons" />
                   <Typography className="mainDec">
-                    {main}{" "}
+                    {main}
                     <Typography variant="caption" className="subDec">
-                      {" "}
                       {sub}
                     </Typography>
                   </Typography>
@@ -212,6 +235,7 @@ const RoomDetails = () => {
                 <Typography className="grayColor">
                   You will pay{" "}
                   <Typography variant="caption" className="bookingCon">
+                    {" "}
                     {`$${
                       bookingGuestCount ? price * bookingGuestCount : price
                     } USD`}
@@ -229,32 +253,27 @@ const RoomDetails = () => {
                   </Typography>{" "}
                 </Typography>
                 <Box className="submitBooking">
-                  <Button
-                    className="submitBtn"
-                    type="submit"
-                    variant="contained"
-                    onClick={handleBooking}
-                  >
-                    Continue Book
-                  </Button>
+                  {loading ? (
+                    <LoadingButton
+                      className="submitBtn white"
+                      loading
+                      variant="outlined"
+                    >
+                      Continue Book
+                    </LoadingButton>
+                  ) : (
+                    <Button
+                      className="submitBtn"
+                      type="submit"
+                      variant="contained"
+                      onClick={handleBooking}
+                    >
+                      Continue Book
+                    </Button>
+                  )}
                 </Box>
               </CardContent>
             </Card>
-          </Box>
-        </Box>
-        <Box component={"section"} className={style.review}>
-          <Box
-            // style={{ backgroundColor: "red" }}
-            display={"flex"}
-            className={style.roomfeedback}
-          >
-            <RatingComponent />
-          </Box>
-          <Box
-            // style={{ backgroundColor: "blue" }}
-            className={style.comments}
-          >
-            <FeedbackComponent />
           </Box>
         </Box>
       </Box>

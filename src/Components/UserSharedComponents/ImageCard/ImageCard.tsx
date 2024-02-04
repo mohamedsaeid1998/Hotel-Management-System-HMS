@@ -11,10 +11,9 @@ interface Props {
   favList: any;
   deleteFavoriteItem: any;
   addItemToFavorite?: any;
-  startDate?: any;
-  endDate?: any;
   bookingGuestCount?: any;
   selectedDateRange?: any;
+  disabled?:boolean
 }
 
 const ImageCard = ({
@@ -24,9 +23,8 @@ const ImageCard = ({
   favList,
   deleteFavoriteItem,
   addItemToFavorite,
-  startDate,
-  endDate,
   bookingGuestCount,
+  disabled
 }: Props) => {
   const navigate = useNavigate();
 
@@ -52,6 +50,7 @@ const ImageCard = ({
               ) ? (
                 <IconButton
                   className="color opacity"
+                  disabled={disabled}
                   onClick={() => deleteFavoriteItem(ele.room?._id)}
                 >
                   <Favorite color="error" />
@@ -60,6 +59,7 @@ const ImageCard = ({
                 <>
                   <IconButton
                     className="color"
+                    disabled={disabled}
                     onClick={() => addItemToFavorite(ele?.room?._id)}
                   >
                     <Favorite />

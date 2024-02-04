@@ -1,34 +1,13 @@
 
-import { Provider } from "react-redux";
 import React from "react";
-const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
+import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound } from "./Components";
-import {
-  AddNewAds,
-  AddNewFacility,
-  AddNewRoom,
-  Ads,
-  Bookings,
-  Explore,
-  Facilities,
-  Favorites,
-  ForgetPassword,
-  Landing,
-  Login,
-  Register,
-  ResetPassword,
-  Reviews,
-  RoomDetails,
-  Rooms,
-  StripePayment,
-  Users,
-} from "./Pages";
-import Store from "./Redux/Store";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
+import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, Reviews, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
+import Store from "./Redux/Store";
+const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
 // import LoadingComponent from "./Components/Loading/Loading";
 
 
@@ -47,12 +26,9 @@ function App() {
       children: [
         { index: true, element: <Landing /> },
         { path:'explore', element: <Explore /> },
-        // { path:'explore/:startDate/:endDate/:persons', element: <Explore /> },
         { path:'room-reviews', element: <Reviews /> },
-
         { path:'favorite-rooms', element: <Favorites /> },
         { path:'room-details', element: <RoomDetails /> },
-        // { path:'room-details/:startDate/:endDate/:persons/:id', element: <RoomDetails /> },
         { path:'stripePayment/:id', element: <StripePayment /> },
       ]
     },
