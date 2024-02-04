@@ -1,1 +1,15 @@
-.RoomDetails {}
+/** @format */
+
+.review {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  width: 1320px;
+  border: 1px solid black;
+  .roomfeedback {
+    width: 50%;
+  }
+  .comments {
+    width: 50%;
+  }
+}

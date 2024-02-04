@@ -23,7 +23,9 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./RoomDetails.module.scss";
-
+import RatingComponent from "@/Components/Rating/RatingComponent";
+import FeedbackComponent from "@/Components/FeedbackComponent/FeedbackComponent";
+import style from "./RoomDetails.module.scss";
 const RoomDetails = () => {
   const dispatch = useDispatch();
   const today = dayjs();
@@ -238,6 +240,21 @@ const RoomDetails = () => {
                 </Box>
               </CardContent>
             </Card>
+          </Box>
+        </Box>
+        <Box component={"section"} className={style.review}>
+          <Box
+            // style={{ backgroundColor: "red" }}
+            display={"flex"}
+            className={style.roomfeedback}
+          >
+            <RatingComponent />
+          </Box>
+          <Box
+            // style={{ backgroundColor: "blue" }}
+            className={style.comments}
+          >
+            <FeedbackComponent />
           </Box>
         </Box>
       </Box>
