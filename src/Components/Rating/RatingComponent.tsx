@@ -34,9 +34,9 @@ export default function RatingComponent({ roomID }) {
   };
   return (
     <Box
-      sx={{
-        "& > legend": { mt: 2 },
-      }}
+      // sx={{
+      //   "& > legend": { mt: 2 },
+      // }}
       component="form"
       onSubmit={handleSubmit(submitData)}
     >
