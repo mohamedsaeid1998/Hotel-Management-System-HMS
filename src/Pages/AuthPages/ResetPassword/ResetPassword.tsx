@@ -37,10 +37,19 @@ const ResetPassword = () => {
   return (
     <>
       <Box component="div">
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
@@ -55,7 +64,6 @@ const ResetPassword = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "red",
                 fontWeight: "bold",
               }}
             >

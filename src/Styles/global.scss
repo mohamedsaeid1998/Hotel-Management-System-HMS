@@ -909,21 +909,24 @@
       border: 1px solid #ddd;
       border-radius: 5px;
     }
+    .paymentBtnCon {
+      display: flex;
+      justify-content: space-between;
+      .paymentBtn {
+        width: 45%;
+        margin-block: 20px;
+        background-color: #2196f3;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-    .paymentBtn {
-      width: 100%;
-      margin-block: 20px;
-      background-color: #2196f3;
-      color: white;
-      padding: 8px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .paymentBtn:hover {
-      background-color: #1565c0;
+      .paymentBtn:hover {
+        background-color: #1565c0;
+      }
     }
   }
 }
@@ -1003,6 +1006,3 @@
   justify-content: center;
   align-items: center;
 }
-
-// .heree {
-// }

@@ -236,9 +236,9 @@ const NavBar = () => {
                     <Typography variant="caption" color="initial">
                       {userData?.userName}
                     </Typography>
-                    {/* <Typography variant="caption" color="initial">
-                    {userData?.email}
-                  </Typography> */}
+                    <Typography variant="caption" color="initial">
+                      {userData?.email}
+                    </Typography>
                   </Box>
                 </>
               )}

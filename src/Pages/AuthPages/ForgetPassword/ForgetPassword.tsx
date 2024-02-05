@@ -31,12 +31,21 @@ const ForgetPassword = () => {
   return (
     <>
       <Box component="div">
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
-            Stay
-          </Box>
-          cation.
-        </Typography>
+      <Typography
+            className={`subNav`}
+            variant="h4"
+            component="div"
+            color="initial"
+          >
+            <Typography
+              variant=""
+              className="blueColor"
+              style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+            >
+              Stay
+            </Typography>
+            cation.
+          </Typography>
       </Box>
       <Box sx={{ padding: "30px 70px" }}>
         <Box component="div">
@@ -50,7 +59,6 @@ const ForgetPassword = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >

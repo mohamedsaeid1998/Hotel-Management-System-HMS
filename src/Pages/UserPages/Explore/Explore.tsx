@@ -7,10 +7,11 @@ import Pagination from "@mui/material/Pagination";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
 import { Home, Living } from "@mui/icons-material";
+import dayjs, { Dayjs } from "dayjs";
 const Explore = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
@@ -19,11 +20,30 @@ const Explore = () => {
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const dispatch = useDispatch();
+  const today = dayjs();
+  const nextDate = dayjs().add(1, "day");
   const itemsPerPage = 12;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentRooms = rooms?.slice(indexOfFirstItem, indexOfLastItem);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
+  const { state } = useLocation();
+
+
+
+  console.log(state);
+  const startDate = state?.range ? dayjs(state?.range[0]).format("YYYY-MM-DD") : today;
+  const endDate = state?.range ? dayjs(state?.range[1]).format("YYYY-MM-DD") : nextDate;
+
+  const [params, setParams] = useSearchParams()
+  // const there = useSearchParams()
+  const here = {
+    startDate,
+    endDate
+  }
+
+  console.log(params);
+
   const handlePageChange = async (event, page) => {
     try {
       setIsLoading(true);
@@ -36,12 +56,22 @@ const Explore = () => {
   useEffect(() => {
     getRoomsData(52);
     getFavoriteData();
+    setParams(here)
   }, [dispatch, count, data]);
 
-  const { endDate: end, persons: per, startDate: str } = useParams();
-  const endDate = end?.substring(end?.indexOf("=") + 1);
-  const startDate = str?.substring(str?.indexOf("=") + 1);
-  const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
+  // const { endDate: end, persons: per, startDate: str } = useParams();
+  // const endDate = end?.substring(end?.indexOf("=") + 1);
+  // const startDate = str?.substring(str?.indexOf("=") + 1);
+  // const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
+
+
+
+  const bookingGuestCount = state?.persons;
+  const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
+    state?.range[0],
+    state?.range[1],
+  ]);
+
   //! ************************ Get Rooms  *************************
   const getRoomsData = async (roomCount: any) => {
     setIsLoading(true);
@@ -101,7 +131,7 @@ const Explore = () => {
         autoClose: 2000,
         theme: "colored",
       });
-    } finally  {
+    } finally {
       setDisabled(false)
     }
   };
@@ -158,13 +188,12 @@ const Explore = () => {
                   {...{
                     ele,
                     index,
-                    startDate,
-                    endDate,
                     bookingGuestCount,
                     favList,
                     deleteFavoriteItem,
                     addItemToFavorite,
-                    disabled
+                    disabled,
+                    selectedDateRange
                   }}
                 />
               </Box>
