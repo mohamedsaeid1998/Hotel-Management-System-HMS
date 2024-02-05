@@ -1,17 +1,29 @@
+/** @format */
+
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/RegisterSlice";
 import "./Register.module.scss";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isRegister } = useSelector((state) => state.register);
-
 
   const navigate = useNavigate();
   const required = "This Field is required";
@@ -26,6 +38,13 @@ const Register = () => {
     whiteSpace: "nowrap",
     width: 1,
   });
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -107,7 +126,8 @@ const Register = () => {
                   required,
                   pattern: {
                     value: /^01[0125][0-9]{8}$/,
-                    message: "Phone number must start with 01 and be 11 digits in total"
+                    message:
+                      "Phone number must start with 01 and be 11 digits in total",
                   },
                 })}
                 error={!!errors.phoneNumber}
@@ -129,8 +149,8 @@ const Register = () => {
                   required,
                   minLength: {
                     value: 3,
-                    message: "minlength 3 letters"
-                  }
+                    message: "minlength 3 letters",
+                  },
                 })}
                 error={!!errors.country}
                 helperText={
@@ -161,16 +181,30 @@ const Register = () => {
 
           <TextField
             variant="outlined"
-            type="password"
+            type={showPassword ? "text" : "password"}
             className="auth-input"
             label="Password"
             color="primary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("password", {
               required,
               pattern: {
                 value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*0-9]).{5,}$/,
-                message: "password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number"
-              }
+                message:
+                  "password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number",
+              },
             })}
             error={!!errors.password}
             helperText={
@@ -179,10 +213,23 @@ const Register = () => {
           />
           <TextField
             variant="outlined"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             className="auth-input"
             label="Confirm password"
             color="primary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("confirmPassword", {
               required,
               validate: (value) =>

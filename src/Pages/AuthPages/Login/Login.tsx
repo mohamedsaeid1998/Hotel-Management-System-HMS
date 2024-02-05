@@ -1,9 +1,18 @@
+/** @format */
+
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
 import baseUrl from "@/utils/Custom/Custom";
-import { ChevronRight } from "@mui/icons-material";
+import { ChevronRight, Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,19 +20,26 @@ import { toast } from "react-toastify";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, islogged } = useSelector((state) => state.login);
   const required = "This Field is required";
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
-    dispatch(fetchData(data))
-
-  }, [dispatch])
+  const onSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      dispatch(fetchData(data));
+    },
+    [dispatch]
+  );
 
   if (islogged === "admin") {
     navigate("/dashboard");
@@ -34,8 +50,6 @@ const Login = () => {
   useEffect(() => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
-
-
 
   function handleCallbackResponse(response: any) {
     localStorage.setItem("authToken", response.credential);
@@ -136,10 +150,23 @@ const Login = () => {
 
           <TextField
             variant="outlined"
-            type='password'
             className="auth-input"
             label="Password"
             color="primary"
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("password", {
               required,
             })}
@@ -188,7 +215,8 @@ const Login = () => {
 
 export default Login;
 
-
-{/* <IconButton onClick={handleClickShowPassword} >
+{
+  /* <IconButton onClick={handleClickShowPassword} >
 {showPassword ? <VisibilityOff /> : <Visibility />}
-</IconButton> */}
+</IconButton> */
+}
