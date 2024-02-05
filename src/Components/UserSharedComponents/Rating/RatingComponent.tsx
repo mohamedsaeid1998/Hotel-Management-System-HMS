@@ -59,7 +59,7 @@ export default function RatingComponent({ id }) {
       <TextField
         placeholder="Type in here…"
         multiline
-        rows={4}
+        rows={2}
         variant="outlined"
         fullWidth
         {...register("review")}

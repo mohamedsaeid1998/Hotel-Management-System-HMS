@@ -1,29 +1,77 @@
 /** @format */
 
 .navStyle {
-  display: flex;
-  background-color: white;
+  height: 100vh;
   transition: 2s all;
   text-align: center !important;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important;
+  align-items: center !important;
   padding: 5rem;
   border-radius: 0px 0px 0.5rem 0.5rem;
-  li {
-    text-align: center !important;
+  text-align: center !important;
+  width: 50vw;
+  .navArrow {
+    position: absolute;
+    right: 0px;
+    z-index: 9999;
+    text-align: center;
+    animation: navAnimation 5s;
+    @keyframes navAnimation {
+      50% {
+        right: 25px;
+      }
+    }
   }
+  .navSectionsSmallView {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 4px 4px 4px,
+      rgba(145, 145, 145, 0.173) 0px 1px 1px 4px;
+    @keyframes sideAni {
+      50% {
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 0px 0px,
+          rgba(0, 0, 0, 0.23) 0px 0px 0px;
+      }
+    }
+  }
+  li {
+    margin-top: 2rem;
+    animation: sideAni 2s;
+
+    font-size: 1.5rem;
+    button {
+      margin: auto;
+      margin-top: 1rem;
+    }
+  }
+
   a {
+    color: white;
     margin: auto;
     text-decoration: none;
     font-weight: 600;
-    align-items: center;
 
     display: block;
+    text-align: center !important;
   }
-  :hover {
-    box-shadow: rgba(1, 94, 160, 0.2) 0px 2px 8px 0px;
+  // &::after {
+  //   position: absolute;
+  //   top: 8%;
+  //   right: 5px;
+  //   content: "";
+  //   width: 1rem;
+  //   height: 1rem;
+  //   background-color: red;
+  //   transition: right 0.5s ease;
+  // }
+  .navStyle > li:not(:first-child) {
+    margin-bottom: 0.5rem;
+    :hover {
+      box-shadow: rgba(113, 161, 244, 0.2) 0px 2px 8px 0px;
+      padding: 1rem;
+    }
   }
 }
-.navStyle > li:not(:last-child) {
-  margin-bottom: 0.5rem;
+.logo {
+  color: wheat;
+  margin: auto;
+  text-align: center !important;
 }

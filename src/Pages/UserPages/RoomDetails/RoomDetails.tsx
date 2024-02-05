@@ -165,44 +165,26 @@ const RoomDetails = () => {
           </Typography>
         </Breadcrumbs>
         <Box component={"section"} className="roomImages">
-          {!isMobile ? (
-            details && (
-              <Box className="gridDetails">
-                <>
-                  <img
-                    className="image"
-                    src={details?.images[0] ? details?.images[0] : RoomDetails1}
-                    alt="roomImage"
-                  />
-                  <img
-                    className="img"
-                    src={details?.images[1] ? details?.images[1] : RoomDetails2}
-                    alt="roomImage"
-                  />
-                  <img
-                    className="img"
-                    src={details?.images[2] ? details?.images[2] : RoomDetails3}
-                    alt="roomImage"
-                  />
-                </>
-              </Box>
-            )
-          ) : (
-            <Slider {...settings2}>
+          {details && (
+            <Box className="gridDetails">
               <>
-                {details?.images?.map((image, index) => (
-                  <Box style={{ width: "20rem", hieght: "20rem" }}>
-                    <img
-                      key={index}
-                      className="image"
-                      style={{ width: "100%" }}
-                      src={image}
-                      alt={`roomImage-${index}`}
-                    />
-                  </Box>
-                ))}
+                <img
+                  className="image"
+                  src={details?.images[0] ? details?.images[0] : RoomDetails1}
+                  alt="roomImage"
+                />
+                <img
+                  className="img"
+                  src={details?.images[1] ? details?.images[1] : RoomDetails2}
+                  alt="roomImage"
+                />
+                <img
+                  className="img"
+                  src={details?.images[2] ? details?.images[2] : RoomDetails3}
+                  alt="roomImage"
+                />
               </>
-            </Slider>
+            </Box>
           )}
         </Box>
 
@@ -317,7 +299,7 @@ const RoomDetails = () => {
             <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
               Comment
             </Typography>
-            <FeedbackComponent id={id}/>
+            <FeedbackComponent id={id} />
           </Box>
         </Box>
       </Box>

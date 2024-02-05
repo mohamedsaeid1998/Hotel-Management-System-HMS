@@ -70,6 +70,8 @@
 }
 
 .MuiDrawer-paper {
+  justify-content: center;
+  align-items: center;
   background-color: #203fc7 !important;
   .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
     padding-left: 25px;
@@ -727,7 +729,11 @@
       "image - ";
     gap: 30px 20px;
     justify-content: space-between;
-
+    @media (max-width: 563px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 8rem 8rem;
+      gap: 5px 5px;
+    }
     img {
       width: 100%;
       height: 100%;

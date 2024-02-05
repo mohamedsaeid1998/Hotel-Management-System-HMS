@@ -44,7 +44,7 @@ const FeedbackComponent = ({ id }) => {
       <TextField
         placeholder="Type in here…"
         multiline
-        rows={4}
+        rows={2}
         variant="outlined"
         fullWidth
         {...register("comment")}

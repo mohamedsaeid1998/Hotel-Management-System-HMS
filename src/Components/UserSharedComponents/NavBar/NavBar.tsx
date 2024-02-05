@@ -137,14 +137,14 @@ const NavBar = () => {
               >
                 Explore
               </Link>
-              <Link
+              {/* <Link
                 className={`navLink ${
                   pathname === "/room-reviews" ? "activeLink" : ""
                 }`}
                 to={"./room-reviews"}
               >
                 Reviews
-              </Link>
+              </Link> */}
               <IconButton aria-label={notificationsLabel(100)}>
                 <Badge
                   badgeContent={
