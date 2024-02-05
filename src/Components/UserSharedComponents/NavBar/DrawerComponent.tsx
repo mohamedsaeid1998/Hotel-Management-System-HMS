@@ -24,11 +24,7 @@ const DrawerComponent = () => {
     <>
       {isMobile && (
         <>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => setDrawerOpen(!drawerOpen)}
-          >
+          <IconButton edge="start" onClick={() => setDrawerOpen(!drawerOpen)}>
             <MenuIcon />
           </IconButton>
           <Drawer
