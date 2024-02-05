@@ -174,7 +174,7 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <Box className="navAvatar">
+                  {/* <Box className="navAvatar">
                     <Tooltip title="logout">
                       <IconButton>
                         <img
@@ -194,7 +194,7 @@ const NavBar = () => {
                         />
                       </IconButton>
                     </Tooltip>
-                  </Box>
+                  </Box> */}
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
