@@ -1,7 +1,11 @@
+/** @format */
+
 import {
   Box,
   Button,
   FormControl,
+  IconButton,
+  InputAdornment,
   InputLabel,
   OutlinedInput,
   TextField,
@@ -12,8 +16,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
+import { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const ResetPassword = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
   const required = "This Field is required";
 
@@ -33,6 +42,13 @@ const ResetPassword = () => {
       .catch((err) => {
         toast.error(err.message);
       });
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
   return (
     <>
@@ -101,10 +117,23 @@ const ResetPassword = () => {
 
         <TextField
           variant="outlined"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="auth-input"
           label="Password"
           color="primary"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           {...register("password", {
             required,
           })}
@@ -116,10 +145,23 @@ const ResetPassword = () => {
 
         <TextField
           variant="outlined"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           className="auth-input"
           label="Confirm password"
           color="primary"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowConfirmPassword}
+                  edge="end"
+                >
+                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           {...register("confirmPassword", {
             required,
             validate: (value) =>
