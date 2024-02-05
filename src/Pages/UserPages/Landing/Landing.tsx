@@ -26,7 +26,7 @@ const Landing = () => {
   const [bookingGuestCount, setBookingGuestCount] = useState(1);
   const navigate = useNavigate();
   const today = dayjs();
-  const nextDate = dayjs().add(5, "day");
+  const nextDate = dayjs().add(1, "day");
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
     today,
     nextDate,
@@ -48,6 +48,9 @@ const Landing = () => {
       setBookingGuestCount(bookingGuestCount - 1);
     }
   };
+
+
+
 
   var settings = {
     dots: true,
@@ -72,8 +75,34 @@ const Landing = () => {
     ],
   };
 
-  const startDate = selectedDateRange[0]?.format("YYYY-MM-DD");
-  const endDate = selectedDateRange[1]?.format("YYYY-MM-DD");
+  const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
+  const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");
+console.log(startDate);
+console.log(endDate);
+
+
+
+  // const dateString = "2024-02-06T18:44:58.583Z";
+  // const parsedDate = new Date(dateString);
+  
+  // const formattedDate = new Intl.DateTimeFormat("en-US", {
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "2-digit",
+  // }).format(parsedDate);
+  
+  // console.log(formattedDate);
+
+
+
+
+
+
+
+
+
+
+
 
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************

@@ -1,15 +1,14 @@
 /** @format */
 
 import { CalendarMonth } from "@mui/icons-material";
-import { Box, Button, IconButton, Popover, TextField } from "@mui/material";
+import { Button, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { Dayjs, Range } from "dayjs";
+import dayjs, { Dayjs, Range } from "dayjs";
 import { useState } from "react";
 import "./Calendar.module.scss";
-import { Add, Remove } from "@mui/icons-material";
 
 interface IProps {
   selectedDateRange?: any;
@@ -19,12 +18,10 @@ interface IProps {
 const Calendar = ({
   selectedDateRange,
   setSelectedDateRange,
-  handleIncrease,
-  bookingGuestCount,
-  handleDecrease,
 }: IProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  console.log(selectedDateRange);
   const handleCalendarChange = (newDateRange: Range<Dayjs>) => {
     setSelectedDateRange(newDateRange);
   };
@@ -41,10 +38,6 @@ const Calendar = ({
     handlePopoverClose();
   };
 
-  // const startDate = selectedDateRange[0]?.format('YYYY-MM-DD')
-  // const endDate = selectedDateRange[1]?.format('YYYY-MM-DD')
-
-  // console.log(`${selectedDateRange[0]?.format('YYYY-MM-DD')} - ${selectedDateRange[1]?.format('YYYY-MM-DD')}`);
 
   const open = Boolean(anchorEl);
   return (
@@ -85,12 +78,13 @@ const Calendar = ({
       <TextField
         className="calendarField"
         label="Selected Date Range"
-        value={`${selectedDateRange[0]?.format(
-          "YYYY-MM-DD"
-        )} - ${selectedDateRange[1]?.format("YYYY-MM-DD")}`}
+        value={`${dayjs(selectedDateRange[0]).format("YYYY-MM-DD")} - ${dayjs(selectedDateRange[1]).format("YYYY-MM-DD")}`}
       />
     </>
   );
 };
 
 export default Calendar;
+
+// const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
+// const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");

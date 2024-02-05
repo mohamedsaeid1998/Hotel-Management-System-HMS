@@ -101,18 +101,9 @@ const AddNewRoom = () => {
     setLoadingBtn(true)
     const addFormData = new FormData();
 
-    // for (let i = 0; i < images.length; i++) {
-    //   addFormData.append('imgs', images[i]);
-    // }
-
-    // for (let i = 0; i < facilities.length; i++) {
-    //   addFormData.append('facilities[]', facilities[i]);
-    // }
-
     facilities.forEach((facility: string) =>
       addFormData.append("facilities[]", facility)
     );
-
     images.forEach((img) => addFormData.append("imgs", img));
 
     addFormData.append("roomNumber", data["roomNumber"]);
@@ -124,6 +115,7 @@ const AddNewRoom = () => {
 
   const sendData = async (addFormData: any) => {
     if (!checkPage) {
+      //@ts-ignore
       const roomsData = await dispatch(CreateRooms(addFormData));
 
       if (roomsData?.payload === undefined) {
@@ -135,6 +127,7 @@ const AddNewRoom = () => {
     } else {
       const roomId = id;
       const updateData = await dispatch(
+              //@ts-ignore
         updateRoomData({ addFormData, roomId })
       );
       if (updateData?.payload?.success) {
@@ -234,9 +227,14 @@ const AddNewRoom = () => {
                 label="Discount"
                 {...register("discount", {
                   required,
-                  validate: (value) =>
-                    (value !== undefined && +value >= 0) ||
-                    "Please enter a positive number",
+                  validate: {
+                    positive: (value) =>
+                      (value !== undefined && +value >= 0) ||
+                      "Please enter a positive number",
+                    lessThanPrice: (value, { price }) =>
+                      (value !== undefined && +value < +price) ||
+                      "Discount should be less than Price",
+                  },
                 })}
                 error={Boolean(errors.discount)}
                 helperText={

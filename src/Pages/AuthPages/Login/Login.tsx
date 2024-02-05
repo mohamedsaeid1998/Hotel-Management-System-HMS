@@ -1,7 +1,8 @@
 /** @format */
 
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
-import { ChevronLeft, Visibility, VisibilityOff } from "@mui/icons-material";
+import baseUrl from "@/utils/Custom/Custom";
+import { ChevronRight, Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
@@ -15,10 +16,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
-import baseUrl from "@/utils/Custom/Custom";
-import { toast } from "react-toastify";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -93,10 +93,19 @@ const Login = () => {
   return (
     <>
       <Box component="div">
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
@@ -107,11 +116,11 @@ const Login = () => {
           </Typography>
           <Typography>
             If you don’t have an account register <br /> You can
+
             <Link
               to="/register"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
@@ -172,7 +181,6 @@ const Login = () => {
               to="/forget-password"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
@@ -195,12 +203,12 @@ const Login = () => {
               type="submit"
               size="large"
             >
-              <ChevronLeft /> Login
+              Login <ChevronRight />
             </Button>
           )}
           <div id="signInDiv"></div>
         </form>
-      </Box>
+      </Box >
     </>
   );
 };

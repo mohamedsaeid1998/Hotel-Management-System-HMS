@@ -152,7 +152,7 @@ const NavBar = () => {
                   }
                   color="primary"
                 >
-                  <Favorite onClick={() => navigate("./favorite-rooms")} />
+                  <Favorite />
                 </Badge>
               </IconButton>
               {!localStorage.getItem("authToken") ? (
@@ -238,9 +238,9 @@ const NavBar = () => {
                     <Typography variant="caption" color="initial">
                       {userData?.userName}
                     </Typography>
-                    {/* <Typography variant="caption" color="initial">
-                    {userData?.email}
-                  </Typography> */}
+                    <Typography variant="caption" color="initial">
+                      {userData?.email}
+                    </Typography>
                   </Box>
                 </>
               )}

@@ -23,6 +23,8 @@ import {
   Card,
   CardContent,
   Grid,
+  IconButton,
+  TextField,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -33,7 +35,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./RoomDetails.module.scss";
 import { LoadingButton } from "@mui/lab";
-import { Details, Home } from "@mui/icons-material";
+import { Add, Details, Home, Remove } from "@mui/icons-material";
 import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
 import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
 import Slider from "react-slick";
@@ -45,17 +47,22 @@ const RoomDetails = () => {
   const handleShowMore = () => {
     setShowMore(!showMore);
   };
+  const { state } = useLocation();
+  const { range } = state;
+
+  console.log(state);
 
   const dispatch = useDispatch();
   const today = dayjs();
-  const nextDate = dayjs().add(5, "day");
+  const nextDate = dayjs().add(1, "day");
+  const startDate = range ? dayjs(range[0]).format("YYYY-MM-DD") : today;
+  const endDate = range ? dayjs(range[1]).format("YYYY-MM-DD") : nextDate;
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
-    today,
-    nextDate,
+    startDate ? startDate : today,
+    endDate ? endDate : nextDate,
   ]);
 
-  const { state } = useLocation();
-  const { range } = state;
+
   // const startDate =
   //   state?.range === undefined ? today : state?.range[0].format("YYYY-MM-DD");
   // const endDate =
@@ -63,10 +70,11 @@ const RoomDetails = () => {
   //     ? nextDate
   //     : state?.range[1].format("YYYY-MM-DD");
 
-  const startDate = range ? dayjs(range[0]).format("YYYY-MM-DD") : today;
-  const endDate = range ? dayjs(range[0]).format("YYYY-MM-DD") : nextDate;
+
 
   const bookingGuestCount = state?.persons;
+  console.log(bookingGuestCount);
+
   const id = state?.roomId;
 
   const [details, setDetails] = useState();
@@ -99,6 +107,7 @@ const RoomDetails = () => {
       // @ts-ignore
       setLoading(true);
       const element = await dispatch(
+        // @ts-ignore
         CreateBooking({ startDate, endDate, id, price })
       );
 
@@ -124,10 +133,6 @@ const RoomDetails = () => {
     { Icon: kulkas, main: 2, sub: "refigrator" },
     { Icon: tv, main: 4, sub: "television" },
   ];
-  {
-    /*Show more paragraph  */
-  }
-  const maxLength = 100;
   const descriptions = [
     "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
     "Such trends saw the demise of the soul-infused techno that typified the original Detroit sound. Robert Hood has noted that he and Daniel Bell both realized something was missing from techno in the post-rave era.",
@@ -147,6 +152,19 @@ const RoomDetails = () => {
     cssEase: "linear",
     pauseOnHover: true,
   };
+
+  // const [personsCount, setPersonsCount] = useState(bookingGuestCount);
+
+  // const handleIncrease = () => {
+  //   setPersonsCount(bookingGuestCount + 1);
+  // };
+
+  // const handleDecrease = () => {
+  //   if (bookingGuestCount > 1) {
+  //     setPersonsCount(bookingGuestCount - 1);
+  //   }
+  // };
+
 
   return (
     <>
@@ -190,9 +208,8 @@ const RoomDetails = () => {
 
         <Box
           component={"section"}
-          className={`roomDetailsBooking ${
-            isSmallScreen && style.roomBookMobView
-          }`}
+          className={`roomDetailsBooking ${isSmallScreen && style.roomBookMobView
+            }`}
         >
           <Box className="roomDetailsDec">
             {displayedDescriptions?.map((description, index) => (
@@ -244,22 +261,47 @@ const RoomDetails = () => {
                   <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
                 </Box>
 
+                {/* 
+                <Box className="capacityCon">
+                  <IconButton
+                    onClick={handleIncrease}
+                    className="caleBtn"
+                    color="primary"
+                  >
+                    <Add />
+                  </IconButton>
+                  <TextField
+                    className="capacityField"
+                    label="Capacity"
+                    value={`${bookingGuestCount} person`}
+                  />
+                  <IconButton
+                    onClick={handleDecrease}
+                    className="caleBtnDiscernment"
+                    color="error"
+                  >
+                    <Remove />
+                  </IconButton>
+                </Box> */}
+
+
+
+
+
                 <Typography className="grayColor">
                   You will pay
                   <Typography variant="caption" className="bookingCon">
-                    {`$${
-                      bookingGuestCount ? price * bookingGuestCount : price
-                    } USD`}
+                    {`$${bookingGuestCount ? price * bookingGuestCount : price
+                      } USD`}
                   </Typography>
                   <Typography variant="caption" className="sub">
                     pre
                   </Typography>
                   <Typography variant="caption" className="bookingCon">
-                    {`${
-                      bookingGuestCount !== 1 && bookingGuestCount !== undefined
-                        ? `${bookingGuestCount} persons`
-                        : `1 person`
-                    } `}
+                    {`${bookingGuestCount !== 1 && bookingGuestCount !== undefined
+                      ? `${bookingGuestCount} persons`
+                      : `1 person`
+                      } `}
                   </Typography>
                 </Typography>
                 <Box className="submitBooking">
