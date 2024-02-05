@@ -1,38 +1,39 @@
 /** @format */
 @import "../../../Styles/global.scss";
 .review {
-  .reviewRows {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    border: 1px solid;
-  }
-  // .reviewRows > * {
-  //   flex: 0 0 30rem;
-  // }
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #e5e5e5;
+  padding: 2rem 0rem;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
   .roomfeedback {
-    width: 50%;
+    width: 40%;
   }
   .comments {
-    width: 90%;
+    width: 40%;
+    margin-top: 2rem;
+  }
+  .reviewLine {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #203fc7;
+    width: 1px;
+    height: 80%;
   }
 }
-// .showAll {
-//   max-height: none;
-//   overflow: visible;
-// }
 
-// .roomDetailsDec {
-//   max-height: 80px; // Set the initial height
-//   overflow: hidden;
-//   transition: max-height 0.3s ease; // Add a smooth transition
-// }
 .roomBookMobView {
   @media (max-width: 960px) {
     flex-direction: column;
     margin-top: 2rem;
   }
 }
+
 .calenderBox {
   @media (max-width: 1400px) {
     display: flex;

@@ -2,6 +2,7 @@
 
 import {
   AppBar,
+  Avatar,
   Badge,
   Box,
   Button,
@@ -28,6 +29,10 @@ import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavori
 import style from "./NavBar.module.scss";
 import DrawerComponent from "./DrawerComponent";
 const NavBar = () => {
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { count } = useSelector((state) => state.AddToFavorite);
@@ -87,7 +92,12 @@ const NavBar = () => {
   };
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   // const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
   return (
     <>
       <AppBar color="inherit" className="nav">
@@ -163,7 +173,7 @@ const NavBar = () => {
               ) : (
                 <>
                   <Box className="navAvatar">
-                    <Tooltip title="Open settings">
+                    <Tooltip title="logout">
                       <IconButton>
                         <img
                           className="nav-img"
@@ -183,23 +193,45 @@ const NavBar = () => {
                       </IconButton>
                     </Tooltip>
                   </Box>
-                  <Menu
-                    id="demo-positioned-menu"
-                    aria-labelledby="demo-positioned-button"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose}>
-                      <Typography
-                        variant="caption"
-                        color="red"
-                        onClick={() => handelLogout()}
-                      >
-                        Log Out
-                      </Typography>
-                    </MenuItem>
-                  </Menu>
+                  <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={
+                            userData?.profileImage == null
+                              ? defaultImage
+                              : `http://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
+                          }
+                        />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: "45px" }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => handelLogout()}
+                        >
+                          Logout
+                        </Typography>
+                      </MenuItem>
+                    </Menu>
+                  </Box>
                   <Box className="navInfo">
                     <Typography variant="caption" color="initial">
                       {userData?.userName}

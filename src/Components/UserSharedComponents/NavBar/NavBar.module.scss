@@ -1,20 +1,26 @@
 /** @format */
 
 .navStyle {
+  display: flex;
   background-color: white;
   transition: 2s all;
-  background-image: url("../../../Assets/Images/ocean.jpg");
-  background-position: center center;
+  text-align: center !important;
+  justify-content: center;
+  align-items: center;
+  li {
+    text-align: center !important;
+  }
   a {
     text-decoration: none;
     font-weight: 600;
+    align-items: center;
+
+    display: block;
   }
   :hover {
     box-shadow: rgba(1, 94, 160, 0.2) 0px 2px 8px 0px;
   }
 }
 .navStyle > li:not(:last-child) {
-  // box-shadow: ;
-  border: 1px solid rgba(128, 128, 128, 0.318);
   margin-bottom: 0.5rem;
 }
