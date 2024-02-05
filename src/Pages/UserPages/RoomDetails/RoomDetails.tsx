@@ -66,6 +66,8 @@ const RoomDetails = () => {
   const endDate = range ? dayjs(range[0]).format("YYYY-MM-DD") : nextDate;
 
   const bookingGuestCount = state?.persons;
+  console.log(bookingGuestCount);
+
   const id = state?.roomId;
 
   const [details, setDetails] = useState();
@@ -180,9 +182,8 @@ const RoomDetails = () => {
 
         <Box
           component={"section"}
-          className={`roomDetailsBooking ${
-            isSmallScreen && style.roomBookMobView
-          }`}
+          className={`roomDetailsBooking ${isSmallScreen && style.roomBookMobView
+            }`}
         >
           <Box className="roomDetailsDec">
             {displayedDescriptions?.map((description, index) => (
@@ -257,19 +258,17 @@ const RoomDetails = () => {
                 <Typography className="grayColor">
                   You will pay
                   <Typography variant="caption" className="bookingCon">
-                    {`$${
-                      bookingGuestCount ? price * bookingGuestCount : price
-                    } USD`}
+                    {`$${bookingGuestCount ? price * bookingGuestCount : price
+                      } USD`}
                   </Typography>
                   <Typography variant="caption" className="sub">
                     pre
                   </Typography>
                   <Typography variant="caption" className="bookingCon">
-                    {`${
-                      bookingGuestCount !== 1 && bookingGuestCount !== undefined
+                    {`${bookingGuestCount !== 1 && bookingGuestCount !== undefined
                         ? `${bookingGuestCount} persons`
                         : `1 person`
-                    } `}
+                      } `}
                   </Typography>
                 </Typography>
                 <Box className="submitBooking">

@@ -9,6 +9,9 @@
 }
 
 @media (max-width: 950px) {
+  .chartsCon {
+    flex-direction: column;
+  }
   .footerContainer {
     flex-direction: column !important;
     align-items: start !important;
@@ -31,3 +34,4 @@
     padding-inline: 20px !important;
   }
 }
+
