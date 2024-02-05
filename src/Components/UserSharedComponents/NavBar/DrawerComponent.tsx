@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import style from "./NavBar.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import HomeIcon from "@mui/icons-material/Home";
 import { Link, useNavigate } from "react-router-dom";
 const DrawerComponent = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -47,7 +47,7 @@ const DrawerComponent = () => {
                 <Link to="/room-reviews">Reviews</Link>
               </ListItem>
               <ListItem>
-                <Link to="/favorite-rooms">Favorite Rooms</Link>
+                <Link to="/favorite-rooms">Favorite</Link>
               </ListItem>
               {!localStorage.getItem("authToken") ? (
                 <>

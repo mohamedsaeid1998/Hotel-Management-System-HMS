@@ -101,7 +101,6 @@ const RoomDetails = () => {
       const element = await dispatch(
         CreateBooking({ startDate, endDate, id, price })
       );
-      console.log(element);
 
       // @ts-ignore
       toast.success(element?.payload?.message, {
@@ -148,7 +147,6 @@ const RoomDetails = () => {
     cssEase: "linear",
     pauseOnHover: true,
   };
-  console.log(details);
 
   return (
     <>
@@ -319,7 +317,7 @@ const RoomDetails = () => {
             <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
               Comment
             </Typography>
-            <FeedbackComponent />
+            <FeedbackComponent id={id}/>
           </Box>
         </Box>
       </Box>

@@ -765,10 +765,10 @@
       max-width: 650px;
       flex-wrap: wrap;
       margin-top: 20px;
-      @media (max-width: 576px) {
+      @media (max-width: 560px) {
         display: flex;
         justify-content: space-between;
-        column-gap: 10%;
+        column-gap: 1.5rem;
         row-gap: 5px;
         align-items: start;
       }

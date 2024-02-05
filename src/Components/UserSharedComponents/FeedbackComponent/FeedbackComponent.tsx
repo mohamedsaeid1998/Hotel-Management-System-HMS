@@ -1,6 +1,6 @@
 /** @format */
 
-import CommentUserRoom from "@/Redux/Features/Portal/CommentUserRoom/CommentUserRoom ";
+import { CommentUserRoom } from "@/Redux/Features/Portal/CommentUserRoom/CommentUserRoom ";
 import {
   Box,
   Button,
@@ -9,33 +9,38 @@ import {
   TextField,
 } from "@mui/material";
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-const FeedbackComponent = ({ roomID }) => {
+const FeedbackComponent = ({ id }) => {
   const [loadingBtn, setLoadingBtn] = React.useState(false);
 
   const dispatch = useDispatch();
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue, control } = useForm({
     defaultValues: {
-      roomId: roomID,
+      roomId: id,
     },
   });
-
   const submitData = (data) => {
     setComment(data);
   };
   const setComment = async (data) => {
     setLoadingBtn(true);
+    // console.log(data);
     try {
       const roomCommentData = await dispatch(CommentUserRoom(data));
     } finally {
       setLoadingBtn(false);
-      setValue("comment", "");
+      // setValue("comment", "");
     }
   };
   return (
     <Box component="form" onSubmit={handleSubmit(submitData)}>
+      <Controller
+        name="roomId"
+        control={control}
+        render={({ field }) => <input type="hidden" {...field} />}
+      />
       <TextField
         placeholder="Type in here…"
         multiline
@@ -44,6 +49,7 @@ const FeedbackComponent = ({ roomID }) => {
         fullWidth
         {...register("comment")}
       />
+
       <Box style={{ marginTop: "1rem" }}>
         <Button
           variant="contained"
