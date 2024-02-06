@@ -43,8 +43,10 @@ const NavBar = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (localStorage.getItem("userId")) getData();
-    getFavoriteData();
+    if (userId)
+      getData();
+    if (localStorage.getItem("userRole") === "user")
+      getFavoriteData();
   }, [dispatch, count, data]);
 
   const getData = async () => {
@@ -103,7 +105,6 @@ const NavBar = () => {
 
     } else {
       navigate("./favorite-rooms")
-
     }
   }
   return (
@@ -117,6 +118,8 @@ const NavBar = () => {
             variant="h4"
             component="div"
             color="initial"
+            margin={"auto"}
+            textAlign={"center"}
           >
             <Typography
               variant=""
@@ -144,14 +147,7 @@ const NavBar = () => {
               >
                 Explore
               </Link>
-              <Link
-                className={`navLink ${pathname === "/room-reviews" ? "activeLink" : ""
-                  }`}
-                to={"./room-reviews"}
-              >
-                Reviews
-              </Link>
-              <IconButton onClick={navigateToFav} aria-label={notificationsLabel(100)} >
+              <IconButton onClick={navigateToFav} aria-label={notificationsLabel(100)}>
                 <Badge
                   badgeContent={
                     favoriteItemsCount === 0 ? "0" : favoriteItemsCount

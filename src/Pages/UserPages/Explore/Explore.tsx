@@ -29,9 +29,6 @@ const Explore = () => {
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   const { state } = useLocation();
 
-
-
-  console.log(state);
   const startDate = state?.range ? dayjs(state?.range[0]).format("YYYY-MM-DD") : today;
   const endDate = state?.range ? dayjs(state?.range[1]).format("YYYY-MM-DD") : nextDate;
 
@@ -65,11 +62,7 @@ const Explore = () => {
   // const startDate = str?.substring(str?.indexOf("=") + 1);
   // const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
 
-
-
   const bookingGuestCount = state?.persons;
-  console.log(bookingGuestCount);
-
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
     state?.range[0],
     state?.range[1],
@@ -145,7 +138,7 @@ const Explore = () => {
           autoClose: 2000,
           theme: "colored",
         });
-      }
+      }else{
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -153,6 +146,7 @@ const Explore = () => {
         autoClose: 2000,
         theme: "colored",
       });
+      }
     } finally {
       setDisabled(false)
     }

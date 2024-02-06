@@ -23,7 +23,6 @@ const Home = () => {
     facilities: 0,
     rooms: 0
   })
-  console.log(bookingStatus)
 
   //! ***************Get Facilities Data ***************
   const getCartsData = async () => {

@@ -57,7 +57,7 @@ const CheckoutForm = () => {
   };
 
   const [activeStep, setActiveStep] = useState(0)
-  console.log(activeStep);
+
 
   const handleNavigate = () => {
     navigate('/')

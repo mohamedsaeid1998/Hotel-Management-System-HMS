@@ -1,16 +1,14 @@
-/** @format */
-
 import { LandingImg } from "@/Assets/Images";
 import { Calendar, ImageCard, ImageCard2, LoginDialog } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
-import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
-import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
-import { Add, Remove } from '@mui/icons-material';
-import { Box, Button, IconButton, TextField } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import dayjs, { Dayjs, Range } from 'dayjs';
+import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
+import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import { Add, Remove } from "@mui/icons-material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import dayjs, { Dayjs, Range } from "dayjs";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +16,7 @@ import { toast } from "react-toastify";
 import Slider from "react-slick";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
+import UsersReviews from "./UsersReview";
 const Landing = () => {
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
@@ -36,6 +35,7 @@ const Landing = () => {
     getRoomsData(15);
     getAdsData();
     dispatch(fetchDataIslogged());
+    if (localStorage.getItem("userRole") === "user")
     getFavoriteData();
   }, [dispatch, count, data]);
 
@@ -49,27 +49,24 @@ const Landing = () => {
     }
   };
 
-
-
-
   var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
+    dots: false,
+    infinite: false,
+    speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
+    autoplay: false,
+    autoplaySpeed: 3000,
     cssEase: "linear",
     pauseOnHover: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 763,
         settings: {
-          slidesToShow: 4,
+          dots: false,
+          slidesToShow: 5,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
         },
       },
     ],
@@ -102,7 +99,7 @@ const Landing = () => {
           autoClose: 2000,
           theme: "colored",
         });
-      }
+      }else{
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -110,8 +107,10 @@ const Landing = () => {
         autoClose: 2000,
         theme: "colored",
       });
+      }
+
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
 
@@ -147,7 +146,7 @@ const Landing = () => {
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
-      setDisabled(true)
+      setDisabled(true);
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
@@ -156,7 +155,7 @@ const Landing = () => {
         theme: "colored",
       });
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
 
@@ -268,14 +267,17 @@ const Landing = () => {
                     endDate,
                     bookingGuestCount,
                     favList,
-                    disabled
+                    disabled,
                   }}
                 />
               </Fragment>
             ))}
           </Slider>
         </Box>
-      </Box >
+      </Box>
+      <Box component="section" className="reviewUsersSection">
+        <UsersReviews />
+      </Box>
     </>
   );
 };

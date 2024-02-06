@@ -35,9 +35,6 @@ export default function RatingComponent({ id }) {
   };
   return (
     <Box
-      // sx={{
-      //   "& > legend": { mt: 2 },
-      // }}
       component="form"
       onSubmit={handleSubmit(submitData)}
     >
@@ -46,7 +43,6 @@ export default function RatingComponent({ id }) {
         control={control}
         render={({ field }) => <input type="hidden" {...field} />}
       />
-      {/* <Typography component="legend">Rate</Typography> */}
       <Controller
         name="rating"
         control={control}
@@ -59,7 +55,7 @@ export default function RatingComponent({ id }) {
       <TextField
         placeholder="Type in here…"
         multiline
-        rows={4}
+        rows={2}
         variant="outlined"
         fullWidth
         {...register("review")}

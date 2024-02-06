@@ -13,7 +13,7 @@ interface Props {
   addItemToFavorite?: any;
   bookingGuestCount?: any;
   selectedDateRange?: any;
-  disabled?:boolean
+  disabled?: boolean;
 }
 
 const ImageCard = ({
@@ -24,7 +24,7 @@ const ImageCard = ({
   deleteFavoriteItem,
   addItemToFavorite,
   bookingGuestCount,
-  disabled
+  disabled,
 }: Props) => {
   const navigate = useNavigate();
 
@@ -37,7 +37,12 @@ const ImageCard = ({
           alt="RoomPicture"
         />
         {ele?.room?.discount ? (
-          <Box className="discountLayer">{ele?.room?.discount}$ per night</Box>
+          <Box
+            className="discountLayer"
+            fontSize={"clamp(.8rem, 2.5vw, 1.5rem) "}
+          >
+            {ele?.room?.discount}$
+          </Box>
         ) : null}
         <Box className="layer">
           <Box className="text ">

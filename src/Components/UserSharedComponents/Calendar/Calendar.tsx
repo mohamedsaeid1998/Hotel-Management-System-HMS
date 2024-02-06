@@ -19,7 +19,6 @@ const Calendar = ({
 }: IProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  console.log(selectedDateRange);
   const handleCalendarChange = (newDateRange: Range<Dayjs>) => {
     setSelectedDateRange(newDateRange);
   };
@@ -83,6 +82,3 @@ const Calendar = ({
 };
 
 export default Calendar;
-
-// const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
-// const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");

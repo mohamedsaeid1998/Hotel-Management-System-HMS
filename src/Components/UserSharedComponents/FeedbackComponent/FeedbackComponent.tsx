@@ -26,12 +26,10 @@ const FeedbackComponent = ({ id }) => {
   };
   const setComment = async (data) => {
     setLoadingBtn(true);
-    // console.log(data);
     try {
       const roomCommentData = await dispatch(CommentUserRoom(data));
     } finally {
       setLoadingBtn(false);
-      // setValue("comment", "");
     }
   };
   return (
@@ -44,7 +42,7 @@ const FeedbackComponent = ({ id }) => {
       <TextField
         placeholder="Type in here…"
         multiline
-        rows={4}
+        rows={2}
         variant="outlined"
         fullWidth
         {...register("comment")}

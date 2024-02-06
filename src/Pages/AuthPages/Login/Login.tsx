@@ -60,7 +60,6 @@ const Login = () => {
         localStorage.setItem("authToken", res.data.data.token);
         localStorage.setItem("userRole", res.data.data.user.role);
         localStorage.setItem("userId", res.data.data.user._id);
-        console.log(res.data.message);
         navigate("/dashboard");
         toast.success(res.data.message, {
           autoClose: 2000,

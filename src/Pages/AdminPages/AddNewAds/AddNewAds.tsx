@@ -70,7 +70,6 @@ const AddNewAds = () => {
       setValue("room", defRoomId);
     } catch (error) {
       toast.error("Error fetching existing data:", error);
-      console.log(error);
     } finally {
       setLoading(false);
     }

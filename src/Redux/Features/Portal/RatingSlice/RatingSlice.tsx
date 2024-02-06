@@ -8,7 +8,6 @@ export const setRatingRooms = createAsyncThunk(
   "rate/RatingRooms",
   async (data, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log(data);
     try {
       const response = await baseUrl.post(`/api/v0/portal/room-reviews`, data, {
         headers: {
