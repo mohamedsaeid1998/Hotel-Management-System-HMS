@@ -1,7 +1,7 @@
 /** @format */
 
 import { LandingImg } from "@/Assets/Images";
-import { Calendar, ImageCard, ImageCard2 } from "@/Components";
+import { Calendar, ImageCard, ImageCard2, LoginDialog } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
 import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
@@ -11,7 +11,7 @@ import { Add, Remove } from '@mui/icons-material';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import dayjs, { Dayjs, Range } from 'dayjs';
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -77,32 +77,6 @@ const Landing = () => {
 
   const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
   const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");
-console.log(startDate);
-console.log(endDate);
-
-
-
-  // const dateString = "2024-02-06T18:44:58.583Z";
-  // const parsedDate = new Date(dateString);
-  
-  // const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //   year: "numeric",
-  //   month: "2-digit",
-  //   day: "2-digit",
-  // }).format(parsedDate);
-  
-  // console.log(formattedDate);
-
-
-
-
-
-
-
-
-
-
-
 
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
@@ -121,6 +95,14 @@ console.log(endDate);
   const addItemToFavorite = async (roomId: any) => {
     try {
       setDisabled(true)
+      if (!localStorage.getItem("authToken")) {
+        return handleClickOpen()
+      } else if (localStorage.getItem("userRole") !== "user") {
+        toast.error("please ensure you are logged in to your user account", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      }
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -137,11 +119,14 @@ console.log(endDate);
   const [favList, setFavList] = useState([]);
   const getFavoriteData = async () => {
     try {
+
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
       // @ts-ignore
+
+
       setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
-    } finally {
+    } catch (error) {
     }
   };
 
@@ -150,12 +135,9 @@ console.log(endDate);
 
   const getRoomsData = async (roomCount: any) => {
     try {
-      const element = await dispatch(
-        // @ts-ignore
-        getRooms({ startDate, endDate, roomCount })
-      );
       // @ts-ignore
-
+      const element = await dispatch(getRooms({ startDate, endDate, roomCount }));
+      // @ts-ignore
       setRooms(element?.payload?.data?.rooms);
     } finally {
     }
@@ -178,8 +160,19 @@ console.log(endDate);
     }
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
+      <LoginDialog {...{ handleClose, open }} />
       <Box component="section" className="landingSec">
         <Box className="leftCon">
           <Typography variant="h1" className="title">
@@ -250,9 +243,9 @@ console.log(endDate);
         </Typography>
 
         <Box className="grid">
-          {adsData?.map((ele, index) => <>
-            <ImageCard key={ele?._id} {...{ disabled, selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
-          </>
+          {adsData?.map((ele, index) => <Fragment key={ele?._id}>
+            <ImageCard  {...{ disabled, selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
+          </Fragment>
           )}
 
         </Box>
@@ -263,9 +256,8 @@ console.log(endDate);
         <Box className="sliderCon">
           <Slider {...settings}>
             {rooms?.map((ele, index) => (
-              <>
+              <Fragment key={ele?._id}>
                 <ImageCard2
-                  key={ele?._id}
                   {...{
                     selectedDateRange,
                     ele,
@@ -279,11 +271,11 @@ console.log(endDate);
                     disabled
                   }}
                 />
-              </>
+              </Fragment>
             ))}
           </Slider>
         </Box>
-      </Box>
+      </Box >
     </>
   );
 };

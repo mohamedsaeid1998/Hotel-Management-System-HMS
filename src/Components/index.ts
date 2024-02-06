@@ -14,4 +14,6 @@ export { default as ImageCard } from './UserSharedComponents/ImageCard/ImageCard
 export { default as ImageCard2 } from './UserSharedComponents/ImageCard2/ImageCard2'
 export { default as Calendar } from './UserSharedComponents/Calendar/Calendar'
 export { default as CheckoutForm } from './UserSharedComponents/CheckoutForm/CheckoutForm'
+export { default as LoginDialog } from './UserSharedComponents/LoginDialog/LoginDialog'
+export { default as UserProtectedRoute } from './UserSharedComponents/UserProtectedRoute/UserProtectedRoute'
 

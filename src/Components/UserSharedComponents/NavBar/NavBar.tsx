@@ -28,6 +28,7 @@ import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import style from "./NavBar.module.scss";
 import DrawerComponent from "./DrawerComponent";
+import { toast } from "react-toastify";
 const NavBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -83,13 +84,6 @@ const NavBar = () => {
   }
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   // const [drawerOpen, setDrawerOpen] = useState(false);
   const handleCloseUserMenu = () => {
@@ -98,6 +92,20 @@ const NavBar = () => {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
+
+
+  const navigateToFav = () => {
+    if (!localStorage.getItem("authToken") || localStorage.getItem("userRole") !== "user") {
+      toast.error("please ensure you are logged in to your user account", {
+        autoClose: 2000,
+        theme: "colored",
+      });
+
+    } else {
+      navigate("./favorite-rooms")
+
+    }
+  }
   return (
     <>
       <AppBar color="inherit" className="nav">
@@ -143,7 +151,7 @@ const NavBar = () => {
               >
                 Reviews
               </Link>
-              <IconButton onClick={() => navigate("./favorite-rooms")} aria-label={notificationsLabel(100)} >
+              <IconButton onClick={navigateToFav} aria-label={notificationsLabel(100)} >
                 <Badge
                   badgeContent={
                     favoriteItemsCount === 0 ? "0" : favoriteItemsCount

@@ -1,5 +1,3 @@
-/** @format */
-
 import { CalendarMonth } from "@mui/icons-material";
 import { Button, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
@@ -27,7 +25,7 @@ const Calendar = ({
   };
 
   const handleButtonClick = (event: any) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(event?.currentTarget);
   };
 
   const handlePopoverClose = () => {
@@ -78,7 +76,7 @@ const Calendar = ({
       <TextField
         className="calendarField"
         label="Selected Date Range"
-        value={`${dayjs(selectedDateRange[0]).format("YYYY-MM-DD")} - ${dayjs(selectedDateRange[1]).format("YYYY-MM-DD")}`}
+        value={`${dayjs(selectedDateRange[0])?.format("YYYY-MM-DD")} - ${dayjs(selectedDateRange[1])?.format("YYYY-MM-DD")}`}
       />
     </>
   );

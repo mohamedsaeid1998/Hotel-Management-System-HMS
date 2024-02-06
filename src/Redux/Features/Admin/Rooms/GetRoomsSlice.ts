@@ -16,7 +16,7 @@ export const RoomsData = createAsyncThunk<any, void>(
       headers: {
         Authorization: token,
       },
-    });
+    })
     return data.data;
   }
 );

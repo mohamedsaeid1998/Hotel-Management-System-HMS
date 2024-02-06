@@ -15,22 +15,20 @@ export const getFavoriteItems = createAsyncThunk<any, void>(
   "GetAllFavoritesSlice/getFavoriteItems",
   async () => {
     const token = localStorage.getItem("authToken");
-    try {
-      const data = await baseUrl.get(`/api/v0/portal/favorite-rooms`,{
-        headers: {
-          Authorization: token,
-        },
-        
-          params:{
-            pageNumber:1,
-            pageSize:3,
-          }
-        
-      });
-      return data.data;
-    } catch (error) {
-      toast.error(error);
-    }
+
+    const data = await baseUrl.get(`/api/v0/portal/favorite-rooms`, {
+      headers: {
+        Authorization: token,
+      },
+
+      params: {
+        pageNumber: 1,
+        pageSize: 3,
+      }
+
+    })
+    return data?.data;
+
   }
 );
 

@@ -128,7 +128,7 @@ const Login = () => {
             </Link>
           </Typography>
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
             type="email"
@@ -176,7 +176,16 @@ const Login = () => {
             }
           />
 
-          <Box sx={{ textAlign: "end" }}>
+          <Box className="loginLinks">
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              Landing ?
+            </Link>
             <Link
               to="/forget-password"
               style={{
@@ -207,7 +216,7 @@ const Login = () => {
             </Button>
           )}
           <div id="signInDiv"></div>
-        </form>
+        </Box >
       </Box >
     </>
   );

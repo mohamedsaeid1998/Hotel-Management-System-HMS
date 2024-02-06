@@ -1,7 +1,7 @@
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ImageCard2 } from "@/Components";
+import { ImageCard2, LoginDialog } from "@/Components";
 import { Box, Breadcrumbs, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
@@ -11,7 +11,7 @@ import { Link, useLocation, useParams, useSearchParams } from "react-router-dom"
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
 import { Home, Living } from "@mui/icons-material";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { Range, Dayjs } from "dayjs";
 const Explore = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
@@ -35,14 +35,14 @@ const Explore = () => {
   const startDate = state?.range ? dayjs(state?.range[0]).format("YYYY-MM-DD") : today;
   const endDate = state?.range ? dayjs(state?.range[1]).format("YYYY-MM-DD") : nextDate;
 
-  const [params, setParams] = useSearchParams()
-  // const there = useSearchParams()
-  const here = {
-    startDate,
-    endDate
-  }
+  // const [params, setParams] = useSearchParams()
 
-  console.log(params);
+  // const here = {
+  //   startDate,
+  //   endDate
+  // }
+
+
 
   const handlePageChange = async (event, page) => {
     try {
@@ -56,7 +56,8 @@ const Explore = () => {
   useEffect(() => {
     getRoomsData(52);
     getFavoriteData();
-    setParams(here)
+    if (state?.range[0] == undefined)
+      setSelectedDateRange(undefined)
   }, [dispatch, count, data]);
 
   // const { endDate: end, persons: per, startDate: str } = useParams();
@@ -67,10 +68,23 @@ const Explore = () => {
 
 
   const bookingGuestCount = state?.persons;
+  console.log(bookingGuestCount);
+
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
     state?.range[0],
     state?.range[1],
   ]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   //! ************************ Get Rooms  *************************
   const getRoomsData = async (roomCount: any) => {
@@ -124,6 +138,14 @@ const Explore = () => {
   const addItemToFavorite = async (roomId: any) => {
     try {
       setDisabled(true)
+      if (!localStorage.getItem("authToken")) {
+        return handleClickOpen()
+      } else if (localStorage.getItem("userRole") !== "user") {
+        toast.error("please ensure you are logged in to your user account", {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      }
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -140,6 +162,7 @@ const Explore = () => {
   );
   return (
     <>
+      <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
         <Typography variant="h1" className="title">
           Explore ALL Rooms
@@ -167,8 +190,9 @@ const Explore = () => {
         </Typography>
         <Box className={style.ExploreImages} justifyContent={"center"}>
           {isLoading
-            ? loadingArray.map(() => (
+            ? loadingArray.map((index) => (
               <Skeleton
+                key={index}
                 variant="rounded"
                 width={200}
                 height={200}

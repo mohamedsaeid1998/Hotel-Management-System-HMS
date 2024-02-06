@@ -2,7 +2,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthLayout, MasterLayout, NotFound } from "./Components";
+import { AuthLayout, MasterLayout, NotFound, UserProtectedRoute } from "./Components";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
 import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, Reviews, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
@@ -25,11 +25,11 @@ function App() {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Landing /> },
-        { path:'explore', element: <Explore /> },
-        { path:'room-reviews', element: <Reviews /> },
-        { path:'favorite-rooms', element: <Favorites /> },
-        { path:'room-details', element: <RoomDetails /> },
-        { path:'stripePayment/:id', element: <StripePayment /> },
+        { path: 'explore', element: <Explore /> },
+        { path: 'room-reviews', element: <Reviews /> },
+        { path: 'favorite-rooms', element: <UserProtectedRoute><Favorites /></UserProtectedRoute> },
+        { path: 'room-details', element: <RoomDetails /> },
+        { path: 'stripePayment/:id', element: <UserProtectedRoute><StripePayment /></UserProtectedRoute> },
       ]
     },
     {

@@ -88,8 +88,9 @@ const Favorites = () => {
         </Breadcrumbs>
         {isLoading ? (
           <Box className={style.favoriteComponent}>
-            {loadingArray.map(() => (
+            {loadingArray.map((index) => (
               <Skeleton
+              key={index}
                 variant="rounded"
                 width={200}
                 height={200}

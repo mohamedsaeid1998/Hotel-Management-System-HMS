@@ -13,7 +13,7 @@ import {
   tv,
   wifi,
 } from "@/Assets/Images";
-import { Calendar } from "@/Components";
+import { Calendar, LoginDialog } from "@/Components";
 import { CreateBooking } from "@/Redux/Features/Portal/Booking/CreateBookingSlice";
 import { roomDetails } from "@/Redux/Features/Portal/Rooms/GetRoomDetailsSlice";
 import {
@@ -54,9 +54,10 @@ const RoomDetails = () => {
 
   const dispatch = useDispatch();
   const today = dayjs();
-  const nextDate = dayjs().add(1, "day");
-  const startDate = range ? dayjs(range[0]).format("YYYY-MM-DD") : today;
-  const endDate = range ? dayjs(range[1]).format("YYYY-MM-DD") : nextDate;
+  const nextDate = dayjs()?.add(1, "day");
+  const startDate = range ? dayjs(range[0])?.format("YYYY-MM-DD") : today;
+  const endDate = range ? dayjs(range[1])?.format("YYYY-MM-DD") : nextDate;
+
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
     startDate ? startDate : today,
     endDate ? endDate : nextDate,
@@ -81,9 +82,16 @@ const RoomDetails = () => {
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getRoomDetails();
-  }, []);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //! ************************ Get Room Details *************************
   const getRoomDetails = async () => {
@@ -103,6 +111,8 @@ const RoomDetails = () => {
   const [loading, setLoading] = useState(false);
   const handleBooking = async (e: any) => {
     e.preventDefault();
+    if (!localStorage.getItem("authToken"))
+      return handleClickOpen()
     try {
       // @ts-ignore
       setLoading(true);
@@ -153,21 +163,30 @@ const RoomDetails = () => {
     pauseOnHover: true,
   };
 
-  // const [personsCount, setPersonsCount] = useState(bookingGuestCount);
+  const [personsCount, setPersonsCount] = useState(1);
 
-  // const handleIncrease = () => {
-  //   setPersonsCount(bookingGuestCount + 1);
-  // };
+  const handleIncrease = () => {
+    setPersonsCount(personsCount + 1);
+  };
 
-  // const handleDecrease = () => {
-  //   if (bookingGuestCount > 1) {
-  //     setPersonsCount(bookingGuestCount - 1);
-  //   }
-  // };
+  const handleDecrease = () => {
+    if (personsCount > 1) {
+      setPersonsCount(personsCount - 1);
+    }
+  };
+
+  console.log(bookingGuestCount);
+
+  useEffect(() => {
+    getRoomDetails();
+    if (bookingGuestCount !== undefined)
+      setPersonsCount(bookingGuestCount)
+  }, []);
 
 
   return (
     <>
+      <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className="roomDetailsCon">
         <Typography variant="h1" className="title">
           Village Angga
@@ -209,9 +228,8 @@ const RoomDetails = () => {
             <Slider {...settings2}>
               <>
                 {details?.images?.map((image, index) => (
-                  <Box style={{ width: "20rem", hieght: "20rem" }}>
+                  <Box key={index} style={{ width: "20rem", hieght: "20rem" }}>
                     <img
-                      key={index}
                       className="image"
                       style={{ width: "100%" }}
                       src={image}
@@ -275,11 +293,10 @@ const RoomDetails = () => {
                   </Typography>
                 )}
                 <Typography className="bookingTitle">Pick a Date</Typography>
-                <Box className={style.calenderBox} style={{ background: "" }}>
+                <Box className={style.calenderBox}>
                   <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
                 </Box>
 
-                {/* 
                 <Box className="capacityCon">
                   <IconButton
                     onClick={handleIncrease}
@@ -291,7 +308,7 @@ const RoomDetails = () => {
                   <TextField
                     className="capacityField"
                     label="Capacity"
-                    value={`${bookingGuestCount} person`}
+                    value={`${personsCount} person`}
                   />
                   <IconButton
                     onClick={handleDecrease}
@@ -300,24 +317,20 @@ const RoomDetails = () => {
                   >
                     <Remove />
                   </IconButton>
-                </Box> */}
-
-
-
-
+                </Box>
 
                 <Typography className="grayColor">
                   You will pay
                   <Typography variant="caption" className="bookingCon">
-                    {`$${bookingGuestCount ? price * bookingGuestCount : price
+                    {`$${personsCount ? price * personsCount : price
                       } USD`}
                   </Typography>
                   <Typography variant="caption" className="sub">
                     pre
                   </Typography>
                   <Typography variant="caption" className="bookingCon">
-                    {`${bookingGuestCount !== 1 && bookingGuestCount !== undefined
-                      ? `${bookingGuestCount} persons`
+                    {`${personsCount !== 1 && personsCount !== undefined
+                      ? `${personsCount} persons`
                       : `1 person`
                       } `}
                   </Typography>
@@ -346,7 +359,7 @@ const RoomDetails = () => {
             </Card>
           </Box>
         </Box>
-
+        {localStorage.getItem("authToken") && localStorage.getItem("userRole") ?<>
         <Box component={"section"} className={style.review}>
           <Box className={style.roomfeedback}>
             <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
@@ -361,7 +374,8 @@ const RoomDetails = () => {
             </Typography>
             <FeedbackComponent id={id} />
           </Box>
-        </Box>
+        </Box></> :""}
+
       </Box>
     </>
   );
