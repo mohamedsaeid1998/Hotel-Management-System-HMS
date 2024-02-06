@@ -36,7 +36,7 @@ const Landing = () => {
     getAdsData();
     dispatch(fetchDataIslogged());
     if (localStorage.getItem("userRole") === "user")
-    getFavoriteData();
+      getFavoriteData();
   }, [dispatch, count, data]);
 
   const handleIncrease = () => {
@@ -50,6 +50,29 @@ const Landing = () => {
   };
 
   var settings = {
+    dots: false,
+    infinite: false,
+    speed: 1000,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    cssEase: "linear",
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 763,
+        settings: {
+          dots: false,
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
+
+  var settings2 = {
     dots: false,
     infinite: false,
     speed: 1000,
@@ -99,14 +122,14 @@ const Landing = () => {
           autoClose: 2000,
           theme: "colored",
         });
-      }else{
-      // @ts-ignore
-      const element = await dispatch(AddFavoriteItem(roomId));
-      // @ts-ignore
-      toast.success(element?.payload?.message, {
-        autoClose: 2000,
-        theme: "colored",
-      });
+      } else {
+        // @ts-ignore
+        const element = await dispatch(AddFavoriteItem(roomId));
+        // @ts-ignore
+        toast.success(element?.payload?.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
       }
 
     } finally {
@@ -169,72 +192,74 @@ const Landing = () => {
     setOpen(false);
   };
 
-  return (
-    <>
-      <LoginDialog {...{ handleClose, open }} />
-      <Box component="section" className="landingSec">
-        <Box className="leftCon">
-          <Typography variant="h1" className="title">
-            Forget Busy Work, Start Next Vacation
+  return <>
+    <LoginDialog {...{ handleClose, open }} />
+    <Box component="section" className="landingSec">
+      <Box className="leftCon">
+        <Typography variant="h1" className="title">
+          Forget Busy Work, Start Next Vacation
+        </Typography>
+        <Typography className="subTitle">
+          We provide what you need to enjoy your holiday with family. Time to
+          make another memorable moments.
+        </Typography>
+
+        <Box className="bookingCon">
+          <Typography variant="h3" className="bookingTitle">
+            Start Booking
           </Typography>
-          <Typography className="subTitle">
-            We provide what you need to enjoy your holiday with family. Time to
-            make another memorable moments.
+          <Typography variant="h4" className="subBookingTitle">
+            Pick a Date
           </Typography>
-
-          <Box className="bookingCon">
-            <Typography variant="h3" className="bookingTitle">
-              Start Booking
-            </Typography>
-            <Typography variant="h4" className="subBookingTitle">
-              Pick a Date
-            </Typography>
-          </Box>
-
-          <Box className="exploreCon">
-            <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
-
-            <Box className="capacityCon">
-              <IconButton
-                onClick={handleIncrease}
-                className="caleBtn"
-                color="primary"
-              >
-                <Add />
-              </IconButton>
-              <TextField
-                className="capacityField"
-                label="Capacity"
-                value={`${bookingGuestCount} person`}
-              />
-              <IconButton
-                onClick={handleDecrease}
-                className="caleBtnDiscernment"
-                color="error"
-              >
-                <Remove />
-              </IconButton>
-            </Box>
-          </Box>
-
-          <Button
-            className="submitExplore"
-            onClick={() =>
-              navigate(`/explore`, {
-                state: { range: selectedDateRange, persons: bookingGuestCount },
-              })
-            }
-            variant="contained"
-            color="primary"
-          >
-            Explore
-          </Button>
         </Box>
 
-        <Box className="rightCon">
-          <img className="LandingImg" src={LandingImg} alt="Landing Image" />
+
+        <Box className="exploreCon">
+          <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
+
+          <Box className="capacityCon">
+            <IconButton
+              onClick={handleIncrease}
+              className="caleBtn"
+              color="primary"
+            >
+              <Add />
+            </IconButton>
+            <TextField
+              className="capacityField"
+              label="Capacity"
+              value={`${bookingGuestCount} person`}
+            />
+            <IconButton
+              onClick={handleDecrease}
+              className="caleBtnDiscernment"
+              color="error"
+            >
+              <Remove />
+            </IconButton>
+          </Box>
         </Box>
+
+        <Button
+          className="submitExplore"
+          onClick={() =>
+            navigate(`/explore`, {
+              state: { range: selectedDateRange, persons: bookingGuestCount },
+            })
+          }
+          variant="contained"
+          color="primary"
+        >
+          Explore
+        </Button>
       </Box>
+
+      <Box className="rightCon">
+        <img className="LandingImg" src={LandingImg} alt="Landing Image" />
+      </Box>
+    </Box>
+
+    <Box className="userContainer">
 
       <Box component="section" className="viewSec">
         <Typography variant="h4" className="adsTitle">
@@ -252,8 +277,8 @@ const Landing = () => {
         <Typography variant="h4" className="bookingTitle">
           Most Booked Rooms
         </Typography>
-        <Box className="sliderCon">
-          <Slider {...settings}>
+        {/* <Box className="sliderCon">
+          <Slider {...settings2}>
             {rooms?.map((ele, index) => (
               <Fragment key={ele?._id}>
                 <ImageCard2
@@ -273,13 +298,13 @@ const Landing = () => {
               </Fragment>
             ))}
           </Slider>
-        </Box>
+        </Box> */}
       </Box>
       <Box component="section" className="reviewUsersSection">
         <UsersReviews />
       </Box>
-    </>
-  );
+    </Box>
+  </>
 };
 
 export default Landing;

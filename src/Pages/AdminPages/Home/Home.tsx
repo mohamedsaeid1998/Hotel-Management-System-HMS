@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import "./Home.module.scss";
+import { ArrowUp } from "@/Assets/Images";
+import { ArrowRightSharp, ArrowUpward, Discount, Grade } from "@mui/icons-material";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -66,34 +68,55 @@ const Home = () => {
   return <>
     <Box component={"main"}>
 
-      <Box className="cards">
-        <Card className="card">
-          <CardContent className="cardCon">
-            <RoomPreferencesIcon />
-            <Typography className="title">here</Typography>
-            <Typography className="number">50</Typography>
-          </CardContent>
-        </Card>
-        <Card className="card">
-          <CardContent className="cardCon">
-            <RoomPreferencesIcon />
-            <Typography className="title">here</Typography>
-            <Typography className="number">50</Typography>
-          </CardContent>
-        </Card>
-        <Card className="card">
-          <CardContent className="cardCon">
-            <RoomPreferencesIcon />
-            <Typography className="title">here</Typography>
-            <Typography className="number">50</Typography>
+      <Typography className="homeTitle">DashBoard Analysis</Typography>
+
+      <Box className="homeGrid">
+        <Card className="card2">
+          <CardContent className="cardCon2">
+            <Box className="iconCon2">
+              <Discount />
+
+            </Box>
+            <Box className="cardNumberCon2">
+              <Typography className="cardNumber">{bookingStatus?.rooms}</Typography>
+              <Box className="cardIcon2"><ArrowUpward className="arrow2" /></Box>
+            </Box>
+            <Typography className="cardTitle2">Total Offers</Typography>
           </CardContent>
         </Card>
 
-      </Box>
 
-      <Box className="chartsCon">
+        <Card className="card">
+          <CardContent className="cardCon">
+            <Box className="iconCon">
+              <RoomPreferencesIcon />
+            </Box>
+            <Box className="cardNumberCon">
+              <Typography className="cardNumber">{bookingStatus?.ads}</Typography>
+              <Box className="cardIcon"><ArrowUpward className="arrow" /></Box>
+            </Box>
+            <Typography className="cardTitle">Total Rooms</Typography>
+          </CardContent>
+        </Card>
+
+
+        <Card className="card3">
+          <CardContent className="cardCon3">
+            <Box className="iconCon3">
+              <Grade />
+            </Box>
+            <Box className="cardNumberCon3">
+              <Typography className="cardNumber">{bookingStatus?.facilities}</Typography>
+              <Box className="cardIcon3"><ArrowUpward className="arrow3" /></Box>
+            </Box>
+            <Typography className="cardTitle3">Rooms with facilities</Typography>
+          </CardContent>
+        </Card>
+
+
+
+
         {bookingStatus.booking && <>
-
           <PieChart
             series={[{
               data,
@@ -101,14 +124,7 @@ const Home = () => {
               faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
             },
             ]}
-            slotProps={{
-              legend: {
-                direction: 'row',
-                position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 0,
-              },
-            }}
-            width={300} height={300}
+            height={150}
           />
 
           <PieChart
@@ -118,31 +134,9 @@ const Home = () => {
               faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
             },
             ]}
-            slotProps={{
-              legend: {
-                direction: 'row',
-                position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 0,
-              },
-            }}
-            height={300}
-            width={300}
+            height={150}
           />
 
-          {/* <PieChart className="heree"
-            // margin={{ top: 100, bottom: 100, left: 100, right: 100 }}
-
-            slotProps={{
-              legend: {
-                direction: 'row',
-                position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 0,
-              },
-            }}
-
-            display={"block"}
-
-          /> */}
           <PieChart
             series={[{
               data: data3,
@@ -150,15 +144,7 @@ const Home = () => {
               faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
             },
             ]}
-            slotProps={{
-              legend: {
-                direction: 'row',
-                position: { vertical: 'bottom', horizontal: 'middle' },
-                padding: 0,
-              },
-            }}
-            height={300}
-            width={300}
+            height={150}
           />
         </>
         }
@@ -166,7 +152,6 @@ const Home = () => {
       </Box>
 
     </Box>
-
   </>
 };
 

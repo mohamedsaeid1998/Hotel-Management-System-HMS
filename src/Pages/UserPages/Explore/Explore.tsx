@@ -158,6 +158,7 @@ const Explore = () => {
     <>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
+      <Box className="userContainer">
         <Typography variant="h1" className="title">
           Explore ALL Rooms
         </Typography>
@@ -227,6 +228,7 @@ const Explore = () => {
             onChange={handlePageChange}
           />
         </Stack>
+        </Box>
       </Box>
     </>
   );
