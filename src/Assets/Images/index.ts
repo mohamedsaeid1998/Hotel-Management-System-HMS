@@ -24,6 +24,7 @@ import ocean from "./ocean.jpg";
 import creditCard from "./creditCard.png";
 import paymentDone from "./paymentDone.png";
 import familyReview from "./familyReview.png";
+
 export {
   familyReview,
   bathroom,

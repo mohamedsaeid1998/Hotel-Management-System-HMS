@@ -1,4 +1,9 @@
-/** @format */
+@media (max-width: 1285px) {
+  .homeGrid {
+    display: flex !important;
+    flex-direction: column;
+  }
+}
 
 @media (max-width: 1050px) {
   .Stepper {

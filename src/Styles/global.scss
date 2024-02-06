@@ -999,37 +999,218 @@
   background-color: #1565c0 !important;
 }
 
-.chartsCon {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  column-gap: 60px;
-}
-.cards {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  column-gap: 50px;
-}
-// .MuiChartsLegend-root {
-//   display: none;
+// .chartsCon {
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+//   column-gap: 60px;
 // }
-
-.card {
-  margin-top: 20px;
-  width: 300px;
-  display: flex;
-  justify-content: space-between;
-}
 
 .css-uguv5e-MuiResponsiveChart-container {
   justify-content: space-between !important;
 }
 
-.cardCon {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.homeTitle {
+  @extend .title;
+  margin-top: 30px !important;
+}
+
+.homeGrid {
+  display: grid;
+  height: 80vh;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  max-width: 100%;
+  gap: 40px;
   align-items: center;
+  // justify-content: space-between;
+  align-items: center;
+  .card {
+    margin-top: 20px;
+    max-width: 380px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    box-shadow: none;
+    border: none rgba(224, 224, 224, 0.596) !important;
+    background-color: rgb(30, 136, 229) !important;
+    color: rgb(255, 255, 255);
+    overflow: hidden !important;
+    position: relative;
+
+    .cardCon {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        width: 210px;
+        height: 210px;
+        background: rgb(21, 101, 192);
+        border-radius: 50%;
+        top: -135px;
+        right: -40px;
+        opacity: 0.5;
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        width: 210px;
+        height: 210px;
+        background: rgb(21, 101, 192);
+        border-radius: 50%;
+        z-index: 1;
+        top: -100px;
+        right: -120px;
+      }
+
+      .iconCon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        line-height: 1;
+        background: rgb(21, 101, 192);
+        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+        color: rgb(255, 255, 255);
+        margin-top: 8px;
+      }
+
+      .cardNumberCon {
+        display: flex;
+        align-items: center;
+
+        .cardNumber {
+          color: white;
+          display: flex;
+          margin: 14px 8px 6px 5px !important;
+          line-height: 1.334em !important;
+          font-size: 2.125rem !important;
+          font-weight: 500 !important;
+        }
+
+        .cardIcon {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: rgb(144, 202, 249);
+          width: 22px;
+          height: 22px;
+          font-size: 1rem;
+          color: rgb(30, 136, 229);
+
+          .arrow {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            fill: currentcolor;
+            flex-shrink: 0;
+            transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+            font-size: inherit;
+            transform: rotate3d(1, 1, 1, 45deg);
+          }
+        }
+      }
+      .cardTitle {
+        margin-left: 5px;
+        line-height: 1.334em;
+        color: rgb(144, 202, 249);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
+
+    .css-46bh2p-MuiCardContent-root:last-child {
+      padding-bottom: 16px !important;
+    }
+  }
+
+  .card2 {
+    @extend .card;
+    background-color: rgb(94, 53, 177) !important;
+
+    .cardCon2 {
+      @extend .cardCon;
+
+      .cardNumberCon2 {
+        @extend .cardNumberCon;
+
+        .cardIcon2 {
+          @extend .cardIcon;
+          color: rgb(94, 53, 177);
+          background: rgb(179, 157, 219);
+
+          .arrow2 {
+            @extend .arrow;
+            transform: rotate(210deg);
+          }
+        }
+      }
+
+      .iconCon2 {
+        @extend .iconCon;
+        background: rgb(69, 39, 160);
+      }
+
+      &::before {
+        background: rgb(69, 39, 160);
+      }
+      &::after {
+        background: rgb(69, 39, 160);
+      }
+
+      .cardTitle2 {
+        @extend .cardTitle;
+        color: rgb(179, 157, 219);
+      }
+    }
+  }
+  .card3 {
+    @extend .card;
+    background-color: rgb(244, 67, 54) !important;
+
+    .cardCon3 {
+      @extend .cardCon;
+
+      .cardNumberCon3 {
+        @extend .cardNumberCon;
+
+        .cardIcon3 {
+          @extend .cardIcon;
+          color: rgb(244, 67, 54);
+          background: rgb(249, 163, 157);
+
+          .arrow3 {
+            @extend .arrow;
+            transform: rotate(210deg);
+          }
+        }
+      }
+
+      .iconCon3 {
+        @extend .iconCon;
+        background: rgb(233, 66, 54);
+      }
+
+      &::before {
+        background: rgb(230, 63, 51);
+      }
+      &::after {
+        background: rgb(220, 61, 50);
+      }
+
+      .cardTitle3 {
+        @extend .cardTitle;
+        color: rgb(249, 163, 157);
+      }
+    }
+  }
 }
