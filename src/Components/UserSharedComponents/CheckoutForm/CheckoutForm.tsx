@@ -64,6 +64,7 @@ const CheckoutForm = () => {
   }
   return <>
     <Box component={"main"} >
+    <Box className="userContainer">
       <Box className="Stepper">
 
         <Stepper activeStep={activeStep}>
@@ -125,7 +126,7 @@ const CheckoutForm = () => {
 
         }
       </Box>
-
+      </Box>
     </Box >
 
   </>

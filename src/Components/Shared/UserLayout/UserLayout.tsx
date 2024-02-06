@@ -8,9 +8,8 @@ const UserLayout = () => {
     <Box>
 
       <NavBar />
-      <Box className="userContainer">
         <Outlet />
-      </Box>
+
       <Footer />
     </Box>
   </>

@@ -177,6 +177,7 @@ const RoomDetails = () => {
     <>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className="roomDetailsCon">
+      <Box className="userContainer">
         <Typography variant="h1" className="title">
           Village Angga
         </Typography>
@@ -348,8 +349,8 @@ const RoomDetails = () => {
             </Box></> : ""}
 
         </Box>
-
       </Box>
+    </Box >
     </>
   );
 };

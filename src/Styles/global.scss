@@ -20,6 +20,11 @@
   display: flex;
   align-items: center;
 }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 .mainContainer {
   margin-left: 240px !important;
@@ -401,6 +406,21 @@
 
 //? ************** Landing **************
 
+@media (max-width: 1050px) {
+  // .landingSec {
+  //   padding-inline: 90px !important;
+  // }
+
+  .rightCon {
+    width: 100vh !important;
+    height: 100vh !important;
+    padding-right: 0 !important;
+    &::after {
+      display: none !important;
+    }
+  }
+}
+
 .landingSec {
   display: flex;
   justify-content: space-between;
@@ -474,9 +494,9 @@
       width: 100%;
       border-radius: 100px 15px 15px 15px;
     }
-    @media (max-width: 768px) {
-      height: 30vh;
-    }
+    // @media (max-width: 768px) {
+    //   height: 30vh;
+    // }
     &::after {
       content: "";
       position: absolute;

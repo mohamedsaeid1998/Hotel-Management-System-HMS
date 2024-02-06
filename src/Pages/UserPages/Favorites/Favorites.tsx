@@ -74,6 +74,7 @@ const Favorites = () => {
         style={{ height: "100vh" }}
         className="exploreCom"
       >
+        <Box className="userContainer">
         <Typography variant="h1" className="title">
           Favorite Rooms
         </Typography>
@@ -128,6 +129,7 @@ const Favorites = () => {
             </Box>
           </>
         )}
+        </Box>
       </Box>
     </>
   );
