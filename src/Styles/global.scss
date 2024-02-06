@@ -409,6 +409,9 @@
   justify-content: space-between;
   align-items: start;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
   .leftCon {
     .title {
       @extend .darkColor;
@@ -440,6 +443,11 @@
       margin-left: 5px;
       margin-top: 10px;
     }
+    @media (max-width: 768px) {
+      order: 1;
+      flex: 1 0 100%;
+      margin-top: 5rem;
+    }
   }
 
   .exploreCon {
@@ -463,13 +471,15 @@
   }
 
   .rightCon {
-    position: relative;
     padding-right: 40px;
+    position: relative;
     .LandingImg {
-      position: relative;
+      width: 100%;
       border-radius: 100px 15px 15px 15px;
     }
-
+    @media (max-width: 768px) {
+      height: 30vh;
+    }
     &::after {
       content: "";
       position: absolute;
@@ -480,6 +490,15 @@
       bottom: -10%;
       border: 2px solid #e5e5e5;
       z-index: -1;
+      @media (max-width: 768px) {
+        border: 2px solid #e5e5e5;
+        background-color: #e1dfdf4f;
+        top: -7%;
+        bottom: -15%;
+        left: 1%;
+        right: 22px;
+        z-index: -2;
+      }
     }
   }
 
@@ -553,7 +572,11 @@
     "main - -";
   gap: 30px 20px;
   justify-content: space-between;
-
+  @media (max-width: 763px) {
+    grid-template-rows: 7rem 7rem;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 10px 10px;
+  }
   img {
     width: 100%;
     height: 100%;
@@ -588,9 +611,9 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  background-color: #ff498b;
+  background-color: #ff498c9e;
   color: white;
-  width: 120px;
+  width: 5rem;
   text-align: center;
   border-radius: 0px 15px;
   height: 30px;
@@ -708,8 +731,8 @@
 .subTitle {
   @extend .darkColor;
   font-family: "Poppins", sans-serif;
-  font-size: 24px !important;
-  font-weight: 500 !important;
+  font-size: clamp(1rem, 2.5vw, 1.5rem) !important;
+  font-weight: 200 !important;
   margin-top: 20px !important;
 }
 

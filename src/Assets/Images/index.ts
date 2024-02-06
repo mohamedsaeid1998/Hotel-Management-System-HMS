@@ -23,7 +23,7 @@ import bathroom from "./ic_bathroom.png";
 import ocean from "./ocean.jpg";
 import creditCard from "./creditCard.png";
 import paymentDone from "./paymentDone.png";
-
+// import familyView from "./"
 export {
   bathroom,
   diningroom,
@@ -47,5 +47,5 @@ export {
   RoomDetails3,
   ocean,
   creditCard,
-  paymentDone
+  paymentDone,
 };

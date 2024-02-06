@@ -3,14 +3,14 @@
 import { LandingImg } from "@/Assets/Images";
 import { Calendar, ImageCard, ImageCard2 } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
-import { AllAdsData } from '@/Redux/Features/Portal/Ads/getAllAdsSlice';
-import { AddFavoriteItem } from '@/Redux/Features/Portal/Favorites/AddToFavoriteSlice';
-import { getFavoriteItems } from '@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice';
-import { RemoveFavoriteItem } from '@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice';
-import { Add, Remove } from '@mui/icons-material';
-import { Box, Button, IconButton, TextField } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import dayjs, { Dayjs, Range } from 'dayjs';
+import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
+import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import { Add, Remove } from "@mui/icons-material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import dayjs, { Dayjs, Range } from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -49,60 +49,42 @@ const Landing = () => {
     }
   };
 
-
-
-
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     cssEase: "linear",
     pauseOnHover: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 763,
         settings: {
-          slidesToShow: 4,
+          dots: false,
+          slidesToShow: 5,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
-        },
+          familyReviw.png        },
       },
     ],
   };
 
   const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
   const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");
-console.log(startDate);
-console.log(endDate);
-
-
 
   // const dateString = "2024-02-06T18:44:58.583Z";
   // const parsedDate = new Date(dateString);
-  
+
   // const formattedDate = new Intl.DateTimeFormat("en-US", {
   //   year: "numeric",
   //   month: "2-digit",
   //   day: "2-digit",
   // }).format(parsedDate);
-  
+
   // console.log(formattedDate);
-
-
-
-
-
-
-
-
-
-
-
 
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
@@ -120,7 +102,7 @@ console.log(endDate);
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
     try {
-      setDisabled(true)
+      setDisabled(true);
       // @ts-ignore
       const element = await dispatch(AddFavoriteItem(roomId));
       // @ts-ignore
@@ -129,7 +111,7 @@ console.log(endDate);
         theme: "colored",
       });
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
 
@@ -165,7 +147,7 @@ console.log(endDate);
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
-      setDisabled(true)
+      setDisabled(true);
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
@@ -174,7 +156,7 @@ console.log(endDate);
         theme: "colored",
       });
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
 
@@ -250,11 +232,23 @@ console.log(endDate);
         </Typography>
 
         <Box className="grid">
-          {adsData?.map((ele, index) => <>
-            <ImageCard key={ele?._id} {...{ disabled, selectedDateRange, ele, index, deleteFavoriteItem, addItemToFavorite, startDate, endDate, bookingGuestCount, favList }} />
-          </>
-          )}
-
+          {adsData?.map((ele, index) => (
+            <ImageCard
+              key={ele?._id}
+              {...{
+                disabled,
+                selectedDateRange,
+                ele,
+                index,
+                deleteFavoriteItem,
+                addItemToFavorite,
+                startDate,
+                endDate,
+                bookingGuestCount,
+                favList,
+              }}
+            />
+          ))}
         </Box>
 
         <Typography variant="h4" className="bookingTitle">
@@ -276,7 +270,7 @@ console.log(endDate);
                     endDate,
                     bookingGuestCount,
                     favList,
-                    disabled
+                    disabled,
                   }}
                 />
               </>
