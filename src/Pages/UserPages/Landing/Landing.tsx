@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import Slider from "react-slick";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
+import UsersReviews from "./UsersReview";
 const Landing = () => {
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
@@ -51,11 +52,11 @@ const Landing = () => {
 
   var settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     cssEase: "linear",
     pauseOnHover: true,
@@ -277,6 +278,9 @@ const Landing = () => {
             ))}
           </Slider>
         </Box>
+      </Box>
+      <Box component="section" className="reviewUsersSection">
+        <UsersReviews />
       </Box>
     </>
   );
