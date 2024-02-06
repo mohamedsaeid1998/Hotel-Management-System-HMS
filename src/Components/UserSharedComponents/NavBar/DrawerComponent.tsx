@@ -51,6 +51,8 @@ const DrawerComponent = () => {
                   component="div"
                   color="initial"
                   style={{ marginBottom: "2rem" }}
+                  margin={"auto"}
+                  textAlign={"center"}
                 >
                   <Typography
                     variant=""

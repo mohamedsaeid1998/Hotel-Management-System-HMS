@@ -14,19 +14,19 @@
     margin-bottom: 0.5em;
     font-weight: 600;
   }
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
   .roomfeedback {
     width: 40%;
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
       width: 80%;
     }
   }
   .comments {
     width: 40%;
     margin-top: 2rem;
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
       width: 80%;
     }
   }
@@ -37,12 +37,12 @@
     background-color: #203fc7;
     width: 1px;
     height: 80%;
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
       display: none;
     }
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .reviewLine {
     display: none;
   }

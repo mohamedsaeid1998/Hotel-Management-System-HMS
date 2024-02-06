@@ -109,6 +109,8 @@ const NavBar = () => {
             variant="h4"
             component="div"
             color="initial"
+            margin={"auto"}
+            textAlign={"center"}
           >
             <Typography
               variant=""

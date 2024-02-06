@@ -10,6 +10,7 @@
   border-radius: 0px 0px 0.5rem 0.5rem;
   text-align: center !important;
   width: 50vw;
+  background-color: #ffff;
   .navArrow {
     position: absolute;
     right: 0px;
@@ -44,7 +45,7 @@
   }
 
   a {
-    color: white;
+    color: rgb(17, 52, 210);
     margin: auto;
     text-decoration: none;
     font-weight: 600;
@@ -71,7 +72,7 @@
   }
 }
 .logo {
-  color: wheat;
+  color: rgb(75, 120, 255);
   margin: auto;
   text-align: center !important;
 }
