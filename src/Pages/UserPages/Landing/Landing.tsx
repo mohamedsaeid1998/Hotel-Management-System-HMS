@@ -67,7 +67,7 @@ const Landing = () => {
           slidesToShow: 5,
           slidesToScroll: 1,
           infinite: true,
-          familyReviw.png        },
+        },
       },
     ],
   };

@@ -36,12 +36,11 @@ import { LoadingButton } from "@mui/lab";
 import { Details, Home } from "@mui/icons-material";
 import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
 import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
-import Slider from "react-slick";
 
 const RoomDetails = () => {
   const [showMore, setShowMore] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
-  const isMobile = useMediaQuery("(max-width:576px)");
+  // const isMobile = useMediaQuery("(max-width:576px)");
   const handleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -136,17 +135,17 @@ const RoomDetails = () => {
   const displayedDescriptions = showMore
     ? descriptions
     : descriptions.slice(0, 1);
-  const settings2 = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
-    pauseOnHover: true,
-  };
+  // const settings2 = {
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 2000,
+  //   cssEase: "linear",
+  //   pauseOnHover: true,
+  // };
 
   return (
     <>
@@ -166,9 +165,9 @@ const RoomDetails = () => {
         </Breadcrumbs>
         <Box component={"section"} className="roomImages">
           <Box className="gridDetails">
-          {details && (
+            {/* {details && (
               <Box>
-              
+                <>
                 <img
                   className="image"
                   src={details?.images[0] ? details?.images[0] : RoomDetails1}
@@ -184,123 +183,127 @@ const RoomDetails = () => {
                   src={details?.images[2] ? details?.images[2] : RoomDetails3}
                   alt="roomImage"
                 />
-           
+              </>
             </Box>
-          )}
-        </Box>
+          )} */}
+          </Box>
 
-        <Box
-          component={"section"}
-          className={`roomDetailsBooking ${
-            isSmallScreen && style.roomBookMobView
-          }`}
-        >
-          <Box className="roomDetailsDec">
-            {displayedDescriptions?.map((description, index) => (
-              <Typography
-                key={index}
-                className={`description ${showMore ? "show-all" : ""}`}
-              >
-                {description}
-              </Typography>
-            ))}
-            {showMore ? "" : "..."}
-            <Button color="primary" onClick={handleShowMore}>
-              {showMore ? "Show Less" : "Show More"}
-            </Button>
+          <Box
+            component={"section"}
+            className={`roomDetailsBooking ${
+              isSmallScreen && style.roomBookMobView
+            }`}
+          >
+            <Box className="roomDetailsDec">
+              {displayedDescriptions?.map((description, index) => (
+                <Typography
+                  key={index}
+                  className={`description ${showMore ? "show-all" : ""}`}
+                >
+                  {description}
+                </Typography>
+              ))}
+              {showMore ? "" : "..."}
+              <Button color="primary" onClick={handleShowMore}>
+                {showMore ? "Show Less" : "Show More"}
+              </Button>
 
-            <Box className="roomFacilities">
-              {facilitiesDetails.map(({ main, Icon, sub, index }) => (
-                <Box key={index} className="facilities">
-                  <img className="facilitiesIcon" src={Icon} alt="Icons" />
-                  <Typography className="mainDec">
-                    {main}
-                    <Typography variant="caption" className="subDec">
-                      {sub}
+              <Box className="roomFacilities">
+                {facilitiesDetails.map(({ main, Icon, sub, index }) => (
+                  <Box key={index} className="facilities">
+                    <img className="facilitiesIcon" src={Icon} alt="Icons" />
+                    <Typography className="mainDec">
+                      {main}
+                      <Typography variant="caption" className="subDec">
+                        {sub}
+                      </Typography>
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
+            <Box component={"form"} className="roomDetailsBook">
+              <Card variant="outlined" className="roomDetailsCard">
+                <CardContent className="cardContent">
+                  <Typography className="bookingCon">Start Booking</Typography>
+                  <Typography className="bookingPrice">
+                    {`$${price}`}
+                    <Typography variant="caption" className="priceFor">
+                      per night
                     </Typography>
                   </Typography>
-                </Box>
-              ))}
+                  {Math.round((details?.discount / price) * 100) !== 0 && (
+                    <Typography className="bookingDiscount">
+                      Discount {Math.round((details?.discount / price) * 100)}%
+                      Off
+                    </Typography>
+                  )}
+                  <Typography className="bookingTitle">Pick a Date</Typography>
+                  <Box className={style.calenderBox} style={{ background: "" }}>
+                    <Calendar
+                      {...{ setSelectedDateRange, selectedDateRange }}
+                    />
+                  </Box>
+
+                  <Typography className="grayColor">
+                    You will pay
+                    <Typography variant="caption" className="bookingCon">
+                      {`$${
+                        bookingGuestCount ? price * bookingGuestCount : price
+                      } USD`}
+                    </Typography>
+                    <Typography variant="caption" className="sub">
+                      pre
+                    </Typography>
+                    <Typography variant="caption" className="bookingCon">
+                      {`${
+                        bookingGuestCount !== 1 &&
+                        bookingGuestCount !== undefined
+                          ? `${bookingGuestCount} persons`
+                          : `1 person`
+                      } `}
+                    </Typography>
+                  </Typography>
+                  <Box className="submitBooking">
+                    {loading ? (
+                      <LoadingButton
+                        className="submitBtn white"
+                        loading
+                        variant="outlined"
+                      >
+                        Continue Book
+                      </LoadingButton>
+                    ) : (
+                      <Button
+                        className="submitBtn"
+                        type="submit"
+                        variant="contained"
+                        onClick={handleBooking}
+                      >
+                        Continue Book
+                      </Button>
+                    )}
+                  </Box>
+                </CardContent>
+              </Card>
             </Box>
           </Box>
 
-          <Box component={"form"} className="roomDetailsBook">
-            <Card variant="outlined" className="roomDetailsCard">
-              <CardContent className="cardContent">
-                <Typography className="bookingCon">Start Booking</Typography>
-                <Typography className="bookingPrice">
-                  {`$${price}`}
-                  <Typography variant="caption" className="priceFor">
-                    per night
-                  </Typography>
-                </Typography>
-                {Math.round((details?.discount / price) * 100) !== 0 && (
-                  <Typography className="bookingDiscount">
-                    Discount {Math.round((details?.discount / price) * 100)}%
-                    Off
-                  </Typography>
-                )}
-                <Typography className="bookingTitle">Pick a Date</Typography>
-                <Box className={style.calenderBox} style={{ background: "" }}>
-                  <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
-                </Box>
-
-                <Typography className="grayColor">
-                  You will pay
-                  <Typography variant="caption" className="bookingCon">
-                    {`$${
-                      bookingGuestCount ? price * bookingGuestCount : price
-                    } USD`}
-                  </Typography>
-                  <Typography variant="caption" className="sub">
-                    pre
-                  </Typography>
-                  <Typography variant="caption" className="bookingCon">
-                    {`${
-                      bookingGuestCount !== 1 && bookingGuestCount !== undefined
-                        ? `${bookingGuestCount} persons`
-                        : `1 person`
-                    } `}
-                  </Typography>
-                </Typography>
-                <Box className="submitBooking">
-                  {loading ? (
-                    <LoadingButton
-                      className="submitBtn white"
-                      loading
-                      variant="outlined"
-                    >
-                      Continue Book
-                    </LoadingButton>
-                  ) : (
-                    <Button
-                      className="submitBtn"
-                      type="submit"
-                      variant="contained"
-                      onClick={handleBooking}
-                    >
-                      Continue Book
-                    </Button>
-                  )}
-                </Box>
-              </CardContent>
-            </Card>
-          </Box>
-        </Box>
-
-        <Box component={"section"} className={style.review}>
-          <Box className={style.roomfeedback}>
-            <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
-              Rating
-            </Typography>
-            <RatingComponent id={id} />
-          </Box>
-          <Box className={style.reviewLine}></Box>
-          <Box className={style.comments}>
-            <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
-              Comment
-            </Typography>
-            <FeedbackComponent id={id} />
+          <Box component={"section"} className={style.review}>
+            <Box className={style.roomfeedback}>
+              <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
+                Rating
+              </Typography>
+              <RatingComponent id={id} />
+            </Box>
+            <Box className={style.reviewLine}></Box>
+            <Box className={style.comments}>
+              <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
+                Comment
+              </Typography>
+              <FeedbackComponent id={id} />
+            </Box>
           </Box>
         </Box>
       </Box>
