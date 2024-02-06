@@ -141,8 +141,9 @@ const NavBar = () => {
                 Home
               </Link>
               <Link
-                className={`navLink ${pathname?.includes("explore") ? "activeLink" : ""
-                  }`}
+                className={`navLink ${
+                  pathname?.includes("explore") ? "activeLink" : ""
+                }`}
                 to={"./explore"}
               >
                 Explore

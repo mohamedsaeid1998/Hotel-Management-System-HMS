@@ -59,7 +59,6 @@ const RoomDetails = () => {
     nextDate,
   ]);
 
-
   // const startDate =
   //   state?.range === undefined ? today : state?.range[0].format("YYYY-MM-DD");
   // const endDate =
@@ -331,7 +330,7 @@ const RoomDetails = () => {
               </Card>
             </Box>
           </Box>
-          {localStorage.getItem("authToken") && localStorage.getItem("userRole") ? <>
+          {localStorage.getItem("authToken") && localStorage.getItem("userRole") === "user" ? <>
             <Box component={"section"} className={style.review}>
               <Box className={style.roomfeedback}>
                 <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
