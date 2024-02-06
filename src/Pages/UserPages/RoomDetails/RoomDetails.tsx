@@ -165,9 +165,10 @@ const RoomDetails = () => {
           </Typography>
         </Breadcrumbs>
         <Box component={"section"} className="roomImages">
+          <Box className="gridDetails">
           {details && (
-            <Box className="gridDetails">
               <Box>
+              
                 <img
                   className="image"
                   src={details?.images[0] ? details?.images[0] : RoomDetails1}
@@ -183,7 +184,7 @@ const RoomDetails = () => {
                   src={details?.images[2] ? details?.images[2] : RoomDetails3}
                   alt="roomImage"
                 />
-              </>
+           
             </Box>
           )}
         </Box>
