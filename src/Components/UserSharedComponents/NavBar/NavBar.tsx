@@ -43,10 +43,8 @@ const NavBar = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (userId)
-      getData();
-    if (localStorage.getItem("userRole") === "user")
-      getFavoriteData();
+    if (userId) getData();
+    if (localStorage.getItem("userRole") === "user") getFavoriteData();
   }, [dispatch, count, data]);
 
   const getData = async () => {
@@ -95,18 +93,19 @@ const NavBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-
   const navigateToFav = () => {
-    if (!localStorage.getItem("authToken") || localStorage.getItem("userRole") !== "user") {
+    if (
+      !localStorage.getItem("authToken") ||
+      localStorage.getItem("userRole") !== "user"
+    ) {
       toast.error("please ensure you are logged in to your user account", {
         autoClose: 2000,
         theme: "colored",
       });
-
     } else {
-      navigate("./favorite-rooms")
+      navigate("./favorite-rooms");
     }
-  }
+  };
   return (
     <>
       <AppBar color="inherit" className="nav">
@@ -148,7 +147,10 @@ const NavBar = () => {
               >
                 Explore
               </Link>
-              <IconButton onClick={navigateToFav} aria-label={notificationsLabel(100)}>
+              <IconButton
+                onClick={navigateToFav}
+                aria-label={notificationsLabel(100)}
+              >
                 <Badge
                   badgeContent={
                     favoriteItemsCount === 0 ? "0" : favoriteItemsCount
@@ -199,19 +201,18 @@ const NavBar = () => {
                     </Tooltip>
                   </Box> */}
                   <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src={
-                            userData?.profileImage == null
-                              ? defaultImage
-                              : `http://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
-                          }
-                        />
-                      </IconButton>
-                    </Tooltip>
-                    <Menu
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={
+                          userData?.profileImage == null
+                            ? defaultImage
+                            : `http://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
+                        }
+                      />
+                    </IconButton>
+
+                    {/* <Menu
                       sx={{ mt: "45px" }}
                       id="menu-appbar"
                       anchorEl={anchorElUser}
@@ -235,7 +236,7 @@ const NavBar = () => {
                           Logout
                         </Typography>
                       </MenuItem>
-                    </Menu>
+                    </Menu> */}
                   </Box>
                   <Box className="navInfo">
                     <Typography variant="caption" color="initial">
@@ -245,6 +246,13 @@ const NavBar = () => {
                       {userData?.email}
                     </Typography>
                   </Box>
+                  <Button
+                    className="navBtn"
+                    variant="contained"
+                    onClick={handelLogout}
+                  >
+                    Logout
+                  </Button>
                 </>
               )}
             </Stack>

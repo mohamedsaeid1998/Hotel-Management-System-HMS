@@ -1,3 +1,5 @@
+/** @format */
+
 @import "./variables.scss";
 @import "./responsive.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap");
@@ -122,7 +124,7 @@
   margin: auto;
   border-radius: 10px;
   padding: 30px !important;
-  line-height: 0.1;
+  line-height: 2.1;
 }
 .auth {
   background-size: cover;
@@ -325,7 +327,9 @@
     margin-left: 30px;
     text-align: start;
   }
-
+  .centerText {
+    text-align: center !important;
+  }
   .navList {
     display: flex !important;
     align-items: center;

@@ -69,7 +69,7 @@ const ResetPassword = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Reset Password
@@ -83,7 +83,7 @@ const ResetPassword = () => {
                 fontWeight: "bold",
               }}
             >
-              Login here !
+              {/* */}Login here !
             </Link>
           </Typography>
         </Box>
@@ -184,7 +184,18 @@ const ResetPassword = () => {
         />
         <Button
           type="submit"
-          sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+          sx={{
+            width: "100%",
+            mt: 2,
+            padding: { lg: ".5em" },
+            fontSize: {
+              xs: "0.9rem",
+              sm: "1rem",
+              md: "1rem",
+            },
+          }}
+          type="submit"
+          size="large"
           variant="contained"
         >
           Reset

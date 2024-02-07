@@ -33,23 +33,23 @@ const ForgetPassword = () => {
   return (
     <>
       <Box component="div">
-      <Typography
-            className={`subNav`}
-            variant="h4"
-            component="div"
-            color="initial"
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
           >
-            <Typography
-              variant=""
-              className="blueColor"
-              style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
-            >
-              Stay
-            </Typography>
-            cation.
+            Stay
           </Typography>
+          cation.
+        </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Forgot password
@@ -104,7 +104,16 @@ const ForgetPassword = () => {
         ) : (
           <Button
             variant="contained"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            sx={{
+              width: "100%",
+              mt: 2,
+              padding: { lg: ".5em" },
+              fontSize: {
+                xs: "0.9rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
             type="submit"
             size="large"
           >
