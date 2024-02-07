@@ -406,21 +406,6 @@
 
 //? ************** Landing **************
 
-@media (max-width: 1050px) {
-  // .landingSec {
-  //   padding-inline: 90px !important;
-  // }
-
-  .rightCon {
-    width: 100vh !important;
-    height: 100vh !important;
-    padding-right: 0 !important;
-    &::after {
-      display: none !important;
-    }
-  }
-}
-
 .landingSec {
   display: flex;
   justify-content: space-between;
@@ -527,6 +512,24 @@
     box-shadow: 0px 8px 15px 0px rgba(50, 82, 223, 0.3) !important;
     padding-inline: 100px !important;
     text-transform: none !important;
+  }
+}
+
+@media (max-width: 1050px) {
+  .rightCon {
+    width: 97dvw !important;
+    overflow-x: hidden !important;
+    // width: 100vh !important;
+    // height: 100vh !important;
+    padding-right: 0 !important;
+    &::after {
+      display: none !important;
+    }
+
+    .LandingImg {
+      border-radius: 0 !important;
+      padding-inline: 20px !important;
+    }
   }
 }
 

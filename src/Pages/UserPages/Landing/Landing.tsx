@@ -301,7 +301,7 @@ const Landing = () => {
         </Box> */}
       </Box>
       <Box component="section" className="reviewUsersSection">
-        <UsersReviews />
+        {/* <UsersReviews /> */}
       </Box>
     </Box>
   </>
