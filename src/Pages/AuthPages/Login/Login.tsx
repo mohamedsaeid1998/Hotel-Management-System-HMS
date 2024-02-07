@@ -223,11 +223,12 @@ const Login = () => {
               sx={{
                 width: "100%",
                 mt: 2,
-                padding: { lg: "15px" },
+                mb: 2,
+                padding: { lg: ".5em" },
                 fontSize: {
-                  xs: "0.8rem",
+                  xs: "0.9rem",
                   sm: "1rem",
-                  md: "1.2rem",
+                  md: "1rem",
                 },
               }}
               type="submit"
