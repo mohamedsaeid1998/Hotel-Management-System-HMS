@@ -19,7 +19,9 @@ import Slider from "react-slick";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import UsersReviews from "./UsersReview";
+import { useTranslation } from "react-i18next";
 const Landing = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
@@ -197,19 +199,16 @@ const Landing = () => {
       <Box component="section" className="landingSec">
         <Box className="leftCon">
           <Typography variant="h1" className="title">
-            Forget Busy Work, Start Next Vacation
+            {t("homeTitle")}
           </Typography>
-          <Typography className="subTitle">
-            We provide what you need to enjoy your holiday with family. Time to
-            make another memorable moments.
-          </Typography>
+          <Typography className="subTitle">{t("homeDes")}</Typography>
 
           <Box className="bookingCon">
             <Typography variant="h3" className="bookingTitle">
-              Start Booking
+              {t("startBooking")}
             </Typography>
             <Typography variant="h4" className="subBookingTitle">
-              Pick a Date
+              {t("pickADate")}
             </Typography>
           </Box>
 
@@ -277,7 +276,7 @@ const Landing = () => {
             variant="contained"
             color="primary"
           >
-            Explore
+            {t("explore")}
           </Button>
         </Box>
 
@@ -289,7 +288,7 @@ const Landing = () => {
       <Box className="userContainer">
         <Box component="section" className="viewSec">
           <Typography variant="h4" className="adsTitle">
-            Most Popular Ads
+            {t("mostPopularAds")}
           </Typography>
 
           <Box className="grid">
@@ -314,7 +313,7 @@ const Landing = () => {
           </Box>
 
           <Typography variant="h4" className="bookingTitle">
-            Most Booked Rooms
+            {t("mostBookedRooms")}
           </Typography>
           {/* <Box className="sliderCon">
           <Slider {...settings2}>
