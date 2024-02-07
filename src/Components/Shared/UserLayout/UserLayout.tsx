@@ -9,7 +9,6 @@ const UserLayout = () => {
 
       <NavBar />
         <Outlet />
-
       <Footer />
     </Box>
   </>
