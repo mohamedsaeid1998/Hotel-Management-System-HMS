@@ -1,3 +1,5 @@
+/** @format */
+
 import { CalendarMonth } from "@mui/icons-material";
 import { Button, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
@@ -13,10 +15,7 @@ interface IProps {
   setSelectedDateRange?: any;
 }
 
-const Calendar = ({
-  selectedDateRange,
-  setSelectedDateRange,
-}: IProps) => {
+const Calendar = ({ selectedDateRange, setSelectedDateRange }: IProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleCalendarChange = (newDateRange: Range<Dayjs>) => {
@@ -35,11 +34,25 @@ const Calendar = ({
     handlePopoverClose();
   };
 
-
   const open = Boolean(anchorEl);
   return (
     <>
       <Button
+        sx={{
+          fontSize: { xs: "1px", sm: "1px", md: "1px" },
+          padding: {
+            xs: "8px 16px",
+            sm: "10px 20px",
+            md: "12px 24px",
+          },
+
+          width: { xs: "15rem", sm: "50px" },
+          height: { xs: "40px", sm: "50px" },
+          borderRadius: "12px",
+          p: "8px",
+          mr: { xs: "5px", sm: "10px" },
+          ml: "5px",
+        }}
         className="caleBtn"
         onClick={handleButtonClick}
         variant="contained"
@@ -75,7 +88,9 @@ const Calendar = ({
       <TextField
         className="calendarField"
         label="Selected Date Range"
-        value={`${dayjs(selectedDateRange[0])?.format("YYYY-MM-DD")} - ${dayjs(selectedDateRange[1])?.format("YYYY-MM-DD")}`}
+        value={`${dayjs(selectedDateRange[0])?.format("YYYY-MM-DD")} - ${dayjs(
+          selectedDateRange[1]
+        )?.format("YYYY-MM-DD")}`}
       />
     </>
   );

@@ -75,8 +75,8 @@
 }
 
 .MuiDrawer-paper {
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   background-color: #203fc7 !important;
   .css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root {
     padding-left: 25px;
@@ -479,6 +479,7 @@
     .capacityCon {
       margin-top: 20px;
       display: flex;
+      flex-direction: row;
       align-items: center;
       .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
         text-align: center;
@@ -533,12 +534,8 @@
 
 .caleBtn {
   background-color: #1976d2 !important;
-  width: 50px !important;
-  height: 50px !important;
-  border-radius: 15px !important;
-  padding-block: 8px !important;
-  margin-right: 10px !important;
-  margin-left: 5px !important;
+  justify-content: center;
+  align-items: center;
   color: white !important;
 }
 .caleBtnDiscernment {
@@ -553,6 +550,7 @@
     text-align: center;
     margin: auto;
     padding: 16.5px 60px;
+
     @media (max-width: 960px) {
       // padding: 16.5px 4px !important;
       width: 100%;
@@ -850,14 +848,17 @@
         padding-right: 15px;
         padding-left: 60px;
         padding-block: 50px;
-        @media (max-width: 960px) {
-          padding: 4rem;
-          padding-block: 2rem;
-        }
-        @media (max-width: 768px) {
-          padding: 1rem;
-          padding-block: 2rem;
-        }
+        // @media (min-width: 768px) and (max-width: 1400px) {
+        //   .roomDetailsCard {
+        //     padding-left: 0px !important;
+        //     padding-right: 0px !important;
+        //   }
+        // }
+        // @media screen and (max-width: 767px) {
+        //   .roomDetailsCard {
+        //     padding-left: 20px;
+        //   }
+        // }
         .cardContent {
           .bookingCon {
             @extend .darkColor;
@@ -1150,7 +1151,10 @@
     }
 
     .css-46bh2p-MuiCardContent-root:last-child {
-      padding-bottom: 16px !important;
+      padding-bottom: 16rem !important;
+      @media (max-width: 960) {
+        padding: 0.5rem;
+      }
     }
   }
 
