@@ -1,10 +1,19 @@
+/** @format */
+
 import { ImageCard2 } from "@/Components";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import { Favorite, Home } from "@mui/icons-material";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
-import { Box, Breadcrumbs, Button, Skeleton, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  Skeleton,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,22 +48,20 @@ const Favorites = () => {
     getFavoriteData();
   }, [dispatch, count, data]);
 
-
-
   //! ************************ Delete From Favorite  *************************
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
       // @ts-ignore
-      setDisabled(true)
+      setDisabled(true);
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
       toast.success(element?.payload?.message, {
         autoClose: 2000,
         theme: "colored",
       });
-    } finally  {
-      setDisabled(false)
+    } finally {
+      setDisabled(false);
     }
   };
 
@@ -69,66 +76,64 @@ const Favorites = () => {
   const loadingArray = Array.from(new Array(6 || favList?.length));
   return (
     <>
-      <Box
-        component={"main"}
-        style={{ height: "100vh" }}
-        className="exploreCom"
-      >
+      <Box component={"main"} style={{ height: "" }} className="exploreCom">
         <Box className="userContainer">
-        <Typography variant="h1" className="title">
-          Favorite Rooms
-        </Typography>
-        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4.0 }}>
-          <Link className="path" color="inherit" to={"/"}> <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </Link>
-          <Typography variant="caption" className="subPath" >
-            <Favorite fontSize="inherit" sx={{ mr: 0.5 }} />
-            Favorites
+          <Typography variant="h1" className="title">
+            Favorite Rooms
           </Typography>
-        </Breadcrumbs>
-        {isLoading ? (
-          <Box className={style.favoriteComponent}>
-            {loadingArray.map((index) => (
-              <Skeleton
-              key={index}
-                variant="rounded"
-                width={200}
-                height={200}
-                animation="wave"
-              />
-            ))}
-          </Box>
-        ) : (
-          <>
+          <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4.0 }}>
+            <Link className="path" color="inherit" to={"/"}>
+              {" "}
+              <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+              Home
+            </Link>
+            <Typography variant="caption" className="subPath">
+              <Favorite fontSize="inherit" sx={{ mr: 0.5 }} />
+              Favorites
+            </Typography>
+          </Breadcrumbs>
+          {isLoading ? (
             <Box className={style.favoriteComponent}>
-              {favList.slice(0, visibleImages).map((ele, index) => (
-                <>
-                  <ImageCard2
-                    key={ele?._id}
-                    {...{ ele, index, favList, deleteFavoriteItem ,disabled }}
-                  />
-                </>
+              {loadingArray.map((index) => (
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  width={200}
+                  height={200}
+                  animation="wave"
+                />
               ))}
             </Box>
-            <Box textAlign={"center"} marginTop={4}>
-              {visibleImages < favList.length && (
-                <Tooltip title="show more">
-                  <Button onClick={loadMoreImages} className={style.showMore}>
-                    <KeyboardDoubleArrowDownIcon />
-                  </Button>
-                </Tooltip>
-              )}
-              {visibleImages == favList.length && (
-                <Tooltip title="show less">
-                  <Button onClick={loadLessImages} className={style.showMore}>
-                    <KeyboardDoubleArrowUpIcon />
-                  </Button>
-                </Tooltip>
-              )}
-            </Box>
-          </>
-        )}
+          ) : (
+            <>
+              <Box className={style.favoriteComponent}>
+                {favList.slice(0, visibleImages).map((ele, index) => (
+                  <>
+                    <ImageCard2
+                      key={ele?._id}
+                      {...{ ele, index, favList, deleteFavoriteItem, disabled }}
+                    />
+                  </>
+                ))}
+              </Box>
+              <Box textAlign={"center"} marginTop={4}>
+                {visibleImages < favList.length && (
+                  <Tooltip title="show more">
+                    <Button onClick={loadMoreImages} className={style.showMore}>
+                      <KeyboardDoubleArrowDownIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+                {visibleImages == favList.length && (
+                  <Tooltip title="show less">
+                    <Button onClick={loadLessImages} className={style.showMore}>
+                      <KeyboardDoubleArrowUpIcon />
+                    </Button>
+                  </Tooltip>
+                )}
+              </Box>
+            </>
+          )}
         </Box>
       </Box>
     </>

@@ -1,3 +1,5 @@
+/** @format */
+
 @media (max-width: 1285px) {
   .homeGrid {
     display: flex !important;
@@ -37,5 +39,10 @@
   .userContainer {
     padding-inline: 20px !important;
 
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1400px) {
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 0px 30px;
   }
 }

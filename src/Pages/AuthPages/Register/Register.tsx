@@ -63,23 +63,24 @@ const Register = () => {
   return (
     <>
       <Box component="div">
-      <Typography
-            className={`subNav`}
-            variant="h4"
-            component="div"
-            color="initial"
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+          sx={{ fontSize: { xs: "clamp(2rem, 5vw, 3rem)" } }}
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
           >
-            <Typography
-              variant=""
-              className="blueColor"
-              style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
-            >
-              Stay
-            </Typography>
-            cation.
+            Stay
           </Typography>
+          cation.
+        </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "20px", md: "30px 70px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign up
@@ -94,6 +95,7 @@ const Register = () => {
                 fontWeight: "bold",
               }}
             >
+              {" "}
               Login here !
             </Link>
           </Typography>
@@ -115,7 +117,7 @@ const Register = () => {
           />
 
           <Grid container spacing={2}>
-            <Grid item md={6} sm={12}>
+            <Grid item md={6} sm={6}>
               <TextField
                 variant="outlined"
                 type="tel"
@@ -138,7 +140,7 @@ const Register = () => {
                 }
               />
             </Grid>
-            <Grid item md={6} sm={12}>
+            <Grid item md={6} sm={6}>
               <TextField
                 variant="outlined"
                 type="text"
@@ -252,6 +254,15 @@ const Register = () => {
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
+            sx={{
+              width: "100%",
+              mt: 2,
+              fontSize: {
+                xs: "0.8rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
           >
             Upload Profile Image
             <VisuallyHiddenInput
@@ -267,7 +278,16 @@ const Register = () => {
           </Button>
           <Button
             type="submit"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            sx={{
+              width: "100%",
+              mt: 2,
+              padding: { lg: ".5em" },
+              fontSize: {
+                xs: "0.9rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
             variant="contained"
           >
             Sign up

@@ -66,14 +66,12 @@ const RoomDetails = () => {
   //     ? nextDate
   //     : state?.range[1].format("YYYY-MM-DD");
 
-
   const bookingGuestCount = state?.persons;
   const id = state?.roomId;
 
   const [details, setDetails] = useState();
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
-
 
   const [open, setOpen] = useState(false);
 
@@ -103,7 +101,7 @@ const RoomDetails = () => {
   const handleBooking = async (e: any) => {
     e.preventDefault();
     if (!localStorage.getItem("authToken")) {
-      return handleClickOpen()
+      return handleClickOpen();
     } else if (localStorage.getItem("userRole") !== "user") {
       toast.error("please ensure you are logged in to your user account", {
         autoClose: 2000,
@@ -127,7 +125,6 @@ const RoomDetails = () => {
         setLoading(false);
       }
     }
-
   };
 
   //! ************************ facilities Content *************************
@@ -142,7 +139,6 @@ const RoomDetails = () => {
     { Icon: tv, main: 4, sub: "television" },
   ];
 
-
   const descriptions = [
     "Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.",
     "Such trends saw the demise of the soul-infused techno that typified the original Detroit sound. Robert Hood has noted that he and Daniel Bell both realized something was missing from techno in the post-rave era.",
@@ -151,7 +147,6 @@ const RoomDetails = () => {
   const displayedDescriptions = showMore
     ? descriptions
     : descriptions.slice(0, 1);
-
 
   const [personsCount, setPersonsCount] = useState(1);
 
@@ -165,192 +160,256 @@ const RoomDetails = () => {
     }
   };
 
-
   useEffect(() => {
     getRoomDetails();
-    if (bookingGuestCount !== undefined)
-      setPersonsCount(bookingGuestCount)
+    if (bookingGuestCount !== undefined) setPersonsCount(bookingGuestCount);
   }, []);
-
 
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className="roomDetailsCon">
-      <Box className="userContainer">
-        <Typography variant="h1" className="title">
-          Village Angga
-        </Typography>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link className="path" color="inherit" to={"/"}>
-            <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </Link>
-          <Typography variant="caption" className="subPath">
-            <Details fontSize="inherit" sx={{ mr: 0.5 }} />
-            Room Details
+        <Box className="userContainer">
+          <Typography variant="h1" className="title">
+            Village Angga
           </Typography>
-        </Breadcrumbs>
-        <Box component={"section"} className="roomImages">
-          <Box className="gridDetails">
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link className="path" color="inherit" to={"/"}>
+              <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+              Home
+            </Link>
+            <Typography variant="caption" className="subPath">
+              <Details fontSize="inherit" sx={{ mr: 0.5 }} />
+              Room Details
+            </Typography>
+          </Breadcrumbs>
+          <Box component={"section"} className="roomImages">
+            <Box className="gridDetails">
+              <>
+                <img
+                  className="image"
+                  src={details?.images[0] ? details?.images[0] : RoomDetails1}
+                  alt="roomImage"
+                />
+                <img
+                  className="img"
+                  src={details?.images[1] ? details?.images[1] : RoomDetails2}
+                  alt="roomImage"
+                />
+                <img
+                  className="img"
+                  src={details?.images[2] ? details?.images[2] : RoomDetails3}
+                  alt="roomImage"
+                />
+              </>
+            </Box>
 
-            <>
-              <img
-                className="image"
-                src={details?.images[0] ? details?.images[0] : RoomDetails1}
-                alt="roomImage"
-              />
-              <img
-                className="img"
-                src={details?.images[1] ? details?.images[1] : RoomDetails2}
-                alt="roomImage"
-              />
-              <img
-                className="img"
-                src={details?.images[2] ? details?.images[2] : RoomDetails3}
-                alt="roomImage"
-              />
-            </>
-
-          </Box>
-
-          <Box
-            component={"section"}
-            className={`roomDetailsBooking ${isSmallScreen && style.roomBookMobView
+            <Box
+              component={"section"}
+              className={`roomDetailsBooking ${
+                isSmallScreen && style.roomBookMobView
               }`}
-          >
-            <Box className="roomDetailsDec">
-              {displayedDescriptions?.map((description, index) => (
-                <Typography
-                  key={index}
-                  className={`description ${showMore ? "show-all" : ""}`}
-                >
-                  {description}
-                </Typography>
-              ))}
-              {showMore ? "" : "..."}
-              <Button color="primary" onClick={handleShowMore}>
-                {showMore ? "Show Less" : "Show More"}
-              </Button>
+            >
+              <Box className="roomDetailsDec">
+                {displayedDescriptions?.map((description, index) => (
+                  <Typography
+                    key={index}
+                    className={`description ${showMore ? "show-all" : ""}`}
+                  >
+                    {description}
+                  </Typography>
+                ))}
+                {showMore ? "" : "..."}
+                <Button color="primary" onClick={handleShowMore}>
+                  {showMore ? "Show Less" : "Show More"}
+                </Button>
 
-              <Box className="roomFacilities">
-                {facilitiesDetails.map(({ main, Icon, sub, index }) => (
-                  <Box key={index} className="facilities">
-                    <img className="facilitiesIcon" src={Icon} alt="Icons" />
-                    <Typography className="mainDec">
-                      {main}
-                      <Typography variant="caption" className="subDec">
-                        {sub}
+                <Box className="roomFacilities">
+                  {facilitiesDetails.map(({ main, Icon, sub, index }) => (
+                    <Box key={index} className="facilities">
+                      <img className="facilitiesIcon" src={Icon} alt="Icons" />
+                      <Typography className="mainDec">
+                        {main}
+                        <Typography variant="caption" className="subDec">
+                          {sub}
+                        </Typography>
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+
+              <Box component={"form"} className="roomDetailsBook">
+                <Card
+                  variant="outlined"
+                  className="roomDetailsCard"
+                  sx={{
+                    paddingBlock: "2em",
+                    paddingLeft: { xs: ".5em", md: "1.5em" },
+                  }}
+                >
+                  <CardContent className="cardContent">
+                    <Typography className="bookingCon">
+                      Start Booking
+                    </Typography>
+                    <Typography className="bookingPrice">
+                      {`$${price}`}
+                      <Typography variant="caption" className="priceFor">
+                        per night
                       </Typography>
                     </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-
-            <Box component={"form"} className="roomDetailsBook">
-              <Card variant="outlined" className="roomDetailsCard">
-                <CardContent className="cardContent">
-                  <Typography className="bookingCon">Start Booking</Typography>
-                  <Typography className="bookingPrice">
-                    {`$${price}`}
-                    <Typography variant="caption" className="priceFor">
-                      per night
-                    </Typography>
-                  </Typography>
-                  {Math.round((details?.discount / price) * 100) !== 0 && (
-                    <Typography className="bookingDiscount">
-                      Discount {Math.round((details?.discount / price) * 100)}%
-                      Off
-                    </Typography>
-                  )}
-                  <Typography className="bookingTitle">Pick a Date</Typography>
-                  <Box className={style.calenderBox}>
-                    <Calendar {...{ setSelectedDateRange, selectedDateRange }} />
-                  </Box>
-
-                  <Box className="capacityCon">
-                    <IconButton
-                      onClick={handleIncrease}
-                      className="caleBtn"
-                      color="primary"
-                    >
-                      <Add />
-                    </IconButton>
-                    <TextField
-                      className="capacityField"
-                      label="Capacity"
-                      value={`${personsCount} person`}
-                    />
-                    <IconButton
-                      onClick={handleDecrease}
-                      className="caleBtnDiscernment"
-                      color="error"
-                    >
-                      <Remove />
-                    </IconButton>
-                  </Box>
-
-                  <Typography className="grayColor">
-                    You will pay
-                    <Typography variant="caption" className="bookingCon">
-                      {`$${personsCount ? price * personsCount : price
-                        } USD`}
-                    </Typography>
-                    <Typography variant="caption" className="sub">
-                      pre
-                    </Typography>
-                    <Typography variant="caption" className="bookingCon">
-                      {`${personsCount !== 1 && personsCount !== undefined
-                        ? `${personsCount} persons`
-                        : `1 person`
-                        } `}
-                    </Typography>
-                  </Typography>
-                  <Box className="submitBooking">
-                    {loading ? (
-                      <LoadingButton
-                        className="submitBtn white"
-                        loading
-                        variant="outlined"
-                      >
-                        Continue Book
-                      </LoadingButton>
-                    ) : (
-                      <Button
-                        className="submitBtn"
-                        type="submit"
-                        variant="contained"
-                        onClick={handleBooking}
-                      >
-                        Continue Book
-                      </Button>
+                    {Math.round((details?.discount / price) * 100) !== 0 && (
+                      <Typography className="bookingDiscount">
+                        Discount {Math.round((details?.discount / price) * 100)}
+                        % Off
+                      </Typography>
                     )}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Box>
-          </Box>
-          {localStorage.getItem("authToken") && localStorage.getItem("userRole") === "user" ? <>
-            <Box component={"section"} className={style.review}>
-              <Box className={style.roomfeedback}>
-                <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
-                  Rating
-                </Typography>
-                <RatingComponent id={id} />
-              </Box>
-              <Box className={style.reviewLine}></Box>
-              <Box className={style.comments}>
-                <Typography color="#152C5B" fontSize={"clamp(1rem, 2.5vw, 2rem)"}>
-                  Comment
-                </Typography>
-                <FeedbackComponent id={id} />
-              </Box>
-            </Box></> : ""}
+                    <Typography className="bookingTitle">
+                      Pick a Date
+                    </Typography>
+                    <Box className={style.calenderBox}>
+                      <Calendar
+                        {...{ setSelectedDateRange, selectedDateRange }}
+                      />
+                    </Box>
 
+                    <Box
+                      className="capacityCon"
+                      sx={{
+                        display: { xs: "flex" },
+                        margin: "1rem 0rem",
+                        padding: { sm: "" },
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <IconButton
+                        onClick={handleIncrease}
+                        className="caleBtn"
+                        color="primary"
+                        sx={{
+                          fontSize: { xs: "1px", sm: "1px", md: "1px" },
+                          padding: {
+                            xs: "8px 16px",
+                            sm: "10px 20px",
+                            md: "12px 24px",
+                          },
+                          width: { xs: "40px", sm: "50px" },
+                          height: { xs: "40px", sm: "50px" },
+                          borderRadius: "12px",
+                          p: "8px",
+                          mr: { xs: "5px", sm: "10px" },
+                          ml: "5px",
+                        }}
+                      >
+                        <Add />
+                      </IconButton>
+                      <TextField
+                        className="capacityField"
+                        label="Capacity"
+                        value={`${personsCount} person`}
+                        style={{
+                          padding: "0px",
+                        }}
+                        sx={{
+                          marginBottom: { xs: "0rem", md: 0 },
+                          width: { xs: "12rem", sm: "15rem" },
+                        }}
+                      />
+                      <IconButton
+                        onClick={handleDecrease}
+                        className="caleBtnDiscernment"
+                        color="error"
+                        sx={{
+                          fontSize: { xs: "1px", sm: "1px", md: "1px" },
+                          padding: {
+                            xs: "8px 16px",
+                            sm: "10px 20px",
+                            md: "12px 24px",
+                          },
+                          width: { xs: "40px", sm: "50px" },
+                          height: { xs: "40px", sm: "50px" },
+                          borderRadius: "12px",
+                          p: "8px",
+                          mr: { xs: "5px", sm: "10px" },
+                          ml: "5px",
+                        }}
+                      >
+                        <Remove />
+                      </IconButton>
+                    </Box>
+
+                    <Typography className="grayColor">
+                      You will pay
+                      <Typography variant="caption" className="bookingCon">
+                        {`$${personsCount ? price * personsCount : price} USD`}
+                      </Typography>
+                      <Typography variant="caption" className="sub">
+                        pre
+                      </Typography>
+                      <Typography variant="caption" className="bookingCon">
+                        {`${
+                          personsCount !== 1 && personsCount !== undefined
+                            ? `${personsCount} persons`
+                            : `1 person`
+                        } `}
+                      </Typography>
+                    </Typography>
+                    <Box className="submitBooking">
+                      {loading ? (
+                        <LoadingButton
+                          className="submitBtn white"
+                          loading
+                          variant="outlined"
+                        >
+                          Continue Book
+                        </LoadingButton>
+                      ) : (
+                        <Button
+                          className="submitBtn"
+                          type="submit"
+                          variant="contained"
+                          onClick={handleBooking}
+                        >
+                          Continue Book
+                        </Button>
+                      )}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Box>
+            {localStorage.getItem("authToken") &&
+            localStorage.getItem("userRole") === "user" ? (
+              <>
+                <Box component={"section"} className={style.review}>
+                  <Box className={style.roomfeedback}>
+                    <Typography
+                      color="#152C5B"
+                      fontSize={"clamp(1rem, 2.5vw, 2rem)"}
+                    >
+                      Rating
+                    </Typography>
+                    <RatingComponent id={id} />
+                  </Box>
+                  <Box className={style.reviewLine}></Box>
+                  <Box className={style.comments}>
+                    <Typography
+                      color="#152C5B"
+                      fontSize={"clamp(1rem, 2.5vw, 2rem)"}
+                    >
+                      Comment
+                    </Typography>
+                    <FeedbackComponent id={id} />
+                  </Box>
+                </Box>
+              </>
+            ) : (
+              ""
+            )}
+          </Box>
         </Box>
       </Box>
-    </Box >
     </>
   );
 };

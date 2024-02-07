@@ -57,5 +57,12 @@
 .calenderBox {
   @media (max-width: 1400px) {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      width: 30px;
+    }
   }
+}
+.capacityRoom {
 }

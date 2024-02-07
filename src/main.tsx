@@ -10,6 +10,10 @@ import Store from "./Redux/Store.ts";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Styles/global.scss";
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 AOS.init();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

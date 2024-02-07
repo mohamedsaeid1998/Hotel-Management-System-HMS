@@ -1,8 +1,12 @@
-import { Grid } from "@mui/material";
+/** @format */
+
+import { Grid, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import "./AuthLayout.module.scss";
 import AuthBackground from "../AuthBackground/AuthBackground";
 const AuthLayout = () => {
+  const isMediumSize = useMediaQuery("(max-width:900px)");
+  console.log(isMediumSize);
   return (
     <>
       <Grid className="authLayout" container spacing={2}>
@@ -10,7 +14,7 @@ const AuthLayout = () => {
           <Outlet />
         </Grid>
         <Grid item md={6} sm={12}>
-          <AuthBackground />
+          {isMediumSize ? "" : <AuthBackground />}
         </Grid>
       </Grid>
     </>

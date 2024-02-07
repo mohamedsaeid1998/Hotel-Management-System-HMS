@@ -11,6 +11,7 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -46,7 +47,7 @@ const Login = () => {
   } else if (islogged === "user") {
     navigate("/");
   }
-
+  const isSmallScreen = useMediaQuery("900px");
   useEffect(() => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
@@ -108,14 +109,13 @@ const Login = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign in
           </Typography>
           <Typography>
             If you don’t have an account register <br /> You can
-
             <Link
               to="/register"
               style={{
@@ -123,11 +123,16 @@ const Login = () => {
                 fontWeight: "bold",
               }}
             >
+              {" "}
               Register here !
             </Link>
           </Typography>
         </Box>
-        <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ padding: { xs: "10px", md: "20px" } }}
+        >
           <TextField
             variant="outlined"
             type="email"
@@ -175,7 +180,15 @@ const Login = () => {
             }
           />
 
-          <Box className="loginLinks">
+          <Box
+            className="loginLinks"
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "20px",
+              fontSize: { xs: "0.8rem", md: "1rem", lg: "1.2rem" },
+            }}
+          >
             <Link
               to="/"
               style={{
@@ -197,7 +210,7 @@ const Login = () => {
           </Box>
           {loading ? (
             <LoadingButton
-              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              sx={{ width: "100%", padding: "10px", marginTop: "20px" }}
               className="loadingButton"
               loading
               variant="outlined"
@@ -207,7 +220,17 @@ const Login = () => {
           ) : (
             <Button
               variant="contained"
-              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              sx={{
+                width: "100%",
+                mt: 2,
+                mb: 2,
+                padding: { lg: ".5em" },
+                fontSize: {
+                  xs: "0.9rem",
+                  sm: "1rem",
+                  md: "1rem",
+                },
+              }}
               type="submit"
               size="large"
             >
@@ -215,8 +238,8 @@ const Login = () => {
             </Button>
           )}
           <div id="signInDiv"></div>
-        </Box >
-      </Box >
+        </Box>
+      </Box>
     </>
   );
 };
