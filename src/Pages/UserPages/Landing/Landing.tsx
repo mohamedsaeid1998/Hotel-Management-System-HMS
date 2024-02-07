@@ -1,5 +1,3 @@
-/** @format */
-
 import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3, RoomPicture1, RoomPicture2 } from "@/Assets/Images";
 import { Calendar, ImageCard, ImageCard2, LoginDialog } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
@@ -19,13 +17,8 @@ import Slider from "react-slick";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import UsersReviews from "./UsersReview";
-
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay,EffectFade, Navigation, Pagination } from 'swiper/modules';
-
-
 const Landing = () => {
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
@@ -180,53 +173,26 @@ const Landing = () => {
     setOpen(false);
   };
 
-
-
-  var settings = {
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    cssEase: "linear",
-  };
-
-
-
-
-
-
-
-
-  const images = [
-    { img: LandingImg },
-    { img: RoomDetails1 },
-    { img: RoomDetails2 },
-    { img: RoomDetails3 },
-    { img: RoomPicture1 },
-    { img: RoomPicture2 },
-  ]
-
   return <>
-    <LoginDialog {...{ handleClose, open }} />
-    <Box component="section" className="landingSec">
-      <Box className="leftCon">
-        <Typography variant="h1" className="title">
-          Forget Busy Work, Start Next Vacation
-        </Typography>
-        <Typography className="subTitle">
-          We provide what you need to enjoy your holiday with family. Time to
-          make another memorable moments.
-        </Typography>
+      <LoginDialog {...{ handleClose, open }} />
+      <Box component="section" className="landingSec">
+        <Box className="leftCon">
+          <Typography variant="h1" className="title">
+            Forget Busy Work, Start Next Vacation
+          </Typography>
+          <Typography className="subTitle">
+            We provide what you need to enjoy your holiday with family. Time to
+            make another memorable moments.
+          </Typography>
 
-        <Box className="bookingCon">
-          <Typography variant="h3" className="bookingTitle">
-            Start Booking
-          </Typography>
-          <Typography variant="h4" className="subBookingTitle">
-            Pick a Date
-          </Typography>
-        </Box>
+          <Box className="bookingCon">
+            <Typography variant="h3" className="bookingTitle">
+              Start Booking
+            </Typography>
+            <Typography variant="h4" className="subBookingTitle">
+              Pick a Date
+            </Typography>
+          </Box>
 
         <Box className="exploreCon">
           <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
@@ -282,71 +248,30 @@ const Landing = () => {
           </Box>
         </Box>
 
-        <Button
-          className="submitExplore"
-          onClick={() =>
-            navigate(`/explore`, {
-              state: { range: selectedDateRange, persons: bookingGuestCount },
-            })
-          }
-          variant="contained"
-          color="primary"
-        >
-          Explore
-        </Button>
-      </Box>
-      {/* <Slider {...settings}>
-        {images?.map((ele) => <Box className="rightCon">
-          <img className="LandingImg background"  src={ele} alt="Landing Image" />
-        </Box>)}
-      </Slider> */}
-      <Box className="rightCon">
-        <Swiper
-          autoplay={{
-            delay: 1000,
-            disableOnInteraction: false,
-          }}
-          spaceBetween={30}
-          effect={'fade'}
-          pagination={{
-            clickable: true,
-          }}
-          // loop={true}
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
+          <Button
+            className="submitExplore"
+            onClick={() =>
+              navigate(`/explore`, {
+                state: { range: selectedDateRange, persons: bookingGuestCount },
+              })
+            }
+            variant="contained"
+            color="primary"
+          >
+            Explore
+          </Button>
+        </Box>
 
-          className="LandingImg "
-        >
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={LandingImg} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails2} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails3} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails1} />
-            </Box>
-          </SwiperSlide>
-        </Swiper>
+        <Box className="rightCon">
+          <img className="LandingImg" src={LandingImg} alt="Landing Image" />
+        </Box>
       </Box>
 
-
-    </Box>
-
-    <Box className="userContainer">
-      <Box component="section" className="viewSec">
-        <Typography variant="h4" className="adsTitle">
-          Most Popular Ads
-        </Typography>
+      <Box className="userContainer">
+        <Box component="section" className="viewSec">
+          <Typography variant="h4" className="adsTitle">
+            Most Popular Ads
+          </Typography>
 
         <Box className="grid">
           {adsData?.map((ele, index) => (
@@ -369,10 +294,10 @@ const Landing = () => {
           ))}
         </Box>
 
-        <Typography variant="h4" className="bookingTitle">
-          Most Booked Rooms
-        </Typography>
-        <Box className="sliderCon">
+          <Typography variant="h4" className="bookingTitle">
+            Most Booked Rooms
+          </Typography>
+           <Box className="sliderCon">
           <Slider {...settings2}>
             {rooms?.map((ele, index) => (
               <Fragment key={ele?._id}>
@@ -400,6 +325,6 @@ const Landing = () => {
       </Box>
     </Box>
   </>
-};
+}
 
 export default Landing;

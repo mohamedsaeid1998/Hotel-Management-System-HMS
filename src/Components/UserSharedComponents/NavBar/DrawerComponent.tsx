@@ -1,5 +1,7 @@
 /** @format */
 
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Button,
@@ -11,13 +13,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import style from "./NavBar.module.scss";
-import MenuIcon from "@mui/icons-material/Menu";
-import HomeIcon from "@mui/icons-material/Home";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { lightBlue } from "@mui/material/colors";
+import style from "./NavBar.module.scss";
+
 const DrawerComponent = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
@@ -98,6 +97,7 @@ const DrawerComponent = () => {
                       Login Now
                     </Button>
                   </ListItem>
+
                   <ListItem>
                     <Button
                       className="navBtnSign"
