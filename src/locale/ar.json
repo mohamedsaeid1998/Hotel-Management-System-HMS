@@ -39,5 +39,12 @@
   "ContinueBook": "متابعة الحجز",
   "YouWillPay": "سوف تدفع",
   "Discount": " خصم ",
-  "perNight": "ليلة واحدة"
+  "perNight": "ليلة واحدة",
+  "First": "أولاً",
+  "Second": "ثانيا",
+  "Payment": "دفع",
+  "PaymentDesc": "يرجى اتباع التعليمات أدناه",
+  "Pay": "دفع",
+  "Cancel": "الغاء",
+  "Logout": "خروج"
 }

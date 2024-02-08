@@ -39,5 +39,12 @@
   "ContinueBook": "Continue Book",
   "YouWillPay": "You will pay",
   "Discount": " Discount ",
-  "perNight": "per Night"
+  "perNight": "per Night",
+  "First": "First",
+  "Second": "Second",
+  "Payment": "Payment",
+  "PaymentDesc": "Kindly follow the instructions below",
+  "Pay": "Pay",
+  "Cancel": "Cancel",
+  "Logout": "Logout"
 }
