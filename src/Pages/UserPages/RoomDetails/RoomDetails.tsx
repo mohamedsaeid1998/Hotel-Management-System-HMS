@@ -38,8 +38,11 @@ import { LoadingButton } from "@mui/lab";
 import { Add, Details, Home, Remove } from "@mui/icons-material";
 import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
 import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
+import { useTranslation } from "react-i18next";
 
 const RoomDetails = () => {
+  const { t, i18n } = useTranslation();
+
   const [showMore, setShowMore] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   // const isMobile = useMediaQuery("(max-width:576px)");
@@ -171,16 +174,16 @@ const RoomDetails = () => {
       <Box component={"main"} className="roomDetailsCon">
         <Box className="userContainer">
           <Typography variant="h1" className="title">
-            Village Angga
+            {t("VillageAngga")}
           </Typography>
           <Breadcrumbs aria-label="breadcrumb">
             <Link className="path" color="inherit" to={"/"}>
               <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-              Home
+              {t("home")}
             </Link>
             <Typography variant="caption" className="subPath">
               <Details fontSize="inherit" sx={{ mr: 0.5 }} />
-              Room Details
+              {t("RoomDetails")}
             </Typography>
           </Breadcrumbs>
           <Box component={"section"} className="roomImages">
@@ -250,22 +253,22 @@ const RoomDetails = () => {
                 >
                   <CardContent className="cardContent">
                     <Typography className="bookingCon">
-                      Start Booking
+                      {t("StartBooking")}
                     </Typography>
                     <Typography className="bookingPrice">
-                      {`$${price}`}
+                      {`$${price} `}
                       <Typography variant="caption" className="priceFor">
-                        per night
+                        {t("perNight")}
                       </Typography>
                     </Typography>
                     {Math.round((details?.discount / price) * 100) !== 0 && (
                       <Typography className="bookingDiscount">
-                        Discount {Math.round((details?.discount / price) * 100)}
-                        % Off
+                        {t("Discount")}
+                        {Math.round((details?.discount / price) * 100)} %
                       </Typography>
                     )}
                     <Typography className="bookingTitle">
-                      Pick a Date
+                      {t("pickADate")}
                     </Typography>
                     <Box className={style.calenderBox}>
                       <Calendar
@@ -340,7 +343,8 @@ const RoomDetails = () => {
                     </Box>
 
                     <Typography className="grayColor">
-                      You will pay
+                      {t("YouWillPay")}
+
                       <Typography variant="caption" className="bookingCon">
                         {`$${personsCount ? price * personsCount : price} USD`}
                       </Typography>
@@ -362,7 +366,7 @@ const RoomDetails = () => {
                           loading
                           variant="outlined"
                         >
-                          Continue Book
+                          {t("ContinueBook")}
                         </LoadingButton>
                       ) : (
                         <Button
@@ -371,7 +375,7 @@ const RoomDetails = () => {
                           variant="contained"
                           onClick={handleBooking}
                         >
-                          Continue Book
+                          {t("ContinueBook")}
                         </Button>
                       )}
                     </Box>
@@ -388,7 +392,7 @@ const RoomDetails = () => {
                       color="#152C5B"
                       fontSize={"clamp(1rem, 2.5vw, 2rem)"}
                     >
-                      Rating
+                      {t("Rating")}
                     </Typography>
                     <RatingComponent id={id} />
                   </Box>
@@ -398,7 +402,7 @@ const RoomDetails = () => {
                       color="#152C5B"
                       fontSize={"clamp(1rem, 2.5vw, 2rem)"}
                     >
-                      Comment
+                      {t("Comment")}
                     </Typography>
                     <FeedbackComponent id={id} />
                   </Box>
