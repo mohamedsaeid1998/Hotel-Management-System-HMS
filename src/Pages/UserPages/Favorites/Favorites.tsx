@@ -21,8 +21,11 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Favorites.module.scss";
 import style from "./Favorites.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Favorites = () => {
+  const { t, i18n } = useTranslation();
+
   const [visibleImages, setVisibleImages] = useState(6);
   const [favList, setFavList] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -79,17 +82,17 @@ const Favorites = () => {
       <Box component={"main"} style={{ height: "" }} className="exploreCom">
         <Box className="userContainer">
           <Typography variant="h1" className="title">
-            Favorite Rooms
+            {t("FavoriteRooms")}
           </Typography>
           <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4.0 }}>
             <Link className="path" color="inherit" to={"/"}>
               {" "}
               <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-              Home
+              {t("home")}
             </Link>
             <Typography variant="caption" className="subPath">
               <Favorite fontSize="inherit" sx={{ mr: 0.5 }} />
-              Favorites
+              {t("Favorites")}
             </Typography>
           </Breadcrumbs>
           {isLoading ? (

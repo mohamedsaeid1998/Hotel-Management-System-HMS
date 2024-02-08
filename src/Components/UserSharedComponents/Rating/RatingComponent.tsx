@@ -1,13 +1,12 @@
 /** @format */
 
-import * as React from "react";
+import { setRatingRooms } from "@/Redux/Features/Portal/RatingSlice/RatingSlice";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import Typography from "@mui/material/Typography";
+import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button, CircularProgress, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setRatingRooms } from "@/Redux/Features/Portal/RatingSlice/RatingSlice";
 
 export default function RatingComponent({ id }) {
   const [rateValue, setRateValue] = React.useState<number | null>(2);
@@ -34,10 +33,7 @@ export default function RatingComponent({ id }) {
     }
   };
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(submitData)}
-    >
+    <Box component="form" onSubmit={handleSubmit(submitData)}>
       <Controller
         name="roomId"
         control={control}
