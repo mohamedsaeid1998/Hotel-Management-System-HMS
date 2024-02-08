@@ -17,6 +17,10 @@ import Slider from "react-slick";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import UsersReviews from "./UsersReview";
+import { useTranslation } from "react-i18next";
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 const Landing = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -174,25 +178,26 @@ const Landing = () => {
   };
 
   return <>
-      <LoginDialog {...{ handleClose, open }} />
-      <Box component="section" className="landingSec">
-        <Box className="leftCon">
-          <Typography variant="h1" className="title">
-            Forget Busy Work, Start Next Vacation
-          </Typography>
-          <Typography className="subTitle">
-            We provide what you need to enjoy your holiday with family. Time to
-            make another memorable moments.
-          </Typography>
+    <LoginDialog {...{ handleClose, open }} />
+    <Box component="section" className="landingSec">
 
-          <Box className="bookingCon">
-            <Typography variant="h3" className="bookingTitle">
-              Start Booking
-            </Typography>
-            <Typography variant="h4" className="subBookingTitle">
-              Pick a Date
-            </Typography>
-          </Box>
+      <Box className="leftCon">
+      <Box className="content">
+        <Typography variant="h1" className="title">
+          {t("homeTitle")}
+        </Typography>
+        <Typography className="subTitle">
+          {t("homeDes")}
+        </Typography>
+
+        <Box className="bookingCon">
+          <Typography variant="h3" className="bookingTitle">
+            {t("startBooking")}
+          </Typography>
+          <Typography variant="h4" className="subBookingTitle">
+            {t("pickADate")}
+          </Typography>
+        </Box>
 
         <Box className="exploreCon">
           <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
@@ -248,30 +253,64 @@ const Landing = () => {
           </Box>
         </Box>
 
-          <Button
-            className="submitExplore"
-            onClick={() =>
-              navigate(`/explore`, {
-                state: { range: selectedDateRange, persons: bookingGuestCount },
-              })
-            }
-            variant="contained"
-            color="primary"
-          >
-            Explore
-          </Button>
-        </Box>
-
-        <Box className="rightCon">
-          <img className="LandingImg" src={LandingImg} alt="Landing Image" />
-        </Box>
+        <Button
+          className="submitExplore"
+          onClick={() =>
+            navigate(`/explore`, {
+              state: { range: selectedDateRange, persons: bookingGuestCount },
+            })
+          }
+          variant="contained"
+          color="primary"
+        >
+          {t("explore")}
+        </Button>
+      </Box>
       </Box>
 
-      <Box className="userContainer">
-        <Box component="section" className="viewSec">
-          <Typography variant="h4" className="adsTitle">
-            Most Popular Ads
-          </Typography>
+      <Box className="rightCon">
+        <Swiper
+          autoplay={{
+            delay: 1000,
+            disableOnInteraction: false,
+          }}
+          spaceBetween={30}
+          effect={'fade'}
+          // loop={true}
+          modules={[Autoplay, EffectFade,]}
+
+          className="LandingImg "
+        >
+          <SwiperSlide>
+            <Box className="">
+              <img className="background" src={LandingImg} />
+            </Box>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Box className="">
+              <img className="background" src={RoomDetails2} />
+            </Box>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Box className="">
+              <img className="background" src={RoomDetails3} />
+            </Box>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Box className="">
+              <img className="background" src={RoomDetails1} />
+            </Box>
+          </SwiperSlide>
+        </Swiper>
+      </Box>
+
+    </Box>
+
+    <Box className="userContainer">
+      <Box component="section" className="viewSec">
+        <Typography variant="h4" className="adsTitle">
+          {t("mostPopularAds")}
+        </Typography>
 
         <Box className="grid">
           {adsData?.map((ele, index) => (
@@ -294,10 +333,10 @@ const Landing = () => {
           ))}
         </Box>
 
-          <Typography variant="h4" className="bookingTitle">
-            Most Booked Rooms
-          </Typography>
-           <Box className="sliderCon">
+        <Typography variant="h4" className="bookingTitle">
+          {t("mostBookedRooms")}
+        </Typography>
+        <Box className="sliderCon">
           <Slider {...settings2}>
             {rooms?.map((ele, index) => (
               <Fragment key={ele?._id}>

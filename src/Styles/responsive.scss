@@ -13,6 +13,58 @@
     width: 75% !important;
   }
 }
+@media (max-width: 1100px) {
+  .landingSec {
+    flex-direction: column;
+    padding-inline: 20px !important;
+    padding-top: 0 !important;
+    .leftCon {
+      order: 1;
+      width: 100%;
+      display: flex;
+      flex: 1 0 100%;
+      margin-top: 1rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .content {
+        padding-inline: 50px;
+
+        .title {
+          text-align: center;
+          max-width: 500px !important;
+        }
+      }
+    }
+    .submitExplore {
+      width: 100%;
+    }
+
+    .rightCon {
+      overflow-x: hidden !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding-right: 0 !important;
+      &::after {
+        display: none !important;
+      }
+
+      .LandingImg {
+        border-radius: 0 !important;
+      }
+    }
+    .background {
+      width: 100% !important;
+      border-radius: 45px !important;
+      padding-inline: 10px !important;
+      height: 300px !important;
+      background-size: cover !important;
+      background-position: center center !important;
+      background-attachment: fixed !important;
+      z-index: 999;
+    }
+  }
+}
 
 @media (max-width: 950px) {
   .chartsCon {
@@ -38,7 +90,6 @@
 
   .userContainer {
     padding-inline: 20px !important;
-
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1400px) {

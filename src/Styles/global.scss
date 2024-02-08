@@ -414,10 +414,43 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
+  padding-inline: 70px;
+  padding-top: 50px;
+  .rightCon {
+    padding-right: 40px;
+    position: relative;
+    margin-top: 35px;
+    width: 500px;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
+    .LandingImg {
+      width: 100%;
+      border-radius: 100px 15px 15px 15px;
+    }
+    @media (max-width: 768px) {
+      height: 30vh;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 100px 15px 15px 15px;
+      top: 10%;
+      left: 10%;
+      right: 0px;
+      bottom: -10%;
+      border: 2px solid #e5e5e5;
+      z-index: -1;
+      @media (max-width: 768px) {
+        border: 2px solid #e5e5e5;
+        background-color: #e1dfdf4f;
+        top: -7%;
+        bottom: -15%;
+        left: 1%;
+        right: 22px;
+        z-index: -2;
+      }
+    }
   }
+
   .leftCon {
     .title {
       @extend .darkColor;
@@ -449,11 +482,7 @@
       margin-left: 5px;
       margin-top: 10px;
     }
-    @media (max-width: 768px) {
-      order: 1;
-      flex: 1 0 100%;
-      margin-top: 5rem;
-    }
+
   }
 
   .exploreCon {
@@ -477,38 +506,6 @@
     }
   }
 
-  .rightCon {
-    padding-right: 40px;
-    position: relative;
-    // .LandingImg {
-    //   width: 100%;
-    //   border-radius: 100px 15px 15px 15px;
-    // }
-    // @media (max-width: 768px) {
-    //   height: 30vh;
-    // }
-    &::after {
-      content: "";
-      position: absolute;
-      border-radius: 100px 15px 15px 15px;
-      top: 10%;
-      left: 10%;
-      right: 0px;
-      bottom: -10%;
-      border: 2px solid #e5e5e5;
-      z-index: -1;
-      @media (max-width: 768px) {
-        border: 2px solid #e5e5e5;
-        background-color: #e1dfdf4f;
-        top: -7%;
-        bottom: -15%;
-        left: 1%;
-        right: 22px;
-        z-index: -2;
-      }
-    }
-  }
-
   .submitExplore {
     margin-top: 50px !important;
     margin-left: 10px;
@@ -521,21 +518,7 @@
 }
 
 @media (max-width: 1050px) {
-  .rightCon {
-    // width: 97dvw !important;
-    overflow-x: hidden !important;
-    width: 100% !important;
-    height: 100% !important;
-    padding-right: 0 !important;
-    &::after {
-      display: none !important;
-    }
 
-    .LandingImg {
-      border-radius: 0 !important;
-      // padding-inline: 20px !important;
-    }
-  }
 }
 
 .caleBtn {
@@ -1247,10 +1230,10 @@
 }
 
 .background {
-  width: 100%;
-  height: 300px;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  z-index: 999;
+  // padding-inline: 10px;
+  width: 439.07px;
+  height: 410.63px;
+  top: 150px;
+  left: 818px;
+  border-radius: 100px, 15px, 15px, 15px;
 }
