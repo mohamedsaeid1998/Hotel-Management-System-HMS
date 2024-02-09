@@ -38,7 +38,7 @@ const Explore = () => {
   const dispatch = useDispatch();
   const today = dayjs();
   const nextDate = dayjs().add(1, "day");
-  const itemsPerPage = 12;
+  const itemsPerPage = 15;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentRooms = rooms?.slice(indexOfFirstItem, indexOfLastItem);
@@ -207,8 +207,7 @@ const Explore = () => {
             marginY={3}
           >
             {isLoading
-              ? currentRooms?.length >= 1 &&
-                loadingArray.map((index) => (
+              ? loadingArray.map((index) => (
                   <Skeleton
                     key={index}
                     variant="rounded"
@@ -217,8 +216,7 @@ const Explore = () => {
                     animation="wave"
                   />
                 ))
-              : currentRooms?.length >= 1 &&
-                currentRooms?.map((ele, index) => (
+              : currentRooms?.map((ele, index) => (
                   <Box
                     key={index}
                     sx={{ width: 200, height: 200, my: 2 }}

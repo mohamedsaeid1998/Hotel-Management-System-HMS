@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 const Favorites = () => {
   const { t, i18n } = useTranslation();
 
-  const [visibleImages, setVisibleImages] = useState(6);
+  const [visibleImages, setVisibleImages] = useState(5);
   const [favList, setFavList] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
