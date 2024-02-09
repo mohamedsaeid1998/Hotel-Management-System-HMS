@@ -217,6 +217,7 @@ const Explore = () => {
                     key={index}
                     sx={{ width: 200, height: 200, my: 2 }}
                     className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                    height={"100vh"}
                   >
                     <ImageCard2
                       className={style.cardImage}

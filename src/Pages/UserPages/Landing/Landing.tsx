@@ -79,7 +79,7 @@ const Landing = () => {
 
       setAdsData(element?.payload?.data?.data?.ads);
     } finally {
-      if (adsData) setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -167,7 +167,7 @@ const Landing = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const loadingArray = Array.from(new Array());
+  // const loadingArray = Array.from(new Array());
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />
@@ -349,6 +349,7 @@ const Landing = () => {
                 />
               </>
             ) : (
+              adsData?.length &&
               adsData?.map((ele, index) => (
                 <Fragment key={ele?._id}>
                   <ImageCard
@@ -407,26 +408,79 @@ const Landing = () => {
               }}
               className="mySwiper"
             >
-              {rooms?.map((ele, index) => (
-                <Fragment key={ele?._id}>
-                  <SwiperSlide>
-                    <ImageCard2
-                      {...{
-                        selectedDateRange,
-                        ele,
-                        index,
-                        deleteFavoriteItem,
-                        addItemToFavorite,
-                        startDate,
-                        endDate,
-                        bookingGuestCount,
-                        favList,
-                        disabled,
-                      }}
+              {isLoading ? (
+                <Box display={"flex"}>
+                  <Box marginX={"4"}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
                     />
-                  </SwiperSlide>
-                </Fragment>
-              ))}
+                  </Box>
+                  <Box marginX={4}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
+                    />
+                  </Box>
+                  <Box marginX={4}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
+                    />
+                  </Box>{" "}
+                  <Box marginX={4}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
+                    />
+                  </Box>{" "}
+                  <Box marginX={4}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
+                    />
+                  </Box>
+                  <Box marginX={4}>
+                    <Skeleton
+                      variant="rounded"
+                      width={200}
+                      height={200}
+                      animation="wave"
+                    />
+                  </Box>
+                </Box>
+              ) : (
+                rooms?.map((ele, index) => (
+                  <Fragment key={ele?._id}>
+                    <SwiperSlide>
+                      <ImageCard2
+                        {...{
+                          selectedDateRange,
+                          ele,
+                          index,
+                          deleteFavoriteItem,
+                          addItemToFavorite,
+                          startDate,
+                          endDate,
+                          bookingGuestCount,
+                          favList,
+                          disabled,
+                        }}
+                      />
+                    </SwiperSlide>
+                  </Fragment>
+                ))
+              )}
             </Swiper>
           </Box>
         </Box>

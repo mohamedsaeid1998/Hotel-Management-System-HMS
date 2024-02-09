@@ -41,7 +41,7 @@ const ImageCard = ({
             className="discountLayer"
             fontSize={"clamp(.8rem, 2.5vw, 1.5rem) "}
           >
-            {ele?.room?.discount}$
+            {ele?.room?.discount}$ per night
           </Box>
         ) : null}
         <Box className="layer">

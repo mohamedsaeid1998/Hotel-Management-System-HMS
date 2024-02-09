@@ -33,7 +33,12 @@ const ImageCard2 = ({
       <Box key={ele?._id} className={`${index === 0 ? "main" : ""} here`}>
         <img className="RoomPicture" src={ele?.images[0]} alt="RoomPicture" />
         {ele?.discount ? (
-          <Box className="discountLayer">{ele?.discount}$ </Box>
+          <Box
+            className="discountLayer"
+            fontSize={"clamp(.8rem, 2.5vw, 1.5rem) "}
+          >
+            {ele?.discount}$ per night{" "}
+          </Box>
         ) : null}
         <Box className="layer">
           <Box className="text ">
