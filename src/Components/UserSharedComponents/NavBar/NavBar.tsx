@@ -195,27 +195,6 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  {/* <Box className="navAvatar">
-                    <Tooltip title="logout">
-                      <IconButton>
-                        <img
-                          className="nav-img"
-                          src={
-                            userData?.profileImage == null
-                              ? defaultImage
-                              : `http://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
-                          }
-                          id="demo-positioned-button"
-                          aria-controls={
-                            open ? "demo-positioned-menu" : undefined
-                          }
-                          aria-haspopup="true"
-                          aria-expanded={open ? "true" : undefined}
-                          onClick={handleClick}
-                        />
-                      </IconButton>
-                    </Tooltip>
-                  </Box> */}
                   <Box sx={{ flexGrow: 0 }}>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
@@ -227,32 +206,6 @@ const NavBar = () => {
                         }
                       />
                     </IconButton>
-
-                    {/* <Menu
-                      sx={{ mt: "45px" }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography
-                          textAlign="center"
-                          onClick={() => handelLogout()}
-                        >
-                          Logout
-                        </Typography>
-                      </MenuItem>
-                    </Menu> */}
                   </Box>
                   <Box className="navInfo">
                     <Typography variant="caption" color="initial">
