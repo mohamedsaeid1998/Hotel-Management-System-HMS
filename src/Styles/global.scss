@@ -482,7 +482,6 @@
       margin-left: 5px;
       margin-top: 10px;
     }
-
   }
 
   .exploreCon {
@@ -490,7 +489,7 @@
     margin-left: 5px;
 
     .css-i4bv87-MuiSvgIcon-root {
-      font-size: 30px !important;
+      font-size: 30px;
     }
 
     .capacityCon {
@@ -518,7 +517,6 @@
 }
 
 @media (max-width: 1050px) {
-
 }
 
 .caleBtn {
@@ -545,7 +543,7 @@
       width: 100%;
     }
     @media (max-width: 576px) {
-      padding: 16.5px !important;
+      padding: 10.5px !important;
     }
   }
 }
@@ -578,11 +576,11 @@
     "main - -";
   gap: 30px 20px;
   justify-content: space-between;
-  @media (max-width: 763px) {
-    grid-template-rows: 7rem 7rem;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 10px 10px;
-  }
+  // @media (max-width: 763px) {
+  //   grid-template-rows: 7rem 7rem;
+  //   grid-template-columns: 1.5fr 1fr 1fr;
+  //   gap: 10px 10px;
+  // }
   img {
     width: 100%;
     height: 100%;
@@ -598,6 +596,7 @@
 .here {
   position: relative !important;
   border-radius: 15px;
+  width: fit-content;
 }
 
 .sliderCon {
@@ -629,7 +628,8 @@
 }
 
 .layer {
-  height: 98%;
+  height: 100%;
+  width: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -758,11 +758,11 @@
       "image - ";
     gap: 30px 20px;
     justify-content: space-between;
-    @media (max-width: 563px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 8rem 8rem;
-      gap: 5px 5px;
-    }
+    // @media (max-width: 563px) {
+    //   grid-template-columns: 1fr 1fr;
+    //   grid-template-rows: 8rem 8rem;
+    //   gap: 5px 5px;
+    // }
     img {
       width: 100%;
       height: 100%;
@@ -1236,4 +1236,8 @@
   top: 150px;
   left: 818px;
   border-radius: 100px, 15px, 15px, 15px;
+}
+.calendarContainer {
+  display: flex;
+  justify-content: left;
 }

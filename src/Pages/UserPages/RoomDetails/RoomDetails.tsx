@@ -209,9 +209,8 @@ const RoomDetails = () => {
 
             <Box
               component={"section"}
-              className={`roomDetailsBooking ${
-                isSmallScreen && style.roomBookMobView
-              }`}
+              className={`roomDetailsBooking ${isSmallScreen && style.roomBookMobView
+                }`}
             >
               <Box className="roomDetailsDec">
                 {displayedDescriptions?.map((description, index) => (
@@ -279,7 +278,7 @@ const RoomDetails = () => {
                     <Box
                       className="capacityCon"
                       sx={{
-                        display: { xs: "flex" },
+                        display:  "flex" ,
                         margin: "1rem 0rem",
                         padding: { sm: "" },
                         justifyContent: "center",
@@ -352,11 +351,10 @@ const RoomDetails = () => {
                         pre
                       </Typography>
                       <Typography variant="caption" className="bookingCon">
-                        {`${
-                          personsCount !== 1 && personsCount !== undefined
+                        {`${personsCount !== 1 && personsCount !== undefined
                             ? `${personsCount} persons`
                             : `1 person`
-                        } `}
+                          } `}
                       </Typography>
                     </Typography>
                     <Box className="submitBooking">
@@ -384,7 +382,7 @@ const RoomDetails = () => {
               </Box>
             </Box>
             {localStorage.getItem("authToken") &&
-            localStorage.getItem("userRole") === "user" ? (
+              localStorage.getItem("userRole") === "user" ? (
               <>
                 <Box component={"section"} className={style.review}>
                   <Box className={style.roomfeedback}>

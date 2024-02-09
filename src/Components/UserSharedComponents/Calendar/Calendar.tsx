@@ -1,7 +1,7 @@
 /** @format */
 
 import { CalendarMonth } from "@mui/icons-material";
-import { Button, Popover, TextField } from "@mui/material";
+import { Box, Button, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -37,7 +37,8 @@ const Calendar = ({ selectedDateRange, setSelectedDateRange }: IProps) => {
   const open = Boolean(anchorEl);
   return (
     <>
-      <Button
+    <Box className="calendarContainer">
+    <Button
         sx={{
           fontSize: { xs: "1px", sm: "1px", md: "1px" },
           padding: {
@@ -92,6 +93,8 @@ const Calendar = ({ selectedDateRange, setSelectedDateRange }: IProps) => {
           selectedDateRange[1]
         )?.format("YYYY-MM-DD")}`}
       />
+    </Box>
+
     </>
   );
 };
