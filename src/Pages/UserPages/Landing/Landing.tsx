@@ -1,5 +1,5 @@
-import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3, RoomPicture1, RoomPicture2 } from "@/Assets/Images";
-import { Calendar, ImageCard, ImageCard2, LoginDialog } from "@/Components";
+import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3} from "@/Assets/Images";
+import { Calendar, ImageCard, ImageCard2, LoginDialog, UsersReview } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
-import UsersReviews from "./UsersReview";
+
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
@@ -367,7 +367,7 @@ const Landing = () => {
         </Box>
       </Box>
       <Box component="section" className="reviewUsersSection">
-        <UsersReviews />
+        <UsersReview />
       </Box>
     </Box>
   </>
