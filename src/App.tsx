@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Provider } from "react-redux";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound, UserProtectedRoute } from "./Components";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
@@ -16,7 +16,7 @@ function App() {
 
 
   // /explore?startDate=${startDate}&endDate=${endDate}&person=${personsCount}
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: "/",
       element: (
