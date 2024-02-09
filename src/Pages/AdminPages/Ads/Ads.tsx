@@ -1,5 +1,3 @@
-/** @format */
-
 import { TableHeader } from "@/Components";
 import { AdsData } from "@/Redux/Features/Admin/Ads/AdsSlice";
 import { Chip, Stack } from "@mui/material";
@@ -11,7 +9,7 @@ import PopupList from "@/Components/Shared/PopupList/PopupList";
 import { useNavigate } from "react-router-dom";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import "./Ads.module.scss";
-
+import { Helmet } from 'react-helmet'
 const Ads = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +46,6 @@ const Ads = () => {
     setOpenViewDialog(true);
     setAnchorEl(null);
   };
-  const handleCloseViewDialog = () => setOpenViewDialog(false);
   {
     /*delete Dialog Modal  */
   }
@@ -160,6 +157,9 @@ const Ads = () => {
 
   return (
     <>
+<Helmet>
+  <title> Ads Page • Staycation</title>
+</Helmet>
       <TableHeader
         title={"Ads"}
         subTitle={"Ads"}

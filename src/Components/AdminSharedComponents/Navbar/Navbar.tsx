@@ -1,5 +1,3 @@
-/** @format */
-
 import { defaultImage } from "@/Assets/Images";
 import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
 import MenuIcon from "@mui/icons-material/Menu";

@@ -1,4 +1,3 @@
-/** @format */
 
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { CreateAds } from "@/Redux/Features/Admin/Ads/CreateAdsSlice";

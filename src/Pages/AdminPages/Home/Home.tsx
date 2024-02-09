@@ -1,7 +1,11 @@
-/** @format */
-
 import { chartsData } from "@/Redux/Features/Admin/Charts/ChartsSlice";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
+import {
+  ArrowUpward,
+  Discount,
+  Grade
+} from "@mui/icons-material";
+import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import {
   Box,
   Card,
@@ -13,16 +17,8 @@ import { PieChart } from "@mui/x-charts/PieChart";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import "./Home.module.scss";
-import { ArrowUp } from "@/Assets/Images";
-import {
-  ArrowRightSharp,
-  ArrowUpward,
-  Discount,
-  Grade,
-} from "@mui/icons-material";
-import { useTheme } from "@emotion/react";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -105,6 +101,9 @@ const Home = () => {
   const isLargScreen = useMediaQuery("(max-width: 1030px)");
   return (
     <>
+<Helmet>
+  <title> Home • Staycation</title>
+</Helmet>
       <Box component={"main"}>
         <Typography className="homeTitle">DashBoard Analysis</Typography>
 
@@ -122,12 +121,12 @@ const Home = () => {
         >
           <Box
             className="cardBox"
-            // sx={{
-            //   display: "flex",
-            //   flexDirection: { md: "row", lg: "column" },
-            //   justifyContent: "center",
-            //   alginItems: "center",
-            // }}
+          // sx={{
+          //   display: "flex",
+          //   flexDirection: { md: "row", lg: "column" },
+          //   justifyContent: "center",
+          //   alginItems: "center",
+          // }}
           >
             {/*1*/}
             <Box className="">
@@ -166,7 +165,7 @@ const Home = () => {
                       ]}
                       slotProps={{ legend: { padding: 0 } }}
                       height={150}
-                      // width={300}
+                    // width={300}
                     />
                   </Box>
                 )}
@@ -189,7 +188,7 @@ const Home = () => {
                   ]}
                   slotProps={{ legend: { padding: 0 } }}
                   height={isLargScreen ? 150 : 200}
-                  // width={300}
+                // width={300}
                 />
               </Box>
             )}
@@ -324,54 +323,7 @@ const Home = () => {
               </Box>
             )}
           </Box>
-          {bookingStatus.booking && (
-            <>
-              {/* <PieChart
-                series={[
-                  {
-                    data,
-                    highlightScope: { faded: "global", highlighted: "item" },
-                    faded: {
-                      innerRadius: 30,
-                      additionalRadius: -30,
-                      color: "gray",
-                    },
-                  },
-                ]}
-                height={150}
-              /> */}
 
-              {/* <PieChart
-                series={[
-                  {
-                    data: data2,
-                    highlightScope: { faded: "global", highlighted: "item" },
-                    faded: {
-                      innerRadius: 30,
-                      additionalRadius: -30,
-                      color: "gray",
-                    },
-                  },
-                ]}
-                height={150}
-              /> */}
-
-              {/* <PieChart
-                series={[
-                  {
-                    data: data3,
-                    highlightScope: { faded: "global", highlighted: "item" },
-                    faded: {
-                      innerRadius: 30,
-                      additionalRadius: -30,
-                      color: "gray",
-                    },
-                  },
-                ]}
-                height={150}
-              /> */}
-            </>
-          )}
         </Box>
       </Box>
     </>

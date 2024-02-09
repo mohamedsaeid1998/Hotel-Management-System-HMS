@@ -1,7 +1,9 @@
-import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { ImageCard2, LoginDialog } from "@/Components";
+import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
+import { Home, Living } from "@mui/icons-material";
 import {
   Box,
   Breadcrumbs,
@@ -11,22 +13,19 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
-import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
-import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
-import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import dayjs, { Dayjs, Range } from "dayjs";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Link,
-  useLocation,
-  useParams,
-  useSearchParams,
+  useLocation
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
-import { Home, Living } from "@mui/icons-material";
-import dayjs, { Range, Dayjs } from "dayjs";
-import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 const Explore = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -50,14 +49,8 @@ const Explore = () => {
     ? dayjs(state?.range[1]).format("YYYY-MM-DD")
     : nextDate;
 
-  // const [params, setParams] = useSearchParams()
 
-  // const here = {
-  //   startDate,
-  //   endDate
-  // }
-
-  const handlePageChange = async (event, page) => {
+  const handlePageChange = async (page: number) => {
     try {
       setIsLoading(true);
       setCurrentPage(page);
@@ -71,11 +64,6 @@ const Explore = () => {
     getFavoriteData();
     if (state?.range[0] == undefined) setSelectedDateRange(undefined);
   }, [dispatch, count, data]);
-
-  // const { endDate: end, persons: per, startDate: str } = useParams();
-  // const endDate = end?.substring(end?.indexOf("=") + 1);
-  // const startDate = str?.substring(str?.indexOf("=") + 1);
-  // const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
 
   const bookingGuestCount = state?.persons;
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
@@ -170,6 +158,9 @@ const Explore = () => {
   );
   return (
     <>
+<Helmet>
+  <title> Explore • Staycation</title>
+</Helmet>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
         <Box className="userContainer">
@@ -179,7 +170,6 @@ const Explore = () => {
 
           <Breadcrumbs aria-label="breadcrumb">
             <Link className="path" color="inherit" to={"/"}>
-              {" "}
               <Home sx={{ mr: 0.5 }} fontSize="inherit" />
               {t("home")}
             </Link>
@@ -199,37 +189,37 @@ const Explore = () => {
           <Box className={style.ExploreImages} justifyContent={"center"}>
             {isLoading
               ? loadingArray.map((index) => (
-                  <Skeleton
-                    key={index}
-                    variant="rounded"
-                    width={200}
-                    height={200}
-                    animation="wave"
-                  />
-                ))
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  width={200}
+                  height={200}
+                  animation="wave"
+                />
+              ))
               : currentRooms?.length >= 0 &&
-                currentRooms?.map((ele, index) => (
-                  <Box
-                    key={index}
-                    sx={{ width: 200, height: 200, my: 2 }}
-                    className={` ${isSmallScreen ? style.imgExplore : ""}`}
-                  >
-                    <ImageCard2
-                      className={style.cardImage}
-                      key={ele?._id}
-                      {...{
-                        ele,
-                        index,
-                        bookingGuestCount,
-                        favList,
-                        deleteFavoriteItem,
-                        addItemToFavorite,
-                        disabled,
-                        selectedDateRange,
-                      }}
-                    />
-                  </Box>
-                ))}
+              currentRooms?.map((ele, index) => (
+                <Box
+                  key={index}
+                  sx={{ width: 200, height: 200, my: 2 }}
+                  className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                >
+                  <ImageCard2
+                    className={style.cardImage}
+                    key={ele?._id}
+                    {...{
+                      ele,
+                      index,
+                      bookingGuestCount,
+                      favList,
+                      deleteFavoriteItem,
+                      addItemToFavorite,
+                      disabled,
+                      selectedDateRange,
+                    }}
+                  />
+                </Box>
+              ))}
           </Box>
           <Stack spacing={2} marginTop={4} justifyContent={"center"}>
             <Pagination

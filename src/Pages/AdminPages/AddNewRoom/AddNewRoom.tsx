@@ -1,5 +1,3 @@
-/** @format */
-
 //@ts-nochec
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { FacilitiesData } from "@/Redux/Features/Admin/Facilities/FacilitiesSlice";

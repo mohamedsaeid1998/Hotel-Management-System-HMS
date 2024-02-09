@@ -1,5 +1,3 @@
-/** @format */
-
 import { defaultImage } from "@/Assets/Images";
 import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
@@ -25,7 +23,6 @@ import DrawerComponent from "./DrawerComponent";
 import "./NavBar.module.scss";
 const NavBar = () => {
   const { t, i18n } = useTranslation();
-  console.log(i18n.language);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -67,7 +64,7 @@ const NavBar = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userId");
-    navigate("/login");
+    window.location.reload();
   };
 
   function notificationsLabel(count: number) {
@@ -83,9 +80,7 @@ const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   // const [drawerOpen, setDrawerOpen] = useState(false);
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };

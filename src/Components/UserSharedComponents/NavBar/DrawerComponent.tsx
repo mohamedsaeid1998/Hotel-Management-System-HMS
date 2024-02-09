@@ -1,5 +1,3 @@
-/** @format */
-
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -26,7 +24,7 @@ const DrawerComponent = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");
     localStorage.removeItem("userId");
-    navigate("/login");
+    window.location.reload();
   };
 
   return (

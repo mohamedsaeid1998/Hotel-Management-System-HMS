@@ -1,5 +1,3 @@
-/** @format */
-
 import { setRatingRooms } from "@/Redux/Features/Portal/RatingSlice/RatingSlice";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import Box from "@mui/material/Box";

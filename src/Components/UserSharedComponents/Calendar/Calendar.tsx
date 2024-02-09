@@ -1,5 +1,3 @@
-/** @format */
-
 import { CalendarMonth } from "@mui/icons-material";
 import { Box, Button, Popover, TextField } from "@mui/material";
 import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";

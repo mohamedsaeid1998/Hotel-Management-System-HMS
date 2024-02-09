@@ -1,5 +1,3 @@
-/** @format */
-
 import { ImageCard2 } from "@/Components";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
@@ -22,9 +20,10 @@ import { toast } from "react-toastify";
 import "./Favorites.module.scss";
 import style from "./Favorites.module.scss";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const Favorites = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [visibleImages, setVisibleImages] = useState(6);
   const [favList, setFavList] = useState([]);
@@ -33,7 +32,6 @@ const Favorites = () => {
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-
   const dispatch = useDispatch();
   //! ************************ Get All Favorite Rooms  *************************
   const getFavoriteData = async () => {
@@ -55,8 +53,8 @@ const Favorites = () => {
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
-      // @ts-ignore
       setDisabled(true);
+      // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
       toast.success(element?.payload?.message, {
@@ -79,14 +77,16 @@ const Favorites = () => {
   const loadingArray = Array.from(new Array(6 || favList?.length));
   return (
     <>
-      <Box component={"main"} style={{ height: "" }} className="exploreCom">
+<Helmet>
+  <title> Favorite Rooms • Staycation</title>
+</Helmet>
+      <Box component={"main"} className="exploreCom">
         <Box className="userContainer">
           <Typography variant="h1" className="title">
             {t("FavoriteRooms")}
           </Typography>
           <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4.0 }}>
             <Link className="path" color="inherit" to={"/"}>
-              {" "}
               <Home sx={{ mr: 0.5 }} fontSize="inherit" />
               {t("home")}
             </Link>

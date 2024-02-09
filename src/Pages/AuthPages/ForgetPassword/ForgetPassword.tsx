@@ -1,5 +1,3 @@
-/** @format */
-
 import { ChevronRight } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -8,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
-
+import { Helmet } from 'react-helmet'
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +30,9 @@ const ForgetPassword = () => {
 
   return (
     <>
+      <Helmet>
+        <title> Reset Password • Staycation</title>
+      </Helmet>
       <Box component="div">
         <Typography
           className={`subNav`}

@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.4.0",
+    "@types/react-helmet": "^6.1.11",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "axios": "^1.6.3",

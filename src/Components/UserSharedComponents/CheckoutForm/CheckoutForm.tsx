@@ -23,7 +23,7 @@ import "./CheckoutForm.module.scss";
 import { creditCard, paymentDone } from "@/Assets/Images";
 import { useTranslation } from "react-i18next";
 const CheckoutForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();

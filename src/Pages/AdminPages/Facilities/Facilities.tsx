@@ -8,6 +8,7 @@ import "./Facilities.module.scss";
 import PopupList from "@/Components/Shared/PopupList/PopupList";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Facilities = () => {
   const dispatch = useDispatch();
@@ -19,25 +20,20 @@ const Facilities = () => {
   const [openViewDialog, setOpenViewDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  {
-    /*************popUp************** */
-  }
-  {
-    /* Dialog Modal  */
-  }
+
+  /* Dialog Modal  */
   const handleOpenDialog = () => {
     setOpenDialog(true);
     setAnchorEl(null);
   };
   const handleCloseDialog = () => setOpenDialog(false);
-  {
-    /*view dialog */
-  }
+
+  /*view dialog */
+
   const handleViewDialog = () => {
     setOpenViewDialog(true);
     setAnchorEl(null);
   };
-  const handleCloseViewDialog = () => setOpenViewDialog(false);
 
   /*Handle popup menu */
 
@@ -51,9 +47,9 @@ const Facilities = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  {
-    /*moveToEdit screen */
-  }
+
+  /*moveToEdit screen */
+
   const moveToEdit = () => {
     navigate(`/dashboard/room-facilities/update-facility/${roomId}`, {
       state: { isEdit: true },
@@ -149,6 +145,9 @@ const Facilities = () => {
 
   return (
     <>
+      <Helmet>
+        <title> Facilities Page • Staycation</title>
+      </Helmet>
       <TableHeader
         title={"Facilities"}
         subTitle={"facility"}

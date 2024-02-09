@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { useTranslation } from "react-i18next";
 const UsersReview = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return <>
     <Box component="section" className="reviewSec">
       <Box className="reviewImg">

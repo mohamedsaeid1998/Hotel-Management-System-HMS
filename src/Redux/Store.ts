@@ -1,4 +1,3 @@
-/** @format */
 import { configureStore } from "@reduxjs/toolkit";
 import changePassword from "./Features/Auth/ChangePasswordSlice";
 import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";

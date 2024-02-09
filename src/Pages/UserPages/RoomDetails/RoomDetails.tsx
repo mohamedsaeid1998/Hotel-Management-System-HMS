@@ -1,5 +1,3 @@
-/** @format */
-
 import {
   RoomDetails1,
   RoomDetails2,
@@ -22,7 +20,6 @@ import {
   Button,
   Card,
   CardContent,
-  Grid,
   IconButton,
   TextField,
   Typography,
@@ -39,13 +36,13 @@ import { Add, Details, Home, Remove } from "@mui/icons-material";
 import FeedbackComponent from "@/Components/UserSharedComponents/FeedbackComponent/FeedbackComponent";
 import RatingComponent from "@/Components/UserSharedComponents/Rating/RatingComponent";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const RoomDetails = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [showMore, setShowMore] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:960px)");
-  // const isMobile = useMediaQuery("(max-width:576px)");
   const handleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -61,13 +58,6 @@ const RoomDetails = () => {
     today,
     nextDate,
   ]);
-
-  // const startDate =
-  //   state?.range === undefined ? today : state?.range[0].format("YYYY-MM-DD");
-  // const endDate =
-  //   state?.range === undefined
-  //     ? nextDate
-  //     : state?.range[1].format("YYYY-MM-DD");
 
   const bookingGuestCount = state?.persons;
   const id = state?.roomId;
@@ -112,9 +102,9 @@ const RoomDetails = () => {
       });
     } else {
       try {
-        // @ts-ignore
         setLoading(true);
         const element = await dispatch(
+          // @ts-ignore
           CreateBooking({ startDate, endDate, id, price })
         );
 
@@ -123,6 +113,7 @@ const RoomDetails = () => {
           autoClose: 2000,
           theme: "colored",
         });
+        // @ts-ignore
         navigate(`/stripePayment/${element?.payload?.data?.booking?._id}`);
       } finally {
         setLoading(false);
@@ -170,6 +161,9 @@ const RoomDetails = () => {
 
   return (
     <>
+      <Helmet>
+        <title> Room Details • Staycation</title>
+      </Helmet>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className="roomDetailsCon">
         <Box className="userContainer">
@@ -278,7 +272,7 @@ const RoomDetails = () => {
                     <Box
                       className="capacityCon"
                       sx={{
-                        display:  "flex" ,
+                        display: "flex",
                         margin: "1rem 0rem",
                         padding: { sm: "" },
                         justifyContent: "center",
@@ -352,8 +346,8 @@ const RoomDetails = () => {
                       </Typography>
                       <Typography variant="caption" className="bookingCon">
                         {`${personsCount !== 1 && personsCount !== undefined
-                            ? `${personsCount} persons`
-                            : `1 person`
+                          ? `${personsCount} persons`
+                          : `1 person`
                           } `}
                       </Typography>
                     </Typography>

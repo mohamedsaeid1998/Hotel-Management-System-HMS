@@ -3,7 +3,7 @@ import "./Footer.module.scss";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -15,7 +15,6 @@ const Footer = () => {
             component="div"
             color="initial"
           >
-            {" "}
             <Typography variant="" className="blueColor">
               Stay
             </Typography>

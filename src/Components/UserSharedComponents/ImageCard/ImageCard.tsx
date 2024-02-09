@@ -1,4 +1,3 @@
-/** @format */
 
 import "./ImageCard.module.scss";
 import { Box, IconButton, Typography } from "@mui/material";

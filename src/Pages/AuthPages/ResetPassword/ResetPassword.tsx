@@ -1,24 +1,19 @@
-/** @format */
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
-  FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
+import { useState } from "react";
+import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
-import { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -52,6 +47,9 @@ const ResetPassword = () => {
   };
   return (
     <>
+      <Helmet>
+        <title> Reset Password • Staycation</title>
+      </Helmet>
       <Box component="div">
         <Typography
           className={`subNav`}
@@ -83,7 +81,7 @@ const ResetPassword = () => {
                 fontWeight: "bold",
               }}
             >
-              {/* */}Login here !
+              Login here !
             </Link>
           </Typography>
         </Box>

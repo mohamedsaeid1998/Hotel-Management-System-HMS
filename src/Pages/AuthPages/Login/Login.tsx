@@ -1,5 +1,3 @@
-/** @format */
-
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
 import baseUrl from "@/utils/Custom/Custom";
 import { ChevronRight, Visibility, VisibilityOff } from "@mui/icons-material";
@@ -10,10 +8,10 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-  Typography,
-  useMediaQuery,
+  Typography
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -47,7 +45,6 @@ const Login = () => {
   } else if (islogged === "user") {
     navigate("/");
   }
-  const isSmallScreen = useMediaQuery("900px");
   useEffect(() => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
@@ -92,6 +89,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+  <title> Sign in • Staycation</title>
+</Helmet>
       <Box component="div">
         <Typography
           className={`subNav`}
@@ -123,7 +123,6 @@ const Login = () => {
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Register here !
             </Link>
           </Typography>
@@ -245,9 +244,3 @@ const Login = () => {
 };
 
 export default Login;
-
-{
-  /* <IconButton onClick={handleClickShowPassword} >
-{showPassword ? <VisibilityOff /> : <Visibility />}
-</IconButton> */
-}

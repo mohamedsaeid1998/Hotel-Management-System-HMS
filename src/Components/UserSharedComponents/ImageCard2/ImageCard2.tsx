@@ -1,5 +1,3 @@
-/** @format */
-
 import "./ImageCard2.module.scss";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Favorite, Visibility } from "@mui/icons-material";

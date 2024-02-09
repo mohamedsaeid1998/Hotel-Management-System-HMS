@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, MasterLayout, NotFound, UserProtectedRoute } from "./Components";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
-import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, Reviews, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
+import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
 import Store from "./Redux/Store";
 const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
 // import LoadingComponent from "./Components/Loading/Loading";
@@ -26,7 +26,6 @@ function App() {
       children: [
         { index: true, element: <Landing /> },
         { path: 'explore', element: <Explore /> },
-        { path: 'room-reviews', element: <Reviews /> },
         { path: 'favorite-rooms', element: <UserProtectedRoute><Favorites /></UserProtectedRoute> },
         { path: 'room-details', element: <RoomDetails /> },
         { path: 'stripePayment/:id', element: <UserProtectedRoute><StripePayment /></UserProtectedRoute> },

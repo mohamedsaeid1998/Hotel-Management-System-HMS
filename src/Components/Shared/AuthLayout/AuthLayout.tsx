@@ -1,5 +1,3 @@
-/** @format */
-
 import { Grid, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import "./AuthLayout.module.scss";

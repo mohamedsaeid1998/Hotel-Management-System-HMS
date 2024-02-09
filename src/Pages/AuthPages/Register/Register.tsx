@@ -1,5 +1,3 @@
-/** @format */
-
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
@@ -18,13 +16,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/RegisterSlice";
 import "./Register.module.scss";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import { Helmet } from 'react-helmet'
 const Register = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isRegister } = useSelector((state) => state.register);
-
   const navigate = useNavigate();
   const required = "This Field is required";
   const VisuallyHiddenInput = styled("input")({
@@ -62,6 +59,9 @@ const Register = () => {
   }, [isRegister, navigate]);
   return (
     <>
+      <Helmet>
+        <title> Sign up • Staycation</title>
+      </Helmet>
       <Box component="div">
         <Typography
           className={`subNav`}
@@ -95,7 +95,6 @@ const Register = () => {
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Login here !
             </Link>
           </Typography>
@@ -244,12 +243,6 @@ const Register = () => {
                 : null
             }
           />
-
-          {/* <InputLabel sx={{ marginTop: "5px" }}>Profile Image</InputLabel> */}
-          {/* <FormControl sx={{ width: "100%" }}>
-            <Input type="file" {...register("profileImage")} />
-          </FormControl> */}
-
           <Button
             component="label"
             variant="contained"

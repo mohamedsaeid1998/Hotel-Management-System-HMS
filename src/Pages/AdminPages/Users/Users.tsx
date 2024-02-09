@@ -1,5 +1,3 @@
-/** @format */
-
 import { TableHeader } from "@/Components";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
@@ -8,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { UsersData } from "@/Redux/Features/Admin/Users/GetUsersSlice";
 import moment from "moment";
 import "./Users.module.scss";
+import { Helmet } from "react-helmet";
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
@@ -78,6 +77,9 @@ const Users = () => {
 
   return (
     <>
+      <Helmet>
+        <title> Users Page • Staycation</title>
+      </Helmet>
       <TableHeader
         title={"Users"}
         subTitle={"User"}
@@ -98,13 +100,6 @@ const Users = () => {
             },
           },
         }}
-        // slots={{ toolbar: GridToolbar }}
-        // slotProps={{
-        //   toolbar: {
-        //     showQuickFilter: true,
-        //     quickFilterProps: { debounceMs: 500 },
-        //   },
-        // }}
         pageSizeOptions={[5, 10]}
         // checkboxSelection
         disableRowSelectionOnClick

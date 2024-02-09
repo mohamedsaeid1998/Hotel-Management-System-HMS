@@ -1,5 +1,3 @@
-/** @format */
-
 import { useLocation } from "react-router-dom";
 import "./AuthBackground.module.scss";
 import { Box } from "@mui/material";

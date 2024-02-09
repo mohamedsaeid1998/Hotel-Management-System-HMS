@@ -1,4 +1,3 @@
-/** @format */
 
 import { imgView3 } from "@/Assets/Images";
 import { viewRoomDetails } from "@/Redux/Features/Admin/ViewDetails/viewDetailsSlice";

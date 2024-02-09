@@ -1,4 +1,4 @@
-import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3} from "@/Assets/Images";
+import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3 } from "@/Assets/Images";
 import { Calendar, ImageCard, ImageCard2, LoginDialog, UsersReview } from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
@@ -15,12 +15,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
-
+import { Helmet } from 'react-helmet'
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 const Landing = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
@@ -50,7 +50,6 @@ const Landing = () => {
       setBookingGuestCount(bookingGuestCount - 1);
     }
   };
-
 
   const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
   const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");
@@ -100,9 +99,8 @@ const Landing = () => {
       // @ts-ignore
       const element = await dispatch(getFavoriteItems());
       // @ts-ignore
-
       setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
-    } catch (error) { }
+    } finally { }
   };
 
   //! ************************ Get Rooms  *************************
@@ -149,6 +147,9 @@ const Landing = () => {
   };
 
   return <>
+<Helmet>
+  <title> Landing • Staycation</title>
+</Helmet>
     <LoginDialog {...{ handleClose, open }} />
     <Box component="section" className="landingSec">
 
@@ -314,7 +315,6 @@ const Landing = () => {
               delay: 2000,
               disableOnInteraction: false,
             }}
-            // loop={true}
             modules={[Autoplay]}
             breakpoints={{
               200: {
