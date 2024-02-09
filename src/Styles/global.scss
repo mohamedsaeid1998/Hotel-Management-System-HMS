@@ -566,6 +566,20 @@
   }
 }
 
+.cardBox {
+  // @media screen and (min-width: "768px") and (max-width: "1024") {
+  //   margin: auto;
+  //   width: 50vw;
+  // }
+  @media screen and (max-width: "768px") {
+    margin: auto;
+    width: 50vw;
+  }
+  @media (max-width: "430px") {
+    margin: auto;
+    width: 85vw;
+  }
+}
 .grid {
   // width: 1000px;
   display: grid;
@@ -1022,20 +1036,28 @@
 }
 
 .homeTitle {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  text-align: center;
   @extend .title;
   margin-top: 30px !important;
 }
-
+.parentBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .homeGrid {
+  overflow: hidden;
   display: grid;
-  height: 80vh;
+  // height: 77vh;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 200px);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
   max-width: 100%;
-  gap: 40px;
-  align-items: center;
-  // justify-content: space-between;
-  align-items: center;
+  gap: 5rem;
+
   .card {
     margin-top: 20px;
     max-width: 380px;
@@ -1140,7 +1162,7 @@
     }
 
     .css-46bh2p-MuiCardContent-root:last-child {
-      padding-bottom: 16rem !important;
+      // padding-bottom: 16rem !important;
       @media (max-width: 960) {
         padding: 0.5rem;
       }

@@ -194,7 +194,6 @@ const ResetPassword = () => {
               md: "1rem",
             },
           }}
-          type="submit"
           size="large"
           variant="contained"
         >
