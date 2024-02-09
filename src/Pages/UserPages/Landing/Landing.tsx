@@ -1,12 +1,25 @@
-import { LandingImg, RoomDetails1, RoomDetails2, RoomDetails3} from "@/Assets/Images";
-import { Calendar, ImageCard, ImageCard2, LoginDialog, UsersReview } from "@/Components";
+/** @format */
+
+import {
+  LandingImg,
+  RoomDetails1,
+  RoomDetails2,
+  RoomDetails3,
+} from "@/Assets/Images";
+import {
+  Calendar,
+  ImageCard,
+  ImageCard2,
+  LoginDialog,
+  UsersReview,
+} from "@/Components";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
 import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
-import { Add, Remove } from "@mui/icons-material";
-import { Box, Button, IconButton, TextField } from "@mui/material";
+import { Add, Remove, Visibility } from "@mui/icons-material";
+import { Box, Button, IconButton, Skeleton, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs, Range } from "dayjs";
 import { Fragment, useEffect, useState } from "react";
@@ -17,8 +30,8 @@ import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
 const Landing = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -28,6 +41,7 @@ const Landing = () => {
   const [bookingGuestCount, setBookingGuestCount] = useState(1);
   const navigate = useNavigate();
   const today = dayjs();
+  const [isLoading, setLoading] = useState(false);
   const nextDate = dayjs().add(1, "day");
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
     today,
@@ -51,13 +65,13 @@ const Landing = () => {
     }
   };
 
-
   const startDate = dayjs(selectedDateRange[0]).format("YYYY-MM-DD");
   const endDate = dayjs(selectedDateRange[1]).format("YYYY-MM-DD");
 
   const [adsData, setAdsData] = useState();
   //! ************************ Rooms Ads *************************
   const getAdsData = async () => {
+    setLoading(true);
     try {
       // @ts-ignore
       const element = await dispatch(AllAdsData());
@@ -65,11 +79,14 @@ const Landing = () => {
 
       setAdsData(element?.payload?.data?.data?.ads);
     } finally {
+      if (adsData) setLoading(false);
     }
   };
 
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
+    // setLoading(!isLoading);
+
     try {
       setDisabled(true);
       if (!localStorage.getItem("authToken")) {
@@ -90,6 +107,7 @@ const Landing = () => {
       }
     } finally {
       setDisabled(false);
+      // setLoading(!isLoading);
     }
   };
 
@@ -102,13 +120,15 @@ const Landing = () => {
       // @ts-ignore
 
       setFavList(element?.payload?.data?.favoriteRooms[0]?.rooms);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   //! ************************ Get Rooms  *************************
   const [rooms, setRooms] = useState([]);
 
   const getRoomsData = async (roomCount: any) => {
+    setLoading(true);
+
     try {
       const element = await dispatch(
         // @ts-ignore
@@ -117,9 +137,9 @@ const Landing = () => {
       // @ts-ignore
       setRooms(element?.payload?.data?.rooms);
     } finally {
+      setLoading(false);
     }
   };
-
 
   //! ************************ Delete From Favorite  *************************
 
@@ -147,205 +167,193 @@ const Landing = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  return <>
-    <LoginDialog {...{ handleClose, open }} />
-    <Box component="section" className="landingSec">
-
-      <Box className="leftCon">
-        <Box className="content">
-          <Typography variant="h1" className="title">
-            {t("homeTitle")}
-          </Typography>
-          <Typography className="subTitle">
-            {t("homeDes")}
-          </Typography>
-
-          <Box className="bookingCon">
-            <Typography variant="h3" className="bookingTitle">
-              {t("startBooking")}
+  const loadingArray = Array.from(new Array());
+  return (
+    <>
+      <LoginDialog {...{ handleClose, open }} />
+      <Box component="section" className="landingSec">
+        <Box className="leftCon">
+          <Box className="content">
+            <Typography variant="h1" className="title">
+              {t("homeTitle")}
             </Typography>
-            <Typography variant="h4" className="subBookingTitle">
-              {t("pickADate")}
-            </Typography>
-          </Box>
+            <Typography className="subTitle">{t("homeDes")}</Typography>
 
-          <Box className="exploreCon">
-            <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
+            <Box className="bookingCon">
+              <Typography variant="h3" className="bookingTitle">
+                {t("startBooking")}
+              </Typography>
+              <Typography variant="h4" className="subBookingTitle">
+                {t("pickADate")}
+              </Typography>
+            </Box>
 
-            <Box className="capacityCon">
-              <IconButton
-                onClick={handleIncrease}
-                className="caleBtn"
-                color="primary"
-                sx={{
-                  fontSize: { xs: "1px", sm: "1px", md: "1px" },
-                  padding: {
-                    xs: "8px 16px",
-                    sm: "10px 20px",
-                    md: "12px 24px",
+            <Box className="exploreCon">
+              <Calendar {...{ selectedDateRange, setSelectedDateRange }} />
+
+              <Box className="capacityCon">
+                <IconButton
+                  onClick={handleIncrease}
+                  className="caleBtn"
+                  color="primary"
+                  sx={{
+                    fontSize: { xs: "1px", sm: "1px", md: "1px" },
+                    padding: {
+                      xs: "8px 16px",
+                      sm: "10px 20px",
+                      md: "12px 24px",
+                    },
+                    width: { xs: "40px", sm: "50px" },
+                    height: { xs: "40px", sm: "50px" },
+                    borderRadius: "12px",
+                    p: "8px",
+                    mr: { xs: "5px", sm: "10px" },
+                    ml: "5px",
+                  }}
+                >
+                  <Add />
+                </IconButton>
+                <TextField
+                  className="capacityField"
+                  label="Capacity"
+                  value={`${bookingGuestCount} person`}
+                />
+                <IconButton
+                  onClick={handleDecrease}
+                  className="caleBtnDiscernment"
+                  color="error"
+                  sx={{
+                    fontSize: { xs: "1px", sm: "1px", md: "1px" },
+                    padding: {
+                      xs: "8px 16px",
+                      sm: "10px 20px",
+                      md: "12px 24px",
+                    },
+                    width: { xs: "40px", sm: "50px" },
+                    height: { xs: "40px", sm: "50px" },
+                    borderRadius: "12px",
+                    p: "8px",
+                    mr: { xs: "5px", sm: "10px" },
+                    ml: "5px",
+                  }}
+                >
+                  <Remove />
+                </IconButton>
+              </Box>
+            </Box>
+
+            <Button
+              className="submitExplore"
+              onClick={() =>
+                navigate(`/explore`, {
+                  state: {
+                    range: selectedDateRange,
+                    persons: bookingGuestCount,
                   },
-                  width: { xs: "40px", sm: "50px" },
-                  height: { xs: "40px", sm: "50px" },
-                  borderRadius: "12px",
-                  p: "8px",
-                  mr: { xs: "5px", sm: "10px" },
-                  ml: "5px",
-                }}
-              >
-                <Add />
-              </IconButton>
-              <TextField
-                className="capacityField"
-                label="Capacity"
-                value={`${bookingGuestCount} person`}
-              />
-              <IconButton
-                onClick={handleDecrease}
-                className="caleBtnDiscernment"
-                color="error"
-                sx={{
-                  fontSize: { xs: "1px", sm: "1px", md: "1px" },
-                  padding: {
-                    xs: "8px 16px",
-                    sm: "10px 20px",
-                    md: "12px 24px",
-                  },
-                  width: { xs: "40px", sm: "50px" },
-                  height: { xs: "40px", sm: "50px" },
-                  borderRadius: "12px",
-                  p: "8px",
-                  mr: { xs: "5px", sm: "10px" },
-                  ml: "5px",
-                }}
-              >
-                <Remove />
-              </IconButton>
-            </Box>
+                })
+              }
+              variant="contained"
+              color="primary"
+            >
+              {t("explore")}
+            </Button>
           </Box>
-
-          <Button
-            className="submitExplore"
-            onClick={() =>
-              navigate(`/explore`, {
-                state: { range: selectedDateRange, persons: bookingGuestCount },
-              })
-            }
-            variant="contained"
-            color="primary"
-          >
-            {t("explore")}
-          </Button>
-        </Box>
-      </Box>
-
-      <Box className="rightCon">
-        <Swiper
-          autoplay={{
-            delay: 1200,
-            disableOnInteraction: false,
-          }}
-          spaceBetween={30}
-          effect={'fade'}
-          loop={true}
-          modules={[Autoplay, EffectFade]}
-          className="LandingImg "
-        >
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={LandingImg} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails2} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails3} />
-            </Box>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Box className="">
-              <img className="background" src={RoomDetails1} />
-            </Box>
-          </SwiperSlide>
-        </Swiper>
-      </Box>
-
-    </Box>
-
-    <Box className="userContainer">
-      <Box component="section" className="viewSec">
-        <Typography variant="h4" className="adsTitle">
-          {t("mostPopularAds")}
-        </Typography>
-
-        <Box className="grid">
-          {adsData?.map((ele, index) => (
-            <Fragment key={ele?._id}>
-              <ImageCard
-                {...{
-                  disabled,
-                  selectedDateRange,
-                  ele,
-                  index,
-                  deleteFavoriteItem,
-                  addItemToFavorite,
-                  startDate,
-                  endDate,
-                  bookingGuestCount,
-                  favList,
-                }}
-              />
-            </Fragment>
-          ))}
         </Box>
 
-        <Typography variant="h4" className="bookingTitle">
-          {t("mostBookedRooms")}
-        </Typography>
-        <Box className="sliderCon">
+        <Box className="rightCon">
           <Swiper
-            slidesPerView={6}
-            spaceBetween={20}
             autoplay={{
-              delay: 2000,
+              delay: 1200,
               disableOnInteraction: false,
             }}
-            // loop={true}
-            modules={[Autoplay]}
-            breakpoints={{
-              200: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-              },
-              500: {
-                slidesPerView: 2,
-                spaceBetween: 40,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              1075: {
-                slidesPerView: 4,
-                spaceBetween: 50,
-              },
-              1220: {
-                slidesPerView: 5,
-                spaceBetween: 20,
-              },
-            }}
-
-            className="mySwiper"
+            spaceBetween={30}
+            effect={"fade"}
+            loop={true}
+            modules={[Autoplay, EffectFade]}
+            className="LandingImg "
           >
-            {rooms?.map((ele, index) => (
-              <Fragment key={ele?._id}>
-                <SwiperSlide>
-                  <ImageCard2
+            <SwiperSlide>
+              <Box className="">
+                <img className="background" src={LandingImg} />
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className="">
+                <img className="background" src={RoomDetails2} />
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className="">
+                <img className="background" src={RoomDetails3} />
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className="">
+                <img className="background" src={RoomDetails1} />
+              </Box>
+            </SwiperSlide>
+          </Swiper>
+        </Box>
+      </Box>
+
+      <Box className="userContainer">
+        <Box component="section" className="viewSec">
+          <Typography variant="h4" className="adsTitle">
+            {t("mostPopularAds")}
+          </Typography>
+
+          <Box className="grid">
+            {isLoading ? (
+              <>
+                <Box>
+                  <Skeleton
+                    variant="rectangular"
+                    width={450}
+                    height={500}
+                    animation="wave"
+                  />
+                </Box>
+
+                <Skeleton
+                  variant="rounded"
+                  width={190}
+                  // height={500}
+                  animation="wave"
+                />
+                <Skeleton
+                  variant="rounded"
+                  width={190}
+                  // height={500}
+                  animation="wave"
+                />
+
+                <Skeleton
+                  variant="rounded"
+                  width={190}
+                  // height={500}
+                  animation="wave"
+                  style={{ visibility: "hidden" }}
+                />
+                <Skeleton
+                  variant="rounded"
+                  width={190}
+                  // height={500}
+                  animation="wave"
+                />
+                <Skeleton
+                  // style={{ visibility: "hidden" }}
+                  variant="rounded"
+                  width={190}
+                  // height={500}
+                  animation="wave"
+                />
+              </>
+            ) : (
+              adsData?.map((ele, index) => (
+                <Fragment key={ele?._id}>
+                  <ImageCard
                     {...{
+                      disabled,
                       selectedDateRange,
                       ele,
                       index,
@@ -355,22 +363,79 @@ const Landing = () => {
                       endDate,
                       bookingGuestCount,
                       favList,
-                      disabled,
                     }}
                   />
-                </SwiperSlide>
-              </Fragment>
-            ))}
+                </Fragment>
+              ))
+            )}
+          </Box>
 
-          </Swiper>
-
+          <Typography variant="h4" className="bookingTitle">
+            {t("mostBookedRooms")}
+          </Typography>
+          <Box className="sliderCon">
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={20}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              // loop={true}
+              modules={[Autoplay]}
+              breakpoints={{
+                200: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                500: {
+                  slidesPerView: 2,
+                  spaceBetween: 40,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                1075: {
+                  slidesPerView: 4,
+                  spaceBetween: 50,
+                },
+                1220: {
+                  slidesPerView: 5,
+                  spaceBetween: 20,
+                },
+              }}
+              className="mySwiper"
+            >
+              {rooms?.map((ele, index) => (
+                <Fragment key={ele?._id}>
+                  <SwiperSlide>
+                    <ImageCard2
+                      {...{
+                        selectedDateRange,
+                        ele,
+                        index,
+                        deleteFavoriteItem,
+                        addItemToFavorite,
+                        startDate,
+                        endDate,
+                        bookingGuestCount,
+                        favList,
+                        disabled,
+                      }}
+                    />
+                  </SwiperSlide>
+                </Fragment>
+              ))}
+            </Swiper>
+          </Box>
+        </Box>
+        <Box component="section" className="reviewUsersSection">
+          <UsersReview />
         </Box>
       </Box>
-      <Box component="section" className="reviewUsersSection">
-        <UsersReview />
-      </Box>
-    </Box>
-  </>
-}
+    </>
+  );
+};
 
 export default Landing;
