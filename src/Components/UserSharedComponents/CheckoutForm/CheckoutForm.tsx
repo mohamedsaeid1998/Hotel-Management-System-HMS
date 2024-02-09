@@ -81,10 +81,10 @@ const CheckoutForm = () => {
           <Box className="Stepper">
             <Stepper activeStep={activeStep}>
               <Step className="circle">
-                <StepLabel> {t("First")} </StepLabel>
+                <StepLabel>{t("MakePayment")} </StepLabel>
               </Step>
               <Step>
-                <StepLabel> {t("Second")} </StepLabel>
+                <StepLabel> {t("CompleteTheApplication")} </StepLabel>
               </Step>
             </Stepper>
           </Box>

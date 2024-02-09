@@ -584,6 +584,9 @@
     "main - -";
   gap: 30px 20px;
   justify-content: space-between;
+  .layer {
+    height: 100% !important;
+  }
   // @media (max-width: 763px) {
   //   grid-template-rows: 7rem 7rem;
   //   grid-template-columns: 1.5fr 1fr 1fr;
@@ -636,7 +639,7 @@
 }
 
 .layer {
-  height: 100%;
+  height: 98%;
   width: 100%;
   position: absolute;
   top: 0px;
@@ -740,6 +743,7 @@
   justify-content: center;
   font-size: 36px !important;
   font-weight: 600 !important;
+
 }
 
 .subTitle {
