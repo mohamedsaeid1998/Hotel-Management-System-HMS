@@ -19,7 +19,7 @@ const DrawerComponent = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const handelLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userRole");

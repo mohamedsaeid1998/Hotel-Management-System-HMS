@@ -1,5 +1,9 @@
+/** @format */
+
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
-import { Home, Living } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ImageCard2, LoginDialog } from "@/Components";
 import {
   Box,
   Breadcrumbs,
@@ -9,20 +13,22 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
-import dayjs, { Dayjs, Range } from "dayjs";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import {
   Link,
-  useLocation
+  useLocation,
+  useParams,
+  useSearchParams,
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
-import { Helmet } from 'react-helmet';
-import { ImageCard2, LoginDialog } from "@/Components";
+import { Home, Living } from "@mui/icons-material";
+import dayjs, { Range, Dayjs } from "dayjs";
+import { useTranslation } from "react-i18next";
 const Explore = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -46,8 +52,14 @@ const Explore = () => {
     ? dayjs(state?.range[1]).format("YYYY-MM-DD")
     : nextDate;
 
+  // const [params, setParams] = useSearchParams()
 
-  const handlePageChange = async (page: number) => {
+  // const here = {
+  //   startDate,
+  //   endDate
+  // }
+
+  const handlePageChange = async (event, page) => {
     try {
       setIsLoading(true);
       setCurrentPage(page);
@@ -61,6 +73,11 @@ const Explore = () => {
     getFavoriteData();
     if (state?.range[0] == undefined) setSelectedDateRange(undefined);
   }, [dispatch, count, data]);
+
+  // const { endDate: end, persons: per, startDate: str } = useParams();
+  // const endDate = end?.substring(end?.indexOf("=") + 1);
+  // const startDate = str?.substring(str?.indexOf("=") + 1);
+  // const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
 
   const bookingGuestCount = state?.persons;
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
@@ -155,9 +172,6 @@ const Explore = () => {
   );
   return (
     <>
-      <Helmet>
-        <title> Explore • Staycation</title>
-      </Helmet>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
         <Box className="userContainer">
@@ -167,6 +181,7 @@ const Explore = () => {
 
           <Breadcrumbs aria-label="breadcrumb">
             <Link className="path" color="inherit" to={"/"}>
+              {" "}
               <Home sx={{ mr: 0.5 }} fontSize="inherit" />
               {t("home")}
             </Link>
@@ -175,55 +190,51 @@ const Explore = () => {
               {t("explore")}
             </Typography>
           </Breadcrumbs>
-
-          <Typography
-            variant="h4"
-            className="subTitle"
-            style={{
-              fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
-              fontweight: "600",
-            }}
-          >
-            {t("AllRooms")}
-          </Typography>
-          <Box
-            className={style.ExploreImages}
-            justifyContent={"center"}
-            marginY={3}
-          >
+          <Box marginBottom={3}>
+            <Typography
+              variant="h4"
+              className="subTitle"
+              style={{
+                fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              }}
+            >
+              {t("AllRooms")}
+            </Typography>
+          </Box>
+          <Box className={style.ExploreImages} justifyContent={"center"}>
             {isLoading
               ? loadingArray.map((index) => (
-                <Skeleton
-                  key={index}
-                  variant="rounded"
-                  width={200}
-                  height={200}
-                  animation="wave"
-                />
-              ))
-              : currentRooms?.length >= 0 &&
-              currentRooms?.map((ele, index) => (
-                <Box
-                  key={index}
-                  sx={{ width: 200, height: 200, my: 2 }}
-                  className={` ${isSmallScreen ? style.imgExplore : ""}`}
-                >
-                  <ImageCard2
-                    className={style.cardImage}
-                    key={ele?._id}
-                    {...{
-                      ele,
-                      index,
-                      bookingGuestCount,
-                      favList,
-                      deleteFavoriteItem,
-                      addItemToFavorite,
-                      disabled,
-                      selectedDateRange,
-                    }}
+                  <Skeleton
+                    key={index}
+                    variant="rounded"
+                    width={200}
+                    height={200}
+                    animation="wave"
                   />
-                </Box>
-              ))}
+                ))
+              : currentRooms?.map((ele, index) => (
+                  <Box
+                    key={index}
+                    sx={{ width: 200, height: 200, my: 2 }}
+                    className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                    height={"100vh"}
+                  >
+                    <ImageCard2
+                      className={style.cardImage}
+                      key={ele?._id}
+                      {...{
+                        ele,
+                        index,
+                        bookingGuestCount,
+                        favList,
+                        deleteFavoriteItem,
+                        addItemToFavorite,
+                        disabled,
+                        selectedDateRange,
+                      }}
+                    />
+                  </Box>
+                ))}
           </Box>
           <Stack spacing={2} marginTop={4} justifyContent={"center"}>
             <Pagination
@@ -241,4 +252,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Explore;

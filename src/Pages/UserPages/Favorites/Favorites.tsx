@@ -71,15 +71,15 @@ const Favorites = () => {
   };
   const loadLessImages = () => {
     setVisibleImages(
-      Math.min(visibleImages - (isSmallScreen ? 3 : 6), favList?.length)
+      Math.min(visibleImages - (favList?.length > 12 ? 6 : 3), favList?.length)
     );
   };
-  const loadingArray = Array.from(new Array(6 || favList?.length));
+  const loadingArray = Array.from(new Array(5 || favList?.length));
   return (
     <>
-<Helmet>
-  <title> Favorite Rooms • Staycation</title>
-</Helmet>
+      <Helmet>
+        <title> Favorite Rooms • Staycation</title>
+      </Helmet>
       <Box component={"main"} className="exploreCom">
         <Box className="userContainer">
           <Typography variant="h1" className="title">
@@ -95,6 +95,17 @@ const Favorites = () => {
               {t("Favorites")}
             </Typography>
           </Breadcrumbs>
+          <Box marginBottom={3}>
+            <Typography
+              variant="h4"
+              className="subTitle"
+              style={{
+                fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              }}
+            >
+              {t("Your Rooms")}
+            </Typography>
+          </Box>
           {isLoading ? (
             <Box className={style.favoriteComponent}>
               {loadingArray.map((index) => (
