@@ -68,7 +68,7 @@
       width: 100% !important;
       border-radius: 45px !important;
       padding-inline: 10px !important;
-      height: 300px !important;
+      height: 50vh !important;
       background-size: cover !important;
       background-position: center center !important;
       background-attachment: fixed !important;
@@ -94,7 +94,6 @@
   }
   .viewSec {
     .grid {
-      // width: 1000px;
       display: grid;
       grid-template-columns: auto auto auto auto;
       grid-template-rows: 30rem 10rem;
