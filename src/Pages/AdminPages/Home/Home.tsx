@@ -166,7 +166,6 @@ const Home = () => {
                       ]}
                       slotProps={{ legend: { padding: 0 } }}
                       height={150}
-                      // width={300}
                     />
                   </Box>
                 )}
@@ -189,7 +188,6 @@ const Home = () => {
                   ]}
                   slotProps={{ legend: { padding: 0 } }}
                   height={isLargScreen ? 150 : 200}
-                  // width={300}
                 />
               </Box>
             )}
@@ -215,7 +213,7 @@ const Home = () => {
               {isSmallOrMediumScreen && (
                 <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
                   <PieChart
-                    margin={{ top: 20, bottom: 20, left: 30, right: 100 }}
+                    margin={{ top: 20, bottom: 20, left: 30, right: 150 }}
                     series={[
                       {
                         data: data2,
@@ -230,7 +228,7 @@ const Home = () => {
                         },
                       },
                     ]}
-                    height={160}
+                    height={150}
                     slotProps={{
                       legend: {
                         direction: "column",
