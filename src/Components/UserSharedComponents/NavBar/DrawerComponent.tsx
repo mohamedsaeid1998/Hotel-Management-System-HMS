@@ -78,9 +78,7 @@ const DrawerComponent = () => {
               <ListItem className={style.navSectionsSmallView}>
                 <Link to="/explore">Explore</Link>
               </ListItem>
-              <ListItem className={style.navSectionsSmallView}>
-                <Link to="/room-reviews">Reviews</Link>
-              </ListItem>
+
               <ListItem className={style.navSectionsSmallView}>
                 <Link to="/favorite-rooms">Favorite</Link>
               </ListItem>
