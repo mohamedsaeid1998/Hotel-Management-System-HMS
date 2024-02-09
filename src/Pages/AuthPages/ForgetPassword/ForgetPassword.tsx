@@ -49,7 +49,7 @@ const ForgetPassword = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
+      <Box sx={{ padding: { xs: "20px 20px", md: "40px 20px 22px 20px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Forgot password
@@ -64,12 +64,13 @@ const ForgetPassword = () => {
                 fontWeight: "bold",
               }}
             >
-              Login here !
+              {/*  */} Login here !
             </Link>
           </Typography>
         </Box>
       </Box>
-      <form
+      <Box
+        component={"form"}
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
@@ -120,7 +121,7 @@ const ForgetPassword = () => {
             Send mail <ChevronRight />
           </Button>
         )}
-      </form>
+      </Box>
     </>
   );
 };

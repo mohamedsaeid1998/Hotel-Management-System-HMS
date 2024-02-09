@@ -161,6 +161,9 @@
 .auth-input {
   width: 100%;
   margin: 15px 0 !important;
+  .auth-input:not(:last-child) {
+    margin: 15px 0 !important;
+  }
 }
 
 .loadingButton {
@@ -460,12 +463,13 @@
       font-weight: 700;
       line-height: normal;
     }
-    .subTitle {
-      @extend .grayColor;
-      font-family: "Poppins", sans-serif;
-      max-width: 530px;
-      line-height: 28px;
-    }
+    // .subTitle {
+    //   @extend .grayColor;
+    //   font-family: "Poppins", sans-serif;
+    //   max-width: 530px;
+    //   line-height: 28px;
+    //   font-weight: 500 !important;
+    // }
 
     .bookingTitle {
       @extend .darkColor;
@@ -641,7 +645,7 @@
 }
 
 .layer {
-  height: 98%;
+  height: 100%;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -750,7 +754,7 @@
   @extend .darkColor;
   font-family: "Poppins", sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.5rem) !important;
-  font-weight: 200 !important;
+  font-weight: 500 !important;
   margin-top: 20px !important;
 }
 

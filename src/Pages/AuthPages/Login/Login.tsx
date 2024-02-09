@@ -131,9 +131,11 @@ const Login = () => {
         <Box
           component={"form"}
           onSubmit={handleSubmit(onSubmit)}
-          sx={{ padding: { xs: "10px", md: "20px" } }}
+          className="authBox"
+          sx={{ padding: { xs: "1rem", md: "1.5rem" } }}
         >
           <TextField
+            // xs={marginB}
             variant="outlined"
             type="email"
             className="auth-input"
@@ -154,9 +156,10 @@ const Login = () => {
 
           <TextField
             variant="outlined"
-            className="auth-input"
+            className=""
             label="Password"
             color="primary"
+            fullWidth
             type={showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
@@ -185,7 +188,6 @@ const Login = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "20px",
               fontSize: { xs: "0.8rem", md: "1rem", lg: "1.2rem" },
             }}
           >
@@ -245,9 +247,3 @@ const Login = () => {
 };
 
 export default Login;
-
-{
-  /* <IconButton onClick={handleClickShowPassword} >
-{showPassword ? <VisibilityOff /> : <Visibility />}
-</IconButton> */
-}

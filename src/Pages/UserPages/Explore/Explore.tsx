@@ -1,3 +1,5 @@
+/** @format */
+
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -192,7 +194,10 @@ const Explore = () => {
           <Typography
             variant="h4"
             className="subTitle"
-            style={{ fontSize: "clamp(1rem, 2.5vw, 2rem)" }}
+            style={{
+              fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              fontweight: "600",
+            }}
           >
             {t("AllRooms")}
           </Typography>
