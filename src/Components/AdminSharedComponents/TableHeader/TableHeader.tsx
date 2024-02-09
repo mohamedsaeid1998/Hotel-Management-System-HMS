@@ -1,5 +1,3 @@
-/** @format */
-
 import { Box, Button, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import "./TableHeader.module.scss";

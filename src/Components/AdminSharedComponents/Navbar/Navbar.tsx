@@ -57,7 +57,7 @@ const Navbar = ({ showDrawer }: any) => {
                       userData?.profileImage == null
                         ? defaultImage
                         : `http://upskilling-egypt.com:3000/` +
-                        userData?.profileImage
+                          userData?.profileImage
                     }
                   />
                 </IconButton>

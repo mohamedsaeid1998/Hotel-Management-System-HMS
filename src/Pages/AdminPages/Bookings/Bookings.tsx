@@ -9,6 +9,8 @@ import { Chip } from "@mui/material";
 import PopupList from "@/Components/Shared/PopupList/PopupList";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import "./Bookings.module.scss";
+import { Helmet } from 'react-helmet';
+
 const Bookings = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);
@@ -40,7 +42,6 @@ const Bookings = () => {
     setOpenViewDialog(true);
     setAnchorEl(null);
   };
-  const handleCloseViewDialog = () => setOpenViewDialog(false);
   const handleCloseDialog = () => setOpenDialog(false);
 
   useEffect(() => {
@@ -146,6 +147,9 @@ const Bookings = () => {
 
   return (
     <>
+<Helmet>
+  <title> Booking Page • Staycation</title>
+</Helmet>
       <TableHeader title={"Booking"} subTitle={"Booking"} path={""} />
 
       <DataGrid

@@ -1,5 +1,3 @@
-/** @format */
-
 import { fetchData } from "@/Redux/Features/Auth/ChangePasswordSlice";
 import { LockOpen } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";

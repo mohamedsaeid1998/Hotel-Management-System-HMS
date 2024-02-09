@@ -1,16 +1,17 @@
 /** @format */
 
-import baseUrl, { requestHeaders } from "@/utils/Custom/Custom";
+import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const viewRoomDetails = createAsyncThunk(
   "view/viewRoomDetails",
   async (itemId, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
+    const token = localStorage.getItem("authToken");
     try {
       const response = await baseUrl.get(`/api/v0/admin/rooms/${itemId}`, {
         headers: {
-          Authorization: requestHeaders,
+          Authorization: token,
         },
       });
       return response.data;

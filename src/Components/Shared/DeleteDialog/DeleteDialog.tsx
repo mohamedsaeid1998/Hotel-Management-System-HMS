@@ -1,5 +1,3 @@
-/** @format */
-
 import { deleteImg } from "@/Assets/Images";
 import { deleteDialog } from "@/Redux/Features/Admin/DeleteDialogSlice/DeleteDialogSlice";
 import CloseIcon from "@mui/icons-material/Close";

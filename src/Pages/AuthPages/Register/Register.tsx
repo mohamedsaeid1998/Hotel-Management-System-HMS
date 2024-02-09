@@ -1,18 +1,27 @@
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/RegisterSlice";
 import "./Register.module.scss";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Helmet } from 'react-helmet'
 const Register = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { isRegister } = useSelector((state) => state.register);
-
-
   const navigate = useNavigate();
   const required = "This Field is required";
   const VisuallyHiddenInput = styled("input")({
@@ -26,6 +35,13 @@ const Register = () => {
     whiteSpace: "nowrap",
     width: 1,
   });
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -43,16 +59,28 @@ const Register = () => {
   }, [isRegister, navigate]);
   return (
     <>
+      <Helmet>
+        <title> Sign up • Staycation</title>
+      </Helmet>
       <Box component="div">
-        {" "}
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+          sx={{ fontSize: { xs: "clamp(2rem, 5vw, 3rem)" } }}
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "20px", md: "30px 70px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign up
@@ -64,11 +92,9 @@ const Register = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Login here !
             </Link>
           </Typography>
@@ -90,7 +116,7 @@ const Register = () => {
           />
 
           <Grid container spacing={2}>
-            <Grid item md={6} sm={12}>
+            <Grid item md={6} sm={6}>
               <TextField
                 variant="outlined"
                 type="tel"
@@ -101,7 +127,8 @@ const Register = () => {
                   required,
                   pattern: {
                     value: /^01[0125][0-9]{8}$/,
-                    message: "Phone number must start with 01 and be 11 digits in total"
+                    message:
+                      "Phone number must start with 01 and be 11 digits in total",
                   },
                 })}
                 error={!!errors.phoneNumber}
@@ -112,7 +139,7 @@ const Register = () => {
                 }
               />
             </Grid>
-            <Grid item md={6} sm={12}>
+            <Grid item md={6} sm={6}>
               <TextField
                 variant="outlined"
                 type="text"
@@ -123,8 +150,8 @@ const Register = () => {
                   required,
                   minLength: {
                     value: 3,
-                    message: "minlength 3 letters"
-                  }
+                    message: "minlength 3 letters",
+                  },
                 })}
                 error={!!errors.country}
                 helperText={
@@ -155,16 +182,30 @@ const Register = () => {
 
           <TextField
             variant="outlined"
-            type="password"
+            type={showPassword ? "text" : "password"}
             className="auth-input"
             label="Password"
             color="primary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("password", {
               required,
               pattern: {
                 value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*0-9]).{5,}$/,
-                message: "password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number"
-              }
+                message:
+                  "password must be 5 char, contains one uppercase letter, one lowercase letter, and  special char or number",
+              },
             })}
             error={!!errors.password}
             helperText={
@@ -173,10 +214,23 @@ const Register = () => {
           />
           <TextField
             variant="outlined"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             className="auth-input"
             label="Confirm password"
             color="primary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmPassword}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("confirmPassword", {
               required,
               validate: (value) =>
@@ -189,16 +243,19 @@ const Register = () => {
                 : null
             }
           />
-
-          {/* <InputLabel sx={{ marginTop: "5px" }}>Profile Image</InputLabel> */}
-          {/* <FormControl sx={{ width: "100%" }}>
-            <Input type="file" {...register("profileImage")} />
-          </FormControl> */}
-
           <Button
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
+            sx={{
+              width: "100%",
+              mt: 2,
+              fontSize: {
+                xs: "0.8rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
           >
             Upload Profile Image
             <VisuallyHiddenInput
@@ -214,7 +271,16 @@ const Register = () => {
           </Button>
           <Button
             type="submit"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            sx={{
+              width: "100%",
+              mt: 2,
+              padding: { lg: ".5em" },
+              fontSize: {
+                xs: "0.9rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
             variant="contained"
           >
             Sign up

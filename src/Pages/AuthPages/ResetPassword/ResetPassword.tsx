@@ -1,19 +1,23 @@
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
+  IconButton,
+  InputAdornment,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
+import { useState } from "react";
+import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
-
 const ResetPassword = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
   const required = "This Field is required";
 
@@ -34,18 +38,36 @@ const ResetPassword = () => {
         toast.error(err.message);
       });
   };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   return (
     <>
+      <Helmet>
+        <title> Reset Password • Staycation</title>
+      </Helmet>
       <Box component="div">
-        {" "}
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Reset Password
@@ -56,11 +78,9 @@ const ResetPassword = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "red",
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Login here !
             </Link>
           </Typography>
@@ -103,10 +123,23 @@ const ResetPassword = () => {
 
         <TextField
           variant="outlined"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="auth-input"
           label="Password"
           color="primary"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           {...register("password", {
             required,
           })}
@@ -118,10 +151,23 @@ const ResetPassword = () => {
 
         <TextField
           variant="outlined"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           className="auth-input"
           label="Confirm password"
           color="primary"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowConfirmPassword}
+                  edge="end"
+                >
+                  {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           {...register("confirmPassword", {
             required,
             validate: (value) =>
@@ -136,7 +182,17 @@ const ResetPassword = () => {
         />
         <Button
           type="submit"
-          sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+          sx={{
+            width: "100%",
+            mt: 2,
+            padding: { lg: ".5em" },
+            fontSize: {
+              xs: "0.9rem",
+              sm: "1rem",
+              md: "1rem",
+            },
+          }}
+          size="large"
           variant="contained"
         >
           Reset

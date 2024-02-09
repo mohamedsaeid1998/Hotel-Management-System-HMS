@@ -1,5 +1,3 @@
-/** @format */
-
 import { defaultImage } from "@/Assets/Images";
 import { TableHeader } from "@/Components";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
@@ -11,7 +9,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Rooms.module.scss";
-
+import { Helmet } from 'react-helmet';
 const Rooms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,34 +32,34 @@ const Rooms = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  {
-    /*************popUp************** */
-  }
-  {
-    /* Dialog Modal  */
-  }
+
+  /*************popUp************** */
+
+
+  /* Dialog Modal  */
+
   const handleOpenDialog = () => {
     setOpenDialog(true);
     setAnchorEl(null);
   };
   const handleCloseDialog = () => setOpenDialog(false);
-  {
-    /*view dialog */
-  }
+
+  /*view dialog */
+
   const handleViewDialog = () => {
     setOpenViewDialog(true);
     setAnchorEl(null);
   };
   const handleCloseViewDialog = () => setOpenViewDialog(false);
-  {
-    /* move to edit  */
-  }
+
+  /* move to edit  */
+
   const moveToEdit = () => {
     navigate(`/dashboard/rooms/add-new/${roomId}`, { state: { isEdit: true } });
   };
-  {
-    /*get Room */
-  }
+
+  /*get Room */
+
   useEffect(() => {
     getData();
   }, []);
@@ -161,6 +159,9 @@ const Rooms = () => {
 
   return (
     <>
+<Helmet>
+  <title> Rooms Page • Staycation</title>
+</Helmet>
       <TableHeader
         title={"Rooms"}
         subTitle={"Room"}

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
-
+import { Helmet } from 'react-helmet'
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,16 +30,27 @@ const ForgetPassword = () => {
 
   return (
     <>
+      <Helmet>
+        <title> Reset Password • Staycation</title>
+      </Helmet>
       <Box component="div">
-        {" "}
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "20px 20px",} }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Forgot password
@@ -51,17 +62,16 @@ const ForgetPassword = () => {
               to="/login"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
-              {" "}
-              Login here !
+              {/*  */} Login here !
             </Link>
           </Typography>
         </Box>
       </Box>
-      <form
+      <Box
+        component={"form"}
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
@@ -96,14 +106,23 @@ const ForgetPassword = () => {
         ) : (
           <Button
             variant="contained"
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            sx={{
+              width: "100%",
+              mt: 2,
+              padding: { lg: ".5em" },
+              fontSize: {
+                xs: "0.9rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
             type="submit"
             size="large"
           >
             Send mail <ChevronRight />
           </Button>
         )}
-      </form>
+      </Box>
     </>
   );
 };

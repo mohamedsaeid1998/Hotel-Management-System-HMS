@@ -1,36 +1,22 @@
 
-import { Provider } from "react-redux";
 import React from "react";
-const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
-
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthLayout, MasterLayout, NotFound } from "./Components";
-import {
-  AddNewAds,
-  AddNewFacility,
-  AddNewRoom,
-  Ads,
-  Bookings,
-  Explore,
-  Facilities,
-  Favorites,
-  ForgetPassword,
-  Landing,
-  Login,
-  Register,
-  ResetPassword,
-  Reviews,
-  RoomDetails,
-  Rooms,
-  Users,
-} from "./Pages";
-import Store from "./Redux/Store";
+import { Provider } from "react-redux";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
+import { AuthLayout, MasterLayout, NotFound, UserProtectedRoute } from "./Components";
 import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
 import UserLayout from "./Components/Shared/UserLayout/UserLayout";
+import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
+import Store from "./Redux/Store";
+const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
 // import LoadingComponent from "./Components/Loading/Loading";
+
+
 function App() {
+
+
+
   // /explore?startDate=${startDate}&endDate=${endDate}&person=${personsCount}
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: "/",
       element: (
@@ -39,12 +25,10 @@ function App() {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Landing /> },
-        { path:'explore', element: <Explore /> },
-        { path:'explore/:startData/:endDate/:persons', element: <Explore /> },
-        { path:'room-reviews', element: <Reviews /> },
-        { path:'favorite-rooms', element: <Favorites /> },
-        { path:'room-details', element: <RoomDetails /> },
-        { path:'room-details?/:startData/:endDate/:persons', element: <RoomDetails /> },
+        { path: 'explore', element: <Explore /> },
+        { path: 'favorite-rooms', element: <UserProtectedRoute><Favorites /></UserProtectedRoute> },
+        { path: 'room-details', element: <RoomDetails /> },
+        { path: 'stripePayment/:id', element: <UserProtectedRoute><StripePayment /></UserProtectedRoute> },
       ]
     },
     {

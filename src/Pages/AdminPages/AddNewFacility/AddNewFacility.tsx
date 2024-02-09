@@ -1,5 +1,3 @@
-/** @format */
-
 import { CreateFacility } from "@/Redux/Features/Admin/Facilities/CreateFacilitySlice";
 import { ChevronRight } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton";

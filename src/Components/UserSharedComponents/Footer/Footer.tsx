@@ -1,43 +1,52 @@
-import { Box, List, ListItem, Menu, MenuItem, Typography } from '@mui/material'
-import './Footer.module.scss'
+import { Box, List, ListItem, Typography } from "@mui/material";
+import "./Footer.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  return <>
-<Box className="footerContainer">
+  const { t } = useTranslation();
 
-<Box className="mainPart">
-<Typography className='subNav' variant="h4" component="div" color="initial"> <Typography variant='' className='blueColor'>Stay</Typography>cation.</Typography>
-<Typography  className='subPara'>We kaboom your beauty holiday instantly and memorable.</Typography>
-</Box>
+  return (
+    <>
+      <Box className="footerContainer">
+        <Box className="mainPart">
+          <Typography
+            className="subNav"
+            variant="h4"
+            component="div"
+            color="initial"
+          >
+            <Typography variant="" className="blueColor">
+              Stay
+            </Typography>
+            cation.
+          </Typography>
+          <Typography className="subPara">{t("footerDes")}</Typography>
+        </Box>
 
+        <List className="footerList">
+          <ListItem className="listHead">{t("forBeginners")}</ListItem>
+          <ListItem className="listChild">{t("NewAccount")}</ListItem>
+          <ListItem className="listChild">{t("StartBookingARoom")}</ListItem>
+          <ListItem className="listChild">{t("UsePayments")}</ListItem>
+        </List>
 
-  <List className='footerList'>
-    <ListItem className='listHead'>For Beginners</ListItem>
-    <ListItem className='listChild'>New Account</ListItem>
-    <ListItem className='listChild'>Start Booking a Room</ListItem>
-    <ListItem className='listChild'>Use Payments</ListItem>
-  </List>
+        <List className="footerList">
+          <ListItem className="listHead">{t("ExploreUs")}</ListItem>
+          <ListItem className="listChild">{t("OurCareers")}</ListItem>
+          <ListItem className="listChild">{t("Privacy")}</ListItem>
+          <ListItem className="listChild">{t("Terms&Conditions")}</ListItem>
+        </List>
 
-  <List className='footerList'>
-    <ListItem className='listHead'>Explore Us</ListItem>
-    <ListItem className='listChild'>Our Careers</ListItem>
-    <ListItem className='listChild'>Privacy</ListItem>
-    <ListItem className='listChild'>Terms & Conditions</ListItem>
-  </List>
+        <List className="footerList">
+          <ListItem className="listHead">{t("ConnectUs")}</ListItem>
+          <ListItem className="listChild">upskilling.eg1@gmail.com</ListItem>
+          <ListItem className="listChild">011 - 5493 - 2137</ListItem>
+          <ListItem className="listChild">Staycation, Egypt , Giza</ListItem>
+        </List>
+      </Box>
+      <Box className="FooterCopyRight">{t("Copyright")}</Box>
+    </>
+  );
+};
 
-  <List className='footerList'>
-    <ListItem className='listHead'>Connect Us</ListItem>
-    <ListItem className='listChild'>upskilling.eg1@gmail.com</ListItem>
-    <ListItem className='listChild'>011 - 5493 - 2137</ListItem>
-    <ListItem className='listChild'>Staycation, Egypt , Giza</ListItem>
-  </List>
-
-
-</Box>
-<Box className="FooterCopyRight">
-Copyright 2024 • All rights reserved • Staycation
-</Box>
-  </>
-}
-
-export default Footer
+export default Footer;

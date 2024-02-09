@@ -1,4 +1,3 @@
-/** @format */
 
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../../utils/Custom/Custom";
@@ -17,7 +16,7 @@ export const RoomsData = createAsyncThunk<any, void>(
       headers: {
         Authorization: token,
       },
-    });
+    })
     return data.data;
   }
 );

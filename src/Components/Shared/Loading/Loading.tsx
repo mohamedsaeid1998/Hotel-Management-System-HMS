@@ -1,5 +1,3 @@
-/** @format */
-
 import { Backdrop, CircularProgress } from "@mui/material";
 
 const LoadingComponent = () => {

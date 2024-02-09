@@ -1,4 +1,3 @@
-/** @format */
 
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { CreateAds } from "@/Redux/Features/Admin/Ads/CreateAdsSlice";
@@ -70,7 +69,6 @@ const AddNewAds = () => {
       setValue("room", defRoomId);
     } catch (error) {
       toast.error("Error fetching existing data:", error);
-      console.log(error);
     } finally {
       setLoading(false);
     }

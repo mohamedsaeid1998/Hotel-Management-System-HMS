@@ -16,7 +16,7 @@ export const AllAdsData = createAsyncThunk<any, void>(
   async () => {
 
     try {
-      const data = await baseUrl.get(`/api/v0/portal/rooms/available?page=1&size=5`);
+      const data = await baseUrl.get(`api/v0/portal/ads?page=1&size=5`);
       return data;
     } catch (error) {
       toast.error(error);

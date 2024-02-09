@@ -1,4 +1,3 @@
-/** @format */
 import { configureStore } from "@reduxjs/toolkit";
 import changePassword from "./Features/Auth/ChangePasswordSlice";
 import ForgetPassword from "./Features/Auth/ForgetPasswordSlice";
@@ -8,6 +7,7 @@ import CreateAdsSlice from "./Features/Admin/Ads/CreateAdsSlice";
 import CreateRoomsSlice from "./Features/Admin/Rooms/CreateRoomsSlice";
 import AddToFavorite from "./Features/Portal/Favorites/AddToFavoriteSlice";
 import RemoveFavoriteItemSlice from "./Features/Portal/Favorites/RemoveFavoriteItemSlice";
+import GetAllFavoritesSlice from "./Features/Portal/Favorites/GetAllFavoritesSlice";
 const Store = configureStore({
   reducer: {
     login: loginReducer,
@@ -17,6 +17,7 @@ const Store = configureStore({
     CreateAdsSlice,
     CreateRoomsSlice,
     AddToFavorite,
+    GetAllFavoritesSlice,
     RemoveFavoriteItemSlice
   },
 });

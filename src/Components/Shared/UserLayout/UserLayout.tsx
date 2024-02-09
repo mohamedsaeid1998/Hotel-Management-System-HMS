@@ -1,19 +1,20 @@
-import { NavBar,Footer } from '@/Components'
-import { Box } from '@mui/material'
-import { Outlet } from 'react-router-dom'
+import { NavBar, Footer } from "@/Components";
+import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { Outlet } from "react-router-dom";
 
 const UserLayout = () => {
-  return <>
+  const { i18n } = useTranslation();
 
-    <Box>
-
-      <NavBar />
-      <Box className="userContainer">
+  return (
+    <>
+      <Box dir={i18n.language == "ar" ? "rtl" : "ltr"}>
+        <NavBar />
         <Outlet />
         <Footer />
       </Box>
-    </Box>
-  </>
-}
+    </>
+  );
+};
 
-export default UserLayout
+export default UserLayout;

@@ -1,53 +1,115 @@
 import { fetchDataStart } from "@/Redux/Features/Auth/RegisterSlice";
-import { ChevronLeft } from "@mui/icons-material";
+import baseUrl from "@/utils/Custom/Custom";
+import { ChevronRight, Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography
+} from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, islogged } = useSelector((state) => state.login)
+  const { loading, islogged } = useSelector((state) => state.login);
   const required = "This Field is required";
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = useCallback(async (data: { email: string; password: string }) => {
-    dispatch(fetchData(data))
-
-  }, [dispatch])
+  const onSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      dispatch(fetchData(data));
+    },
+    [dispatch]
+  );
 
   if (islogged === "admin") {
     navigate("/dashboard");
   } else if (islogged === "user") {
     navigate("/");
   }
-
-
-
   useEffect(() => {
-
     dispatch(fetchDataStart(false));
   }, [dispatch]);
 
+  function handleCallbackResponse(response: any) {
+    localStorage.setItem("authToken", response.credential);
+    const accessToken = localStorage.getItem("authToken");
+    baseUrl
+      .post("/api/v0/portal/users/auth/google", { accessToken })
+      .then((res) => {
+        localStorage.setItem("authToken", res.data.data.token);
+        localStorage.setItem("userRole", res.data.data.user.role);
+        localStorage.setItem("userId", res.data.data.user._id);
+        navigate("/dashboard");
+        toast.success(res.data.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
+      })
+      .catch((error) =>
+        toast.error(error, {
+          autoClose: 2000,
+          theme: "colored",
+        })
+      );
+  }
+
+  useEffect(() => {
+    const google = window.google;
+    google.accounts.id.initialize({
+      client_id:
+        "761128849378-ee7o8qlsfc5j6a1hik63auo1oq037hs5.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+    google.accounts.id.prompt();
+  }, []);
+
   return (
     <>
+      <Helmet>
+        <title> Sign in • Staycation</title>
+      </Helmet>
       <Box component="div">
-        {" "}
-        <Typography variant="h4" component="h4" sx={{ padding: "20px" }}>
-          <Box component="span" sx={{ color: "skyblue" }}>
+        <Typography
+          className={`subNav`}
+          variant="h4"
+          component="div"
+          color="initial"
+        >
+          <Typography
+            variant=""
+            className="blueColor"
+            style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
+          >
             Stay
-          </Box>
+          </Typography>
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: "30px 70px" }}>
+      <Box sx={{ padding: { xs: "40px 20px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign in
@@ -58,17 +120,21 @@ const Login = () => {
               to="/register"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
-              {" "}
               Register here !
             </Link>
           </Typography>
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit)}
+          className="authBox"
+          sx={{ padding: { xs: "1rem" } }}
+        >
           <TextField
+            // xs={marginB}
             variant="outlined"
             type="email"
             className="auth-input"
@@ -89,10 +155,24 @@ const Login = () => {
 
           <TextField
             variant="outlined"
-            type="password"
-            className="auth-input"
+            className=""
             label="Password"
             color="primary"
+            fullWidth
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             {...register("password", {
               required,
             })}
@@ -102,12 +182,27 @@ const Login = () => {
             }
           />
 
-          <Box sx={{ textAlign: "end" }}>
+          <Box
+            className="loginLinks"
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              fontSize: { xs: "0.8rem", md: "1rem", lg: "1.2rem" },
+            }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              Landing ?
+            </Link>
             <Link
               to="/forget-password"
               style={{
                 textDecoration: "none",
-                color: "#c60d0d",
                 fontWeight: "bold",
               }}
             >
@@ -116,7 +211,7 @@ const Login = () => {
           </Box>
           {loading ? (
             <LoadingButton
-              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              sx={{ width: "100%", padding: "10px", marginTop: "20px" }}
               className="loadingButton"
               loading
               variant="outlined"
@@ -126,14 +221,25 @@ const Login = () => {
           ) : (
             <Button
               variant="contained"
-              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              sx={{
+                width: "100%",
+                mt: 2,
+                mb: 2,
+                padding: { lg: ".5em" },
+                fontSize: {
+                  xs: "0.9rem",
+                  sm: "1rem",
+                  md: "1rem",
+                },
+              }}
               type="submit"
               size="large"
             >
-              <ChevronLeft /> Login
+              Login <ChevronRight />
             </Button>
           )}
-        </form>
+          <div id="signInDiv"></div>
+        </Box>
       </Box>
     </>
   );

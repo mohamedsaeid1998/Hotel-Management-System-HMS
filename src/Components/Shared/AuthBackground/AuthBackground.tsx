@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import "./AuthBackground.module.scss";
+import { Box } from "@mui/material";
 
 const AuthBackground = () => {
   const { pathname } = useLocation();
@@ -33,15 +34,14 @@ const AuthBackground = () => {
       : pathname === "/reset-password"
       ? "Homes as unique as you."
       : null;
-
   return (
     <>
-      <div className={`auth ${backgroundImage}`}>
+      <Box className={`auth ${backgroundImage}`}>
         <div className="auth-desc">
           <h3>{sectionTitle}</h3>
           <p>{sectionDesc}</p>
         </div>
-      </div>
+      </Box>
     </>
   );
 };

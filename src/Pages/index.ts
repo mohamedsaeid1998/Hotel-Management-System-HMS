@@ -8,6 +8,7 @@ export { default as Ads } from './AdminPages/Ads/Ads'
 export { default as AddNewAds } from './AdminPages/AddNewAds/AddNewAds'
 export { default as Bookings } from './AdminPages/Bookings/Bookings'
 
+
 export { default as Login } from './AuthPages/Login/Login'
 export { default as Register } from './AuthPages/Register/Register'
 export { default as ResetPassword } from './AuthPages/ResetPassword/ResetPassword'
@@ -16,9 +17,9 @@ export { default as ForgetPassword } from './AuthPages/ForgetPassword/ForgetPass
 
 export { default as Landing } from './UserPages/Landing/Landing'
 export { default as Explore } from './UserPages/Explore/Explore'
-export { default as Reviews } from './UserPages/Reviews/Reviews'
 export { default as Favorites } from './UserPages/Favorites/Favorites'
 export { default as RoomDetails } from './UserPages/RoomDetails/RoomDetails'
+export { default as StripePayment } from './UserPages/StripePayment/StripePayment'
 
 
 
