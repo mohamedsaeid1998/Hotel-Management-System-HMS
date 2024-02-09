@@ -2,17 +2,31 @@ import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ImageCard2, LoginDialog } from "@/Components";
-import { Box, Breadcrumbs, Skeleton, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Breadcrumbs,
+  Skeleton,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
-import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
 import { Home, Living } from "@mui/icons-material";
 import dayjs, { Range, Dayjs } from "dayjs";
+import { useTranslation } from "react-i18next";
 const Explore = () => {
+  const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -29,8 +43,12 @@ const Explore = () => {
   const isSmallScreen = useMediaQuery("(max-width:960px)");
   const { state } = useLocation();
 
-  const startDate = state?.range ? dayjs(state?.range[0]).format("YYYY-MM-DD") : today;
-  const endDate = state?.range ? dayjs(state?.range[1]).format("YYYY-MM-DD") : nextDate;
+  const startDate = state?.range
+    ? dayjs(state?.range[0]).format("YYYY-MM-DD")
+    : today;
+  const endDate = state?.range
+    ? dayjs(state?.range[1]).format("YYYY-MM-DD")
+    : nextDate;
 
   // const [params, setParams] = useSearchParams()
 
@@ -38,8 +56,6 @@ const Explore = () => {
   //   startDate,
   //   endDate
   // }
-
-
 
   const handlePageChange = async (event, page) => {
     try {
@@ -53,8 +69,7 @@ const Explore = () => {
   useEffect(() => {
     getRoomsData(52);
     getFavoriteData();
-    if (state?.range[0] == undefined)
-      setSelectedDateRange(undefined)
+    if (state?.range[0] == undefined) setSelectedDateRange(undefined);
   }, [dispatch, count, data]);
 
   // const { endDate: end, persons: per, startDate: str } = useParams();
@@ -77,7 +92,6 @@ const Explore = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   //! ************************ Get Rooms  *************************
   const getRoomsData = async (roomCount: any) => {
@@ -114,7 +128,7 @@ const Explore = () => {
 
   const deleteFavoriteItem = async (roomId: any) => {
     try {
-      setDisabled(true)
+      setDisabled(true);
       // @ts-ignore
       const element = await dispatch(RemoveFavoriteItem(roomId));
       // @ts-ignore
@@ -123,32 +137,32 @@ const Explore = () => {
         theme: "colored",
       });
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
 
   //! ************************ Add To Favorite  *************************
   const addItemToFavorite = async (roomId: any) => {
     try {
-      setDisabled(true)
+      setDisabled(true);
       if (!localStorage.getItem("authToken")) {
-        return handleClickOpen()
+        return handleClickOpen();
       } else if (localStorage.getItem("userRole") !== "user") {
         toast.error("please ensure you are logged in to your user account", {
           autoClose: 2000,
           theme: "colored",
         });
-      }else{
-      // @ts-ignore
-      const element = await dispatch(AddFavoriteItem(roomId));
-      // @ts-ignore
-      toast.success(element?.payload?.message, {
-        autoClose: 2000,
-        theme: "colored",
-      });
+      } else {
+        // @ts-ignore
+        const element = await dispatch(AddFavoriteItem(roomId));
+        // @ts-ignore
+        toast.success(element?.payload?.message, {
+          autoClose: 2000,
+          theme: "colored",
+        });
       }
     } finally {
-      setDisabled(false)
+      setDisabled(false);
     }
   };
   const loadingArray = Array.from(
@@ -158,76 +172,75 @@ const Explore = () => {
     <>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
-      <Box className="userContainer">
-        <Typography variant="h1" className="title">
-          Explore ALL Rooms
-        </Typography>
-
-
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link className="path" color="inherit" to={"/"}> <Home sx={{ mr: 0.5 }} fontSize="inherit" />
-            Home
-          </Link>
-          <Typography variant="caption" className="subPath" >
-            <Living fontSize="inherit" sx={{ mr: 0.5 }} />
-            Explore
+        <Box className="userContainer">
+          <Typography variant="h1" className="title">
+            {t("ExploreALLRooms")}
           </Typography>
-        </Breadcrumbs>
 
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link className="path" color="inherit" to={"/"}>
+              {" "}
+              <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+              {t("home")}
+            </Link>
+            <Typography variant="caption" className="subPath">
+              <Living fontSize="inherit" sx={{ mr: 0.5 }} />
+              {t("explore")}
+            </Typography>
+          </Breadcrumbs>
 
-
-        <Typography
-          variant="h4"
-          className="subTitle"
-          style={{ fontSize: "clamp(1rem, 2.5vw, 2rem)" }}
-        >
-          All Rooms
-        </Typography>
-        <Box className={style.ExploreImages} justifyContent={"center"}>
-          {isLoading
-            ? loadingArray.map((index) => (
-              <Skeleton
-                key={index}
-                variant="rounded"
-                width={200}
-                height={200}
-                animation="wave"
-              />
-            ))
-            : currentRooms?.length >= 0 &&
-            currentRooms?.map((ele, index) => (
-              <Box
-                key={index}
-                sx={{ width: 200, height: 200, my: 2 }}
-                className={` ${isSmallScreen ? style.imgExplore : ""}`}
-              >
-                <ImageCard2
-                  className={style.cardImage}
-                  key={ele?._id}
-                  {...{
-                    ele,
-                    index,
-                    bookingGuestCount,
-                    favList,
-                    deleteFavoriteItem,
-                    addItemToFavorite,
-                    disabled,
-                    selectedDateRange
-                  }}
-                />
-              </Box>
-            ))}
-        </Box>
-        <Stack spacing={2} marginTop={4} justifyContent={"center"}>
-          <Pagination
-            page={currentPage}
-            variant="outlined"
-            color="primary"
-            count={Math.ceil(rooms.length / itemsPerPage)}
-            className={style.pagination}
-            onChange={handlePageChange}
-          />
-        </Stack>
+          <Typography
+            variant="h4"
+            className="subTitle"
+            style={{ fontSize: "clamp(1rem, 2.5vw, 2rem)" }}
+          >
+            {t("AllRooms")}
+          </Typography>
+          <Box className={style.ExploreImages} justifyContent={"center"}>
+            {isLoading
+              ? loadingArray.map((index) => (
+                  <Skeleton
+                    key={index}
+                    variant="rounded"
+                    width={200}
+                    height={200}
+                    animation="wave"
+                  />
+                ))
+              : currentRooms?.length >= 0 &&
+                currentRooms?.map((ele, index) => (
+                  <Box
+                    key={index}
+                    sx={{ width: 200, height: 200, my: 2 }}
+                    className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                  >
+                    <ImageCard2
+                      className={style.cardImage}
+                      key={ele?._id}
+                      {...{
+                        ele,
+                        index,
+                        bookingGuestCount,
+                        favList,
+                        deleteFavoriteItem,
+                        addItemToFavorite,
+                        disabled,
+                        selectedDateRange,
+                      }}
+                    />
+                  </Box>
+                ))}
+          </Box>
+          <Stack spacing={2} marginTop={4} justifyContent={"center"}>
+            <Pagination
+              page={currentPage}
+              variant="outlined"
+              color="primary"
+              count={Math.ceil(rooms.length / itemsPerPage)}
+              className={style.pagination}
+              onChange={handlePageChange}
+            />
+          </Stack>
         </Box>
       </Box>
     </>

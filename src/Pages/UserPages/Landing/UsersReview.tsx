@@ -1,12 +1,13 @@
 /** @format */
 
-import React from "react";
-import { Box, Typography } from "@mui/material";
 import { familyReview } from "@/Assets/Images";
+import { Box, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import style from "./Landing.module.scss";
+import { useTranslation } from "react-i18next";
 
 const UsersReviews = () => {
+  const { t, i18n } = useTranslation();
   return (
     <Box className={style.reviewContainer}>
       <Box className={style.reviewImg}>
@@ -16,7 +17,7 @@ const UsersReviews = () => {
         <Typography
           style={{ color: "#152C5B", fontWeight: "600", marginBottom: "2rem" }}
         >
-          Happy Family
+          {t("HappyFamily")}
         </Typography>
         <Rating name="read-only" value={5} readOnly />
 
@@ -29,11 +30,10 @@ const UsersReviews = () => {
             fontSize: "clamp(1.5rem,2.5vw,3rem)",
           }}
         >
-          What a great trip with my family and I should try again next time soon
-          ...
+          {t("HappyFamilyDes")}
         </Typography>
         <Typography color={"gray"} variant="caption">
-          Angga, Product Designer
+          {t("HappyFamilyAuth")}
         </Typography>
       </Box>
     </Box>

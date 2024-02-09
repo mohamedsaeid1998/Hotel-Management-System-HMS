@@ -1,35 +1,31 @@
 /** @format */
 
+import { defaultImage } from "@/Assets/Images";
+import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
+import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
+import { Favorite } from "@mui/icons-material";
 import {
   AppBar,
   Avatar,
   Badge,
   Box,
   Button,
-  Drawer,
   IconButton,
-  List,
-  ListItem,
-  Menu,
-  MenuItem,
   Stack,
   Toolbar,
-  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import "./NavBar.module.scss";
 import React, { useCallback, useEffect, useState } from "react";
-import { Favorite } from "@mui/icons-material";
-import { defaultImage } from "@/Assets/Images";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
-import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
-import style from "./NavBar.module.scss";
-import DrawerComponent from "./DrawerComponent";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import DrawerComponent from "./DrawerComponent";
+import "./NavBar.module.scss";
 const NavBar = () => {
+  const { t, i18n } = useTranslation();
+  console.log(i18n.language);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -40,6 +36,7 @@ const NavBar = () => {
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState();
+
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -137,7 +134,7 @@ const NavBar = () => {
                 className={`navLink ${pathname === "/" ? "activeLink" : ""}`}
                 to={"./"}
               >
-                Home
+                {t("home")}
               </Link>
               <Link
                 className={`navLink ${
@@ -145,7 +142,7 @@ const NavBar = () => {
                 }`}
                 to={"./explore"}
               >
-                Explore
+                {t("explore")}
               </Link>
               <IconButton
                 onClick={navigateToFav}
@@ -160,6 +157,25 @@ const NavBar = () => {
                   <Favorite />
                 </Badge>
               </IconButton>
+              {i18n.language == "ar" ? (
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    i18n.changeLanguage("en");
+                  }}
+                >
+                  En
+                </Button>
+              ) : (
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    i18n.changeLanguage("ar");
+                  }}
+                >
+                  Ar
+                </Button>
+              )}
               {!localStorage.getItem("authToken") ? (
                 <>
                   <Button
@@ -167,14 +183,14 @@ const NavBar = () => {
                     variant="contained"
                     onClick={() => navigate("./login")}
                   >
-                    Login Now
+                    {t("login")}
                   </Button>
                   <Button
                     className="navBtnSign"
                     variant="contained"
                     onClick={() => navigate("./register")}
                   >
-                    Sign Up
+                    {t("signup")}
                   </Button>
                 </>
               ) : (
