@@ -9,8 +9,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Rooms.module.scss";
-import { Helmet } from "react-helmet";
-
+import { Helmet } from 'react-helmet';
 const Rooms = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

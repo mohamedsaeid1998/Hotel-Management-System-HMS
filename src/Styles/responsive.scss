@@ -41,9 +41,11 @@
       .content {
         padding-inline: 50px;
 
+        align-items: center;
         .title {
+
           text-align: center;
-          max-width: 500px !important;
+          // max-width: 500px !important;
         }
       }
     }
@@ -102,8 +104,8 @@
         "- - - -";
     }
   }
-  .title{
-      margin-bottom:10px !important;
+  .title {
+    margin-bottom: 10px !important;
   }
 }
 

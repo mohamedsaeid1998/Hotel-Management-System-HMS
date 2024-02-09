@@ -8,8 +8,7 @@ import "./Facilities.module.scss";
 import PopupList from "@/Components/Shared/PopupList/PopupList";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
-
+import { Helmet } from 'react-helmet';
 const Facilities = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -9,7 +9,8 @@ import { Chip } from "@mui/material";
 import PopupList from "@/Components/Shared/PopupList/PopupList";
 import DeleteDialog from "@/Components/Shared/DeleteDialog/DeleteDialog";
 import "./Bookings.module.scss";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
+
 const Bookings = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);

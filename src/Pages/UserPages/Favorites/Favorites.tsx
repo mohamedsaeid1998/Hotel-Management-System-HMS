@@ -20,12 +20,12 @@ import { toast } from "react-toastify";
 import "./Favorites.module.scss";
 import style from "./Favorites.module.scss";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 const Favorites = () => {
   const { t } = useTranslation();
 
-  const [visibleImages, setVisibleImages] = useState(6);
+  const [visibleImages, setVisibleImages] = useState(5);
   const [favList, setFavList] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);

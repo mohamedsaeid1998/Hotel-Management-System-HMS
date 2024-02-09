@@ -140,7 +140,7 @@
 }
 .auth-background {
   background-image: url("../Assets/Images/bg1.png");
-  height: 80vh;
+  height: 90vh;
 }
 .auth-background2 {
   background-image: url("../Assets/Images/bg2.png");
@@ -148,7 +148,7 @@
 }
 .auth-background3 {
   background-image: url("../Assets/Images/bg3.png");
-  height: 80vh;
+  height: 90vh;
 }
 .auth-background4 {
   background-image: url("../Assets/Images/bg1.png");
@@ -161,6 +161,9 @@
 .auth-input {
   width: 100%;
   margin: 15px 0 !important;
+  .auth-input:not(:last-child) {
+    margin: 15px 0 !important;
+  }
 }
 
 .loadingButton {
@@ -449,7 +452,7 @@
     .title {
       @extend .darkColor;
       font-family: "Poppins", sans-serif;
-      max-width: 450px;
+      max-width: 499px;
       font-size: 42px;
       font-weight: 700;
       line-height: normal;
@@ -459,6 +462,7 @@
       font-family: "Poppins", sans-serif;
       max-width: 530px;
       line-height: 28px;
+      font-weight: 500 !important;
     }
 
     .bookingTitle {
@@ -639,7 +643,7 @@
 }
 
 .layer {
-  height: 98%;
+  height: 100%;
   width: 100%;
   position: absolute;
   top: 0px;
@@ -743,14 +747,13 @@
   justify-content: center;
   font-size: 36px !important;
   font-weight: 600 !important;
-
 }
 
 .subTitle {
   @extend .darkColor;
   font-family: "Poppins", sans-serif;
   font-size: clamp(1rem, 2.5vw, 1.5rem) !important;
-  font-weight: 200 !important;
+  font-weight: 500 !important;
   margin-top: 20px !important;
 }
 

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { UsersData } from "@/Redux/Features/Admin/Users/GetUsersSlice";
 import moment from "moment";
 import "./Users.module.scss";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 const Users = () => {
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState([]);

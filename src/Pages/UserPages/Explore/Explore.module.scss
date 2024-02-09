@@ -8,18 +8,21 @@
 .cardImage {
   text-align: start;
   width: 100%;
-  max-width: 5rem;
+  max-width: 25rem;
 }
 .exploreContainer {
   font-family: "Poppins", sans-serif;
 
   .ExploreImages {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-wrap: wrap;
-    gap: 20px;
-    @media (min-width: 960px) {
-      justify-content: center !important;
+    gap: 5em;
+    @media (min-width: 1024px) {
+      justify-content: start;
+    }
+    @media (min-width: 0px) and (max-width: "1000px") {
+      justify-content: center;
     }
   }
 }
@@ -29,4 +32,7 @@
   justify-content: center;
   font-weight: 600 !important;
   font-size: clamp(1rem, 2.5vw, 2rem);
+}
+.imgExplore {
+  justify-content: start !important;
 }

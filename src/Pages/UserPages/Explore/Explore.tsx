@@ -1,7 +1,3 @@
-import { ImageCard2, LoginDialog } from "@/Components";
-import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
-import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
-import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 import { Home, Living } from "@mui/icons-material";
 import {
@@ -23,7 +19,8 @@ import {
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
+import { ImageCard2, LoginDialog } from "@/Components";
 const Explore = () => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +32,7 @@ const Explore = () => {
   const dispatch = useDispatch();
   const today = dayjs();
   const nextDate = dayjs().add(1, "day");
-  const itemsPerPage = 12;
+  const itemsPerPage = 15;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentRooms = rooms?.slice(indexOfFirstItem, indexOfLastItem);
@@ -158,9 +155,9 @@ const Explore = () => {
   );
   return (
     <>
-<Helmet>
-  <title> Explore • Staycation</title>
-</Helmet>
+      <Helmet>
+        <title> Explore • Staycation</title>
+      </Helmet>
       <LoginDialog {...{ handleClose, open }} />
       <Box component={"main"} className={style.exploreContainer}>
         <Box className="userContainer">
@@ -182,11 +179,18 @@ const Explore = () => {
           <Typography
             variant="h4"
             className="subTitle"
-            style={{ fontSize: "clamp(1rem, 2.5vw, 2rem)" }}
+            style={{
+              fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              fontweight: "600",
+            }}
           >
             {t("AllRooms")}
           </Typography>
-          <Box className={style.ExploreImages} justifyContent={"center"}>
+          <Box
+            className={style.ExploreImages}
+            justifyContent={"center"}
+            marginY={3}
+          >
             {isLoading
               ? loadingArray.map((index) => (
                 <Skeleton
