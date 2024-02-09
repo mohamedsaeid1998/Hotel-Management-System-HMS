@@ -267,7 +267,7 @@ const NavBar = () => {
                     variant="contained"
                     onClick={handelLogout}
                   >
-                    Logout
+                    {t("Logout")}
                   </Button>
                 </>
               )}

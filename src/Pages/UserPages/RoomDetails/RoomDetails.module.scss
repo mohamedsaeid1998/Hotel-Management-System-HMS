@@ -1,5 +1,6 @@
 /** @format */
 @import "../../../Styles/global.scss";
+
 .review {
   margin-top: 2rem;
   display: flex;
@@ -64,5 +65,9 @@
     }
   }
 }
-.capacityRoom {
+
+@media (max-width: 960px) {
+  .calenderBox {
+    justify-content: start !important;
+  }
 }
