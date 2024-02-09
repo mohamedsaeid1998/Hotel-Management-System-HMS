@@ -190,22 +190,18 @@ const Explore = () => {
               {t("explore")}
             </Typography>
           </Breadcrumbs>
-
-          <Typography
-            variant="h4"
-            className="subTitle"
-            style={{
-              fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
-              fontweight: "600",
-            }}
-          >
-            {t("AllRooms")}
-          </Typography>
-          <Box
-            className={style.ExploreImages}
-            justifyContent={"center"}
-            marginY={3}
-          >
+          <Box marginBottom={3}>
+            <Typography
+              variant="h4"
+              className="subTitle"
+              style={{
+                fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              }}
+            >
+              {t("AllRooms")}
+            </Typography>
+          </Box>
+          <Box className={style.ExploreImages} justifyContent={"center"}>
             {isLoading
               ? loadingArray.map((index) => (
                   <Skeleton

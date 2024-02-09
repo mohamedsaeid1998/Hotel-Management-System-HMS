@@ -95,6 +95,17 @@ const Favorites = () => {
               {t("Favorites")}
             </Typography>
           </Breadcrumbs>
+          <Box marginBottom={3}>
+            <Typography
+              variant="h4"
+              className="subTitle"
+              style={{
+                fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
+              }}
+            >
+              {t("Your Rooms")}
+            </Typography>
+          </Box>
           {isLoading ? (
             <Box className={style.favoriteComponent}>
               {loadingArray.map((index) => (
