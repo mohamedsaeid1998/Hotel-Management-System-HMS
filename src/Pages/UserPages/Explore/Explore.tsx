@@ -201,9 +201,14 @@ const Explore = () => {
           >
             {t("AllRooms")}
           </Typography>
-          <Box className={style.ExploreImages} justifyContent={"center"}>
+          <Box
+            className={style.ExploreImages}
+            justifyContent={"center"}
+            marginY={3}
+          >
             {isLoading
-              ? loadingArray.map((index) => (
+              ? currentRooms?.length >= 1 &&
+                loadingArray.map((index) => (
                   <Skeleton
                     key={index}
                     variant="rounded"
@@ -212,7 +217,7 @@ const Explore = () => {
                     animation="wave"
                   />
                 ))
-              : currentRooms?.length >= 0 &&
+              : currentRooms?.length >= 1 &&
                 currentRooms?.map((ele, index) => (
                   <Box
                     key={index}
