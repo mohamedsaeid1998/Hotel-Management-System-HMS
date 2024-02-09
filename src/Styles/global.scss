@@ -482,7 +482,6 @@
       margin-left: 5px;
       margin-top: 10px;
     }
-
   }
 
   .exploreCon {
@@ -518,7 +517,6 @@
 }
 
 @media (max-width: 1050px) {
-
 }
 
 .caleBtn {
@@ -1053,6 +1051,8 @@
   // height: 77vh;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 1rem;
+  margin-bottom: 1rem;
+
   max-width: 100%;
   gap: 5rem;
 
