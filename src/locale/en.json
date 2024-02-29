@@ -46,5 +46,17 @@
   "PaymentDesc": "Kindly follow the instructions below",
   "Pay": "Pay",
   "Cancel": "Cancel",
-  "Logout": "Logout"
+  "Logout": "Logout",
+  "pre": "pre",
+  "persons": "persons",
+  "person": "person",
+  "bedroom": "bedroom",
+  "livingRoom": "livingRoom",
+  "bathroom": "bathroom ",
+  "diningRoom": "dining Room ",
+  "unitReady": "unit Ready",
+  "refigrator": "refigrator",
+  "television": "television",
+  "mbp/s": "mbp/s"
+
 }

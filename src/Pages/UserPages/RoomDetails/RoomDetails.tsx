@@ -125,14 +125,14 @@ const RoomDetails = () => {
 
   //! ************************ facilities Content *************************
   const facilitiesDetails = [
-    { Icon: bedroom, main: 5, sub: "bedroom" },
-    { Icon: livingroom, main: 1, sub: "living room" },
-    { Icon: bathroom, main: 3, sub: "bathroom" },
-    { Icon: diningroom, main: 1, sub: "dining room" },
-    { Icon: wifi, main: 10, sub: "mbp/s" },
-    { Icon: ac, main: 7, sub: "unit ready" },
-    { Icon: kulkas, main: 2, sub: "refigrator" },
-    { Icon: tv, main: 4, sub: "television" },
+    { Icon: bedroom, main: 5, sub: `${t("bedroom")}` },
+    { Icon: livingroom, main: 1, sub: `${t("livingRoom")}` },
+    { Icon: bathroom, main: 3, sub: `${t("bathroom")}` },
+    { Icon: diningroom, main: 1, sub: `${t("diningRoom")}` },
+    { Icon: wifi, main: 10, sub: `${t("mbp/s")}` },
+    { Icon: ac, main: 7, sub: `${t("unitReady")}` },
+    { Icon: kulkas, main: 2, sub: `${t("refigrator")}` },
+    { Icon: tv, main: 4, sub: `${t("television")}` },
   ];
 
   const descriptions = [
@@ -225,7 +225,7 @@ const RoomDetails = () => {
                 <Box className="roomFacilities">
                   {facilitiesDetails.map(({ main, Icon, sub, index }) => (
                     <Box key={index} className="facilities">
-                      <img className="facilitiesIcon" src={Icon} alt="Icons" />
+                      <img className="facilitiesIcon" src={Icon} width={36} height={36} alt="Icons" />
                       <Typography className="mainDec">
                         {main}
                         <Typography variant="caption" className="subDec">
@@ -344,12 +344,12 @@ const RoomDetails = () => {
                         {`$${personsCount ? price * personsCount : price} USD`}
                       </Typography>
                       <Typography variant="caption" className="sub">
-                        pre
+                        {t("pre")}
                       </Typography>
                       <Typography variant="caption" className="bookingCon">
                         {`${personsCount !== 1 && personsCount !== undefined
-                          ? `${personsCount} persons`
-                          : `1 person`
+                          ? `${personsCount} ${t("persons")}`
+                          : `1 ${t("person")}`
                           } `}
                       </Typography>
                     </Typography>

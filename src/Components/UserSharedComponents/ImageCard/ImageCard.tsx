@@ -3,6 +3,7 @@ import "./ImageCard.module.scss";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Favorite, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   ele: any;
@@ -26,7 +27,7 @@ const ImageCard = ({
   disabled,
 }: Props) => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   return (
     <>
       <Box key={ele?.room?._id} className={`${index === 0 ? "main" : ""} here`}>
@@ -40,7 +41,7 @@ const ImageCard = ({
             className="discountLayer"
             fontSize={"clamp(.5rem, 2.5vw, 1rem) "}
           >
-            {ele?.room?.discount}$ per night
+            {ele?.room?.discount}$ {t("perNight")}
           </Box>
         ) : null}
         <Box className="layer">

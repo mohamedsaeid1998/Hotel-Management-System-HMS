@@ -33,7 +33,7 @@ import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 const Landing = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
@@ -167,7 +167,6 @@ const Landing = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  // const loadingArray = Array.from(new Array());
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />
@@ -303,25 +302,25 @@ const Landing = () => {
           </Typography>
 
           <Box className="grid">
-           
-              {adsData?.map((ele, index) => (
-                <Fragment key={ele?._id}>
-                  <ImageCard
-                    {...{
-                      disabled,
-                      selectedDateRange,
-                      ele,
-                      index,
-                      deleteFavoriteItem,
-                      addItemToFavorite,
-                      startDate,
-                      endDate,
-                      bookingGuestCount,
-                      favList,
-                    }}
-                  />
-                </Fragment>
-              ))}
+
+            {adsData?.map((ele, index) => (
+              <Fragment key={ele?._id}>
+                <ImageCard
+                  {...{
+                    disabled,
+                    selectedDateRange,
+                    ele,
+                    index,
+                    deleteFavoriteItem,
+                    addItemToFavorite,
+                    startDate,
+                    endDate,
+                    bookingGuestCount,
+                    favList,
+                  }}
+                />
+              </Fragment>
+            ))}
           </Box>
 
           <Typography variant="h4" className="bookingTitle">

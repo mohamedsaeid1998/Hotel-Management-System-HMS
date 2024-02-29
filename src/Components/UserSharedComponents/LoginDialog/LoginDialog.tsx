@@ -15,20 +15,20 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import './LoginDialog.module.scss';
 interface IProps {
-  open: any,
-  handleClose: any
+  open: boolean,
+  handleClose: () => void
 }
 
 const LoginDialog = ({ open, handleClose }: IProps) => {
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  const { loading, islogged } = useSelector((state) => state.login);
+  const { loading } = useSelector((state) => state.login);
   const required = "This Field is required";
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -43,6 +43,9 @@ const LoginDialog = ({ open, handleClose }: IProps) => {
       const ele = await dispatch(fetchData(data));
       if (ele?.payload === "user")
         window.location.reload();
+
+      if (ele?.payload === "admin")
+        navigate('./dashboard')
     },
     [dispatch]
   );
