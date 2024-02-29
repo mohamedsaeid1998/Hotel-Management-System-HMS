@@ -165,15 +165,14 @@ const CheckoutForm = () => {
               <>
                 <Box className="headerPay">
                   <Typography variant="h3" className="headerTitle">
-                    Yay! Completed
+                    {t("Completed")}
                   </Typography>
                   <img src={paymentDone} alt="" />
                   <Typography className="content">
-                    We will inform you via email later once the transaction has
-                    been accepted
+                    {t("description")}
                   </Typography>
                   <Button className="backBtn" onClick={() => handleNavigate()}>
-                    Back To Home
+                    {t("BackToHome")}
                   </Button>
                 </Box>
               </>

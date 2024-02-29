@@ -57,6 +57,9 @@
   "unitReady": "unit Ready",
   "refigrator": "refigrator",
   "television": "television",
-  "mbp/s": "mbp/s"
+  "mbp/s": "mbp/s",
+  "Completed": "Yay! Completed",
+  "BackToHome": "Back To Home",
+  "description": "We will inform you via email later once the transaction has been accepted"
 
 }

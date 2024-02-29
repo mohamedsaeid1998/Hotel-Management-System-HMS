@@ -31,6 +31,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
   const onSubmit = useCallback(
@@ -86,6 +87,56 @@ const Login = () => {
     });
     google.accounts.id.prompt();
   }, []);
+
+
+  const handleTestCode = (e: any) => {
+    e.preventDefault()
+    console.log(testCode);
+    if (testCode === "ABCDEF") {
+      setShow(true)
+      toast.success("Choose account Kind", {
+        autoClose: 2000,
+        theme: "colored",
+      });
+
+
+    } else {
+      setShow(false)
+      toast.error("Wrong Code", {
+        autoClose: 2000,
+        theme: "colored",
+      })
+    }
+
+  }
+  const [radioCheckedAdmin, setRadioCheckedAdmin] = useState(false);
+  const [radioCheckedUser, setRadioCheckedUser] = useState(false);
+
+  useEffect(() => {
+    if (radioCheckedAdmin) {
+      setValue("email", "msmma19998@gmail.com")
+      setValue("password", "01021754177@Aa")
+    }
+    if (radioCheckedUser) {
+      setValue("email", "m_smma71@yahoo.com")
+      setValue("password", "01021754177@Aa")
+    }
+
+  }, [radioCheckedAdmin, radioCheckedUser])
+
+
+  const [testCode, setTestCode] = useState("")
+  const [show, setShow] = useState(false)
+
+
+  const handleRadioChangeAdmin = (e: any) => {
+    setRadioCheckedAdmin(e.target.checked);
+  };
+
+  const handleRadioChangeUser = (e: any) => {
+    setRadioCheckedUser(e.target.checked);
+  };
+
 
   return (
     <>
@@ -239,8 +290,48 @@ const Login = () => {
             </Button>
           )}
           <div id="signInDiv"></div>
+          <Box component={"form"} className="testContainer">
+            <TextField
+              variant="outlined"
+              className="testInput"
+              type="password"
+              label="test Code"
+              color="secondary"
+              size="small"
+              onChange={(e) => {
+                setTestCode(e.target.value)
+              }}
+            />
+            <Button
+              className="testButton"
+              variant="contained"
+              onClick={() => handleTestCode(event)}
+              size="small"
+            >
+              Submit
+            </Button>
+            <Box
+              className={`${show ? "show" : "hide"} `}>
+              <Box className="inputWrapper">
+                <label htmlFor="admin" >Admin</label>
+                <input type="radio" name="check " id="admin"
+                  checked={radioCheckedAdmin}
+                  onChange={handleRadioChangeAdmin}
+                  className="radioInput" />
+              </Box>
+              <Box className="inputWrapper">
+                <label htmlFor="user">User</label>
+                <input type="radio" name="check " id="user"
+                  checked={radioCheckedUser}
+                  onChange={handleRadioChangeUser}
+                  className="radioInput" />
+              </Box>
+
+
+            </Box>
+          </Box>
         </Box>
-      </Box>
+      </Box >
     </>
   );
 };

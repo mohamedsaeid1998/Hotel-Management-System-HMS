@@ -3,10 +3,9 @@ import {
   Discount,
   Grade,
   Home,
-  LockOpen,
   Logout,
   MeetingRoom,
-  PeopleAlt,
+  PeopleAlt
 } from "@mui/icons-material";
 import {
   Drawer,
@@ -18,17 +17,9 @@ import {
   Toolbar,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./Sidebar.module.scss";
-import React from "react";
 import ChangePassword from "../ChangePassword/ChangePassword";
+import "./Sidebar.module.scss";
 
-// import Drawer from '@mui/material/Drawer';
-// import Toolbar from '@mui/material/Toolbar';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-// import List from '@mui/material/List';
-// import ListItemText from '@mui/material/ListItemText';
 
 const Sidebar = ({ display, DrawerVariant, closeDrawer }) => {
   const { pathname } = useLocation();
