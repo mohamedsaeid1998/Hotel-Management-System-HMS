@@ -26,7 +26,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const DeleteDialog = ({ getData, openDialog, handleCloseDialog, itemId }) => {
+const DeleteDialog = ({ getData, openDialog, handleCloseDialog, itemId }:any) => {
   const [loading, setLoading] = useState(false);
   const { pathname } = useLocation();
   const currentUrl = pathname.split("/").pop();

@@ -17,11 +17,13 @@ import { fetchData } from "../../../Redux/Features/Auth/RegisterSlice";
 import "./Register.module.scss";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Helmet } from 'react-helmet'
+import { LoadingButton } from "@mui/lab";
 const Register = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { isRegister } = useSelector((state) => state.register);
+
+  const { isRegister,loading } = useSelector((state) => state.register);
   const navigate = useNavigate();
   const required = "This Field is required";
   const VisuallyHiddenInput = styled("input")({
@@ -62,7 +64,7 @@ const Register = () => {
       <Helmet>
         <title> Sign up • Staycation</title>
       </Helmet>
-      <Box component="div">
+      <Box component="header">
         <Typography
           className={`subNav`}
           variant="h4"
@@ -80,7 +82,7 @@ const Register = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: { xs: "20px", md: "30px 70px" } }}>
+      <Box component="main" sx={{ padding: { xs: "20px", md: "15px 70px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign up
@@ -99,7 +101,8 @@ const Register = () => {
             </Link>
           </Typography>
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
             type="text"
@@ -115,51 +118,48 @@ const Register = () => {
             }
           />
 
-          <Grid container spacing={2}>
-            <Grid item md={6} sm={6}>
-              <TextField
-                variant="outlined"
-                type="tel"
-                className="auth-input"
-                label="Phone Number"
-                color="primary"
-                {...register("phoneNumber", {
-                  required,
-                  pattern: {
-                    value: /^01[0125][0-9]{8}$/,
-                    message:
-                      "Phone number must start with 01 and be 11 digits in total",
-                  },
-                })}
-                error={!!errors.phoneNumber}
-                helperText={
-                  !!errors.phoneNumber
-                    ? errors?.phoneNumber?.message?.toString()
-                    : null
-                }
-              />
-            </Grid>
-            <Grid item md={6} sm={6}>
-              <TextField
-                variant="outlined"
-                type="text"
-                className="auth-input"
-                label="Country"
-                color="primary"
-                {...register("country", {
-                  required,
-                  minLength: {
-                    value: 3,
-                    message: "minlength 3 letters",
-                  },
-                })}
-                error={!!errors.country}
-                helperText={
-                  !!errors.country ? errors?.country?.message?.toString() : null
-                }
-              />
-            </Grid>
-          </Grid>
+          <Box className="inputsContainer">
+            <TextField
+              variant="outlined"
+              type="tel"
+              className="auth-input"
+              label="Phone Number"
+              color="primary"
+              {...register("phoneNumber", {
+                required,
+                pattern: {
+                  value: /^01[0125][0-9]{8}$/,
+                  message:
+                    "Phone number must start with 01 and be 11 digits in total",
+                },
+              })}
+              error={!!errors.phoneNumber}
+              helperText={
+                !!errors.phoneNumber
+                  ? errors?.phoneNumber?.message?.toString()
+                  : null
+              }
+            />
+
+            <TextField
+              variant="outlined"
+              type="text"
+              className="auth-input"
+              label="Country"
+              color="primary"
+              {...register("country", {
+                required,
+                minLength: {
+                  value: 3,
+                  message: "minlength 3 letters",
+                },
+              })}
+              error={!!errors.country}
+              helperText={
+                !!errors.country ? errors?.country?.message?.toString() : null
+              }
+            />
+          </Box>
 
           <TextField
             variant="outlined"
@@ -269,8 +269,19 @@ const Register = () => {
               }
             />
           </Button>
+
+          {loading ? (
+          <LoadingButton
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            className="loadingButton"
+            loading
+            variant="outlined"
+          >
+            Send mail
+          </LoadingButton>
+        ) : (
           <Button
-            type="submit"
+            variant="contained"
             sx={{
               width: "100%",
               mt: 2,
@@ -281,10 +292,12 @@ const Register = () => {
                 md: "1rem",
               },
             }}
-            variant="contained"
+            type="submit"
+            size="large"
           >
             Sign up
           </Button>
+        )}
         </form>
       </Box>
     </>

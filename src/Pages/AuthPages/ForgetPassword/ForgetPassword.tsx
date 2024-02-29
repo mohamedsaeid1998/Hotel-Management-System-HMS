@@ -7,12 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchData } from "../../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
 import { Helmet } from 'react-helmet'
+import { toast } from "react-toastify";
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const required = "This Field is required";
 
-  const { isForgetPassword, loading } = useSelector(
+  const { loading } = useSelector(
     (state) => state.ForgetPassword
   );
 
@@ -21,19 +22,31 @@ const ForgetPassword = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    dispatch(fetchData(data));
+  const onSubmit = async (data: any) => {
+
+    const response = await dispatch(fetchData(data))
+    console.log(response);
+    if (response?.payload?.data?.message === "Password reset request, already sent successfully ,check your email") {
+      toast.success(response.payload.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      })
+      navigate(`/reset-password`)
+    } else {
+      toast.error(response.payload.response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
+      });
+    }
+
   };
-  if (isForgetPassword) {
-    navigate("/reset-password");
-  }
 
   return (
     <>
       <Helmet>
         <title> Reset Password • Staycation</title>
       </Helmet>
-      <Box component="div">
+      <Box component="header">
         <Typography
           className={`subNav`}
           variant="h4"
@@ -50,7 +63,7 @@ const ForgetPassword = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: { xs: "20px 20px",} }}>
+      <Box component="main" sx={{ padding: { xs: "20px 20px", } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Forgot password
@@ -73,7 +86,7 @@ const ForgetPassword = () => {
       <Box
         component={"form"}
         onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "80%", margin: "auto" }}
+        style={{ width: "90%", paddingLeft: "36px" }}
       >
         <TextField
           variant="outlined"

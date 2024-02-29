@@ -27,7 +27,7 @@ const fetchData = createAsyncThunk<string, UserData, { rejectValue: string }>(
   async (data, thunkAPI) => {
     try {
       data.role = "user";
-      const addFormData: RegisterState = new FormData();
+      const addFormData = new FormData();
       addFormData.append("userName", data["userName"]);
       addFormData.append("email", data["email"]);
       addFormData.append("password", data["password"]);
@@ -66,7 +66,7 @@ const RegisterSlice = createSlice({
       state.isRegister = true;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
-      state.loading = true;
+      state.loading = false;
       state.errors = action.payload;
       state.isRegister = false;
     });

@@ -14,29 +14,56 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
+import { useDispatch } from "react-redux";
+import { handleResetPassword } from "@/Redux/Features/Auth/ResetPasswordSlice";
+import { LoadingButton } from "@mui/lab";
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setloading] = useState(false);
 
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const required = "This Field is required";
-
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    baseUrl
-      .post(`/api/v0/portal/users/reset-password`, data)
-      .then(() => {
-        toast.success("send successfully");
-        navigate("/login");
+  const onSubmit = async (data: any) => {
+    setloading(true)
+    const response = await dispatch(handleResetPassword(data))
+    console.log(response);
+    if (response?.payload?.data?.message === "Invalid verification code") {
+      setloading(false)
+      toast.success(response.payload.data.message, {
+        autoClose: 2000,
+        theme: "colored",
       })
-      .catch((err) => {
-        toast.error(err.message);
+      navigate(`/login`)
+    } else {
+      setloading(false)
+      toast.error(response.payload.response.data.message, {
+        autoClose: 2000,
+        theme: "colored",
       });
+    }
+
+
+
+    // baseUrl
+    //   .post(`/api/v0/portal/users/reset-password`, data)
+    //   .then(() => {
+    //     toast.success("send successfully");
+    //     navigate("/login");
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.message, {
+    //       autoClose: 2000,
+    //       theme: "colored",
+    //     });
+    //   });
   };
 
   const handleClickShowPassword = () => {
@@ -50,7 +77,7 @@ const ResetPassword = () => {
       <Helmet>
         <title> Reset Password • Staycation</title>
       </Helmet>
-      <Box component="div">
+      <Box component="header">
         <Typography
           className={`subNav`}
           variant="h4"
@@ -67,7 +94,7 @@ const ResetPassword = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: { xs: "40px 20px", md: "60px 40px" } }}>
+      <Box component="main" sx={{ padding: { xs: "20px", md: "15px 70px" } }}>
         <Box component="div">
           <Typography variant="h4" component="h4">
             Reset Password
@@ -180,23 +207,36 @@ const ResetPassword = () => {
               : null
           }
         />
-        <Button
-          type="submit"
-          sx={{
-            width: "100%",
-            mt: 2,
-            padding: { lg: ".5em" },
-            fontSize: {
-              xs: "0.9rem",
-              sm: "1rem",
-              md: "1rem",
-            },
-          }}
-          size="large"
-          variant="contained"
-        >
-          Reset
-        </Button>
+
+
+        {loading ? (
+          <LoadingButton
+            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+            className="loadingButton"
+            loading
+            variant="outlined"
+          >
+            Send mail
+          </LoadingButton>
+        ) : (
+          <Button
+            variant="contained"
+            sx={{
+              width: "100%",
+              mt: 2,
+              padding: { lg: ".5em" },
+              fontSize: {
+                xs: "0.9rem",
+                sm: "1rem",
+                md: "1rem",
+              },
+            }}
+            type="submit"
+            size="large"
+          >
+            Reset
+          </Button>
+        )}
       </form>
     </>
   );

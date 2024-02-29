@@ -154,3 +154,35 @@
     padding-left: 15px !important;
   }
 }
+@media (max-width: 900px) {
+  .loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1286px) {
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px !important;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 550px) {
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px !important;
+  }
+}
+
+// xs, extra-small: 0px
+// sm, small: 600px
+// md, medium: 900px
+// lg, large: 1200px
+// xl, extra-large: 1536px

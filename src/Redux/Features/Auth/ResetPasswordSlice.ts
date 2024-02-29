@@ -1,20 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../../../utils/Custom/Custom";
-interface ForgetPasswordState {
+interface ResetPasswordState {
   loading: boolean;
   errors: string | null;
 }
-const initialState: ForgetPasswordState = {
+const initialState: ResetPasswordState = {
   loading: false,
   errors: null,
 };
 
-const fetchData = createAsyncThunk(
-  "ForgetPassword/fetchData",
+export const handleResetPassword = createAsyncThunk(
+  "ResetPasswordSlice/handleResetPassword",
   async (userData) => {
     try {
       const response = await baseUrl
-        .post(`/api/v0/portal/users/forgot-password`, userData)
+        .post(`/api/v0/portal/users/reset-password`, userData)
       return response
     } catch (error) {
       return error
@@ -22,22 +22,22 @@ const fetchData = createAsyncThunk(
 
   }
 );
-const ForgetPasswordSlice = createSlice({
-  name: "ForgetPassword",
+const ResetPasswordSlice = createSlice({
+  name: "ResetPassword",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchData.pending, (state) => {
+    builder.addCase(handleResetPassword.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchData.fulfilled, (state) => {
+    builder.addCase(handleResetPassword.fulfilled, (state) => {
       state.loading = false;
     });
-    builder.addCase(fetchData.rejected, (state, action) => {
+    builder.addCase(handleResetPassword.rejected, (state, action) => {
       state.loading = false;
       state.errors = action.payload;
     });
   },
 });
-export { fetchData };
-export default ForgetPasswordSlice.reducer;
+
+export default ResetPasswordSlice.reducer;

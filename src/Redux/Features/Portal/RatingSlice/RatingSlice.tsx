@@ -1,17 +1,18 @@
 /** @format */
 
-import baseUrl, { requestHeaders } from "@/utils/Custom/Custom";
+import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 export const setRatingRooms = createAsyncThunk(
   "rate/RatingRooms",
   async (data, thunkAPI) => {
+    const tokens = localStorage.getItem("authToken");
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await baseUrl.post(`/api/v0/portal/room-reviews`, data, {
         headers: {
-          Authorization: requestHeaders,
+          Authorization: tokens,
         },
       });
       toast.success(response.data.message, {

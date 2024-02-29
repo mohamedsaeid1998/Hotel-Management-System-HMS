@@ -1,6 +1,6 @@
 /** @format */
 
-import baseUrl, { requestHeaders } from "@/utils/Custom/Custom";
+import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
@@ -8,13 +8,14 @@ export const CommentUserRoom = createAsyncThunk(
   "comment/CommentUserRoom",
   async (data, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
+    const tokens = localStorage.getItem("authToken");
     try {
       const response = await baseUrl.post(
         `/api/v0/portal/room-comments`,
         data,
         {
           headers: {
-            Authorization: requestHeaders,
+            Authorization:tokens
           },
         }
       );

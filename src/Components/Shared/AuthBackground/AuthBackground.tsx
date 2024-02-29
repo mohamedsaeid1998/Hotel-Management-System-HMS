@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import "./AuthBackground.module.scss";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const AuthBackground = () => {
   const { pathname } = useLocation();
@@ -8,39 +8,39 @@ const AuthBackground = () => {
     pathname === "/login"
       ? "auth-background"
       : pathname === "/register"
-      ? "auth-background2"
-      : pathname === "/forget-password"
-      ? "auth-background3"
-      : pathname === "/reset-password"
-      ? "auth-background4"
-      : "auth-background";
+        ? "auth-background2"
+        : pathname === "/forget-password"
+          ? "auth-background3"
+          : pathname === "/reset-password"
+            ? "auth-background4"
+            : "auth-background";
   const sectionTitle =
     pathname === "/login" || pathname === "/"
       ? "Sign in to Roamhome"
       : pathname === "/register"
-      ? "Sign up to Roamhome"
-      : pathname === "/forget-password"
-      ? "Forgot password"
-      : pathname === "/reset-password"
-      ? "Reset Password"
-      : null;
+        ? "Sign up to Roamhome"
+        : pathname === "/forget-password"
+          ? "Forgot password"
+          : pathname === "/reset-password"
+            ? "Reset Password"
+            : null;
   const sectionDesc =
     pathname === "/login" || pathname === "/"
       ? "Homes as unique as you."
       : pathname === "/register"
-      ? "Homes as unique as you."
-      : pathname === "/forget-password"
-      ? "Homes as unique as you."
-      : pathname === "/reset-password"
-      ? "Homes as unique as you."
-      : null;
+        ? "Homes as unique as you."
+        : pathname === "/forget-password"
+          ? "Homes as unique as you."
+          : pathname === "/reset-password"
+            ? "Homes as unique as you."
+            : null;
   return (
     <>
       <Box className={`auth ${backgroundImage}`}>
-        <div className="auth-desc">
-          <h3>{sectionTitle}</h3>
-          <p>{sectionDesc}</p>
-        </div>
+        <Box className="auth-desc">
+          <Typography variant="h4" >{sectionTitle}</Typography>
+          <Typography >{sectionDesc}</Typography>
+        </Box>
       </Box>
     </>
   );

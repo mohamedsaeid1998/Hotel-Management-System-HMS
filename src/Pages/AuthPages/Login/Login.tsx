@@ -92,7 +92,7 @@ const Login = () => {
       <Helmet>
         <title> Sign in • Staycation</title>
       </Helmet>
-      <Box component="div">
+      <Box component="header">
         <Typography
           className={`subNav`}
           variant="h4"
@@ -109,7 +109,7 @@ const Login = () => {
           cation.
         </Typography>
       </Box>
-      <Box sx={{ padding: { xs: "40px 20px" } }}>
+      <Box component="main" className="loginContainer">
         <Box component="div">
           <Typography variant="h4" component="h4">
             Sign in

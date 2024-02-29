@@ -1,4 +1,3 @@
-//@ts-nochec
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
 import { FacilitiesData } from "@/Redux/Features/Admin/Facilities/FacilitiesSlice";
 import { CreateRooms } from "@/Redux/Features/Admin/Rooms/CreateRoomsSlice";
@@ -6,15 +5,15 @@ import { RoomsDataDetails } from "@/Redux/Features/Admin/Rooms/RoomDetailsSlice"
 import { updateRoomData } from "@/Redux/Features/Admin/Rooms/UpdateRoom";
 import { ChevronRight } from "@mui/icons-material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { LoadingButton } from "@mui/lab";
 import { Button, MenuItem, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewRoom.module.scss";
-import { LoadingButton } from "@mui/lab";
 interface propState {
   isEdit: boolean;
 }
@@ -164,11 +163,6 @@ const AddNewRoom = () => {
               {...register("roomNumber", {
                 required,
                 minLength: { value: 3, message: "minlength is 3 " },
-                pattern: {
-                  value: /^[^-][A-Za-z0-9]*$/,
-
-                  message: '"Please enter a positive number"',
-                },
               })}
               error={Boolean(errors.roomNumber)}
               helperText={

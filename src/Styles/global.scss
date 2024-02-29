@@ -119,6 +119,10 @@
 }
 //! *************** Authentication ***************
 
+.loginContainer {
+  padding: 40px 20px;
+}
+
 .authLayout {
   width: 95%;
   margin: auto;
@@ -152,10 +156,18 @@
 }
 .auth-background4 {
   background-image: url("../Assets/Images/bg1.png");
-  height: 90%;
+  height: 90vh;
 }
-.auth-desc h3 {
-  font-size: 30px;
+.auth-desc {
+  h4 {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10;
+  }
 }
 
 .auth-input {
@@ -189,6 +201,12 @@
   justify-content: space-between;
   align-items: center;
   z-index: 1;
+}
+
+.inputsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 //? *************** TableHeader ***************
