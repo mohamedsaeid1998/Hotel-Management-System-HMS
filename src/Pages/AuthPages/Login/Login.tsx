@@ -18,6 +18,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
 import "./Login.module.scss";
+import { motion } from "framer-motion"
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -270,24 +272,31 @@ const Login = () => {
               Login
             </LoadingButton>
           ) : (
-            <Button
-              variant="contained"
-              sx={{
-                width: "100%",
-                mt: 2,
-                mb: 2,
-                padding: { lg: ".5em" },
-                fontSize: {
-                  xs: "0.9rem",
-                  sm: "1rem",
-                  md: "1rem",
-                },
-              }}
-              type="submit"
-              size="large"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
             >
-              Login <ChevronRight />
-            </Button>
+
+              <Button
+                variant="contained"
+                sx={{
+                  width: "100%",
+                  mt: 2,
+                  mb: 2,
+                  padding: { lg: ".5em" },
+                  fontSize: {
+                    xs: "0.9rem",
+                    sm: "1rem",
+                    md: "1rem",
+                  },
+                }}
+                type="submit"
+                size="large"
+              >
+                Login <ChevronRight />
+              </Button>
+            </motion.div>
+
           )}
           <div id="signInDiv"></div>
           <Box component={"form"} className="testContainer">
@@ -302,14 +311,20 @@ const Login = () => {
                 setTestCode(e.target.value)
               }}
             />
-            <Button
-              className="testButton"
-              variant="contained"
-              onClick={() => handleTestCode(event)}
-              size="small"
-            >
-              Submit
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}>
+
+              <Button
+                className="testButton"
+                variant="contained"
+                onClick={() => handleTestCode(event)}
+                size="small"
+              >
+                Submit
+              </Button>
+            </motion.div>
+
             <Box
               className={`${show ? "show" : "hide"} `}>
               <Box className="inputWrapper">

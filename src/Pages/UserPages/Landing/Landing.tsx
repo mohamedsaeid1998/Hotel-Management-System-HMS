@@ -28,7 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Landing.module.scss";
 import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
-
+import { motion } from "framer-motion"
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
@@ -305,6 +305,8 @@ const Landing = () => {
 
             {adsData?.map((ele, index) => (
               <Fragment key={ele?._id}>
+
+
                 <ImageCard
                   {...{
                     disabled,
@@ -320,121 +322,128 @@ const Landing = () => {
                   }}
                 />
               </Fragment>
+
             ))}
           </Box>
 
           <Typography variant="h4" className="bookingTitle">
             {t("mostBookedRooms")}
           </Typography>
-          <Box className="sliderCon">
-            <Swiper
-              slidesPerView={6}
-              spaceBetween={20}
-              autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-              }}
-              // loop={true}
-              modules={[Autoplay]}
-              breakpoints={{
-                200: {
-                  slidesPerView: 1,
-                  spaceBetween: 20,
-                },
-                500: {
-                  slidesPerView: 2,
-                  spaceBetween: 40,
-                },
-                768: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                1075: {
-                  slidesPerView: 4,
-                  spaceBetween: 50,
-                },
-                1220: {
-                  slidesPerView: 5,
-                  spaceBetween: 20,
-                },
-              }}
-              className="mySwiper"
+          <motion.div
+            whileInView={{ y: [200, 0] }}>
+            <Box className="sliderCon"
+
             >
-              {isLoading ? (
-                <Box display={"flex"}>
-                  <Box marginX={"4"}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>{" "}
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>{" "}
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                </Box>
-              ) : (
-                rooms?.map((ele, index) => (
-                  <Fragment key={ele?._id}>
-                    <SwiperSlide>
-                      <ImageCard2
-                        {...{
-                          selectedDateRange,
-                          ele,
-                          index,
-                          deleteFavoriteItem,
-                          addItemToFavorite,
-                          startDate,
-                          endDate,
-                          bookingGuestCount,
-                          favList,
-                          disabled,
-                        }}
+              <Swiper
+                slidesPerView={6}
+                spaceBetween={20}
+                autoplay={{
+                  delay: 2000,
+                  disableOnInteraction: false,
+                }}
+                // loop={true}
+                modules={[Autoplay]}
+                breakpoints={{
+                  200: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  500: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  1075: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                  },
+                  1220: {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
+                  },
+                }}
+                className="mySwiper"
+              >
+                {isLoading ? (
+                  <Box display={"flex"}>
+                    <Box marginX={"4"}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
                       />
-                    </SwiperSlide>
-                  </Fragment>
-                ))
-              )}
-            </Swiper>
-          </Box>
+                    </Box>
+                    <Box marginX={4}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
+                      />
+                    </Box>
+                    <Box marginX={4}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
+                      />
+                    </Box>{" "}
+                    <Box marginX={4}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
+                      />
+                    </Box>{" "}
+                    <Box marginX={4}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
+                      />
+                    </Box>
+                    <Box marginX={4}>
+                      <Skeleton
+                        variant="rounded"
+                        width={200}
+                        height={200}
+                        animation="wave"
+                      />
+                    </Box>
+                  </Box>
+                ) : (
+                  rooms?.map((ele, index) => (
+                    <Fragment key={ele?._id}>
+                      <SwiperSlide>
+                        <ImageCard2
+                          {...{
+                            selectedDateRange,
+                            ele,
+                            index,
+                            deleteFavoriteItem,
+                            addItemToFavorite,
+                            startDate,
+                            endDate,
+                            bookingGuestCount,
+                            favList,
+                            disabled,
+                          }}
+                        />
+                      </SwiperSlide>
+                    </Fragment>
+                  ))
+                )}
+              </Swiper>
+            </Box>
+          </motion.div>
+
         </Box>
         <Box component="section" className="reviewUsersSection">
           <UsersReview />
