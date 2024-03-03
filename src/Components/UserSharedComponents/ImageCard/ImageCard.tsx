@@ -37,8 +37,10 @@ const ImageCard = ({
           initial={{ opacity: 0, translateX: 50, translateY: -50 }}
           animate={{ opacity: 1, translateX: 0, translateY: 0 }}
           transition={{ duration: 0.3, delay: index * 0.4 }}
+          style={{ width: "100%", height: "100%" }}
         >
           <img
+            style={{ width: "100%", height: "100%" }}
             className="RoomPicture"
             src={ele?.room?.images[0]}
             alt="RoomPicture"

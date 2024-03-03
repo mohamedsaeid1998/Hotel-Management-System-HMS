@@ -139,6 +139,7 @@ const Login = () => {
     setRadioCheckedUser(e.target.checked);
   };
 
+  const MotionButton = motion(Button)
 
   return (
     <>
@@ -272,30 +273,30 @@ const Login = () => {
               Login
             </LoadingButton>
           ) : (
-            <motion.div
+
+
+
+            <MotionButton
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.8 }}
+              variant="contained"
+              sx={{
+                width: "100%",
+                mt: 2,
+                mb: 2,
+                padding: { lg: ".5em" },
+                fontSize: {
+                  xs: "0.9rem",
+                  sm: "1rem",
+                  md: "1rem",
+                },
+              }}
+              type="submit"
+              size="large"
             >
+              Login <ChevronRight />
+            </MotionButton>
 
-              <Button
-                variant="contained"
-                sx={{
-                  width: "100%",
-                  mt: 2,
-                  mb: 2,
-                  padding: { lg: ".5em" },
-                  fontSize: {
-                    xs: "0.9rem",
-                    sm: "1rem",
-                    md: "1rem",
-                  },
-                }}
-                type="submit"
-                size="large"
-              >
-                Login <ChevronRight />
-              </Button>
-            </motion.div>
 
           )}
           <div id="signInDiv"></div>
@@ -311,19 +312,20 @@ const Login = () => {
                 setTestCode(e.target.value)
               }}
             />
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.8 }}>
 
-              <Button
-                className="testButton"
-                variant="contained"
-                onClick={() => handleTestCode(event)}
-                size="small"
-              >
-                Submit
-              </Button>
-            </motion.div>
+
+
+            <MotionButton
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.8 }}
+              className="testButton"
+              variant="contained"
+              onClick={() => handleTestCode(event)}
+              size="small"
+            >
+              Submit
+            </MotionButton>
+
 
             <Box
               className={`${show ? "show" : "hide"} `}>
