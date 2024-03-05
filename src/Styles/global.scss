@@ -651,9 +651,7 @@
     "main - -";
   gap: 30px 20px;
   justify-content: space-between;
-  .layer {
-    height: 100% !important;
-  }
+
   // @media (max-width: 763px) {
   //   grid-template-rows: 7rem 7rem;
   //   grid-template-columns: 1.5fr 1fr 1fr;
@@ -663,18 +661,11 @@
     width: 100%;
     height: 100%;
   }
-}
-
-.main {
-  grid-area: main;
-  object-fit: fill;
-  border-radius: 15px;
-}
-
-.here {
-  position: relative !important;
-  border-radius: 15px;
-  width: fit-content;
+  .main {
+    grid-area: main;
+    object-fit: fill;
+    border-radius: 15px;
+  }
 }
 
 .sliderCon {
@@ -682,90 +673,112 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .RoomPicture {
   object-fit: fill;
   width: 200px;
   height: 200px;
-
   border-radius: 15px;
 }
 
-.discountLayer {
-  position: absolute;
-  padding: 1rem;
-  top: 0px;
-  right: 0px;
-  background-color: #ff498c9e;
-  color: white;
-  min-width: 20%;
-  text-align: center;
-  border-radius: 0px 15px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.layer {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  background: rgba(32, 63, 199, 0.21);
+.roomCard {
+  position: relative !important;
   border-radius: 15px;
-  opacity: 0;
-  transition: all 0.5s;
-  z-index: 2;
-  transform: translateY(10px);
-}
+  width: fit-content;
 
-.here:hover .layer {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.layer .text {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 0;
-  transform: translate(0%, -50%);
-  text-align: center;
-}
-
-.layer .text h6 {
-  font-style: italic;
-  font-size: 20px;
-  position: relative;
-  margin-bottom: 15px;
-  color: white;
-  transform: translateY(-15px);
-  transition: transform 0.5s;
-}
-
-.icons {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-
-  .opacity:hover {
-    background-color: rgb(255 0 0 / 15%);
+  .discountLayer {
+    position: absolute;
+    padding: 1rem;
+    top: 0px;
+    right: 0px;
+    background-color: #ff498c9e;
+    color: white;
+    min-width: 20%;
+    text-align: center;
+    border-radius: 0px 15px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .color {
-    color: white !important;
+  .layer {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(32, 63, 199, 0.21);
+    border-radius: 15px;
+    opacity: 0;
+    transition: all 0.5s;
+    z-index: 2;
+    transform: translateY(10px);
   }
-  svg {
-    cursor: pointer;
+  .layer2 {
+    height: 98%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(32, 63, 199, 0.21);
+    border-radius: 15px;
+    opacity: 0;
+    transition: all 0.5s;
+    z-index: 2;
+    transform: translateY(10px);
   }
-}
 
-.here:hover h6,
-.here:hover .icons svg {
-  transform: translateY(0);
+  &:hover .layer,
+  &:hover .layer2 {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .text {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translate(0%, -50%);
+    text-align: center;
+
+    h6 {
+      font-style: italic;
+      font-size: 20px;
+      position: relative;
+      margin-bottom: 15px;
+      color: white;
+      transform: translateY(-15px);
+      transition: transform 0.5s;
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+
+      .opacity:hover {
+        background-color: rgb(255 0 0 / 15%);
+      }
+
+      .color {
+        color: white !important;
+      }
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &:hover h6,
+  &:hover .icons svg {
+    transform: translateY(0);
+  }
 }
 
 .bookingTitle {
@@ -1334,6 +1347,7 @@
   display: flex;
   margin-top: 100px;
   margin-bottom: 90px;
+  justify-content: center;
   .reviewImg {
     max-width: 360px;
     max-height: 450px;
@@ -1416,4 +1430,20 @@
 
     min-width: 25% !important;
   }
+}
+
+.layer2 {
+  height: 98%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: rgba(32, 63, 199, 0.21);
+  border-radius: 15px;
+  opacity: 0;
+  transition: all 0.5s;
+  z-index: 2;
+  transform: translateY(10px);
 }

@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { Favorite, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { defaultImage } from "@/Assets/Images";
 
 interface Props {
   ele: any;
@@ -29,8 +30,8 @@ const ImageCard2 = ({
   const { t } = useTranslation();
   return (
     <>
-      <Box key={ele?._id} className={`${index === 0 ? "main" : ""} here`}>
-        <img className="RoomPicture" src={ele?.images[0]} alt="RoomPicture" />
+      <Box key={ele?._id} className={`${index === 0 ? "main" : ""} roomCard`}>
+        <img className="RoomPicture" src={ele?.images[0]?ele?.images[0]:defaultImage} alt="RoomPicture" />
         {ele?.discount ? (
           <Box
             className="discountLayer"
@@ -39,7 +40,7 @@ const ImageCard2 = ({
             {ele?.discount}$ {t("perNight")}
           </Box>
         ) : null}
-        <Box className="layer">
+        <Box className="layer2">
           <Box className="text ">
             <Typography variant="h6" className="roomName">
               {ele?.roomNumber?.toUpperCase()}

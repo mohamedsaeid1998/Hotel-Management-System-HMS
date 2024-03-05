@@ -103,7 +103,7 @@ const Favorites = () => {
                 fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
               }}
             >
-              {t("Your Rooms")}
+              {t("YourRooms")}
             </Typography>
           </Box>
           {isLoading ? (

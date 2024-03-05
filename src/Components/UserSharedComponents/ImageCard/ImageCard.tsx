@@ -4,6 +4,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { Favorite, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { defaultImage } from "@/Assets/Images";
 
 interface Props {
   ele: any;
@@ -30,10 +31,10 @@ const ImageCard = ({
   const { t } = useTranslation();
   return (
     <>
-      <Box key={ele?.room?._id} className={`${index === 0 ? "main" : ""} here`}>
+      <Box key={ele?.room?._id} className={`${index === 0 ? "main" : ""} roomCard`}>
         <img
           className="RoomPicture"
-          src={ele?.room?.images[0]}
+          src={ele?.room?.images[0]?ele?.room?.images[0]:defaultImage}
           alt="RoomPicture"
         />
         {ele?.room?.discount ? (

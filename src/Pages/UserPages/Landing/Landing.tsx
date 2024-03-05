@@ -18,7 +18,8 @@ import { AllAdsData } from "@/Redux/Features/Portal/Ads/getAllAdsSlice";
 import { AddFavoriteItem } from "@/Redux/Features/Portal/Favorites/AddToFavoriteSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
-import { Add, Remove, Visibility } from "@mui/icons-material";
+import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
+import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, IconButton, Skeleton, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import dayjs, { Dayjs, Range } from "dayjs";
@@ -27,11 +28,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Landing.module.scss";
-import { getRooms } from "@/Redux/Features/Portal/Rooms/GetAllRoomsSlice";
 
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 const Landing = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
