@@ -1,10 +1,8 @@
+/** @format */
+
 import { chartsData } from "@/Redux/Features/Admin/Charts/ChartsSlice";
 import { fetchDataIslogged } from "@/Redux/Features/Auth/LoginSlice";
-import {
-  ArrowUpward,
-  Discount,
-  Grade
-} from "@mui/icons-material";
+import { ArrowUpward, Discount, Grade } from "@mui/icons-material";
 import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import {
   Box,
@@ -18,7 +16,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "./Home.module.scss";
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -101,9 +99,9 @@ const Home = () => {
   const isLargScreen = useMediaQuery("(max-width: 1030px)");
   return (
     <>
-<Helmet>
-  <title> Home • Staycation</title>
-</Helmet>
+      <Helmet>
+        <title> Home • Staycation</title>
+      </Helmet>
       <Box component={"main"}>
         <Typography className="homeTitle">DashBoard Analysis</Typography>
 
@@ -119,16 +117,7 @@ const Home = () => {
             flexDirection: isSmallOrMediumScreen ? "column" : "row",
           }}
         >
-          <Box
-            className="cardBox"
-          // sx={{
-          //   display: "flex",
-          //   flexDirection: { md: "row", lg: "column" },
-          //   justifyContent: "center",
-          //   alginItems: "center",
-          // }}
-          >
-            {/*1*/}
+          <Box className="cardBox">
             <Box className="">
               <Card className="card2">
                 <CardContent className="cardCon2">
@@ -321,7 +310,6 @@ const Home = () => {
               </Box>
             )}
           </Box>
-
         </Box>
       </Box>
     </>
