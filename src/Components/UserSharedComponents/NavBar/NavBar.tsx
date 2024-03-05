@@ -1,3 +1,5 @@
+/** @format */
+
 import { defaultImage } from "@/Assets/Images";
 import { UserDetails } from "@/Redux/Features/Admin/Users/GetUserDetailsSlice";
 import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavoritesSlice";
@@ -228,43 +230,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-{
-  /* <Button
-id="demo-positioned-button"
-aria-controls={open ? 'demo-positioned-menu' : undefined}
-aria-haspopup="true"
-aria-expanded={open ? 'true' : undefined}
-onClick={handleClick}
-> 
-Dashboard
-</Button>
-<Menu
-id="demo-positioned-menu"
-aria-labelledby="demo-positioned-button"
-anchorEl={anchorEl}
-open={open}
-onClose={handleClose}
-anchorOrigin={{
-  vertical: 'top',
-  horizontal: 'left',
-}}
-transformOrigin={{
-  vertical: 'top',
-  horizontal: 'left',
-}}
-> 
-<MenuItemonClick={handleClose}>Profile</MenuItem>
-<MenuItem onClick={handleClose}>My account</MenuItem>
-<MenuItem onClick={handleClose}>Logout</MenuItem>
-</Menu> */
-}
-
-{
-  /* <Button className='navBtn' variant="contained" onClick={() => navigate('./login')}>
-              Login Now
-            </Button>
-            <Button className='navBtnSign' variant="contained" onClick={() => navigate('./register')}>
-              Sign Up
-            </Button> */
-}

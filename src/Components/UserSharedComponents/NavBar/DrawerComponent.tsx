@@ -1,3 +1,5 @@
+/** @format */
+
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -14,8 +16,14 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./NavBar.module.scss";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
+import HomeIcon from "@mui/icons-material/Home";
+import { Favorite } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const DrawerComponent = () => {
+  const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -62,6 +70,27 @@ const DrawerComponent = () => {
                 </Typography>
               </ListItem>
               <ListItem>
+                <Box display={"flex"} alignItems={"center"}>
+                  {i18n.language == "ar" ? (
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        i18n.changeLanguage("en");
+                      }}
+                    >
+                      En
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        i18n.changeLanguage("ar");
+                      }}
+                    >
+                      Ar
+                    </Button>
+                  )}
+                </Box>
                 <Box
                   className={style.navArrow}
                   onClick={() => setDrawerOpen(!drawerOpen)}
@@ -70,14 +99,21 @@ const DrawerComponent = () => {
                 </Box>
               </ListItem>
               <ListItem className={style.navSectionsSmallView}>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                  <HomeIcon /> {t("home")}
+                </Link>
               </ListItem>
               <ListItem className={style.navSectionsSmallView}>
-                <Link to="/explore">Explore</Link>
+                <Link to="/explore">
+                  <SearchIcon /> {t("explore")}
+                </Link>
               </ListItem>
 
               <ListItem className={style.navSectionsSmallView}>
-                <Link to="/favorite-rooms">Favorite</Link>
+                <Link to="/favorite-rooms">
+                  {" "}
+                  <Favorite /> {t("Favorites")}
+                </Link>
               </ListItem>
               {!localStorage.getItem("authToken") ? (
                 <>

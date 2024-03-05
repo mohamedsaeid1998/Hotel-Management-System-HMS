@@ -52,13 +52,6 @@ const Explore = () => {
     ? dayjs(state?.range[1]).format("YYYY-MM-DD")
     : nextDate;
 
-  // const [params, setParams] = useSearchParams()
-
-  // const here = {
-  //   startDate,
-  //   endDate
-  // }
-
   const handlePageChange = async (event, page) => {
     try {
       setIsLoading(true);
@@ -73,11 +66,6 @@ const Explore = () => {
     getFavoriteData();
     if (state?.range[0] == undefined) setSelectedDateRange(undefined);
   }, [dispatch, count, data]);
-
-  // const { endDate: end, persons: per, startDate: str } = useParams();
-  // const endDate = end?.substring(end?.indexOf("=") + 1);
-  // const startDate = str?.substring(str?.indexOf("=") + 1);
-  // const bookingGuestCount = per?.substring(per?.indexOf("=") + 1);
 
   const bookingGuestCount = state?.persons;
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
@@ -252,4 +240,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Explore;
