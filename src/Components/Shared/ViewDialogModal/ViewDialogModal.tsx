@@ -135,6 +135,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                 <ImageListItem
                   style={{
                     height: "20rem",
+
                     maxWidth: "20rem",
                     marginTop: "1em",
                   }}
@@ -143,7 +144,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                   {images?.length > 0 ? (
                     <>
                       <img
-                        style={{ width: "100%", borderRadius: ".5rem" }}
+                        style={{ objectFit: "cover", height: "300px", width: "100%", borderRadius: ".5rem" }}
                         src={images[currentImageIndex]}
                         loading="lazy"
                         alt={`room image`}

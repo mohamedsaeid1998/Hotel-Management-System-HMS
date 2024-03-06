@@ -17,7 +17,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { useTranslation } from "react-i18next";
-import i18n from "@/i18n";
+import i18n from "@/locale/i18n";
 import HomeIcon from "@mui/icons-material/Home";
 import { Favorite } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
