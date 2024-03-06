@@ -200,7 +200,7 @@ const Explore = () => {
                     animation="wave"
                   />
                 ))
-              : currentRooms?.map((ele, index) => (
+              : currentRooms?.slice()?.reverse()?.map((ele, index) => (
                   <Box
                     key={index}
                     sx={{ width: 200, height: 200, my: 2 }}

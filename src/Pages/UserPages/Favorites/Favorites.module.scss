@@ -16,12 +16,7 @@
   flex-direction: row !important;
   flex-wrap: wrap;
   gap: 5em;
-  // @media (max-width: 960px) {
-  //   justify-content: center !important;
-  // }
-  // @media (max-width: 768px) {
-  //   justify-content: space-between;
-  // }
+
   justify-content: start;
 
   @media (min-width: 525px) {

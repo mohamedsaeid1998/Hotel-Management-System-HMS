@@ -33,17 +33,6 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
   const handleImageClick = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
-
-  // const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-  // const images = [imgView1, imgView2, imgView3];
-
-  // const { roomNumber, price, Discount, Capacity, Category } = roomDetailsData;
-  // const data = [roomNumber, price, Discount, Capacity, Category];
-
-  // const viewItem = React.useCallback(async () => {
-  //   const viewDetails = await dispatch(viewRoomDetails(itemId));
-  //   setRoomDetailsData(viewDetails.payload.data.room);
-  // }, [dispatch, itemId]);
   const viewItem = async () => {
     try {
       const viewDetails = await dispatch(viewRoomDetails(itemId));

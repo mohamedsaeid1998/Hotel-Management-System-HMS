@@ -4,7 +4,7 @@ import "./AuthLayout.module.scss";
 import AuthBackground from "../AuthBackground/AuthBackground";
 const AuthLayout = () => {
   const isMediumSize = useMediaQuery("(max-width:900px)");
-  console.log(isMediumSize);
+
   return (
     <>
       <Grid className="authLayout" container spacing={2}>

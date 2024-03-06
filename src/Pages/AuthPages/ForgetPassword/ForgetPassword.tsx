@@ -25,7 +25,6 @@ const ForgetPassword = () => {
   const onSubmit = async (data: any) => {
 
     const response = await dispatch(fetchData(data))
-    console.log(response);
     if (response?.payload?.data?.message === "Password reset request, already sent successfully ,check your email") {
       toast.success(response.payload.data.message, {
         autoClose: 2000,

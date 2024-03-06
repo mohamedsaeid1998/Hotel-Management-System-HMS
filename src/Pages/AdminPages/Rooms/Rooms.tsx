@@ -168,7 +168,7 @@ const Rooms = () => {
         path={"/dashboard/rooms/add-new/"}
       />
       <DataGrid
-        // style={{ height: "27rem" }}
+   
         className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}

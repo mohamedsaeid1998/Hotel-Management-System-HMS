@@ -56,7 +56,7 @@ const Navbar = ({ showDrawer }: any) => {
                     src={
                       userData?.profileImage == null
                         ? defaultImage
-                        : `http://upskilling-egypt.com:3000/` +
+                        : `https://upskilling-egypt.com:3000/` +
                           userData?.profileImage
                     }
                   />

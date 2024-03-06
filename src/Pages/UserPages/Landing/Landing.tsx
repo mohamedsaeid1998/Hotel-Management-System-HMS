@@ -167,6 +167,8 @@ const Landing = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />
@@ -333,6 +335,8 @@ const Landing = () => {
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
+                // reverseDirection:true
+
               }}
               // loop={true}
               modules={[Autoplay]}
@@ -412,7 +416,7 @@ const Landing = () => {
                   </Box>
                 </Box>
               ) : (
-                rooms?.map((ele, index) => (
+                rooms?.slice()?.reverse()?.map((ele, index) => (
                   <Fragment key={ele?._id}>
                     <SwiperSlide>
                       <ImageCard2

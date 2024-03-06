@@ -91,7 +91,7 @@ const Login = () => {
 
   const handleTestCode = (e: any) => {
     e.preventDefault()
-    console.log(testCode);
+
     if (testCode === "ABCDEF") {
       setShow(true)
       toast.success("Choose account Kind", {
@@ -185,7 +185,6 @@ const Login = () => {
           sx={{ padding: { xs: "1rem" } }}
         >
           <TextField
-            // xs={marginB}
             variant="outlined"
             type="email"
             className="auth-input"

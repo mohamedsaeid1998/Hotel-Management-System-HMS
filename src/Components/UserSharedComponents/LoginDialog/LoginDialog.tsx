@@ -55,32 +55,6 @@ const LoginDialog = ({ open, handleClose }: IProps) => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
 
-  // function handleCallbackResponse(response: any) {
-  //   localStorage.setItem("authToken", response.credential);
-  //   const accessToken = localStorage.getItem("authToken");
-  //   baseUrl
-  //     .post("/api/v0/portal/users/auth/google", { accessToken })
-  //     .then((res) => {
-  //       localStorage.setItem("authToken", res.data.data.token);
-  //       localStorage.setItem("userRole", res.data.data.user.role);
-  //       localStorage.setItem("userId", res.data.data.user._id);
-  //       console.log(res.data.message);
-  //       navigate("/dashboard");
-  //       toast.success(res.data.message, {
-  //         autoClose: 2000,
-  //         theme: "colored",
-  //       });
-  //     })
-  //     .catch((error) =>
-  //       toast.error(error, {
-  //         autoClose: 2000,
-  //         theme: "colored",
-  //       })
-  //     );
-  // }
-
-
-
   return <>
 
     <Dialog

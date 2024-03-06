@@ -43,21 +43,6 @@ export const CreateRooms = createAsyncThunk<any, void>(
     }
   }
 
-
-
-
-
-
-  // export const CreateRooms = createAsyncThunk<any, void>("CreateRoomsSlice/CreateRooms", async (addFormData:any) => {
-
-  //   let data = await baseUrl.post(`/api/v0/admin/rooms`,
-  //     addFormData
-  //   ,{
-  //     headers:{
-  //       Authorization: token,
-  //       "Content-Type": "multipart/form-data"
-  //     }
-  //   }
 );
 
 const initialState: Props = {

@@ -1,7 +1,6 @@
 .navStyle {
   height: 100vh;
   transition: 2s all;
-  // text-align: center !important;
   justify-content: center !important;
   align-items: center !important;
   padding: 5rem;
@@ -13,7 +12,6 @@
     position: absolute;
     right: 0px;
     z-index: 9999;
-    // text-align: center;
     animation: navAnimation 5s;
     @keyframes navAnimation {
       50% {
@@ -66,6 +64,4 @@
 }
 .logo {
   color: rgb(75, 120, 255);
-
-  // margin: auto;
 }

@@ -8,14 +8,9 @@ import UserLayout from "./Components/Shared/UserLayout/UserLayout";
 import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
 import Store from "./Redux/Store";
 const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
-// import LoadingComponent from "./Components/Loading/Loading";
-
 
 function App() {
 
-
-
-  // /explore?startDate=${startDate}&endDate=${endDate}&person=${personsCount}
   const routes = createHashRouter([
     {
       path: "/",

@@ -34,7 +34,6 @@ const ResetPassword = () => {
   const onSubmit = async (data: any) => {
     setloading(true)
     const response = await dispatch(handleResetPassword(data))
-    console.log(response);
     if (response?.payload?.data?.message === "Invalid verification code") {
       setloading(false)
       toast.success(response.payload.data.message, {
@@ -50,20 +49,6 @@ const ResetPassword = () => {
       });
     }
 
-
-
-    // baseUrl
-    //   .post(`/api/v0/portal/users/reset-password`, data)
-    //   .then(() => {
-    //     toast.success("send successfully");
-    //     navigate("/login");
-    //   })
-    //   .catch((err) => {
-    //     toast.error(err.response.data.message, {
-    //       autoClose: 2000,
-    //       theme: "colored",
-    //     });
-    //   });
   };
 
   const handleClickShowPassword = () => {

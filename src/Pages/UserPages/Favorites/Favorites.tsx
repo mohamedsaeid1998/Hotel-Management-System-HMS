@@ -121,7 +121,7 @@ const Favorites = () => {
           ) : (
             <>
               <Box className={style.favoriteComponent}>
-                {favList.slice(0, visibleImages).map((ele, index) => (
+                {favList.slice(0, visibleImages)?.map((ele, index) => (
                   <>
                     <ImageCard2
                       key={ele?._id}

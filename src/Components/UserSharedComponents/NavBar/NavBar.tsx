@@ -199,7 +199,7 @@ const NavBar = () => {
                         src={
                           userData?.profileImage == null
                             ? defaultImage
-                            : `http://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
+                            : `https://res.cloudinary.com/dpa4yqvdv/image/upload/v1705784141/users/fod9w8mryr5c5raufxwc.jpg`
                         }
                       />
                     </IconButton>
