@@ -32,8 +32,7 @@ export const CreateAds = createAsyncThunk<any, void>(
       );
       return response.data;
     } catch (error) {
-      rejectWithValue(error);
-      toast.error(error.message);
+      return error
     }
   }
 );
