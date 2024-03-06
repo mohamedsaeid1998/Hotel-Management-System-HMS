@@ -87,8 +87,6 @@ const AddNewAds = () => {
           theme: "colored",
         });
         navigate("/dashboard/ads");
-        // console.log(createAdsData);
-
       } else {
         toast.error(createAdsData?.payload?.response?.data?.message, {
           autoClose: 2000,
