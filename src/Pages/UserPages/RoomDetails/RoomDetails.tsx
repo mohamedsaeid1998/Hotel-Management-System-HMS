@@ -65,6 +65,8 @@ const RoomDetails = () => {
   const id = state?.roomId;
 
   const [details, setDetails] = useState();
+  console.log(details);
+
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
 
@@ -84,6 +86,8 @@ const RoomDetails = () => {
       // @ts-ignore
       const element = await dispatch(roomDetails(id));
       // @ts-ignore
+      console.log(element?.payload?.data);
+
       setDetails(element?.payload?.data?.data?.room);
       // @ts-ignore
       setPrice(element?.payload?.data?.data?.room?.price);
@@ -170,7 +174,7 @@ const RoomDetails = () => {
       <Box component={"main"} className="roomDetailsCon">
         <Box className="userContainer">
           <Typography variant="h1" className="title">
-            {t("VillageAngga")}
+            {details?.roomNumber}
           </Typography>
           <Breadcrumbs aria-label="breadcrumb">
             <Link className="path" color="inherit" to={"/"}>

@@ -29,7 +29,7 @@ const Navbar = ({ showDrawer }: any) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: { sm: "none" }, color: "black" }}>
@@ -57,7 +57,7 @@ const Navbar = ({ showDrawer }: any) => {
                       userData?.profileImage == null
                         ? defaultImage
                         : `https://upskilling-egypt.com:3000/` +
-                          userData?.profileImage
+                        userData?.profileImage
                     }
                   />
                 </IconButton>

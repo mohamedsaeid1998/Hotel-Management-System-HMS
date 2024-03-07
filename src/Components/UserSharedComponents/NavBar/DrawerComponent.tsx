@@ -69,28 +69,28 @@ const DrawerComponent = () => {
                   cation.
                 </Typography>
               </ListItem>
-              <ListItem>
-                <Box display={"flex"} alignItems={"center"}>
-                  {i18n.language == "ar" ? (
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        i18n.changeLanguage("en");
-                      }}
-                    >
-                      En
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        i18n.changeLanguage("ar");
-                      }}
-                    >
-                      Ar
-                    </Button>
-                  )}
-                </Box>
+
+              <ListItem sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                {i18n.language == "ar" ? (
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      i18n.changeLanguage("en");
+                    }}
+                  >
+                    En
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      i18n.changeLanguage("ar");
+                    }}
+                  >
+                    Ar
+                  </Button>
+                )}
                 <Box
                   className={style.navArrow}
                   onClick={() => setDrawerOpen(!drawerOpen)}

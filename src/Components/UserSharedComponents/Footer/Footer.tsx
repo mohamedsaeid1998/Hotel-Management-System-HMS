@@ -1,6 +1,7 @@
 import { Box, List, ListItem, Typography } from "@mui/material";
 import "./Footer.module.scss";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ const Footer = () => {
           <ListItem className="listChild">Staycation, Egypt , Giza</ListItem>
         </List>
       </Box>
+      <Box className="FooterCreatedBy">Created By <Link to={'./'}>Mohamed Saeid , Yousef Ehab , </Link></Box>
       <Box className="FooterCopyRight">{t("Copyright")}</Box>
     </>
   );

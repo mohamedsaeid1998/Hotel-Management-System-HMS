@@ -1,4 +1,3 @@
-
 @media (max-width: 1050px) {
   .Stepper {
     width: 75% !important;
@@ -89,6 +88,10 @@
       grid-template-areas:
         "main main main main "
         "- - - -";
+      .roomCard {
+        width: 100%;
+      }
+
     }
   }
   .title {
