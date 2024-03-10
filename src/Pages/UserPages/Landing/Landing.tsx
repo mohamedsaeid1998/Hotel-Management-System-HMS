@@ -27,10 +27,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Landing.module.scss";
-
 import { useTranslation } from "react-i18next";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion"
 const Landing = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -167,7 +167,8 @@ const Landing = () => {
     setOpen(false);
   };
 
-
+  const MotionButton = motion(Button)
+  const MotionBox = motion(Box)
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />
@@ -242,7 +243,9 @@ const Landing = () => {
               </Box>
             </Box>
 
-            <Button
+            <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
               className="submitExplore"
               onClick={() =>
                 navigate(`/explore`, {
@@ -256,7 +259,7 @@ const Landing = () => {
               color="primary"
             >
               {t("explore")}
-            </Button>
+            </MotionButton>
           </Box>
         </Box>
 
@@ -333,7 +336,10 @@ const Landing = () => {
           <Typography variant="h4" className="bookingTitle">
             {t("mostBookedRooms")}
           </Typography>
-          <Box className="sliderCon">
+          <MotionBox
+            whileInView={{ y: [200, 0] }}
+            viewport={{once:true}}
+          className="sliderCon">
             <Swiper
               slidesPerView={6}
               spaceBetween={20}
@@ -443,7 +449,7 @@ const Landing = () => {
                 ))
               )}
             </Swiper>
-          </Box>
+          </MotionBox>
         </Box>
         <Box component="section" className="reviewUsersSection">
           <UsersReview />

@@ -8,6 +8,7 @@ import { fetchData } from "../../../Redux/Features/Auth/ForgetPasswordSlice";
 import "./ForgetPassword.module.scss";
 import { Helmet } from 'react-helmet'
 import { toast } from "react-toastify";
+import { motion } from "framer-motion"
 const ForgetPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const ForgetPassword = () => {
     }
 
   };
-
+  const MotionButton = motion(Button)
   return (
     <>
       <Helmet>
@@ -116,7 +117,9 @@ const ForgetPassword = () => {
             Send mail
           </LoadingButton>
         ) : (
-          <Button
+          <MotionButton
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.9 }}
             variant="contained"
             sx={{
               width: "100%",
@@ -132,7 +135,7 @@ const ForgetPassword = () => {
             size="large"
           >
             Send mail <ChevronRight />
-          </Button>
+          </MotionButton>
         )}
       </Box>
     </>

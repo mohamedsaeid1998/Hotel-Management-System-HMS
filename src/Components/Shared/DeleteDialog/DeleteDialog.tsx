@@ -2,6 +2,7 @@ import { deleteImg } from "@/Assets/Images";
 import { deleteDialog } from "@/Redux/Features/Admin/DeleteDialogSlice/DeleteDialogSlice";
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -79,7 +80,7 @@ const DeleteDialog = ({ getData, openDialog, handleCloseDialog, itemId }:any) =>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <form onSubmit={handleSubmit(deleteItem)}>
+        <Box component={"form"} onSubmit={handleSubmit(deleteItem)}>
           <Button
             color="error"
             onClick={handleCloseDialog}
@@ -88,7 +89,7 @@ const DeleteDialog = ({ getData, openDialog, handleCloseDialog, itemId }:any) =>
           >
             Delete this item
           </Button>
-        </form>
+        </Box>
       </DialogActions>
     </Dialog>
   );

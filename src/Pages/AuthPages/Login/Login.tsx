@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fetchData } from "../../../Redux/Features/Auth/LoginSlice";
+import { motion } from "framer-motion"
 import "./Login.module.scss";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -136,6 +137,11 @@ const Login = () => {
   const handleRadioChangeUser = (e: any) => {
     setRadioCheckedUser(e.target.checked);
   };
+
+
+  const MotionButton = motion(Button)
+
+
 
 
   return (
@@ -269,7 +275,9 @@ const Login = () => {
               Login
             </LoadingButton>
           ) : (
-            <Button
+            <MotionButton
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.9 }}
               variant="contained"
               sx={{
                 width: "100%",
@@ -286,7 +294,7 @@ const Login = () => {
               size="large"
             >
               Login <ChevronRight />
-            </Button>
+            </MotionButton>
           )}
           <div id="signInDiv"></div>
           <Box component={"form"} className="testContainer">
@@ -301,14 +309,16 @@ const Login = () => {
                 setTestCode(e.target.value)
               }}
             />
-            <Button
+            <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
               className="testButton"
               variant="contained"
               onClick={() => handleTestCode(event)}
               size="small"
             >
               Submit
-            </Button>
+            </MotionButton>
             <Box
               className={`${show ? "show" : "hide"} `}>
               <Box className="inputWrapper">

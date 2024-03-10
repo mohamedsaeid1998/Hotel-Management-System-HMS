@@ -18,12 +18,13 @@ import "./Register.module.scss";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Helmet } from 'react-helmet'
 import { LoadingButton } from "@mui/lab";
+import { motion } from "framer-motion"
 const Register = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { isRegister,loading } = useSelector((state) => state.register);
+  const { isRegister, loading } = useSelector((state) => state.register);
   const navigate = useNavigate();
   const required = "This Field is required";
   const VisuallyHiddenInput = styled("input")({
@@ -59,6 +60,7 @@ const Register = () => {
       navigate("/login");
     }
   }, [isRegister, navigate]);
+  const MotionButton = motion(Button)
   return (
     <>
       <Helmet>
@@ -101,7 +103,7 @@ const Register = () => {
             </Link>
           </Typography>
         </Box>
-        <form
+        <Box component={"form"}
           onSubmit={handleSubmit(onSubmit)}>
           <TextField
             variant="outlined"
@@ -243,7 +245,9 @@ const Register = () => {
                 : null
             }
           />
-          <Button
+          <MotionButton
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.9 }}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -268,37 +272,39 @@ const Register = () => {
                   : null
               }
             />
-          </Button>
+          </MotionButton>
 
           {loading ? (
-          <LoadingButton
-            sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
-            className="loadingButton"
-            loading
-            variant="outlined"
-          >
-            Send mail
-          </LoadingButton>
-        ) : (
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              mt: 2,
-              padding: { lg: ".5em" },
-              fontSize: {
-                xs: "0.9rem",
-                sm: "1rem",
-                md: "1rem",
-              },
-            }}
-            type="submit"
-            size="large"
-          >
-            Sign up
-          </Button>
-        )}
-        </form>
+            <LoadingButton
+              sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
+              className="loadingButton"
+              loading
+              variant="outlined"
+            >
+              Send mail
+            </LoadingButton>
+          ) : (
+            <MotionButton
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.9 }}
+              variant="contained"
+              sx={{
+                width: "100%",
+                mt: 2,
+                padding: { lg: ".5em" },
+                fontSize: {
+                  xs: "0.9rem",
+                  sm: "1rem",
+                  md: "1rem",
+                },
+              }}
+              type="submit"
+              size="large"
+            >
+              Sign up
+            </MotionButton>
+          )}
+        </Box>
       </Box>
     </>
   );

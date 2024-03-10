@@ -5,7 +5,7 @@ import Rating from "@mui/material/Rating";
 import * as React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-
+import { motion } from "framer-motion"
 export default function RatingComponent({ id }) {
   const [rateValue, setRateValue] = React.useState<number | null>(2);
 
@@ -30,6 +30,7 @@ export default function RatingComponent({ id }) {
       setValue("review", "");
     }
   };
+  const MotionButton = motion(Button)
   return (
     <Box component="form" onSubmit={handleSubmit(submitData)}>
       <Controller
@@ -56,14 +57,16 @@ export default function RatingComponent({ id }) {
       />
 
       <Box style={{ marginTop: "1rem" }}>
-        <Button
+        <MotionButton
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.8 }}
           color="primary"
           variant="contained"
           style={{ textAlign: "end" }}
           type="submit"
         >
           {loadingBtn ? <CircularProgress size={24} color="inherit" /> : "Rate"}
-        </Button>
+        </MotionButton>
       </Box>
     </Box>
   );

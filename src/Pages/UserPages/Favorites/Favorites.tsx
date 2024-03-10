@@ -31,7 +31,6 @@ const Favorites = () => {
   const [disabled, setDisabled] = useState(false);
   const { count } = useSelector((state) => state.AddToFavorite);
   const { data } = useSelector((state) => state.RemoveFavoriteItemSlice);
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
   const dispatch = useDispatch();
   //! ************************ Get All Favorite Rooms  *************************
   const getFavoriteData = async () => {

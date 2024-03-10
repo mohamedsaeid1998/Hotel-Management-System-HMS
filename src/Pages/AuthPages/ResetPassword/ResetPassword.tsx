@@ -12,11 +12,11 @@ import { Helmet } from 'react-helmet';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import baseUrl from "../../../utils/Custom/Custom";
 import "./ResetPassword.module.scss";
 import { useDispatch } from "react-redux";
 import { handleResetPassword } from "@/Redux/Features/Auth/ResetPasswordSlice";
 import { LoadingButton } from "@mui/lab";
+import { motion } from "framer-motion"
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -57,6 +57,7 @@ const ResetPassword = () => {
   const handleClickShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+  const MotionButton = motion(Button)
   return (
     <>
       <Helmet>
@@ -98,7 +99,7 @@ const ResetPassword = () => {
           </Typography>
         </Box>
       </Box>
-      <form
+      <Box component={"form"}
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "80%", margin: "auto" }}
       >
@@ -204,7 +205,9 @@ const ResetPassword = () => {
             Send mail
           </LoadingButton>
         ) : (
-          <Button
+          <MotionButton
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.9 }}
             variant="contained"
             sx={{
               width: "100%",
@@ -220,9 +223,9 @@ const ResetPassword = () => {
             size="large"
           >
             Reset
-          </Button>
+          </MotionButton>
         )}
-      </form>
+      </Box>
     </>
   );
 };

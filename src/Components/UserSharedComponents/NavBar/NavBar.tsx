@@ -23,6 +23,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DrawerComponent from "./DrawerComponent";
 import "./NavBar.module.scss";
+import { motion } from "framer-motion"
 const NavBar = () => {
   const { t, i18n } = useTranslation();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -100,6 +101,7 @@ const NavBar = () => {
       navigate("./favorite-rooms");
     }
   };
+  const MotionButton = motion(Button)
   return (
     <>
       <AppBar color="inherit" className="nav">
@@ -134,9 +136,8 @@ const NavBar = () => {
                 {t("home")}
               </Link>
               <Link
-                className={`navLink ${
-                  pathname?.includes("explore") ? "activeLink" : ""
-                }`}
+                className={`navLink ${pathname?.includes("explore") ? "activeLink" : ""
+                  }`}
                 to={"./explore"}
               >
                 {t("explore")}
@@ -175,20 +176,24 @@ const NavBar = () => {
               )}
               {!localStorage.getItem("authToken") ? (
                 <>
-                  <Button
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
                     className="navBtn"
                     variant="contained"
                     onClick={() => navigate("./login")}
                   >
                     {t("login")}
-                  </Button>
-                  <Button
+                  </MotionButton>
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
                     className="navBtnSign"
                     variant="contained"
                     onClick={() => navigate("./register")}
                   >
                     {t("signup")}
-                  </Button>
+                  </MotionButton>
                 </>
               ) : (
                 <>
@@ -212,13 +217,15 @@ const NavBar = () => {
                       {userData?.email}
                     </Typography>
                   </Box>
-                  <Button
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
                     className="navBtn"
                     variant="contained"
                     onClick={handelLogout}
                   >
                     {t("Logout")}
-                  </Button>
+                  </MotionButton>
                 </>
               )}
             </Stack>

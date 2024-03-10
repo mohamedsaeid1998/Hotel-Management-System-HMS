@@ -21,7 +21,7 @@ import i18n from "@/locale/i18n";
 import HomeIcon from "@mui/icons-material/Home";
 import { Favorite } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { motion } from "framer-motion"
 const DrawerComponent = () => {
   const { t } = useTranslation();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -34,7 +34,7 @@ const DrawerComponent = () => {
     localStorage.removeItem("userId");
     window.location.reload();
   };
-
+  const MotionButton = motion(Button)
   return (
     <>
       {isMobile && (
@@ -118,7 +118,9 @@ const DrawerComponent = () => {
               {!localStorage.getItem("authToken") ? (
                 <>
                   <ListItem>
-                    <Button
+                    <MotionButton
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.8 }}
                       className="navBtn"
                       variant="contained"
                       onClick={() => {
@@ -127,11 +129,13 @@ const DrawerComponent = () => {
                       }}
                     >
                       Login Now
-                    </Button>
+                    </MotionButton>
                   </ListItem>
 
                   <ListItem>
-                    <Button
+                    <MotionButton
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.8 }}
                       className="navBtnSign"
                       variant="contained"
                       onClick={() => {
@@ -140,13 +144,15 @@ const DrawerComponent = () => {
                       }}
                     >
                       Sign Up
-                    </Button>
+                    </MotionButton>
                   </ListItem>
                 </>
               ) : (
                 <>
                   <ListItem style={{ textAlign: "center" }}>
-                    <Button
+                    <MotionButton
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.8 }}
                       variant="contained"
                       onClick={() => {
                         setDrawerOpen(!drawerOpen);
@@ -154,7 +160,7 @@ const DrawerComponent = () => {
                       }}
                     >
                       Logout
-                    </Button>
+                    </MotionButton>
                   </ListItem>
                 </>
               )}

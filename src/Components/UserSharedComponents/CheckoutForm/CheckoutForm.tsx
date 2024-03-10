@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import "./CheckoutForm.module.scss";
 import { creditCard, paymentDone } from "@/Assets/Images";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion"
 const CheckoutForm = () => {
   const { t } = useTranslation();
   const stripe = useStripe();
@@ -74,6 +75,7 @@ const CheckoutForm = () => {
   const handleNavigate = () => {
     navigate("/");
   };
+  const MotionButton = motion(Button)
   return (
     <>
       <Box component={"main"}>
@@ -139,14 +141,16 @@ const CheckoutForm = () => {
                     ) : (
                       <>
                         <Box className="paymentBtnCon">
-                          <Button
+                          <MotionButton
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.8 }}
                             variant="contained"
                             className="paymentBtn"
                             disabled={!stripe}
                             type="submit"
                           >
                             {t("Pay")}
-                          </Button>
+                          </MotionButton>
                           <Button
                             variant="contained"
                             className="paymentBtn"
@@ -171,9 +175,12 @@ const CheckoutForm = () => {
                   <Typography className="content">
                     {t("description")}
                   </Typography>
-                  <Button className="backBtn" onClick={() => handleNavigate()}>
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
+                    className="backBtn" onClick={() => handleNavigate()}>
                     {t("BackToHome")}
-                  </Button>
+                  </MotionButton>
                 </Box>
               </>
             )}

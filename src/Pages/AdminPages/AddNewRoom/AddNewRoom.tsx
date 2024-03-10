@@ -17,6 +17,7 @@ import "./AddNewRoom.module.scss";
 interface propState {
   isEdit: boolean;
 }
+import { motion } from "framer-motion"
 const AddNewRoom = () => {
   const {
     register,
@@ -72,7 +73,7 @@ const AddNewRoom = () => {
 
       setEditFacilities(roomsIds);
       setLoadingRoom(false);
-    } finally  {
+    } finally {
     }
   };
 
@@ -123,7 +124,7 @@ const AddNewRoom = () => {
     } else {
       const roomId = id;
       const updateData = await dispatch(
-              //@ts-ignore
+        //@ts-ignore
         updateRoomData({ addFormData, roomId })
       );
       if (updateData?.payload?.success) {
@@ -143,7 +144,7 @@ const AddNewRoom = () => {
       }
     }
   };
-
+  const MotionButton = motion(Button)
   return (
     <>
       {loadingRoom ? (
@@ -287,7 +288,9 @@ const AddNewRoom = () => {
               )}
             </Box>
             <Box className="imagesBtn">
-              <Button
+              <MotionButton
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.8 }}
                 component="label"
                 variant="contained"
                 startIcon={<CloudUploadIcon />}
@@ -299,14 +302,17 @@ const AddNewRoom = () => {
                   multiple
                   hidden
                 />
-              </Button>
+              </MotionButton>
             </Box>
 
             <Box className="btnContainer">
               <Link to={"/dashboard/rooms"}>
-                <Button variant="outlined" size="large">
+                <MotionButton
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.8 }}
+                  variant="outlined" size="large">
                   Cancel
-                </Button>
+                </MotionButton>
               </Link>
               {loadingBtn ? (
                 <LoadingButton
@@ -317,9 +323,12 @@ const AddNewRoom = () => {
                   Login
                 </LoadingButton>
               ) : (
-                <Button variant="contained" type="submit" size="large">
+                <MotionButton
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.8 }}
+                  variant="contained" type="submit" size="large">
                   Submit <ChevronRight />
-                </Button>
+                </MotionButton>
               )}
             </Box>
           </Box>

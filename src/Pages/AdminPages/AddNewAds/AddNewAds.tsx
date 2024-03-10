@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./AddNewAds.module.scss";
-
+import { motion } from "framer-motion"
 const AddNewAds = () => {
   const [isActive, setIsActive] = useState("");
   const [defRoomId, setDefRoomId] = useState("");
@@ -119,6 +119,7 @@ const AddNewAds = () => {
       getDetailsAds();
     }
   }, []);
+  const MotionButton = motion(Button)
   return (
     <>
       {loading ? (
@@ -221,9 +222,12 @@ const AddNewAds = () => {
 
               <Box className="btnContainer">
                 <Link to={"/dashboard/ads"}>
-                  <Button variant="outlined" size="large">
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
+                    variant="outlined" size="large">
                     Cancel
-                  </Button>
+                  </MotionButton>
                 </Link>
 
                 {loadingBtn ? (
@@ -235,9 +239,12 @@ const AddNewAds = () => {
                     Submit
                   </LoadingButton>
                 ) : (
-                  <Button variant="contained" type="submit" size="large">
+                  <MotionButton
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.8 }}
+                    variant="contained" type="submit" size="large">
                     Submit <ChevronRight />
-                  </Button>
+                  </MotionButton>
                 )}
               </Box>
             </Box>

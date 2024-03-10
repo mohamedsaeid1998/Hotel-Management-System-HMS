@@ -12,6 +12,7 @@ import "./AddNewFacility.module.scss";
 import { updateFacilityData } from "@/Redux/Features/Admin/Facilities/updateFacilitySlice";
 import { facilitiesDataDetails } from "@/Redux/Features/Admin/Facilities/FacilitiesDetailsSlice";
 import LoadingComponent from "@/Components/Shared/Loading/Loading";
+import { motion } from "framer-motion"
 interface propState {
   isEdit: boolean;
 }
@@ -92,6 +93,8 @@ const AddNewFacility = () => {
       facilityDetails();
     }
   }, []);
+  const MotionButton = motion(Button)
+
   return (
     <>
       {loading ? (
@@ -120,9 +123,12 @@ const AddNewFacility = () => {
 
           <Box className="btnContainer">
             <Link to={"/dashboard/room-facilities"}>
-              <Button variant="outlined" size="large">
+              <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
+              variant="outlined" size="large">
                 Cancel
-              </Button>
+              </MotionButton>
             </Link>
 
             {loadingBtn ? (
@@ -134,9 +140,12 @@ const AddNewFacility = () => {
                 Submit
               </LoadingButton>
             ) : (
-              <Button variant="contained" type="submit" size="large">
+              <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
+              variant="contained" type="submit" size="large">
                 Submit <ChevronRight />
-              </Button>
+              </MotionButton>
             )}
           </Box>
         </Box>

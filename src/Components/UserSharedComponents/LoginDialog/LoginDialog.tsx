@@ -22,7 +22,7 @@ interface IProps {
   open: boolean,
   handleClose: () => void
 }
-
+import { motion } from "framer-motion"
 const LoginDialog = ({ open, handleClose }: IProps) => {
 
   const [showPassword, setShowPassword] = useState(false);
@@ -54,6 +54,8 @@ const LoginDialog = ({ open, handleClose }: IProps) => {
   useEffect(() => {
     dispatch(fetchDataStart(false));
   }, [dispatch]);
+
+  const MotionButton = motion(Button)
 
   return <>
 
@@ -135,14 +137,16 @@ const LoginDialog = ({ open, handleClose }: IProps) => {
                 Login
               </LoadingButton>
             ) : (
-              <Button
+              <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
                 variant="contained"
                 sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
                 type="submit"
                 size="large"
               >
                 Login <ChevronRight />
-              </Button>
+              </MotionButton>
             )}
             <div id="signInDiv"></div>
           </Box >

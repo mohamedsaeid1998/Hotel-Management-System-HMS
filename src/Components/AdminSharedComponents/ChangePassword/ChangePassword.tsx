@@ -14,7 +14,7 @@ import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-
+import { motion } from "framer-motion"
 export default function ChangePassword() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -45,9 +45,11 @@ export default function ChangePassword() {
       setValue("confirmPassword", null);
     }
   }, [isConfirmPassword, isPasswordChanged]);
+
+  const MotionButton = motion(Button)
   return (
     <>
-      <div>
+      <Box>
         <ListItemButton onClick={handleOpen}>
           <ListItemIcon>
             <LockOpen />
@@ -64,7 +66,7 @@ export default function ChangePassword() {
             <Typography variant="h6" component="h6">
               Change Password
             </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 variant="outlined"
                 type="password"
@@ -127,19 +129,21 @@ export default function ChangePassword() {
                   Login
                 </LoadingButton>
               ) : (
-                <Button
+                <MotionButton
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.9 }}
                   variant="contained"
                   sx={{ width: "100%", padding: "10px", margin: "20px 0" }}
                   type="submit"
                   size="large"
                 >
                   Change Password
-                </Button>
+                </MotionButton>
               )}
-            </form>
+            </Box>
           </Box>
         </Modal>
-      </div>
+      </Box >
     </>
   );
 }

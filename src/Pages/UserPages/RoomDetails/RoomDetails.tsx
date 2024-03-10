@@ -39,7 +39,7 @@ import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 
 
-
+import { motion } from "framer-motion"
 const RoomDetails = () => {
   const { t } = useTranslation();
 
@@ -164,7 +164,7 @@ const RoomDetails = () => {
     getRoomDetails();
     if (bookingGuestCount !== undefined) setPersonsCount(bookingGuestCount);
   }, []);
-
+  const MotionButton = motion(Button)
   return (
     <>
       <Helmet>
@@ -367,14 +367,16 @@ const RoomDetails = () => {
                           {t("ContinueBook")}
                         </LoadingButton>
                       ) : (
-                        <Button
+                        <MotionButton
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.8 }}
                           className="submitBtn"
                           type="submit"
                           variant="contained"
                           onClick={handleBooking}
                         >
                           {t("ContinueBook")}
-                        </Button>
+                        </MotionButton>
                       )}
                     </Box>
                   </CardContent>

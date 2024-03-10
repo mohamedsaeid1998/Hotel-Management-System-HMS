@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import "./TableHeader.module.scss";
-import { requestHeaders } from "@/utils/Custom/Custom";
+import { motion } from "framer-motion"
 
 interface IProps {
   title: string;
@@ -11,6 +11,8 @@ interface IProps {
 
 const TableHeader = ({ title, subTitle, path }: IProps) => {
   const { pathname } = useLocation();
+
+  const MotionButton = motion(Button)
   return (
     <>
       <Box component="header" className="header">
@@ -29,11 +31,14 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
           ) : (
             <Box>
 
-            <Button color="primary" variant="contained" >
-              <Link to={path} state={{ isEdit: false }} className="linkStyle"  >
-                Add New {subTitle}
-              </Link>
-            </Button>
+              <MotionButton color="primary" variant="contained"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.8 }}
+              >
+                <Link to={path} state={{ isEdit: false }} className="linkStyle"  >
+                  Add New {subTitle}
+                </Link>
+              </MotionButton>
             </Box>
           )}
         </Box>
