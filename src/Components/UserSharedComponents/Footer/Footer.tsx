@@ -1,7 +1,6 @@
 import { Box, List, ListItem, Typography } from "@mui/material";
 import "./Footer.module.scss";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -42,11 +41,13 @@ const Footer = () => {
           <ListItem className="listHead">{t("ConnectUs")}</ListItem>
           <ListItem className="listChild">upskilling.eg1@gmail.com</ListItem>
           <ListItem className="listChild">011 - 5493 - 2137</ListItem>
-          <ListItem className="listChild">Staycation, Egypt , Giza</ListItem>
+          <ListItem className="listChild">Upskilling , Egypt , Giza</ListItem>
         </List>
       </Box>
-      <Box className="FooterCreatedBy">Created By <Link to={'./'}>Mohamed Saeid , Yousef Ehab , </Link></Box>
-      <Box className="FooterCopyRight">{t("Copyright")}</Box>
+      <Box className="FooterCreatedBy">Created By  <Typography variant="" className="links" onClick={() => window.open('https://www.linkedin.com/in/mohamed-saeid-70aa86237/')} > Mohamed Saeid </Typography> •
+        <Typography variant="" className="links" onClick={() => window.open('https://www.linkedin.com/in/yousef-abdelwahed-875b47225/')} > Yousef Abdelwahed </Typography> •
+        <Typography variant="" className="links" onClick={() => window.open('https://www.linkedin.com/in/el-adawy/')} > Abdelrhman El-adawy</Typography>
+      </Box>
     </>
   );
 };

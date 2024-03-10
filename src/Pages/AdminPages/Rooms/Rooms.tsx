@@ -168,7 +168,6 @@ const Rooms = () => {
         path={"/dashboard/rooms/add-new/"}
       />
       <DataGrid
-   
         className="dataGrid tableStyle"
         rows={tableData}
         columns={tableBody}

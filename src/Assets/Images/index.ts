@@ -22,6 +22,11 @@ import ocean from "./ocean.jpg";
 import creditCard from "./creditCard.png";
 import paymentDone from "./paymentDone.png";
 import familyReview from "./familyReview.png";
+import HotelRoom1 from "./HotelRoom1.jpg";
+import HotelRoom2 from "./HotelRoom2.jpg";
+import HotelRoom3 from "./HotelRoom3.jpg";
+import HotelRoom4 from "./HotelRoom4.jpg";
+import HotelRoom5 from "./HotelRoom5.jpg";
 
 export {
   familyReview,
@@ -48,4 +53,9 @@ export {
   ocean,
   creditCard,
   paymentDone,
+  HotelRoom1,
+  HotelRoom2,
+  HotelRoom3,
+  HotelRoom4,
+  HotelRoom5,
 };

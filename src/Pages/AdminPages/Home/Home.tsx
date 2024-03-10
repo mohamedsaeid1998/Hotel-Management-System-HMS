@@ -20,7 +20,7 @@ import { Helmet } from "react-helmet";
 
 const Home = () => {
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     getCartsData();
     dispatch(fetchDataIslogged());
@@ -37,6 +37,7 @@ const Home = () => {
   //! ***************Get Facilities Data ***************
   const getCartsData = async () => {
     try {
+      setLoading(true)
       // @ts-ignore
       const element = await dispatch(chartsData());
       // @ts-ignore
@@ -49,10 +50,12 @@ const Home = () => {
         facilities: dataKind?.facilities,
         rooms: dataKind?.rooms,
       });
+      setLoading(false)
     } catch (error) {
       toast.error(error);
+      setLoading(false)
     }
-  };
+  }
 
   const data = [
     { id: 0, value: bookingStatus?.booking?.completed, label: "Completed" },
@@ -102,45 +105,114 @@ const Home = () => {
       <Helmet>
         <title> Home • Staycation</title>
       </Helmet>
-      <Box component={"main"}>
-        <Typography className="homeTitle">DashBoard Analysis</Typography>
 
-        <Box
-          className="homeGrid"
-          sx={{
-            display: isSmallOrMediumScreen ? "flex" : "grid",
-            gridTemplateColumns: {
-              xl: "repeat(auto-fit, minmax(300px, 1fr))",
-              lg: "repeat(auto-fit, minmax(1fr, 1fr))",
-            },
-            gap: "20px",
-            flexDirection: isSmallOrMediumScreen ? "column" : "row",
-          }}
-        >
-          <Box className="cardBox">
-            <Box className="">
-              <Card className="card2">
-                <CardContent className="cardCon2">
-                  <Box className="iconCon2">
-                    <Discount />
+      {loading ? <Box className="loaderContainer">
+        <Box className="loader" ></Box>
+      </Box>
+        :
+        <Box component={"main"}>
+          <Typography className="homeTitle">DashBoard Analysis</Typography>
+
+          <Box
+            className="homeGrid"
+            sx={{
+              display: isSmallOrMediumScreen ? "flex" : "grid",
+              gridTemplateColumns: {
+                xl: "repeat(auto-fit, minmax(300px, 1fr))",
+                lg: "repeat(auto-fit, minmax(1fr, 1fr))",
+              },
+              gap: "20px",
+              flexDirection: isSmallOrMediumScreen ? "column" : "row",
+            }}
+          >
+            <Box className="cardBox">
+              <Box className="">
+                <Card className="card2">
+                  <CardContent className="cardCon2">
+                    <Box className="iconCon2">
+                      <Discount />
+                    </Box>
+                    <Box className="cardNumberCon2">
+                      <Typography className="cardNumber">
+                        {bookingStatus?.rooms}
+                      </Typography>
+                      <Box className="cardIcon2">
+                        <ArrowUpward className="arrow2" />
+                      </Box>
+                    </Box>
+                    <Typography className="cardTitle2">Total Offers</Typography>
+                  </CardContent>
+                  {isSmallOrMediumScreen && (
+                    <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
+                      <PieChart
+                        margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
+                        series={[
+                          {
+                            data,
+                            highlightScope: {
+                              faded: "global",
+                              highlighted: "item",
+                            },
+                            faded: {
+                              innerRadius: 30,
+                              additionalRadius: -30,
+                              color: "gray",
+                            },
+                          },
+                        ]}
+                        slotProps={{ legend: { padding: 0 } }}
+                        height={150}
+                      />
+                    </Box>
+                  )}
+                </Card>
+              </Box>
+              {!isSmallOrMediumScreen && (
+                <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
+                  <PieChart
+                    margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
+                    series={[
+                      {
+                        data,
+                        highlightScope: { faded: "global", highlighted: "item" },
+                        faded: {
+                          innerRadius: 30,
+                          additionalRadius: -30,
+                          color: "gray",
+                        },
+                      },
+                    ]}
+                    slotProps={{ legend: { padding: 0 } }}
+                    height={isLargScreen ? 150 : 200}
+                  />
+                </Box>
+              )}
+            </Box>
+            {/*2*/}
+
+            <Box className="cardBox">
+              <Card className="card">
+                <CardContent className="cardCon">
+                  <Box className="iconCon">
+                    <RoomPreferencesIcon />
                   </Box>
-                  <Box className="cardNumberCon2">
+                  <Box className="cardNumberCon">
                     <Typography className="cardNumber">
-                      {bookingStatus?.rooms}
+                      {bookingStatus?.ads}
                     </Typography>
-                    <Box className="cardIcon2">
-                      <ArrowUpward className="arrow2" />
+                    <Box className="cardIcon">
+                      <ArrowUpward className="arrow" />
                     </Box>
                   </Box>
-                  <Typography className="cardTitle2">Total Offers</Typography>
+                  <Typography className="cardTitle">Total Rooms</Typography>
                 </CardContent>
                 {isSmallOrMediumScreen && (
                   <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
                     <PieChart
-                      margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
+                      margin={{ top: 20, bottom: 20, left: 30, right: 150 }}
                       series={[
                         {
-                          data,
+                          data: data2,
                           highlightScope: {
                             faded: "global",
                             highlighted: "item",
@@ -152,132 +224,26 @@ const Home = () => {
                           },
                         },
                       ]}
-                      slotProps={{ legend: { padding: 0 } }}
                       height={150}
+                      slotProps={{
+                        legend: {
+                          direction: "column",
+                          position: { vertical: "middle", horizontal: "right" },
+                          padding: 0,
+                        },
+                      }}
                     />
                   </Box>
                 )}
               </Card>
-            </Box>
-            {!isSmallOrMediumScreen && (
-              <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
-                <PieChart
-                  margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
-                  series={[
-                    {
-                      data,
-                      highlightScope: { faded: "global", highlighted: "item" },
-                      faded: {
-                        innerRadius: 30,
-                        additionalRadius: -30,
-                        color: "gray",
-                      },
-                    },
-                  ]}
-                  slotProps={{ legend: { padding: 0 } }}
-                  height={isLargScreen ? 150 : 200}
-                />
-              </Box>
-            )}
-          </Box>
-          {/*2*/}
-
-          <Box className="cardBox">
-            <Card className="card">
-              <CardContent className="cardCon">
-                <Box className="iconCon">
-                  <RoomPreferencesIcon />
-                </Box>
-                <Box className="cardNumberCon">
-                  <Typography className="cardNumber">
-                    {bookingStatus?.ads}
-                  </Typography>
-                  <Box className="cardIcon">
-                    <ArrowUpward className="arrow" />
-                  </Box>
-                </Box>
-                <Typography className="cardTitle">Total Rooms</Typography>
-              </CardContent>
-              {isSmallOrMediumScreen && (
-                <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
-                  <PieChart
-                    margin={{ top: 20, bottom: 20, left: 30, right: 150 }}
-                    series={[
-                      {
-                        data: data2,
-                        highlightScope: {
-                          faded: "global",
-                          highlighted: "item",
-                        },
-                        faded: {
-                          innerRadius: 30,
-                          additionalRadius: -30,
-                          color: "gray",
-                        },
-                      },
-                    ]}
-                    height={150}
-                    slotProps={{
-                      legend: {
-                        direction: "column",
-                        position: { vertical: "middle", horizontal: "right" },
-                        padding: 0,
-                      },
-                    }}
-                  />
-                </Box>
-              )}
-            </Card>
-            {!isSmallOrMediumScreen && (
-              <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
-                <PieChart
-                  margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
-                  series={[
-                    {
-                      data: data2,
-                      highlightScope: { faded: "global", highlighted: "item" },
-                      faded: {
-                        innerRadius: 30,
-                        additionalRadius: -30,
-                        color: "gray",
-                      },
-                    },
-                  ]}
-                  height={isLargScreen ? 150 : 200}
-                />
-              </Box>
-            )}
-            {/*3*/}
-          </Box>
-          <Box className="cardBox">
-            <Card className="card3">
-              <CardContent className="cardCon3">
-                <Box className="iconCon3">
-                  <Grade />
-                </Box>
-                <Box className="cardNumberCon3">
-                  <Typography className="cardNumber">
-                    {bookingStatus?.facilities}
-                  </Typography>
-                  <Box className="cardIcon3">
-                    <ArrowUpward className="arrow3" />
-                  </Box>
-                </Box>
-                <Typography className="cardTitle3">
-                  Rooms with facilities
-                </Typography>
-              </CardContent>
-              {isSmallOrMediumScreen && (
+              {!isSmallOrMediumScreen && (
                 <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
                   <PieChart
                     margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
                     series={[
                       {
-                        data: data3,
-                        highlightScope: {
-                          faded: "global",
-                          highlighted: "item",
-                        },
+                        data: data2,
+                        highlightScope: { faded: "global", highlighted: "item" },
                         faded: {
                           innerRadius: 30,
                           additionalRadius: -30,
@@ -289,29 +255,72 @@ const Home = () => {
                   />
                 </Box>
               )}
-            </Card>
-            {!isSmallOrMediumScreen && (
-              <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
-                <PieChart
-                  margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
-                  series={[
-                    {
-                      data: data3,
-                      highlightScope: { faded: "global", highlighted: "item" },
-                      faded: {
-                        innerRadius: 30,
-                        additionalRadius: -30,
-                        color: "gray",
+              {/*3*/}
+            </Box>
+            <Box className="cardBox">
+              <Card className="card3">
+                <CardContent className="cardCon3">
+                  <Box className="iconCon3">
+                    <Grade />
+                  </Box>
+                  <Box className="cardNumberCon3">
+                    <Typography className="cardNumber">
+                      {bookingStatus?.facilities}
+                    </Typography>
+                    <Box className="cardIcon3">
+                      <ArrowUpward className="arrow3" />
+                    </Box>
+                  </Box>
+                  <Typography className="cardTitle3">
+                    Rooms with facilities
+                  </Typography>
+                </CardContent>
+                {isSmallOrMediumScreen && (
+                  <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
+                    <PieChart
+                      margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
+                      series={[
+                        {
+                          data: data3,
+                          highlightScope: {
+                            faded: "global",
+                            highlighted: "item",
+                          },
+                          faded: {
+                            innerRadius: 30,
+                            additionalRadius: -30,
+                            color: "gray",
+                          },
+                        },
+                      ]}
+                      height={isLargScreen ? 150 : 200}
+                    />
+                  </Box>
+                )}
+              </Card>
+              {!isSmallOrMediumScreen && (
+                <Box sx={{ width: { xs: "100%", sm: "100%" } }}>
+                  <PieChart
+                    margin={{ top: 20, bottom: 20, left: 0, right: 150 }}
+                    series={[
+                      {
+                        data: data3,
+                        highlightScope: { faded: "global", highlighted: "item" },
+                        faded: {
+                          innerRadius: 30,
+                          additionalRadius: -30,
+                          color: "gray",
+                        },
                       },
-                    },
-                  ]}
-                  height={isLargScreen ? 150 : 200}
-                />
-              </Box>
-            )}
+                    ]}
+                    height={isLargScreen ? 150 : 200}
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
-      </Box>
+      }
     </>
   );
 };

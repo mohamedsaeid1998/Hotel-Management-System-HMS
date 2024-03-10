@@ -1,6 +1,8 @@
 export { default as AuthLayout } from './Shared/AuthLayout/AuthLayout'
 export { default as MasterLayout } from './Shared/MasterLayout/MasterLayout'
 export { default as NotFound } from './Shared/NotFound/NotFound'
+export { default as ProtectedRoute } from './Shared/ProtectedRoute/ProtectedRoute'
+export { default as UserLayout } from './Shared/UserLayout/UserLayout'
 
 
 export { default as Navbar } from './AdminSharedComponents/Navbar/Navbar'
@@ -17,4 +19,5 @@ export { default as CheckoutForm } from './UserSharedComponents/CheckoutForm/Che
 export { default as LoginDialog } from './UserSharedComponents/LoginDialog/LoginDialog'
 export { default as UsersReview } from './UserSharedComponents/UsersReview/UsersReview'
 export { default as UserProtectedRoute } from './UserSharedComponents/UserProtectedRoute/UserProtectedRoute'
+
 

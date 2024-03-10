@@ -1,10 +1,9 @@
-/** @format */
-
 import {
-  LandingImg,
-  RoomDetails1,
-  RoomDetails2,
-  RoomDetails3,
+  HotelRoom1,
+  HotelRoom2,
+  HotelRoom3,
+  HotelRoom4,
+  HotelRoom5,
 } from "@/Assets/Images";
 import {
   Calendar,
@@ -273,24 +272,30 @@ const Landing = () => {
             modules={[Autoplay, EffectFade]}
             className="LandingImg "
           >
+
             <SwiperSlide>
               <Box className="">
-                <img className="background" src={LandingImg} />
+                <img className="background" src={HotelRoom1} />
               </Box>
             </SwiperSlide>
             <SwiperSlide>
               <Box className="">
-                <img className="background" src={RoomDetails2} />
+                <img className="background" src={HotelRoom2} />
               </Box>
             </SwiperSlide>
             <SwiperSlide>
               <Box className="">
-                <img className="background" src={RoomDetails3} />
+                <img className="background" src={HotelRoom3} />
               </Box>
             </SwiperSlide>
             <SwiperSlide>
               <Box className="">
-                <img className="background" src={RoomDetails1} />
+                <img className="background" src={HotelRoom4} />
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className="">
+                <img className="background" src={HotelRoom5} />
               </Box>
             </SwiperSlide>
           </Swiper>

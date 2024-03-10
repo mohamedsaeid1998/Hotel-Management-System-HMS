@@ -1,13 +1,9 @@
 
-import React from "react";
 import { Provider } from "react-redux";
-import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
-import { AuthLayout, MasterLayout, NotFound, UserProtectedRoute } from "./Components";
-import ProtectedRoute from "./Components/Shared/ProtectedRoute/ProtectedRoute";
-import UserLayout from "./Components/Shared/UserLayout/UserLayout";
-import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Landing, Login, Register, ResetPassword, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import { AuthLayout, MasterLayout, NotFound, ProtectedRoute, UserLayout, UserProtectedRoute } from "./Components";
+import { AddNewAds, AddNewFacility, AddNewRoom, Ads, Bookings, Explore, Facilities, Favorites, ForgetPassword, Home, Landing, Login, Register, ResetPassword, RoomDetails, Rooms, StripePayment, Users, } from "./Pages";
 import Store from "./Redux/Store";
-const LazyLoading = React.lazy(() => import("./Pages/AdminPages/Home/Home"));
 
 function App() {
 
@@ -35,12 +31,7 @@ function App() {
       ),
       errorElement: <NotFound />,
       children: [
-        {
-          index: true, element:
-            <React.Suspense fallback="Loading...">
-              <LazyLoading />
-            </React.Suspense>
-        },
+        { index: true, element: <Home /> },
         { path: "users", element: <Users /> },
         { path: "rooms", element: <Rooms /> },
         { path: "rooms/add-new/", element: <AddNewRoom /> },
