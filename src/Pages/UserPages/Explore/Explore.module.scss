@@ -17,7 +17,8 @@
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-    gap: 5em;
+    gap: 1em;
+
     @media (min-width: 1024px) {
       justify-content: start;
     }

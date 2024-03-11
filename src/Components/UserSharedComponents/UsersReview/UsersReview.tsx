@@ -1,5 +1,5 @@
 import './UsersReview.module.scss'
-import { familyReview } from "@/Assets/Images";
+import { photo } from "@/Assets/Images";
 import { Box, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ const UsersReview = () => {
     <Box component="section" className="reviewSec">
       <Box className="reviewImg">
 
-        <img src={familyReview} className="imgReview" alt="user review" />
+        <img src={photo} className="imgReview" alt="user review" />
       </Box>
 
       <Box className="reviewCon">

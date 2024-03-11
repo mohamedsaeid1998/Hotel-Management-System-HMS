@@ -314,13 +314,17 @@ const Landing = () => {
           <Box className="grid">
 
             {adsData?.map((ele, index) => (
-              <Fragment key={ele?._id}>
+              <MotionBox key={ele?._id} className={`${index === 0 ? "main" : ""}`}
+                whileInView={{ opacity: 1, translateX: 0, translateY: 0 }}
+                initial={{ opacity: 0, translateX: 50, translateY: -50 }}
+                transition={{ duration: 0.3, delay: index * 0.4 }}
+                style={{ width: "100%", height: "100%" }}
+                viewport={{ once: true }}>
                 <ImageCard
                   {...{
                     disabled,
                     selectedDateRange,
                     ele,
-                    index,
                     deleteFavoriteItem,
                     addItemToFavorite,
                     startDate,
@@ -329,7 +333,7 @@ const Landing = () => {
                     favList,
                   }}
                 />
-              </Fragment>
+              </MotionBox>
             ))}
           </Box>
 
@@ -337,17 +341,16 @@ const Landing = () => {
             {t("mostBookedRooms")}
           </Typography>
           <MotionBox
-            whileInView={{ y: [200, 0] }}
-            viewport={{once:true}}
-          className="sliderCon">
+            initial={{ y: 200 }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            className="sliderCon">
             <Swiper
               slidesPerView={6}
               spaceBetween={20}
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
-                // reverseDirection:true
-
               }}
               // loop={true}
               modules={[Autoplay]}
@@ -427,14 +430,13 @@ const Landing = () => {
                   </Box>
                 </Box>
               ) : (
-                rooms?.slice()?.reverse()?.map((ele, index) => (
+                rooms?.slice()?.reverse()?.map((ele) => (
                   <Fragment key={ele?._id}>
                     <SwiperSlide>
                       <ImageCard2
                         {...{
                           selectedDateRange,
                           ele,
-                          index,
                           deleteFavoriteItem,
                           addItemToFavorite,
                           startDate,

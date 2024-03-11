@@ -18,9 +18,7 @@ import { getFavoriteItems } from "@/Redux/Features/Portal/Favorites/GetAllFavori
 import { RemoveFavoriteItem } from "@/Redux/Features/Portal/Favorites/RemoveFavoriteItemSlice";
 import {
   Link,
-  useLocation,
-  useParams,
-  useSearchParams,
+  useLocation
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import style from "./Explore.module.scss";
@@ -192,37 +190,36 @@ const Explore = () => {
           <Box className={style.ExploreImages} justifyContent={"center"}>
             {isLoading
               ? loadingArray.map((index) => (
-                  <Skeleton
-                    key={index}
-                    variant="rounded"
-                    width={200}
-                    height={200}
-                    animation="wave"
-                  />
-                ))
+                <Skeleton
+                  key={index}
+                  variant="rounded"
+                  animation="wave"
+                  style={{ minWidth: 200, height: 200, flex: 1 }}
+                />
+              ))
               : currentRooms?.slice()?.reverse()?.map((ele, index) => (
-                  <Box
-                    key={index}
-                    sx={{ width: 200, height: 200, my: 2 }}
-                    className={` ${isSmallScreen ? style.imgExplore : ""}`}
-                    height={"100vh"}
-                  >
-                    <ImageCard2
-                      className={style.cardImage}
-                      key={ele?._id}
-                      {...{
-                        ele,
-                        index,
-                        bookingGuestCount,
-                        favList,
-                        deleteFavoriteItem,
-                        addItemToFavorite,
-                        disabled,
-                        selectedDateRange,
-                      }}
-                    />
-                  </Box>
-                ))}
+                <Box
+                  key={index}
+                  sx={{ minWidth: 200, height: 200, my: 2, flex: 1 }}
+                  className={` ${isSmallScreen ? style.imgExplore : ""}`}
+                  height={"100vh"}
+                >
+                  <ImageCard2
+                    className={style.cardImage}
+                    key={ele?._id}
+                    {...{
+                      ele,
+                      index,
+                      bookingGuestCount,
+                      favList,
+                      deleteFavoriteItem,
+                      addItemToFavorite,
+                      disabled,
+                      selectedDateRange,
+                    }}
+                  />
+                </Box>
+              ))}
           </Box>
           <Stack spacing={2} marginTop={4} justifyContent={"center"}>
             <Pagination
@@ -235,7 +232,7 @@ const Explore = () => {
             />
           </Stack>
         </Box>
-      </Box>
+      </Box >
     </>
   );
 };

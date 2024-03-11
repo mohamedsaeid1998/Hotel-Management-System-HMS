@@ -7,7 +7,6 @@ import { defaultImage } from "@/Assets/Images";
 
 interface Props {
   ele: any;
-  index: any;
   favList: any;
   deleteFavoriteItem: any;
   addItemToFavorite?: any;
@@ -19,7 +18,6 @@ interface Props {
 const ImageCard2 = ({
   selectedDateRange,
   ele,
-  index,
   favList,
   deleteFavoriteItem,
   addItemToFavorite,
@@ -30,8 +28,8 @@ const ImageCard2 = ({
   const { t } = useTranslation();
   return (
     <>
-      <Box key={ele?._id} className={`${index === 0 ? "main" : ""} roomCard`}>
-        <img className="RoomPicture" src={ele?.images[0]?ele?.images[0]:defaultImage} alt="RoomPicture" />
+      <Box key={ele?._id} className={`roomCard`}>
+        <img className="RoomPicture2" src={ele?.images[0] ? ele?.images[0] : defaultImage} alt="RoomPicture" />
         {ele?.discount ? (
           <Box
             className="discountLayer"

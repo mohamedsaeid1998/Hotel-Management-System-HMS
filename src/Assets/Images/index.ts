@@ -27,8 +27,10 @@ import HotelRoom2 from "./HotelRoom2.jpg";
 import HotelRoom3 from "./HotelRoom3.jpg";
 import HotelRoom4 from "./HotelRoom4.jpg";
 import HotelRoom5 from "./HotelRoom5.jpg";
+import photo from "./photo.jpg";
 
 export {
+  photo,
   familyReview,
   bathroom,
   diningroom,
