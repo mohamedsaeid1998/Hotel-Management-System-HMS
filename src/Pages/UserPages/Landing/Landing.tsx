@@ -429,27 +429,26 @@ const Landing = () => {
                     />
                   </Box>
                 </Box>
-              ) : (
-                rooms?.slice()?.reverse()?.map((ele) => (
-                  <Fragment key={ele?._id}>
-                    <SwiperSlide>
-                      <ImageCard2
-                        {...{
-                          selectedDateRange,
-                          ele,
-                          deleteFavoriteItem,
-                          addItemToFavorite,
-                          startDate,
-                          endDate,
-                          bookingGuestCount,
-                          favList,
-                          disabled,
-                        }}
-                      />
-                    </SwiperSlide>
-                  </Fragment>
-                ))
-              )}
+              ) :
+                rooms?.slice()?.reverse()?.map((ele) =>
+                  <SwiperSlide>
+                    <ImageCard2
+                      key={ele?._id}
+                      {...{
+                        selectedDateRange,
+                        ele,
+                        deleteFavoriteItem,
+                        addItemToFavorite,
+                        startDate,
+                        endDate,
+                        bookingGuestCount,
+                        favList,
+                        disabled,
+                      }}
+                    />
+                  </SwiperSlide>
+                )
+              }
             </Swiper>
           </MotionBox>
         </Box>

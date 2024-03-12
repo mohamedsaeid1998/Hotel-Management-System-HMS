@@ -10,7 +10,6 @@ import {
   Button,
   Skeleton,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { useEffect, useState } from "react";
@@ -122,10 +121,17 @@ const Favorites = () => {
               <Box className={style.favoriteComponent}>
                 {favList.slice(0, visibleImages)?.map((ele, index) => (
                   <>
-                    <ImageCard2
-                      key={ele?._id}
-                      {...{ ele, index, favList, deleteFavoriteItem, disabled }}
-                    />
+                    <Box
+                      key={index}
+                      sx={{ minWidth: 200, height: 200, my: 2, flex: 1 }}
+                    // className={` ${isSmallScreen ? style.imgExplore : ""}`}
+
+                    >
+                      <ImageCard2
+                        key={ele?._id}
+                        {...{ ele, index, favList, deleteFavoriteItem, disabled }}
+                      />
+                    </Box>
                   </>
                 ))}
               </Box>

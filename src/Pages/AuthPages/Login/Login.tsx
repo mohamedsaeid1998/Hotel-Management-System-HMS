@@ -93,7 +93,7 @@ const Login = () => {
   const handleTestCode = (e: any) => {
     e.preventDefault()
 
-    if (testCode === "ABCDEF") {
+    if (testCode === "3c6v9b") {
       setShow(true)
       toast.success("Choose account Kind", {
         autoClose: 2000,
