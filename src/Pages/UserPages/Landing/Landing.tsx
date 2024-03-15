@@ -314,12 +314,7 @@ const Landing = () => {
           <Box className="grid">
 
             {adsData?.map((ele, index) => (
-              <MotionBox key={ele?._id} className={`${index === 0 ? "main" : ""}`}
-                whileInView={{ opacity: 1, translateX: 0, translateY: 0 }}
-                initial={{ opacity: 0, translateX: 50, translateY: -50 }}
-                transition={{ duration: 0.3, delay: index * 0.4 }}
-                style={{ width: "100%", height: "100%" }}
-                viewport={{ once: true }}>
+              <Box key={ele?._id} className={`${index === 0 ? "main" : ""}`}>
                 <ImageCard
                   {...{
                     disabled,
@@ -333,17 +328,14 @@ const Landing = () => {
                     favList,
                   }}
                 />
-              </MotionBox>
+              </Box>
             ))}
           </Box>
 
           <Typography variant="h4" className="bookingTitle">
             {t("mostBookedRooms")}
           </Typography>
-          <MotionBox
-            initial={{ y: 200 }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
+          <Box
             className="sliderCon">
             <Swiper
               slidesPerView={6}
@@ -378,59 +370,7 @@ const Landing = () => {
               }}
               className="mySwiper"
             >
-              {isLoading ? (
-                <Box display={"flex"}>
-                  <Box marginX={"4"}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>{" "}
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>{" "}
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                  <Box marginX={4}>
-                    <Skeleton
-                      variant="rounded"
-                      width={200}
-                      height={200}
-                      animation="wave"
-                    />
-                  </Box>
-                </Box>
-              ) :
-                rooms?.slice()?.reverse()?.map((ele) =>
+                {rooms?.slice()?.reverse()?.map((ele) =>
                   <SwiperSlide>
                     <ImageCard2
                       key={ele?._id}
@@ -450,7 +390,7 @@ const Landing = () => {
                 )
               }
             </Swiper>
-          </MotionBox>
+          </Box>
         </Box>
         <Box component="section" className="reviewUsersSection">
           <UsersReview />

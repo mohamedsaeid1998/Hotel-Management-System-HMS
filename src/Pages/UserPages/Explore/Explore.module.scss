@@ -14,10 +14,10 @@
   font-family: "Poppins", sans-serif;
 
   .ExploreImages {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1em;
+    justify-content: center; 
 
     @media (min-width: 1024px) {
       justify-content: start;
