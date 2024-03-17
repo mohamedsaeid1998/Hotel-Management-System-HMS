@@ -178,7 +178,7 @@ const ViewDialogModal = ({ handleClose, open, itemId }) => {
                   </Typography>
                   <Typography gutterBottom>Price : {price}</Typography>
                   <Typography gutterBottom>
-                    Discount : {price - discount}
+                    After Discount : {price - discount}
                   </Typography>
                 </Box>
               </Grid>
