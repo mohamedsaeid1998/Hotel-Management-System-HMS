@@ -168,7 +168,6 @@ const Landing = () => {
   };
 
   const MotionButton = motion(Button)
-  const MotionBox = motion(Box)
   return (
     <>
       <LoginDialog {...{ handleClose, open }} />

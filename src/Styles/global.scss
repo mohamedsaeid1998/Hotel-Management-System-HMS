@@ -872,28 +872,30 @@
 
     .roomFacilities {
       display: flex;
-      justify-content: space-between;
+      // display: flex;
+      justify-content: space-around;
       column-gap: 60px;
       row-gap: 20px;
-      align-items: center;
+      align-items: baseline;
+
       max-width: 650px;
       flex-wrap: wrap;
-      margin-top: 20px;
-      @media (max-width: 560px) {
-        display: flex;
-        justify-content: space-between;
-        column-gap: 1.5rem;
-        row-gap: 5px;
-        align-items: start;
-      }
+      // margin-top: 20px;
+      // @media (max-width: 560px) {
+      //   display: flex;
+      //   justify-content: space-between;
+      //   column-gap: 1.5rem;
+      //   row-gap: 5px;
+      //   align-items: start;
+      // }
       .facilities {
         display: flex;
         flex-direction: column;
 
-        .facilitiesIcon {
-          max-width: 60%;
-          min-width: 30%;
-        }
+        // .facilitiesIcon {
+        //   max-width: 60%;
+        //   min-width: 30%;
+        // }
         .mainDec {
           @extend .darkColor;
           font-weight: bold;

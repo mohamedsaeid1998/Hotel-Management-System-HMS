@@ -26,7 +26,7 @@ import { Home, Living } from "@mui/icons-material";
 import dayjs, { Range, Dayjs } from "dayjs";
 import { useTranslation } from "react-i18next";
 const Explore = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [rooms, setRooms] = useState([]);
   const [disabled, setDisabled] = useState(false);
@@ -226,7 +226,7 @@ const Explore = () => {
               page={currentPage}
               variant="outlined"
               color="primary"
-              count={Math.ceil(rooms.length / itemsPerPage)}
+              count={Math?.ceil(rooms?.length / itemsPerPage)}
               className={style.pagination}
               onChange={handlePageChange}
             />

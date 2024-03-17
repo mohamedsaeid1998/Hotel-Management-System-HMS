@@ -50,6 +50,7 @@ const RoomDetails = () => {
   };
   const { state } = useLocation();
   const { range } = state;
+
   const dispatch = useDispatch();
   const today = dayjs();
   const nextDate = dayjs()?.add(1, "day");
@@ -57,15 +58,15 @@ const RoomDetails = () => {
   const endDate = range ? dayjs(range[1])?.format("YYYY-MM-DD") : nextDate;
 
   const [selectedDateRange, setSelectedDateRange] = useState<Range<Dayjs>>([
-    today,
-    nextDate,
+    startDate,
+    endDate,
   ]);
+
 
   const bookingGuestCount = state?.persons;
   const id = state?.roomId;
 
   const [details, setDetails] = useState();
-  console.log(details);
 
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
@@ -86,8 +87,6 @@ const RoomDetails = () => {
       // @ts-ignore
       const element = await dispatch(roomDetails(id));
       // @ts-ignore
-      console.log(element?.payload?.data);
-
       setDetails(element?.payload?.data?.data?.room);
       // @ts-ignore
       setPrice(element?.payload?.data?.data?.room?.price);
@@ -227,7 +226,7 @@ const RoomDetails = () => {
                 </Button>
 
                 <Box className="roomFacilities">
-                  {facilitiesDetails.map(({ main, Icon, sub, index }) => (
+                  {facilitiesDetails.map(({ main, Icon, sub },index) => (
                     <Box key={index} className="facilities">
                       <img className="facilitiesIcon" src={Icon} width={36} height={36} alt="Icons" />
                       <Typography className="mainDec">
@@ -368,8 +367,8 @@ const RoomDetails = () => {
                         </LoadingButton>
                       ) : (
                         <MotionButton
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.8 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.8 }}
                           className="submitBtn"
                           type="submit"
                           variant="contained"

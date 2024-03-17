@@ -26,6 +26,7 @@ const ImageCard2 = ({
 }: Props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
   return (
     <>
       <Box key={ele?._id} className={`roomCard`}>

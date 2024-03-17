@@ -91,7 +91,6 @@
       .roomCard {
         width: 100%;
       }
-
     }
   }
   .title {
@@ -168,5 +167,11 @@
     flex-direction: column;
     justify-content: center;
     gap: 0px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .roomFacilities {
+    display: none !important;
   }
 }

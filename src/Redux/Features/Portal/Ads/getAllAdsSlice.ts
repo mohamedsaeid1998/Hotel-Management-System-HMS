@@ -1,8 +1,6 @@
-/** @format */
 
 import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
 export interface Props {
   data: any[];
@@ -13,13 +11,13 @@ export interface Props {
 
 export const AllAdsData = createAsyncThunk<any, void>(
   "getAllAdsSlice/AllAdsData",
-  async () => {
-
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
     try {
       const data = await baseUrl.get(`api/v0/portal/ads?page=1&size=5`);
       return data;
     } catch (error) {
-      toast.error(error);
+      return rejectWithValue(error);
     }
   }
 );

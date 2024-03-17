@@ -12,12 +12,13 @@ export interface Props {
 
 export const roomDetails = createAsyncThunk<any, void>(
   "GetRoomDetailsSlice/roomDetails",
-  async (id) => {
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
     try {
       const data = await baseUrl.get(`/api/v0/portal/rooms/${id}`);
       return data;
     } catch (error) {
-      toast.error(error);
+      return rejectWithValue(error)
     }
   }
 );

@@ -52,7 +52,7 @@ const GetAllFavoritesSlice = createSlice({
     });
     builder.addCase(getFavoriteItems.rejected, (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.error = action.payload.message;
+      state.error = action?.payload?.message;
     });
   },
 });
