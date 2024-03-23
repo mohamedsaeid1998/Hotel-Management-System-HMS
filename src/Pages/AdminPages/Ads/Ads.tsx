@@ -157,9 +157,9 @@ const Ads = () => {
 
   return (
     <>
-<Helmet>
-  <title> Ads Page • Staycation</title>
-</Helmet>
+      <Helmet>
+        <title> Ads Page • Staycation</title>
+      </Helmet>
       <TableHeader
         title={"Ads"}
         subTitle={"Ads"}

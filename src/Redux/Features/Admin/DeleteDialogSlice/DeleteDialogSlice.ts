@@ -1,30 +1,29 @@
 /** @format */
 
-import baseUrl, { requestHeaders } from "@/utils/Custom/Custom";
+import baseUrl from "@/utils/Custom/Custom";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const deleteDialog = createAsyncThunk(
   "delete/deleteDialog",
-  async ({ id, currentUrl }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
+  async ({ id, currentUrl }: any) => {
+    const token = localStorage.getItem("authToken");
     try {
       const response = await baseUrl.delete(
         `/api/v0/admin/${currentUrl}/${id}`,
         {
           headers: {
-            AuthOrization: requestHeaders,
+            AuthOrization: token,
           },
         }
       );
       return response;
     } catch (error) {
-
-      return rejectWithValue(error?.message);
+      return error
     }
   }
 );
 
-const initialState: Props = { data: [], loading: false, error: null };
+const initialState = { data: [], loading: false, error: null };
 const deleteItemSlice = createSlice({
   name: "delete",
   initialState,

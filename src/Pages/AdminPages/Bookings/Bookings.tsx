@@ -145,11 +145,12 @@ const Bookings = () => {
     },
   ];
 
+
   return (
     <>
-<Helmet>
-  <title> Booking Page • Staycation</title>
-</Helmet>
+      <Helmet>
+        <title> Booking Page • Staycation</title>
+      </Helmet>
       <TableHeader title={"Booking"} subTitle={"Booking"} path={""} />
 
       <DataGrid

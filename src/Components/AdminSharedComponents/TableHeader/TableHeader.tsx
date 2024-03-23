@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./TableHeader.module.scss";
 import { motion } from "framer-motion"
 
@@ -29,17 +29,14 @@ const TableHeader = ({ title, subTitle, path }: IProps) => {
           {pathname === "/dashboard/users" || pathname === "/dashboard/booking" ? (
             ""
           ) : (
-            <Box>
-
+            <Link to={path} state={{ isEdit: false }} className="linkStyle"  >
               <MotionButton color="primary" variant="contained"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.8 }}
               >
-                <Link to={path} state={{ isEdit: false }} className="linkStyle"  >
-                  Add New {subTitle}
-                </Link>
+                Add New {subTitle}
               </MotionButton>
-            </Box>
+            </Link>
           )}
         </Box>
       </Box>
